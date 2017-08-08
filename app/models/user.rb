@@ -11,14 +11,6 @@ class User < ApplicationRecord
       authorization.token  = auth.credentials.token
       authorization.secret = auth.credentials.secret
 
-      if auth.provider == 'twitter'
-        authorization.profile_url  = auth.info.urls['Twitter']
-        authorization.display_name = auth.info.nickname
-      elsif auth.provider == 'mastodon'
-        authorization.profile_url  = auth.info.urls['Profile']
-        authorization.display_name = auth.info.nickname
-      end
-
       authorization.save
       authorization.user
     end
