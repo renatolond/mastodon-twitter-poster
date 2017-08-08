@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  domain: MyString
+  client_id: MyString
+  client_secret: MyString
+
+two:
+  domain: MyString
+  client_id: MyString
+  client_secret: MyString

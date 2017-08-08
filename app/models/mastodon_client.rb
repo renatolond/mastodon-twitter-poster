@@ -1,0 +1,2 @@
+class MastodonClient < ApplicationRecord
+end
