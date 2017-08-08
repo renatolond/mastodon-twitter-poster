@@ -250,7 +250,21 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :twitter, ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_CLIENT_SECRET']
+
+  config.omniauth :mastodon, scope: 'read follow', credentials: lambda { |domain, callback_url|
+    client = MastodonClient.where(domain: domain).first_or_initialize(domain: domain)
+
+    return [client.client_id, client.client_secret] unless client.new_record?
+
+    new_client = Mastodon::REST::Client.new(base_url: "https://#{domain}").create_app('Mastodon Twitter Crossposter', callback_url, 'read write')
+
+    client.client_id = new_client.client_id
+    client.client_secret = new_client.client_secret
+    client.save
+
+    [client.client_id, client.client_secret]
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
