@@ -3,6 +3,14 @@ class User < ApplicationRecord
 
   has_many :authorizations
 
+  def twitter
+    @twitter ||= authorizations.where(provider: :twitter).last
+  end
+
+  def mastodon
+    @mastodon ||= authorizations.where(provider: :mastodon).last
+  end
+
   class << self
     def from_omniauth(auth, current_user)
       authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)

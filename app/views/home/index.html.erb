@@ -1,1 +1,10 @@
-<%= link_to('twitter', user_twitter_omniauth_authorize_path) %>
+<% if twitter? %>
+Twitter logged in<br />
+<% else %>
+<%= link_to('twitter', user_twitter_omniauth_authorize_path) %><br />
+<% end %>
+<% if mastodon? %>
+Mastodon logged in <br />
+<% else %>
+<%= link_to('mastodon', user_mastodon_omniauth_authorize_path) %>
+<% end %>
