@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809135336) do
+ActiveRecord::Schema.define(version: 20170809151828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20170809135336) do
     t.datetime "updated_at", null: false
     t.integer "last_toot"
     t.bigint "last_tweet"
+    t.datetime "twitter_last_check", default: -> { "now()" }
+    t.datetime "mastodon_last_check", default: -> { "now()" }
   end
 
 end
