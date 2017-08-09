@@ -55,6 +55,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -145,6 +146,13 @@ GEM
       rack
     orm_adapter (0.5.0)
     pg (0.21.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -202,6 +210,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     simple_oauth (0.3.1)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -264,6 +273,8 @@ DEPENDENCIES
   omniauth-mastodon
   omniauth-twitter
   pg (~> 0.18)
+  pry
+  pry-byebug
   puma (~> 3.7)
   rails (~> 5.1.2)
   rails_12factor

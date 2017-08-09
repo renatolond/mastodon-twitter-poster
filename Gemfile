@@ -33,6 +33,8 @@ gem 'omniauth-mastodon'
 
 group :development, :test do
   gem 'byebug'
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end
