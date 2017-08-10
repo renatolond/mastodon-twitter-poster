@@ -143,6 +143,7 @@ class CheckForToots
 
   def self.tweet(content, user)
     Rails.logger.debug { "Posting to twitter: #{content}" }
+    user.twitter_client.update(content)
   end
 end
 
