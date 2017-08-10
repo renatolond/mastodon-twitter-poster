@@ -1,4 +1,17 @@
 class User < ApplicationRecord
+  enum boost_options: {
+    masto_boost_do_not_post: 'MASTO_BOOST_DO_NOT_POST',
+    masto_boost_post_as_link: 'MASTO_BOOST_POST_AS_LINK'
+  }
+
+  enum masto_reply_options: {
+    masto_reply_do_not_post: 'MASTO_REPLY_DO_NOT_POST'
+  }
+
+  enum masto_mention_options: {
+    masto_mention_do_not_post: 'MASTO_MENTION_DO_NOT_POST'
+  }
+
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
 
   has_many :authorizations

@@ -29,7 +29,8 @@ gem 'twitter'
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'omniauth-mastodon'
-
+gem 'nokogiri'
+gem 'htmlentities'
 
 group :development, :test do
   gem 'byebug'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809151828) do
+ActiveRecord::Schema.define(version: 20170810105214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,13 +35,7 @@ ActiveRecord::Schema.define(version: 20170809151828) do
     t.index ["domain"], name: "index_mastodon_clients_on_domain", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "last_toot"
-    t.bigint "last_tweet"
-    t.datetime "twitter_last_check", default: -> { "now()" }
-    t.datetime "mastodon_last_check", default: -> { "now()" }
-  end
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'boost_options' for column 'boost_options'
 
 end
