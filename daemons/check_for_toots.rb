@@ -60,7 +60,7 @@ class CheckForToots
 
     new_toots = user.mastodon_client.statuses(user.mastodon_id, opts)
     last_sucessful_toot = nil
-    new_toots.each do |t|
+    new_toots.to_a.reverse.each do |t|
       begin
         process_toot(t, user)
         last_sucessful_toot = t
