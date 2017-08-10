@@ -130,7 +130,7 @@ class CheckForToots
       tweet_content = TootTransformer.transform(toot.text_content, toot.url)
       tweet(tweet_content, user)
     else
-      Rails.logger.debug('Ignoring boost because of visibility configuration')
+      Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
   end
 
