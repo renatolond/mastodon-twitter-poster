@@ -31,6 +31,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-mastodon'
 gem 'nokogiri'
 gem 'htmlentities'
+gem 'daemons'
 
 group :development, :test do
   gem 'byebug'

@@ -1,10 +1,50 @@
+require ENV["RAILS_ENV_PATH"]
 require 'mastodon_ext'
 require 'toot_transformer'
+
+class InterruptibleSleep
+  def sleep(seconds)
+    @_sleep_check, @_sleep_interrupt = IO.pipe
+    IO.select([@_sleep_check], nil, nil, seconds)
+  end
+
+  def wakeup
+    @_sleep_interrupt.close if @_sleep_interrupt && !@_sleep_interrupt.closed?
+  end
+end
+
+
 class CheckForToots
   OLDER_THAN_IN_SECONDS = 30
+  SLEEP_FOR = 10
+  def self.finished=(f)
+    @@finished = f
+  end
+  def self.finished
+    @@finished ||= false
+  end
+
+  def self.sleeper
+    @@sleeper ||= InterruptibleSleep.new
+  end
+
   def self.available_since_last_check
-    u = User.where('mastodon_last_check < now() - interval \'? seconds\'', OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc).first
-    get_last_toots_for_user(u)
+    loop do
+      u = User.where('mastodon_last_check < now() - interval \'? seconds\'', OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc).first
+      if u.nil?
+        Rails.logger.debug { "No user to look at. Sleeping for #{SLEEP_FOR} seconds" }
+        sleeper.sleep(SLEEP_FOR)
+      else
+        begin
+          get_last_toots_for_user(u)
+        rescue => ex
+          Rails.logger.error { "Could not process user #{u.mastodon.uid}. -- #{ex} -- Bailing out" }
+          u.mastodon_last_check = Time.now
+          u.save
+        end
+      end
+      break if finished
+    end
   end
 
   def self.statuses_options(user)
@@ -19,9 +59,20 @@ class CheckForToots
     opts = statuses_options(user)
 
     new_toots = user.mastodon_client.statuses(user.mastodon_id, opts)
+    last_sucessful_toot = nil
     new_toots.each do |t|
-      process_toot(t, user)
+      begin
+        process_toot(t, user)
+        last_sucessful_toot = t
+      rescue => ex
+        Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
+        break
+      end
     end
+
+    user.last_toot = last_sucessful_toot.id unless last_sucessful_toot.nil?
+    user.mastodon_last_check = Time.now
+    user.save
   end
 
   def self.process_toot(toot, user)
@@ -94,3 +145,16 @@ class CheckForToots
     Rails.logger.debug { "Posting to twitter: #{content}" }
   end
 end
+
+Signal.trap("TERM") {
+  CheckForToots::finished = true
+  CheckForToots::sleeper.wakeup
+}
+Signal.trap("INT") {
+  CheckForToots::finished = true
+  CheckForToots::sleeper.wakeup
+}
+
+Rails.logger.debug { "Starting" }
+
+CheckForToots::available_since_last_check
