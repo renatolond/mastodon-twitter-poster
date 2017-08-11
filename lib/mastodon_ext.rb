@@ -40,7 +40,6 @@ module Mastodon
     MENTION_REGEX = /<a href="https:\/\/([^\/]+)\/@([^"]+)" class=\"u-url mention\">@<span>[^>]+<\/span><\/a>/
     def text_content
       return @text_content if @text_content
-      binding.pry
       @text_content = Loofah.fragment(content.gsub(MENTION_REGEX, '\2@\1')).scrub!(Status::scrubber).to_s
       @text_content.gsub!('<br>', "\n")
       @text_content.gsub!('</p><p>', "\n\n")
