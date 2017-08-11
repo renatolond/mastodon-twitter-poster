@@ -40,10 +40,8 @@ class TootTransformer
   def self.smart_split(text, max_length)
     content = ''
 
-    full_break = false
     first_line = true
     text.each_line do |line|
-      break if full_break
       line_is = "\n" + line unless first_line
       line_is = line if first_line
       first_line = false
@@ -51,23 +49,28 @@ class TootTransformer
       if(content.length + line_is.length < max_length)
         content += line_is
       else
-        first_word = true
-        line.split(' ').each do |word|
-          word_is = ' ' + word unless first_word
-          word_is = word if first_word
-          first_word = false
-
-          if (content.length + word_is.length < max_length)
-            content += word_is
-          else
-            full_break = true
-            break
-          end
-        end
+        content, should_break = split_in_words(content, line, max_length)
+        break if should_break
       end
     end
 
     content
+  end
+
+  def self.split_in_words(content, line, max_length)
+    first_word = true
+    line.split(' ').each do |word|
+      word_is = ' ' + word unless first_word
+      word_is = word if first_word
+      first_word = false
+
+      if (content.length + word_is.length < max_length)
+        content += word_is
+      else
+        return content, true
+      end
+    end
+    return content, false
   end
 
   def self.count_regex(text, regex)
