@@ -5,6 +5,7 @@ This is an app for crossposting between Mastodon and Twitter. The app is made so
 ## Ruby on Rails
 
 Ruby 2.4.1
+
 Rails 5.1
 
 ## Tests
