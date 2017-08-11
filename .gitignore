@@ -17,3 +17,5 @@
 /yarn-error.log
 
 .byebug_history
+/public/packs
+/node_modules
