@@ -26,6 +26,9 @@ module Mastodon
     def is_private?
       visibility == 'private'
     end
+    def is_public?
+      !(is_private? || is_unlisted? || is_direct?)
+    end
     def self.scrubber
       @@scrubber ||= Rails::Html::PermitScrubber.new
       @@scrubber.tags = ['br', 'p']

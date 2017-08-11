@@ -3,8 +3,8 @@ class TootTransformer
   HTTPS_REGEX = /^(?:https:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+$/
   TWITTER_MAX_LENGTH = 140
   def self.transform(text, toot_url)
-    http_count, http_length = count_http(text)
-    https_count, https_length = count_https(text)
+    http_count, http_length = count_regex(text, HTTP_REGEX)
+    https_count, https_length = count_regex(text, HTTPS_REGEX)
     final_length = (text.length - http_length - https_length) + http_count*twitter_short_url_length + https_count*twitter_short_url_length_https
     if final_length < TWITTER_MAX_LENGTH
       return text
@@ -15,8 +15,8 @@ class TootTransformer
 
   # XXX cleanup into one method
   def self.transform_rec(text, toot_url, max_length)
-    http_count, http_length = count_http(text)
-    https_count, https_length = count_https(text)
+    http_count, http_length = count_regex(text, HTTP_REGEX)
+    https_count, https_length = count_regex(text, HTTPS_REGEX)
     final_length = (text.length - http_length - https_length) + http_count*twitter_short_url_length + https_count*twitter_short_url_length_https
     if final_length < max_length
       return text + suffix + toot_url
@@ -70,13 +70,8 @@ class TootTransformer
     content
   end
 
-  def self.count_http(text)
-    matches = text.scan(HTTP_REGEX)
-    [matches.count, matches.reduce(0) { |n, s| s.length + n }]
-  end
-
-  def self.count_https(text)
-    matches = text.scan(HTTPS_REGEX)
+  def self.count_regex(text, regex)
+    matches = text.scan(regex)
     [matches.count, matches.reduce(0) { |n, s| s.length + n }]
   end
 end

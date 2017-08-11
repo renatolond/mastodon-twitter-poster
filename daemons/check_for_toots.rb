@@ -135,10 +135,13 @@ class CheckForToots
   end
 
   def self.should_post(toot, user)
-    return true unless toot.is_unlisted? || toot.is_private?
-    return true if toot.is_unlisted? && user.masto_should_post_unlisted?
-    return true if toot.is_private? && user.masto_should_post_private?
-    false
+    if toot.is_public? ||
+        (toot.is_unlisted? && user.masto_should_post_unlisted?) ||
+        (toot.is_private? && user.masto_should_post_private?)
+      true
+    else
+      false
+    end
   end
 
   def self.tweet(content, user)
