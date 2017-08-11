@@ -32,6 +32,7 @@ gem 'omniauth-mastodon'
 gem 'nokogiri'
 gem 'htmlentities'
 gem 'daemons'
+gem 'webpacker'
 
 group :development, :test do
   gem 'byebug'
