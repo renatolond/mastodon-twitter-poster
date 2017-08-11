@@ -62,7 +62,13 @@ class User < ApplicationRecord
 
   class << self
     def from_omniauth(auth, current_user)
-      authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)
+      authorization = nil
+      if(ENV['DO_NOT_ALLOW_NEW_USERS'])
+        authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
+        return authorization if authorization.nil?
+      else
+        authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)
+      end
       user = current_user || authorization.user || User.new
       authorization.user   = user
       authorization.token  = auth.credentials.token
