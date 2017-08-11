@@ -16,7 +16,7 @@ end
 
 class CheckForToots
   OLDER_THAN_IN_SECONDS = 30
-  SLEEP_FOR = 10
+  SLEEP_FOR = 60
   def self.finished=(f)
     @@finished = f
   end
