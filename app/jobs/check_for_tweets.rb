@@ -1,4 +1,3 @@
-require 'pry'
 class CheckForTweets
   OLDER_THAN_IN_SECONDS = 30
   def self.available_since_last_check
@@ -7,6 +6,5 @@ class CheckForTweets
     opts = {}
     opts[:since_id] = u.last_tweet unless u.last_tweet.nil?
     new_tweets = u.twitter_client.user_timeline(opts)
-    binding.pry
   end
 end
