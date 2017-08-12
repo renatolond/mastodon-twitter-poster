@@ -1,0 +1,48 @@
+<h3>Synchronization options</h3>
+
+<h4>Mastodon -> Twitter</h4>
+<%= form_for(current_user) do |f|%>
+<p>Synchronization Status:</p>
+<div class="btn-group" data-toggle="buttons">
+<% [true, false].each do |option| %>
+  <label class="btn btn-primary<% if current_user.posting_from_mastodon == option %> active<% end %>">
+    <%= f.radio_button :posting_from_mastodon, option %>
+    <%= t "masto_sync_status_#{option}".to_sym %>
+  </label>
+<% end %>
+</div>
+<p>Boost options:<br />
+<% User.boost_options.keys.each do |boost_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :boost_options, boost_option %>
+  <%= t boost_option.to_sym %>
+  </label>
+</div>
+<% end %>
+<p>Reply options:<br />
+<small>This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot.</small></p>
+<% User.masto_reply_options.keys.each do |reply_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :masto_reply_options, reply_option %>
+  <%= t reply_option.to_sym %>
+  </label>
+</div>
+<% end %>
+
+<p>Mention options:<br />
+<small>This service considers mention as a toot that's not a reply, but that begins with a mention to another user.</small>
+</p>
+<% User.masto_mention_options.keys.each do |mention_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :masto_mention_options, mention_option %>
+  <%= t mention_option.to_sym %>
+  </label>
+</div>
+<% end %>
+
+<h4>Twitter -> Mastodon</h4>
+<p>At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!</p>
+<% end %>
