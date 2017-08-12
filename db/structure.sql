@@ -160,7 +160,10 @@ CREATE TABLE users (
     masto_reply_options masto_reply_options DEFAULT 'MASTO_REPLY_DO_NOT_POST'::masto_reply_options,
     masto_mention_options masto_mention_options DEFAULT 'MASTO_MENTION_DO_NOT_POST'::masto_mention_options,
     masto_should_post_private boolean DEFAULT false,
-    masto_should_post_unlisted boolean DEFAULT false
+    masto_should_post_unlisted boolean DEFAULT false,
+    users character varying,
+    posting_from_mastodon boolean DEFAULT false,
+    posting_from_twitter boolean DEFAULT false
 );
 
 
@@ -274,6 +277,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810094031'),
 ('20170810103418'),
 ('20170810105204'),
-('20170810105214');
+('20170810105214'),
+('20170812195419');
 
 
