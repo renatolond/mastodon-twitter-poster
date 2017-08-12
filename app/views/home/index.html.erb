@@ -1,10 +1,25 @@
-<% if twitter? %>
-Twitter logged in<br />
-<% else %>
-<%= link_to('twitter', user_twitter_omniauth_authorize_path) %><br />
-<% end %>
-<% if mastodon? %>
-Mastodon logged in <br />
-<% else %>
-<%= link_to('mastodon', user_mastodon_omniauth_authorize_path) %>
-<% end %>
+<h1> Mastodon <-> Twitter Crossposter</h1>
+
+<p><%= t :crossposter_explanation %></p>
+<p><%= t :login_to_get_started %></p>
+
+<div class="row">
+  <div class="col-md-3 text-center">
+    <% if twitter? %>
+    <button class="btn btn-default btn-lg"><i class="fa fa-twitter" aria-hidden="true"></i><%= t :twitter_logged_in %> <i class="fa fa-check" aria-hidden="true"></i></button>
+    <% else %>
+    <%= link_to(user_twitter_omniauth_authorize_path, class: 'btn btn-default btn-lg') do %>
+    <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
+    <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-2 text-center">
+    <% if mastodon? %>
+    <button class="btn btn-default btn-lg"><%= t :mastodon_logged_in %> <i class="fa fa-check" aria-hidden="true"></i></button>
+    <% else %>
+    <%= link_to(user_mastodon_omniauth_authorize_path, class: 'btn btn-default btn-lg') do %>
+    Mastodon
+    <% end %>
+    <% end %>
+  </div>
+</div>

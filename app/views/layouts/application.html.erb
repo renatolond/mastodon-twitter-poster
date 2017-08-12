@@ -9,10 +9,29 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <p class="error"><%= flash[:error] %></p>
-
+    <% if flash[:notice] %>
+    <div class="alert alert-info" role="alert">
+      <%= flash[:notice] %>
+    </div>
+    <% end %>
+    <% if flash[:alert] %>
+    <div class="alert alert-warning" role="alert">
+      <%= flash[:alert] %>
+    </div>
+    <% end %>
+    <% if flash[:error] %>
+    <div class="alert alert-danger" role="alert">
+      <%= flash[:error] %>
+    </div>
+    <% end %>
+    <div class="container">
     <%= yield %>
+    </div>
+    <hr />
+    <footer class="footer">
+      <div class="container">
+        <p><%=t :service_ran_by%> <%=link_to('@renatolond@mastodon.xyz', 'https://mastodon.xyz/@renatolond') %> / <%=link_to('@renatolond', 'https://twitter.com/renatolond')%>. <%=link_to(t(:source_code_and_issues), 'https://github.com/renatolond/mastodon-twitter-poster') %></p>
+      </div>
+    </footer>
   </body>
 </html>
