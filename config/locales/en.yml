@@ -36,3 +36,8 @@ en:
   source_code_and_issues: "Source code and issues"
   twitter_logged_in: "Twitter logged in"
   mastodon_logged_in: "Mastodon logged in"
+  home: 'Home'
+  accounts: 'Accounts'
+  connections: 'Connections'
+  manage_your_accounts: 'Manage your connected accounts'
+  disconnect: 'Disconnect'

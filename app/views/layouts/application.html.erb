@@ -9,27 +9,49 @@
   </head>
 
   <body>
-    <% if flash[:notice] %>
-    <div class="alert alert-info" role="alert">
-      <%= flash[:notice] %>
-    </div>
-    <% end %>
-    <% if flash[:alert] %>
-    <div class="alert alert-warning" role="alert">
-      <%= flash[:alert] %>
-    </div>
-    <% end %>
-    <% if flash[:error] %>
-    <div class="alert alert-danger" role="alert">
-      <%= flash[:error] %>
-    </div>
-    <% end %>
     <div class="container">
-    <%= yield %>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        <%= link_to('Mastodon Twitter Crossposter', :root, class: 'navbar-brand') %>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><%= link_to(t(:home), root_path)%></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to(t(:accounts), account_path) %></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+      <% if flash[:notice] %>
+      <div class="alert alert-info" role="alert">
+        <%= flash[:notice] %>
+      </div>
+      <% end %>
+      <% if flash[:alert] %>
+      <div class="alert alert-warning" role="alert">
+        <%= flash[:alert] %>
+      </div>
+      <% end %>
+      <% if flash[:error] %>
+      <div class="alert alert-danger" role="alert">
+        <%= flash[:error] %>
+      </div>
+      <% end %>
+      <%= yield %>
     </div>
     <hr />
     <footer class="footer">
       <div class="container">
+
         <p><%=t :service_ran_by%> <%=link_to('@renatolond@mastodon.xyz', 'https://mastodon.xyz/@renatolond') %> / <%=link_to('@renatolond', 'https://twitter.com/renatolond')%>. <%=link_to(t(:source_code_and_issues), 'https://github.com/renatolond/mastodon-twitter-poster') %></p>
       </div>
     </footer>

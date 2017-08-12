@@ -1,2 +1,15 @@
-<h1>Accounts#show</h1>
-<p>Find me in app/views/accounts/show.html.erb</p>
+<h3><%= t :connections %></h1>
+<p><%= t :manage_your_accounts %></p>
+
+<ul>
+  <% @authorizations.each do |auth| %>
+  <li>
+    <% if auth.provider == 'twitter' %>
+    Twitter
+    <% else %>
+    Mastodon
+    <% end %>
+    <%= link_to(t(:disconnect), authorization_path(auth), method: :delete) %>
+  </li>
+  <% end %>
+</ul>
