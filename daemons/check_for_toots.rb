@@ -36,9 +36,10 @@ class CheckForToots
         sleeper.sleep(SLEEP_FOR)
       else
         begin
-          get_last_toots_for_user(u)
+          get_last_toots_for_user(u) if u.posting_from_mastodon
         rescue => ex
           Rails.logger.error { "Could not process user #{u.mastodon.uid}. -- #{ex} -- Bailing out" }
+        ensure
           u.mastodon_last_check = Time.now
           u.save
         end
