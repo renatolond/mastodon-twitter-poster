@@ -26,11 +26,19 @@
               <li><%= link_to(t(:home), root_path)%></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to(t(:options), user_path) %></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
               <li><%= link_to(t(:accounts), account_path) %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+      <% if flash[:success] %>
+      <div class="alert alert-success" role="alert">
+        <%= flash[:success] %>
+      </div>
+      <% end %>
       <% if flash[:notice] %>
       <div class="alert alert-info" role="alert">
         <%= flash[:notice] %>

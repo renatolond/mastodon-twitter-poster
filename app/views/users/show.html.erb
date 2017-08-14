@@ -11,6 +11,24 @@
   </label>
 <% end %>
 </div>
+<p>Post unlisted toots?</p>
+<div class="btn-group" data-toggle="buttons">
+<% [true, false].each do |option| %>
+  <label class="btn btn-primary<% if current_user.masto_should_post_unlisted == option %> active<% end %>">
+    <%= f.radio_button :masto_should_post_unlisted, option %>
+    <%= t "masto_should_post_unlisted_#{option}".to_sym %>
+  </label>
+<% end %>
+</div>
+<p>Post private toots?:</p>
+<div class="btn-group" data-toggle="buttons">
+<% [true, false].each do |option| %>
+  <label class="btn btn-primary<% if current_user.masto_should_post_private == option %> active<% end %>">
+    <%= f.radio_button :masto_should_post_private, option %>
+    <%= t "masto_should_post_private_#{option}".to_sym %>
+  </label>
+<% end %>
+</div>
 <p>Boost options:<br />
 <% User.boost_options.keys.each do |boost_option| %>
 <div class="radio">
@@ -45,4 +63,6 @@
 
 <h4>Twitter -> Mastodon</h4>
 <p>At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!</p>
+
+<%= f.submit %>
 <% end %>

@@ -47,3 +47,7 @@ en:
   masto_mention_do_not_post: 'Do not post mentions on twitter'
   masto_sync_status_true: 'ON'
   masto_sync_status_false: 'OFF'
+  masto_should_post_unlisted_true: 'ON'
+  masto_should_post_unlisted_false: 'OFF'
+  masto_should_post_private_true: 'ON'
+  masto_should_post_private_false: 'OFF'
