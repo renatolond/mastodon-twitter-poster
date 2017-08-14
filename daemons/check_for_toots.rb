@@ -127,10 +127,18 @@ class CheckForToots
   def self.process_normal_toot(toot, user)
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post(toot, user)
-      tweet_content = TootTransformer.transform(toot.text_content, toot.url)
+      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url)
       tweet(tweet_content, user)
     else
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
+    end
+  end
+
+  def self.toot_content_to_post(toot)
+    if toot.sensitive?
+      "CW: #{toot.spoiler_text} … #{toot.url}"
+    else
+      toot.text_content
     end
   end
 

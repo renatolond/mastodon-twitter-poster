@@ -29,6 +29,12 @@ module Mastodon
     def is_public?
       !(is_private? || is_unlisted? || is_direct?)
     end
+    def sensitive?
+      self.attributes['sensitive']
+    end
+    def spoiler_text
+      self.attributes['spoiler_text']
+    end
     def self.scrubber
       @@scrubber ||= Rails::Html::PermitScrubber.new
       @@scrubber.tags = ['br', 'p']
