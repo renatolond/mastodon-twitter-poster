@@ -161,7 +161,6 @@ CREATE TABLE users (
     masto_mention_options masto_mention_options DEFAULT 'MASTO_MENTION_DO_NOT_POST'::masto_mention_options,
     masto_should_post_private boolean DEFAULT false,
     masto_should_post_unlisted boolean DEFAULT false,
-    users character varying,
     posting_from_mastodon boolean DEFAULT false,
     posting_from_twitter boolean DEFAULT false
 );
