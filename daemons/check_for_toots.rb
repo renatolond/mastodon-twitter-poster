@@ -37,7 +37,7 @@ class CheckForToots
       else
         begin
           get_last_toots_for_user(u) if u.posting_from_mastodon
-        rescue => ex
+        rescue StandardError => ex
           Rails.logger.error { "Could not process user #{u.mastodon.uid}. -- #{ex} -- Bailing out" }
         ensure
           u.mastodon_last_check = Time.now
@@ -65,6 +65,10 @@ class CheckForToots
       begin
         process_toot(t, user)
         last_sucessful_toot = t
+      rescue Twitter::Error::BadRequest => ex
+        Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}, invalidating." }
+        user.twitter.destroy
+        break
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
         break
@@ -128,7 +132,7 @@ class CheckForToots
   def self.process_normal_toot(toot, user)
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post(toot, user)
-      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url)
+      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.masto_fix_cross_mention)
       tweet(tweet_content, user)
     else
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
@@ -169,5 +173,19 @@ Signal.trap("INT") {
 }
 
 Rails.logger.debug { "Starting" }
+
+twitter_client = Twitter::REST::Client.new do |config|
+  config.consumer_key = ENV['TWITTER_CLIENT_ID']
+  config.consumer_secret = ENV['TWITTER_CLIENT_SECRET']
+end
+
+begin
+  TootTransformer::twitter_short_url_length = twitter_client.configuration.short_url_length
+  TootTransformer::twitter_short_url_length_https = twitter_client.configuration.short_url_length_https
+rescue Twitter::Error::Forbidden => ex
+  Rails.logger.error { "Missing Twitter credentials" }
+  exit
+end
+
 
 CheckForToots::available_since_last_check
