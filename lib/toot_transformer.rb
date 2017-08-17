@@ -27,11 +27,19 @@ class TootTransformer
     end
   end
 
+  def self.twitter_short_url_length=(length)
+    @@twitter_short_url_length = length
+  end
+
+  def self.twitter_short_url_length_https=(length)
+    @@twitter_short_url_length_https = length
+  end
+
   def self.twitter_short_url_length
-    23 # XXX get from api
+    @@twitter_short_url_length ||= 23
   end
   def self.twitter_short_url_length_https
-    23 # XXX get from api
+    @@twitter_short_url_length_https ||= 23
   end
 
   def self.suffix
