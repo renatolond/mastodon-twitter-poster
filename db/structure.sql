@@ -162,7 +162,8 @@ CREATE TABLE users (
     masto_should_post_private boolean DEFAULT false,
     masto_should_post_unlisted boolean DEFAULT false,
     posting_from_mastodon boolean DEFAULT false,
-    posting_from_twitter boolean DEFAULT false
+    posting_from_twitter boolean DEFAULT false,
+    masto_fix_cross_mention boolean DEFAULT false
 );
 
 
@@ -277,6 +278,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810103418'),
 ('20170810105204'),
 ('20170810105214'),
-('20170812195419');
+('20170812195419'),
+('20170817073406');
 
 

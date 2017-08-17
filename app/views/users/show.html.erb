@@ -29,6 +29,16 @@
   </label>
 <% end %>
 </div>
+<p>Fix cross mentions?<br />
+<small>When this option is on, if you post a toot that contains '@user@twitter.com', this will be replaced by '@user' when posted in twitter.</small></p>
+<div class="btn-group" data-toggle="buttons">
+<% [true, false].each do |option| %>
+  <label class="btn btn-primary<% if current_user.masto_fix_cross_mention == option %> active<% end %>">
+    <%= f.radio_button :masto_fix_cross_mention, option %>
+    <%= t "masto_sync_status_#{option}".to_sym %>
+  </label>
+<% end %>
+</div>
 <p>Boost options:<br />
 <% User.boost_options.keys.each do |boost_option| %>
 <div class="radio">

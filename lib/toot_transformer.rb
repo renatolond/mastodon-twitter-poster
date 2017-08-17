@@ -1,8 +1,10 @@
 class TootTransformer
   HTTP_REGEX = /^(?:http:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+$/
   HTTPS_REGEX = /^(?:https:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+$/
+  TWITTER_MENTION_REGEX = /@([^@]+)@twitter.com/
   TWITTER_MAX_LENGTH = 140
-  def self.transform(text, toot_url)
+  def self.transform(text, toot_url, fix_cross_mention)
+    text.gsub!(TWITTER_MENTION_REGEX, '@\1') if fix_cross_mention
     http_count, http_length = count_regex(text, HTTP_REGEX)
     https_count, https_length = count_regex(text, HTTPS_REGEX)
     final_length = (text.length - http_length - https_length) + http_count*twitter_short_url_length + https_count*twitter_short_url_length_https
