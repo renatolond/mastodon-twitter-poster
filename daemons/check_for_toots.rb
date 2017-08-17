@@ -37,7 +37,7 @@ class CheckForToots
       else
         begin
           get_last_toots_for_user(u) if u.posting_from_mastodon
-        rescue => ex
+        rescue StandardError => ex
           Rails.logger.error { "Could not process user #{u.mastodon.uid}. -- #{ex} -- Bailing out" }
         ensure
           u.mastodon_last_check = Time.now
@@ -65,6 +65,10 @@ class CheckForToots
       begin
         process_toot(t, user)
         last_sucessful_toot = t
+      rescue Twitter::Error::BadRequest => ex
+        Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}, invalidating." }
+        user.twitter.destroy
+        break
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
         break
