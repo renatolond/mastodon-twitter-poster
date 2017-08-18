@@ -116,14 +116,14 @@ class CheckForToots
     end
   end
 
-  def self.process_reply(toot, user)
+  def self.process_reply(_toot, user)
     if user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
       return
     end
   end
 
-  def self.process_mention(toot, user)
+  def self.process_mention(_toot, user)
     if user.masto_mention_do_not_post?
       Rails.logger.debug('Ignoring masto mention because user choose so')
       return
