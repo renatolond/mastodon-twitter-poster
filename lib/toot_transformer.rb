@@ -5,7 +5,7 @@ class TootTransformer
   TWITTER_MAX_LENGTH = 140
 
   def self.media_regex(mastodon_domain)
-    mastodon_instance_regex = /#{Regexp.escape(mastodon_domain + "/media/")}(\w+)/
+    mastodon_instance_regex = /#{Regexp.escape(mastodon_domain + "/media/")}([\w-]+)/
     /(#{mastodon_instance_regex}(\s|$)|(\s|^)#{mastodon_instance_regex})/
   end
 
