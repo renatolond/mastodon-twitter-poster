@@ -82,7 +82,6 @@ class CheckForToots
   end
 
   def self.process_toot(toot, user)
-    #binding.pry
     if toot.is_direct?
       Rails.logger.debug('Ignoring direct toot. We do not treat them')
       # no sense in treating direct toots. could become an option in future, maybe.
@@ -135,7 +134,7 @@ class CheckForToots
     if should_post(toot, user)
       tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
       opts = {}
-      opts.merge!(upload_media(user, toot.media_attachments))
+      opts.merge!(upload_media(user, toot.media_attachments)) unless toot.sensitive?
       if opts.delete(:force_toot_url)
         tweet_content = handle_force_url(tweet_content, toot, user)
       end
