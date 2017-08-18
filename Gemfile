@@ -33,6 +33,7 @@ gem 'nokogiri'
 gem 'htmlentities'
 gem 'daemons'
 gem 'webpacker'
+gem 'httparty'
 
 group :development, :test do
   gem 'byebug'
