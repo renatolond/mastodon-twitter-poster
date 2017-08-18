@@ -92,6 +92,8 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.3)
     http_parser.rb (0.6.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     i18n (0.8.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -277,6 +279,7 @@ DEPENDENCIES
   daemons
   devise
   htmlentities
+  httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mastodon-api

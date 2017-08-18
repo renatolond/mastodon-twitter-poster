@@ -1,6 +1,7 @@
 require ENV["RAILS_ENV_PATH"]
 require 'mastodon_ext'
 require 'toot_transformer'
+require 'httparty'
 
 class InterruptibleSleep
   def sleep(seconds)
@@ -115,14 +116,14 @@ class CheckForToots
     end
   end
 
-  def self.process_reply(toot, user)
+  def self.process_reply(_toot, user)
     if user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
       return
     end
   end
 
-  def self.process_mention(toot, user)
+  def self.process_mention(_toot, user)
     if user.masto_mention_do_not_post?
       Rails.logger.debug('Ignoring masto mention because user choose so')
       return
@@ -132,8 +133,8 @@ class CheckForToots
   def self.process_normal_toot(toot, user)
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post(toot, user)
-      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.masto_fix_cross_mention)
-      tweet(tweet_content, user)
+      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+      tweet(tweet_content, user, toot.media_attachments)
     else
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
@@ -157,9 +158,30 @@ class CheckForToots
     end
   end
 
-  def self.tweet(content, user)
+  def self.tweet(content, user, media = nil)
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    user.twitter_client.update(content)
+    opt = upload_media(user, media)
+    user.twitter_client.update(content, opt)
+  end
+
+  def self.upload_media(user, medias)
+    media_ids = []
+    opts = {}
+    medias.each do |media|
+      file = Tempfile.new('media', "#{Rails.root}/tmp")
+      file.binmode
+      begin
+        file.write HTTParty.get(media.url).body
+        file.rewind
+        media_ids << user.twitter_client.upload(file).to_s
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+
+    opts[:media_ids] = media_ids.join(',') unless media_ids.empty?
+    opts
   end
 end
 
@@ -182,7 +204,7 @@ end
 begin
   TootTransformer::twitter_short_url_length = twitter_client.configuration.short_url_length
   TootTransformer::twitter_short_url_length_https = twitter_client.configuration.short_url_length_https
-rescue Twitter::Error::Forbidden => ex
+rescue Twitter::Error::Forbidden
   Rails.logger.error { "Missing Twitter credentials" }
   exit
 end
