@@ -134,10 +134,20 @@ class CheckForToots
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post(toot, user)
       tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
-      tweet(tweet_content, user, toot.media_attachments)
+      opts = {}
+      opts.merge!(upload_media(user, toot.media_attachments))
+      if opts.delete(:force_toot_url)
+        tweet_content = handle_force_url(tweet_content, toot, user)
+      end
+      tweet(tweet_content, user, opts)
     else
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
+  end
+
+  def self.handle_force_url(content, toot, user)
+    return content if content.include?(toot.url)
+    TootTransformer.transform(content + "… #{toot.url}", toot.url, user.mastodon_domain, nil)
   end
 
   def self.toot_content_to_post(toot)
@@ -158,16 +168,19 @@ class CheckForToots
     end
   end
 
-  def self.tweet(content, user, media = nil)
+  def self.tweet(content, user, opts = nil)
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    opt = upload_media(user, media)
-    user.twitter_client.update(content, opt)
+    user.twitter_client.update(content, opts)
   end
 
   def self.upload_media(user, medias)
     media_ids = []
     opts = {}
     medias.each do |media|
+      if media.url.last(3) == 'mp4'
+        opts[:force_toot_url] = true
+        next
+      end
       file = Tempfile.new('media', "#{Rails.root}/tmp")
       file.binmode
       begin
