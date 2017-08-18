@@ -133,7 +133,7 @@ class CheckForToots
   def self.process_normal_toot(toot, user)
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post(toot, user)
-      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.masto_fix_cross_mention)
+      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
       tweet(tweet_content, user, toot.media_attachments)
     else
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
