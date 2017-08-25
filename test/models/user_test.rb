@@ -173,12 +173,13 @@ class UserTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter, masto_domain: expected_domain)
     auth = mock()
     credentials = mock()
-    auth.expects(:provider).at_least(1).returns(user.mastodon.provider)
-    auth.expects(:uid).at_least(1).returns(user.mastodon.uid)
+    auth.expects(:provider).at_least(1).returns(user.twitter.provider)
+    auth.expects(:uid).at_least(1).returns(user.twitter.uid)
     auth.expects(:credentials).at_least(1).returns(credentials)
-    credentials.expects(:token).returns(user.mastodon.token)
-    credentials.expects(:secret).returns(user.mastodon.secret)
+    credentials.expects(:token).returns(user.twitter.token)
+    credentials.expects(:secret).returns(user.twitter.secret)
     User.expects(:do_not_allow_users).returns(nil)
+    User.any_instance.stubs(:save_last_tweet_id)
 
     u = User.from_omniauth(auth, nil)
     assert_equal user, u
