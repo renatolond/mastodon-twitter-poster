@@ -9,3 +9,5 @@ rvm:
 bundler_args: --without production
 addons:
     postgresql: "9.6"
+before_script:
+    RAILS_ENV=test rake db:setup
