@@ -95,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal expected_mastodon_status_id, user.last_toot
   end
 
-  test 'Mastodon omniauth with no previous user, allowing new users' do
+  test 'Omniauth with no previous user, allowing new users' do
     expected_domain = 'my_domain.com'
 
     authorization = build(:authorization_mastodon, uid: "user@#{expected_domain}")
@@ -117,7 +117,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal authorization.secret, u.mastodon.secret
   end
 
-  test 'Mastodon omniauth with no previous user, not allowing new users' do
+  test 'Omniauth with no previous user, not allowing new users' do
     expected_domain = 'my_domain.com'
 
     authorization = build(:authorization_mastodon, uid: "user2@#{expected_domain}")
@@ -131,7 +131,7 @@ class UserTest < ActiveSupport::TestCase
     assert_nil u
   end
 
-  test 'Mastodon omniauth with previous user' do
+  test 'Omniauth with previous user' do
     expected_domain = 'my_domain.com'
 
     user = create(:user_with_mastodon_and_twitter, masto_domain: expected_domain)
