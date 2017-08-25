@@ -13,3 +13,7 @@ Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a po
 
 ## Starting
 To start the project locally, you can do `foreman start` which will start both the webserver and the daemons. Or you can take a look at the procfile to start each of them separately (if you don't want the web interface to be accessible, for instance).
+
+## TODO
+- Extract MastodonUserProcessor from check_for_toots daemon to be able to test it
+- Write check_for_tweets daemon
