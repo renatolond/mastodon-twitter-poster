@@ -9,17 +9,17 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "https://#{expected_domain}", user.mastodon_domain
   end
 
-  test 'Mastodon Client' do
+  test 'Mastodon id' do
     user = build(:user_with_mastodon_and_twitter)
     expected_id = 123
 
     mastodon_client = mock()
     mastodon_client.expects(:verify_credentials).at_least(1).returns(mastodon_client)
     mastodon_client.expects(:id).at_least(1).returns(expected_id)
-    user.stub :mastodon_client, mastodon_client do
-      id = user.mastodon_id
-      assert_equal expected_id, id
-    end
+    user.expects(:mastodon_client).returns(mastodon_client)
+
+    id = user.mastodon_id
+    assert_equal expected_id, id
   end
 
   test 'Mastodon client' do
@@ -27,11 +27,10 @@ class UserTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter, masto_domain: expected_domain)
 
     mastodon_client = mock()
-    mastodon_client.expects(:call).at_least(1).with({base_url: "https://#{expected_domain}", bearer_token: user.mastodon.token}).returns(mastodon_client)
-    Mastodon::REST::Client.stub :new, mastodon_client do
-      m = user.mastodon_client
-      assert_equal mastodon_client, m
-    end
+    Mastodon::REST::Client.expects(:new).with({base_url: "https://#{expected_domain}", bearer_token: user.mastodon.token}).returns(mastodon_client)
+
+    m = user.mastodon_client
+    assert_equal mastodon_client, m
   end
 
   test 'Mastodon omniauth with no previous user, allowing new users' do
@@ -45,23 +44,15 @@ class UserTest < ActiveSupport::TestCase
     auth.expects(:credentials).at_least(1).returns(credentials)
     credentials.expects(:token).returns(authorization.token)
     credentials.expects(:secret).returns(authorization.secret)
+    User.any_instance.stubs(:save_last_toot_id)
+    User.expects(:do_not_allow_users).returns(nil)
 
-    mastodon_client = mock()
-    mastodon_client.expects(:call).at_least(1).with({base_url: "https://#{expected_domain}", bearer_token: authorization.token}).returns(mastodon_client)
-    mastodon_client.expects(:verify_credentials).at_least(1).returns(mastodon_client)
-    mastodon_client.expects(:id).at_least(1).returns(123)
-    mastodon_client.expects(:statuses).at_least(1).with(123, {limit: 1}).returns([])
-
-    Mastodon::REST::Client.stub :new, mastodon_client do
-      User.stub :do_not_allow_users, nil do
-        u = User.from_omniauth(auth, nil)
-        assert_equal User.last, u
-        assert_equal authorization.provider, u.mastodon.provider
-        assert_equal authorization.uid, u.mastodon.uid
-        assert_equal authorization.token, u.mastodon.token
-        assert_equal authorization.secret, u.mastodon.secret
-      end
-    end
+    u = User.from_omniauth(auth, nil)
+    assert_equal User.last, u
+    assert_equal authorization.provider, u.mastodon.provider
+    assert_equal authorization.uid, u.mastodon.uid
+    assert_equal authorization.token, u.mastodon.token
+    assert_equal authorization.secret, u.mastodon.secret
   end
 
   test 'Mastodon omniauth with no previous user, not allowing new users' do
@@ -72,11 +63,10 @@ class UserTest < ActiveSupport::TestCase
     credentials = mock()
     auth.expects(:provider).at_least(1).returns(authorization.provider)
     auth.expects(:uid).at_least(1).returns(authorization.uid)
+    User.expects(:do_not_allow_users).returns('1')
 
-    User.stub :do_not_allow_users, '1' do
-      u = User.from_omniauth(auth, nil)
-      assert_nil u
-    end
+    u = User.from_omniauth(auth, nil)
+    assert_nil u
   end
 
   test 'Mastodon omniauth with previous user' do
@@ -90,10 +80,9 @@ class UserTest < ActiveSupport::TestCase
     auth.expects(:credentials).at_least(1).returns(credentials)
     credentials.expects(:token).returns(user.mastodon.token)
     credentials.expects(:secret).returns(user.mastodon.secret)
+    User.expects(:do_not_allow_users).returns(nil)
 
-    User.stub :do_not_allow_users, nil do
-      u = User.from_omniauth(auth, nil)
-      assert_equal user, u
-    end
+    u = User.from_omniauth(auth, nil)
+    assert_equal user, u
   end
 end
