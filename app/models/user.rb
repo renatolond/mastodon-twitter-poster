@@ -39,10 +39,18 @@ class User < ApplicationRecord
     self.save
   end
 
+  def self.twitter_client_secret
+    ENV['TWITTER_CLIENT_SECRET']
+  end
+
+  def self.twitter_client_id
+    ENV['TWITTER_CLIENT_ID']
+  end
+
   def twitter_client
     @twitter_client ||= Twitter::REST::Client.new do |config|
-      config.consumer_key = ENV['TWITTER_CLIENT_ID']
-      config.consumer_secret = ENV['TWITTER_CLIENT_SECRET']
+      config.consumer_key = self.class.twitter_client_id
+      config.consumer_secret = self.class.twitter_client_secret
       config.access_token = twitter.try(:token)
       config.access_token_secret = twitter.try(:secret)
     end
@@ -60,29 +68,31 @@ class User < ApplicationRecord
     @mastodon_client ||= Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token)
   end
 
-  class << self
-    def from_omniauth(auth, current_user)
-      authorization = nil
-      if(ENV['DO_NOT_ALLOW_NEW_USERS'])
-        authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
-        return authorization if authorization.nil?
-      else
-        authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)
-      end
-      user = current_user || authorization.user || User.new
-      authorization.user   = user
-      authorization.token  = auth.credentials.token
-      authorization.secret = auth.credentials.secret
+  def self.do_not_allow_users
+    ENV['DO_NOT_ALLOW_NEW_USERS']
+  end
 
-      authorization.save
-
-      if auth.provider == 'twitter'
-        authorization.user.save_last_tweet_id
-      elsif auth.provider == 'mastodon'
-        authorization.user.save_last_toot_id
-      end
-
-      authorization.user
+  def self.from_omniauth(auth, current_user)
+    authorization = nil
+    if(do_not_allow_users)
+      authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
+      return authorization if authorization.nil?
+    else
+      authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)
     end
+    user = current_user || authorization.user || User.new
+    authorization.user   = user
+    authorization.token  = auth.credentials.token
+    authorization.secret = auth.credentials.secret
+
+    authorization.save
+
+    if auth.provider == 'twitter'
+      authorization.user.save_last_tweet_id
+    elsif auth.provider == 'mastodon'
+      authorization.user.save_last_toot_id
+    end
+
+    authorization.user
   end
 end

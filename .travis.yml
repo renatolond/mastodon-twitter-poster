@@ -1,0 +1,22 @@
+env:
+  global:
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - COVERAGE=1
+language: ruby
+cache:
+    bundler: true
+    directories:
+        - vendor/assets/bower_components
+        - node_modules
+rvm:
+  - 2.4.1
+bundler_args: --without production
+addons:
+    postgresql: "9.6"
+before_script:
+  - RAILS_ENV=test bundle exec rake db:setup
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
