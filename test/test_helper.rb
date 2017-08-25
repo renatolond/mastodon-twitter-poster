@@ -1,8 +1,14 @@
-require 'simplecov'
-SimpleCov.start
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start
+
+  Dir[Rails.root.join('lib/*.rb')].each {|file| load file }
+end
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+
+Rails.application.eager_load! if ENV['COVERAGE']
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
