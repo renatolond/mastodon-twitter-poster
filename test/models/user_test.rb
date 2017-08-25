@@ -33,6 +33,26 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mastodon_client, m
   end
 
+  test 'Twitter client' do
+    expected_domain = 'my_domain.com'
+    user = create(:user_with_mastodon_and_twitter, masto_domain: expected_domain)
+    twitter_client_id = 'MYCLIENTID'
+    twitter_client_secret = 'SECRET!'
+
+    twitter_client = mock()
+    config = mock()
+    config.expects(:consumer_key=).with(twitter_client_id)
+    config.expects(:consumer_secret=).with(twitter_client_secret)
+    config.expects(:access_token=).with(user.twitter.token)
+    config.expects(:access_token_secret=).with(user.twitter.secret)
+    User.expects(:twitter_client_id).returns(twitter_client_id)
+    User.expects(:twitter_client_secret).returns(twitter_client_secret)
+    Twitter::REST::Client.expects(:new).yields(config).returns(twitter_client)
+
+    t = user.twitter_client
+    assert_equal twitter_client, t
+  end
+
   test 'Save last toot id in a user that already has last_toot' do
     expected_mastodon_status_id = 2002
     user = create(:user_with_mastodon_and_twitter, last_toot: expected_mastodon_status_id)

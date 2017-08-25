@@ -39,10 +39,18 @@ class User < ApplicationRecord
     self.save
   end
 
+  def self.twitter_client_secret
+    ENV['TWITTER_CLIENT_SECRET']
+  end
+
+  def self.twitter_client_id
+    ENV['TWITTER_CLIENT_ID']
+  end
+
   def twitter_client
     @twitter_client ||= Twitter::REST::Client.new do |config|
-      config.consumer_key = ENV['TWITTER_CLIENT_ID']
-      config.consumer_secret = ENV['TWITTER_CLIENT_SECRET']
+      config.consumer_key = self.class.twitter_client_id
+      config.consumer_secret = self.class.twitter_client_secret
       config.access_token = twitter.try(:token)
       config.access_token_secret = twitter.try(:secret)
     end
