@@ -53,6 +53,42 @@ class UserTest < ActiveSupport::TestCase
     assert_equal twitter_client, t
   end
 
+  test 'Save last tweet id in a user that already has last_tweet' do
+    expected_tweet_status_id = 9999999
+    user = create(:user_with_mastodon_and_twitter, last_tweet: expected_tweet_status_id)
+
+    twitter_client = mock()
+    user.expects(:twitter_client).times(0)
+
+    user.save_last_tweet_id
+    assert_equal expected_tweet_status_id, user.last_tweet
+  end
+
+  test 'Save last tweet id in a profile without statuses' do
+    user = create(:user_with_mastodon_and_twitter, last_tweet: nil)
+
+    twitter_client = mock()
+    user.expects(:twitter_client).returns(twitter_client)
+    twitter_client.expects(:user_timeline).with({count: 1}).returns([])
+
+    user.save_last_tweet_id
+    assert_nil user.last_tweet
+  end
+
+  test 'Save last tweet id in a profile with statuses' do
+    user = create(:user_with_mastodon_and_twitter, last_tweet: nil)
+    expected_tweet_status_id = 9999999
+
+    twitter_client = mock()
+    user.expects(:twitter_client).returns(twitter_client)
+    status = mock()
+    status.expects(:id).returns(expected_tweet_status_id)
+    twitter_client.expects(:user_timeline).with({count: 1}).returns([status])
+
+    user.save_last_tweet_id
+    assert_equal expected_tweet_status_id, user.last_tweet
+  end
+
   test 'Save last toot id in a user that already has last_toot' do
     expected_mastodon_status_id = 2002
     user = create(:user_with_mastodon_and_twitter, last_toot: expected_mastodon_status_id)
