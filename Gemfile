@@ -47,6 +47,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'mocha'
+  gem 'simplecov', :require => false
 end
 
 group :development do
