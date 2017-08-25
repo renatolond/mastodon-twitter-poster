@@ -33,6 +33,48 @@ class UserTest < ActiveSupport::TestCase
     assert_equal mastodon_client, m
   end
 
+  test 'Save last toot id in a user that already has last_toot' do
+    expected_mastodon_status_id = 2002
+    user = create(:user_with_mastodon_and_twitter, last_toot: expected_mastodon_status_id)
+    mastodon_id = 123
+
+    mastodon_client = mock()
+    user.expects(:mastodon_client).times(0)
+    user.expects(:mastodon_id).times(0)
+
+    user.save_last_toot_id
+    assert_equal expected_mastodon_status_id, user.last_toot
+  end
+
+  test 'Save last toot id in a profile without statuses' do
+    user = create(:user_with_mastodon_and_twitter, last_toot: nil)
+    mastodon_id = 123
+
+    mastodon_client = mock()
+    user.expects(:mastodon_client).returns(mastodon_client)
+    user.expects(:mastodon_id).returns(mastodon_id)
+    mastodon_client.expects(:statuses).with(mastodon_id, {limit: 1}).returns([])
+
+    user.save_last_toot_id
+    assert_nil user.last_toot
+  end
+
+  test 'Save last toot id in a profile with statuses' do
+    user = create(:user_with_mastodon_and_twitter, last_toot: nil)
+    mastodon_id = 123
+    expected_mastodon_status_id = 2002
+
+    mastodon_client = mock()
+    user.expects(:mastodon_client).returns(mastodon_client)
+    user.expects(:mastodon_id).returns(mastodon_id)
+    mastodon_status = mock()
+    mastodon_client.expects(:statuses).with(mastodon_id, {limit: 1}).returns([mastodon_status])
+    mastodon_status.expects(:id).returns(expected_mastodon_status_id)
+
+    user.save_last_toot_id
+    assert_equal expected_mastodon_status_id, user.last_toot
+  end
+
   test 'Mastodon omniauth with no previous user, allowing new users' do
     expected_domain = 'my_domain.com'
 
