@@ -74,9 +74,9 @@ class User < ApplicationRecord
 
   def self.get_authorization(provider, uid)
     if(do_not_allow_users)
-      authorization = Authorization.where(provider: provider, uid: uid).first
+      Authorization.where(provider: provider, uid: uid).first
     else
-      authorization = Authorization.where(provider: provider, uid: uid).first_or_initialize(provider: provider, uid: uid)
+      Authorization.where(provider: provider, uid: uid).first_or_initialize(provider: provider, uid: uid)
     end
   end
 
