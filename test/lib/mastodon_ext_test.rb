@@ -6,6 +6,18 @@ class MastodonExtTest < ActiveSupport::TestCase
     @client = Mastodon::REST::Client.new(base_url: 'https://mastodon.xyz', bearer_token: '123456')
   end
 
+  test 'Is reblog? with normal status without reblog' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6846822').to_return(web_fixture('status6846822.json'))
+    status = @client.status(6846822)
+    refute status.is_reblog?
+  end
+
+  test 'Is reblog? with reblog status' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6901463').to_return(web_fixture('status6901463.json'))
+    status = @client.status(6901463)
+    assert status.is_reblog?
+  end
+
   test 'Is mention? with mention not starting the toot' do
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6902726').to_return(web_fixture('status6902726.json'))
     status_with_mention = @client.status(6902726)
