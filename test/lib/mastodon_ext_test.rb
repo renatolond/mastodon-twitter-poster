@@ -6,6 +6,24 @@ class MastodonExtTest < ActiveSupport::TestCase
     @client = Mastodon::REST::Client.new(base_url: 'https://mastodon.xyz', bearer_token: '123456')
   end
 
+  test 'Sensitive? in toot with cw' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/7009409').to_return(web_fixture('status7009409.json'))
+    status = @client.status(7009409)
+    assert status.sensitive?
+  end
+
+  test 'Spoiler text in toot with cw' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/7009409').to_return(web_fixture('status7009409.json'))
+    status = @client.status(7009409)
+    assert_equal 'Test 2', status.spoiler_text
+  end
+
+  test 'Sensitive? in regular toot' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6846822').to_return(web_fixture('status6846822.json'))
+    status = @client.status(6846822)
+    refute status.sensitive?
+  end
+
   test 'Is private? with private toot' do
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6847302').to_return(web_fixture('status6847302.json'))
     status = @client.status(6847302)
