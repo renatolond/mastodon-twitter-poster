@@ -48,6 +48,7 @@ group :test do
   gem 'faker'
   gem 'mocha'
   gem 'simplecov', :require => false
+  gem 'webmock'
 end
 
 group :development do

@@ -72,14 +72,18 @@ class User < ApplicationRecord
     ENV['DO_NOT_ALLOW_NEW_USERS']
   end
 
-  def self.from_omniauth(auth, current_user)
-    authorization = nil
+  def self.get_authorization(provider, uid)
     if(do_not_allow_users)
-      authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
-      return authorization if authorization.nil?
+      Authorization.where(provider: provider, uid: uid).first
     else
-      authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize(provider: auth.provider, uid: auth.uid.to_s)
+      Authorization.where(provider: provider, uid: uid).first_or_initialize(provider: provider, uid: uid)
     end
+  end
+
+  def self.from_omniauth(auth, current_user)
+    authorization = get_authorization(auth.provider, auth.uid.to_s)
+    return authorization if authorization.nil?
+
     user = current_user || authorization.user || User.new
     authorization.user   = user
     authorization.token  = auth.credentials.token
