@@ -33,7 +33,6 @@ class CheckForToots
   def self.available_since_last_check
     loop do
       u = User.where('mastodon_last_check < now() - interval \'? seconds\'', OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc).first
-      binding.pry
       if u.nil?
         Rails.logger.debug { "No user to look at. Sleeping for #{SLEEP_FOR} seconds" }
         sleeper.sleep(SLEEP_FOR)
