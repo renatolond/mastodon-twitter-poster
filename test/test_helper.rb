@@ -18,4 +18,10 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+def web_fixture(name)
+  File.new(File.join(File.expand_path('../webfixtures', __FILE__), name))
+end
+
+require 'webmock/minitest'
+WebMock.disable_net_connect!
 require 'mocha/mini_test'

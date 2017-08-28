@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: nginx/1.9.3 (Ubuntu)
+Date: Thu, 20 Oct 2016 14:18:10 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Vary: Accept-Encoding
+ETag: W/"b493c8553abfc4d4306e56cab4d9410d"
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: _mastodon_session=S0EwZUQ5ZkFTYnIydklOS2hNeGZISUxsOEg5a2NLRGRsTHFYMTJrTTg0Qm9kNWZoN2ZkVERxdkVpbUpQSi8rTXkwY3BnQjhYZjFvZkJoY0U1bVpEU01kb1RmRTdaMXNaU2F0SFFtalVSUDNrWW9zUHVHOUVCemFMU0ZVYWx1akQtLTFUR0FTNUJDYkdjbU1qa1hsVFdEMGc9PQ%3D%3D--4a3a2b340c1d4c0c48f58aafffc19e3aaf178610; path=/; HttpOnly
+X-Request-Id: ad58f320-32fb-4b0e-b9b2-755722494aa1
+X-Runtime: 0.093637
+
+{"id":35768,"created_at":"2016-10-20T10:56:45.990Z","in_reply_to_id":null,"reblog":null,"account":{"id":1,"username":"Gargron","acct":"Gargron","display_name":"Eugen","note":"Developer of Mastodon, a GNU social alternative: https://github.com/Gargron/mastodon","url":"https://mastodon.social/users/Gargron","avatar":"https://mastodon.social/system/accounts/avatars/000/000/001/large/J3IHut1v.png","header":"https://mastodon.social/system/accounts/headers/000/000/001/medium/905578_10207278037490406_6099191809848953837_o.jpg","followers_count":398,"following_count":350,"statuses_count":1297},"media_attachments":[],"mentions":[],"uri":"tag:mastodon.social,2016-10-20:objectId=35768:objectType=Status","content":"<p><a rel=\"nofollow noopener\" href=\"https://youtu.be/HBBwXAPNLr0\">youtu.be/HBBwXAPNLr0</a></p>","url":"https://mastodon.social/users/Gargron/updates/17885","reblogs_count":0,"favourites_count":0,"favourited":false,"reblogged":false}
