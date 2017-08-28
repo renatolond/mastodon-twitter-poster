@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+date: Mon, 28 Aug 2017 12:28:12 GMT
+content-type: application/json; charset=utf-8
+vary: Accept-Encoding
+server: Mastodon
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+vary: Accept-Encoding, Origin
+etag: W/"ad1cfe8a2b34c95da5d6a99fc3b096d3"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 5469fcba-cc65-4974-a4e0-eaaf20c31328
+x-runtime: 0.018673
+strict-transport-security: max-age=31536000
+content-security-policy: style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'self'; img-src data: https:; media-src data: https:; connect-src 'self' wss://mastodon.xyz; upgrade-insecure-requests
+public-key-pins: pin-sha256="yDVf4mkP2VvJ+3iqrJz9Fe2RrmgVlQoTw3wySHgWdyQ="; pin-sha256="BqrmPEkrvmXOYUIoCzBh5YeMQpc9goED8NSiQgghPLg="; max-age=5184000; includeSubdomains
+referrer-policy: no-referrer
+
+{"id":6847309,"created_at":"2017-08-10T10:39:20.864Z","in_reply_to_id":null,"in_reply_to_account_id":null,"sensitive":false,"spoiler_text":"","visibility":"direct","language":"en","uri":"tag:mastodon.xyz,2017-08-10:objectId=6847309:objectType=Status","content":"\u003cp\u003e\u003cspan class=\"h-card\"\u003e\u003ca href=\"https://mastodon.xyz/@renatolond\" class=\"u-url mention\"\u003e@\u003cspan\u003erenatolond\u003c/span\u003e\u003c/a\u003e\u003c/span\u003e direct toot\u003c/p\u003e","url":"https://mastodon.xyz/@renatolonddev/6847309","reblogs_count":0,"favourites_count":0,"favourited":false,"reblogged":false,"muted":false,"reblog":null,"application":{"name":"Web","website":null},"account":{"id":83677,"username":"renatolonddev","acct":"renatolonddev","display_name":"","locked":false,"created_at":"2017-08-09T13:19:31.247Z","note":"\u003cp\u003e\u003c/p\u003e","url":"https://mastodon.xyz/@renatolonddev","avatar":"/avatars/original/missing.png","avatar_static":"/avatars/original/missing.png","header":"/headers/original/missing.png","header_static":"/headers/original/missing.png","followers_count":0,"following_count":1,"statuses_count":28},"media_attachments":[],"mentions":[{"id":7974,"username":"renatolond","url":"https://mastodon.xyz/@renatolond","acct":"renatolond"}],"tags":[]}

@@ -6,6 +6,37 @@ class MastodonExtTest < ActiveSupport::TestCase
     @client = Mastodon::REST::Client.new(base_url: 'https://mastodon.xyz', bearer_token: '123456')
   end
 
+  test 'Is private? with private toot' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6847302').to_return(web_fixture('status6847302.json'))
+    status = @client.status(6847302)
+    assert status.is_private?
+    refute status.is_public?
+  end
+
+  test 'Is unlisted? with unlisted toot' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6847301').to_return(web_fixture('status6847301.json'))
+    status = @client.status(6847301)
+    assert status.is_unlisted?
+    refute status.is_public?
+  end
+
+  test 'Is direct? with direct toot' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6847309').to_return(web_fixture('status6847309.json'))
+    status = @client.status(6847309)
+    assert status.is_direct?
+    refute status.is_public?
+  end
+
+  test 'Is public? with public toot' do
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6846822').to_return(web_fixture('status6846822.json'))
+    status = @client.status(6846822)
+
+    refute status.is_private?
+    refute status.is_unlisted?
+    refute status.is_direct?
+    assert status.is_public?
+  end
+
   test 'Is reblog? with normal status without reblog' do
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6846822').to_return(web_fixture('status6846822.json'))
     status = @client.status(6846822)
