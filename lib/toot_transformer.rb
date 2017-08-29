@@ -10,7 +10,7 @@ class TootTransformer
   end
 
   def self.transform(text, toot_url, mastodon_domain, fix_cross_mention)
-    text.gsub!(TWITTER_MENTION_REGEX, '@\1') if fix_cross_mention
+    text.gsub!(TWITTER_MENTION_REGEX, '\1') if fix_cross_mention
     text.gsub!(media_regex(mastodon_domain), '')
     transform_rec(text, toot_url, TWITTER_MAX_LENGTH)
   end
