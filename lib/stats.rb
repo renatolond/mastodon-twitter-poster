@@ -2,7 +2,7 @@ require 'statsd'
 
 class Stats
   def initialize
-    @statsd = Statsd.new('localhost', 8125)
+    @statsd = Statsd.new('127.0.0.1', 8125)
   end
 
   def dyno_id
@@ -10,6 +10,6 @@ class Stats
   end
 
   def increment(name)
-    @statsd.increment(name)
+    @statsd.increment("#{name}")
   end
 end
