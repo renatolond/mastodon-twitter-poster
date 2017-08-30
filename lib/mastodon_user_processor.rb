@@ -1,11 +1,16 @@
 require 'stats'
 
 class MastodonUserProcessor
+  def self.stats
+    @@stats ||= Stats.new
+  end
+
   def self.process_user(user)
     begin
       get_last_toots_for_user(user) if user.posting_from_mastodon
     rescue StandardError => ex
       Rails.logger.error { "Could not process user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
+      stats.increment("user.processing_error")
     ensure
       user.mastodon_last_check = Time.now
       user.save
@@ -31,10 +36,12 @@ class MastodonUserProcessor
         last_sucessful_toot = t
       rescue Twitter::Error::BadRequest => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}, invalidating." }
+        stats.increment("twitter.unlink")
         user.twitter.destroy
         break
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
+        stats.increment("toot.processing_error")
         break
       end
     end
@@ -47,6 +54,7 @@ class MastodonUserProcessor
   def self.process_toot(toot, user)
     if toot.is_direct?
       Rails.logger.debug('Ignoring direct toot. We do not treat them')
+      stats.increment("toot.direct.skipped")
       # no sense in treating direct toots. could become an option in future, maybe.
       return
     elsif toot.is_reblog?
@@ -63,6 +71,7 @@ class MastodonUserProcessor
   def self.process_boost(toot, user)
     if user.masto_boost_do_not_post?
       Rails.logger.debug('Ignoring masto boost because user choose so')
+      stats.increment("toot.boost.skipped")
       return
     elsif user.masto_boost_post_as_link?
       boost_as_link(toot, user)
@@ -75,12 +84,14 @@ class MastodonUserProcessor
       tweet(content, user)
     else
       Rails.logger.debug('Ignoring boost because of visibility configuration')
+      stats.increment("toot.boost.visibility.skipped")
     end
   end
 
   def self.process_reply(_toot, user)
     if user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
+      stats.increment("toot.reply.skipped")
       return
     end
   end
@@ -88,6 +99,7 @@ class MastodonUserProcessor
   def self.process_mention(_toot, user)
     if user.masto_mention_do_not_post?
       Rails.logger.debug('Ignoring masto mention because user choose so')
+      stats.increment("toot.mention.skipped")
       return
     end
   end
@@ -103,6 +115,7 @@ class MastodonUserProcessor
       end
       tweet(tweet_content, user, opts)
     else
+      stats.increment("toot.normal.visibility.skipped")
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
   end
@@ -132,7 +145,7 @@ class MastodonUserProcessor
 
   def self.tweet(content, user, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    Stats.new.increment('tweets.posted')
+    stats.increment('toot.posted_to_twitter')
     user.twitter_client.update(content, opts)
   end
 
