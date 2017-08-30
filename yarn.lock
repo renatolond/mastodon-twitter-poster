@@ -1746,7 +1746,7 @@ express@^4.13.3:
     utils-merge "1.0.0"
     vary "~1.1.1"
 
-extend@~3.0.0:
+extend@^3.0.0, extend@~3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
 
@@ -4436,6 +4436,12 @@ sshpk@^1.7.0:
     ecc-jsbn "~0.1.1"
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
+
+statsd-librato-backend@^2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/statsd-librato-backend/-/statsd-librato-backend-2.0.14.tgz#223e4e036bc399029542c2afc5c507111ab977f0"
+  dependencies:
+    extend "^3.0.0"
 
 statsd@^0.8.0:
   version "0.8.0"

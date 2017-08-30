@@ -1,12 +1,13 @@
 (function() {
   return {
-    graphitePort: 2003
-    , graphiteHost: "carbon.hostedgraphite.com"
-    , port: 8125
-    ,backends: ["./backends/graphite"]
-    ,    graphite: {
-      legacyNamespace: false,
-      globalPrefix: process.env.HOSTEDGRAPHITE_APIKEY
+    librato: {
+      email: process.env.LIBRATO_EMAIL,
+      token: process.env.LIBRATO_TOKEN,
+      tags: { dyno: process.env.DYNO }
     }
+    , backends: ["statsd-librato-backend"]
+    , port: 8125
+    , keyNameSanitize: false
+    , deleteIdleStats: true
   };
 })()
