@@ -74,6 +74,7 @@ GEM
       responders
       warden (~> 1.2.3)
     docile (1.1.5)
+    dogstatsd-ruby (3.0.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
@@ -303,6 +304,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   daemons
   devise
+  dogstatsd-ruby
   factory_girl_rails
   faker
   htmlentities

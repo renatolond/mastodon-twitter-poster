@@ -1,3 +1,5 @@
+require 'stats'
+
 class MastodonUserProcessor
   def self.process_user(user)
     begin
@@ -130,6 +132,7 @@ class MastodonUserProcessor
 
   def self.tweet(content, user, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
+    Stats.new.increment('tweets.posted')
     user.twitter_client.update(content, opts)
   end
 

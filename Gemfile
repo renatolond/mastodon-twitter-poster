@@ -35,6 +35,8 @@ gem 'daemons'
 gem 'webpacker'
 gem 'httparty'
 
+gem 'dogstatsd-ruby'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'
