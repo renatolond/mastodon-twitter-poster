@@ -1,8 +1,8 @@
-require 'datadog/statsd'
+require 'statsd'
 
 class Stats
   def initialize
-    @statsd = Datadog::Statsd.new('localhost', 8125)
+    @statsd = Statsd.new('localhost', 8125)
   end
 
   def dyno_id
@@ -10,6 +10,6 @@ class Stats
   end
 
   def increment(name)
-    @statsd.increment(name, tags: ["dyno_id:#{dyno_id}"])
+    @statsd.increment(name)
   end
 end

@@ -74,7 +74,6 @@ GEM
       responders
       warden (~> 1.2.3)
     docile (1.1.5)
-    dogstatsd-ruby (3.0.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
@@ -90,6 +89,8 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    foreman (0.84.0)
+      thor (~> 0.19.1)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashdiff (0.3.6)
@@ -249,6 +250,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statsd-ruby (1.4.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -304,9 +306,9 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   daemons
   devise
-  dogstatsd-ruby
   factory_girl_rails
   faker
+  foreman
   htmlentities
   httparty
   jbuilder (~> 2.5)
@@ -327,6 +329,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
+  statsd-ruby
   turbolinks (~> 5)
   twitter
   tzinfo-data

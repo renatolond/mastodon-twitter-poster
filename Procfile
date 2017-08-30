@@ -1,2 +1,2 @@
-web: bundle exec puma -C config/puma.rb
-worker: bundle exec ruby script/daemon.rb run check_for_toots.rb
+web: bundle exec foreman start -f Procfile.web
+worker: bundle exec foreman start -f Procfile.worker

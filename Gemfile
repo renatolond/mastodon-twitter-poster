@@ -35,7 +35,8 @@ gem 'daemons'
 gem 'webpacker'
 gem 'httparty'
 
-gem 'dogstatsd-ruby'
+gem 'statsd-ruby'
+gem 'foreman'
 
 group :development, :test do
   gem 'byebug'
