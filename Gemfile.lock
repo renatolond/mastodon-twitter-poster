@@ -104,6 +104,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (1.0.3)
+    http_accept_language (2.1.1)
     http_parser.rb (0.6.0)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
@@ -310,6 +311,7 @@ DEPENDENCIES
   faker
   foreman
   htmlentities
+  http_accept_language (~> 2.1)
   httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

@@ -1,5 +1,5 @@
 
-en:
+pt:
   crossposter_explanation: "Esse serviço permite que você conecte uma conta do Mastodon e uma do Twitter e poste entre as duas. Você pode escolher certas opções, como se você deseja postar reblogs, toots unlisted ou respostas."
   login_to_get_started: "Faça login no Twitter e no Mastodon para começar"
   service_ran_by: "Esse serviço é gerenciado por"
