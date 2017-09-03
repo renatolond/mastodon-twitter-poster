@@ -1,33 +1,3 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
 
 en:
   crossposter_explanation: "This service allows you to connect a Mastodon account and a Twitter account and enable cross-posting between them. You can choose some options, such as if you want to post boosts, unlisted toots or replies."
@@ -41,6 +11,7 @@ en:
   connections: 'Connections'
   manage_your_accounts: 'Manage your connected accounts'
   disconnect: 'Disconnect'
+  options: 'Options'
   masto_boost_do_not_post: 'Do not post boosts on twitter'
   masto_boost_post_as_link: 'Post boosts on twitter as links (Boosted: https://mastodon.social/@renatolond/15082784)'
   masto_reply_do_not_post: 'Do not post replies on twitter'
@@ -51,3 +22,15 @@ en:
   masto_should_post_unlisted_false: 'OFF'
   masto_should_post_private_true: 'ON'
   masto_should_post_private_false: 'OFF'
+  synchronization_options: 'Synchronization options'
+  masto_synchronization_status: 'Post my toots on twitter:'
+  post_unlisted_toots: 'Post unlisted toots?:'
+  post_private_toots: 'Post private toots?:'
+  fix_cross_mentions: 'Fix cross mentions?'
+  fix_cross_mentions_explanation: "When this option is on, if you post a toot that contains '@user@twitter.com', this will be replaced by '@user' when posted in twitter."
+  boost_options: 'Boost options:'
+  masto_reply_options: 'Reply options:'
+  masto_reply_options_explanation: "This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot."
+  masto_mention_options: 'Mention options:'
+  masto_mention_options_explanation: "This service considers mention as a toot that's not a reply, but that begins with a mention to another user."
+  no_twitter_yet: 'At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!'

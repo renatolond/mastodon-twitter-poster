@@ -14,3 +14,12 @@
  *= require_self
  *= require bootstrap/dist/css/bootstrap
  */
+
+p.trlike:before {
+    content: " ";
+    border-bottom: 1px solid black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+    max-width: 100px
+}

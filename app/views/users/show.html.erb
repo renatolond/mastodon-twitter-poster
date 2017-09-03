@@ -1,8 +1,8 @@
-<h3>Synchronization options</h3>
+<h3><%= t :synchronization_options %></h3>
 
 <h4>Mastodon -> Twitter</h4>
 <%= form_for(current_user) do |f|%>
-<p>Synchronization Status:</p>
+<p><%= t :masto_synchronization_status %></p>
 <div class="btn-group" data-toggle="buttons">
 <% [true, false].each do |option| %>
   <label class="btn btn-primary<% if current_user.posting_from_mastodon == option %> active<% end %>">
@@ -11,7 +11,8 @@
   </label>
 <% end %>
 </div>
-<p>Post unlisted toots?</p>
+<p class="trlike"></p>
+<p><%= t :post_unlisted_toots%></p>
 <div class="btn-group" data-toggle="buttons">
 <% [true, false].each do |option| %>
   <label class="btn btn-primary<% if current_user.masto_should_post_unlisted == option %> active<% end %>">
@@ -20,7 +21,7 @@
   </label>
 <% end %>
 </div>
-<p>Post private toots?:</p>
+<p><%= t :post_private_toots%></p>
 <div class="btn-group" data-toggle="buttons">
 <% [true, false].each do |option| %>
   <label class="btn btn-primary<% if current_user.masto_should_post_private == option %> active<% end %>">
@@ -29,8 +30,8 @@
   </label>
 <% end %>
 </div>
-<p>Fix cross mentions?<br />
-<small>When this option is on, if you post a toot that contains '@user@twitter.com', this will be replaced by '@user' when posted in twitter.</small></p>
+<p><%= t :fix_cross_mentions%><br />
+<small><%= t :fix_cross_mentions_explanation%></small></p>
 <div class="btn-group" data-toggle="buttons">
 <% [true, false].each do |option| %>
   <label class="btn btn-primary<% if current_user.masto_fix_cross_mention == option %> active<% end %>">
@@ -39,7 +40,7 @@
   </label>
 <% end %>
 </div>
-<p>Boost options:<br />
+<p><%= t :boost_options %><br />
 <% User.boost_options.keys.each do |boost_option| %>
 <div class="radio">
   <label>
@@ -48,8 +49,8 @@
   </label>
 </div>
 <% end %>
-<p>Reply options:<br />
-<small>This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot.</small></p>
+<p><%= t :masto_reply_options %><br />
+<small><%= t :masto_reply_options_explanation %></small></p>
 <% User.masto_reply_options.keys.each do |reply_option| %>
 <div class="radio">
   <label>
@@ -59,8 +60,8 @@
 </div>
 <% end %>
 
-<p>Mention options:<br />
-<small>This service considers mention as a toot that's not a reply, but that begins with a mention to another user.</small>
+<p><%= t :masto_mention_options %><br />
+<small><%= t :masto_mention_options_explanation %></small>
 </p>
 <% User.masto_mention_options.keys.each do |mention_option| %>
 <div class="radio">
@@ -70,9 +71,9 @@
   </label>
 </div>
 <% end %>
-
+<hr />
 <h4>Twitter -> Mastodon</h4>
-<p>At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!</p>
+<p><%= t :no_twitter_yet %></p>
 
 <%= f.submit %>
 <% end %>
