@@ -34,7 +34,7 @@ class MastodonUserProcessor
       begin
         process_toot(t, user)
         last_sucessful_toot = t
-      rescue Twitter::Error::BadRequest => ex
+      rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}, invalidating." }
         stats.increment("twitter.unlink")
         user.twitter.destroy
