@@ -255,6 +255,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    timecop (0.8.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
@@ -332,6 +333,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   statsd-ruby
+  timecop
   turbolinks (~> 5)
   twitter
   tzinfo-data
