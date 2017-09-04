@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   validate :one_network_enabled_at_a_time
 
+  after_validation :set_last_status, on: [:update]
+
   def twitter
     @twitter ||= authorizations.where(provider: :twitter).last
   end
@@ -27,15 +29,12 @@ class User < ApplicationRecord
   end
 
   def save_last_tweet_id
-    return unless self.last_tweet.nil?
-
     last_status = twitter_client.user_timeline(count: 1).first
     self.last_tweet = last_status.id unless last_status.nil?
     self.save
   end
 
   def save_last_toot_id
-    return unless self.last_toot.nil?
     last_status = mastodon_client.statuses(mastodon_id, limit: 1).first
     self.last_toot = last_status.id unless last_status.nil?
     self.save
@@ -93,9 +92,9 @@ class User < ApplicationRecord
 
     authorization.save
 
-    if auth.provider == 'twitter'
+    if auth.provider == 'twitter' and user.last_tweet.nil?
       authorization.user.save_last_tweet_id
-    elsif auth.provider == 'mastodon'
+    elsif auth.provider == 'mastodon' and user.last_toot.nil?
       authorization.user.save_last_toot_id
     end
 
@@ -106,5 +105,11 @@ class User < ApplicationRecord
     if posting_from_twitter && posting_from_mastodon
       errors.add(:base, I18n.t(:impossible_both_networks))
     end
+  end
+
+  def set_last_status
+    return if errors.size > 0
+    save_last_tweet_id if twitter && posting_from_twitter && posting_from_twitter_changed?
+    save_last_toot_id if mastodon && posting_from_mastodon && posting_from_mastodon_changed?
   end
 end

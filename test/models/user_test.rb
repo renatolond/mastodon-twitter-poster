@@ -54,11 +54,14 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'Save last tweet id in a user that already has last_tweet' do
+    user = create(:user_with_mastodon_and_twitter, last_tweet: 9999998)
     expected_tweet_status_id = 9999999
-    user = create(:user_with_mastodon_and_twitter, last_tweet: expected_tweet_status_id)
 
     twitter_client = mock()
-    user.expects(:twitter_client).times(0)
+    user.expects(:twitter_client).returns(twitter_client)
+    status = mock()
+    status.expects(:id).returns(expected_tweet_status_id)
+    twitter_client.expects(:user_timeline).with({count: 1}).returns([status])
 
     user.save_last_tweet_id
     assert_equal expected_tweet_status_id, user.last_tweet
@@ -90,13 +93,16 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'Save last toot id in a user that already has last_toot' do
+    user = create(:user_with_mastodon_and_twitter, last_toot: 2001)
     expected_mastodon_status_id = 2002
-    user = create(:user_with_mastodon_and_twitter, last_toot: expected_mastodon_status_id)
     mastodon_id = 123
 
     mastodon_client = mock()
-    user.expects(:mastodon_client).times(0)
-    user.expects(:mastodon_id).times(0)
+    user.expects(:mastodon_client).returns(mastodon_client)
+    user.expects(:mastodon_id).returns(mastodon_id)
+    mastodon_status = mock()
+    mastodon_client.expects(:statuses).with(mastodon_id, {limit: 1}).returns([mastodon_status])
+    mastodon_status.expects(:id).returns(expected_mastodon_status_id)
 
     user.save_last_toot_id
     assert_equal expected_mastodon_status_id, user.last_toot
@@ -194,5 +200,15 @@ class UserTest < ActiveSupport::TestCase
     assert_raise ActiveRecord::RecordInvalid do
       user.save!
     end
+  end
+
+  test 'Should update last_tweet when posting_from_twitter enabled' do
+    user = create(:user_with_mastodon_and_twitter, posting_from_twitter: false, posting_from_mastodon: false)
+
+    user.posting_from_twitter = true
+
+    user.expects(:save_last_tweet_id).times(1)
+    user.expects(:save_last_toot_id).times(0)
+    user.save!
   end
 end
