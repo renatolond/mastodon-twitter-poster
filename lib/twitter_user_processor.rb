@@ -13,6 +13,7 @@ class TwitterUserProcessor
       stats.increment("user.processing_error")
     ensure
       user.twitter_last_check = Time.now
+      user.mastodon_last_check = Time.now # XXX remove this when possible to post from both networks at same time
       user.save
     end
   end

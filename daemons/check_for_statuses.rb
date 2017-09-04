@@ -1,6 +1,7 @@
 require ENV["RAILS_ENV_PATH"]
 require 'mastodon_ext'
 require 'mastodon_user_processor'
+require 'twitter_user_processor'
 require 'toot_transformer'
 require 'httparty'
 require 'interruptible_sleep'
@@ -21,12 +22,13 @@ class CheckForToots
 
   def self.available_since_last_check
     loop do
-      u = User.where('mastodon_last_check < now() - interval \'? seconds\'', OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc).first
+      u = User.where('mastodon_last_check < now() - interval \'? seconds\' or twitter_last_check < now() - interval \'? seconds\'', OLDER_THAN_IN_SECONDS, OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc, twitter_last_check: :asc).first
       if u.nil?
         Rails.logger.debug { "No user to look at. Sleeping for #{SLEEP_FOR} seconds" }
         sleeper.sleep(SLEEP_FOR)
       else
-        MastodonUserProcessor::process_user(u)
+        MastodonUserProcessor::process_user(u) if u.posting_from_mastodon
+        TwitterUserProcessor::process_user(u) if u.posting_from_twitter
       end
       break if finished
     end
