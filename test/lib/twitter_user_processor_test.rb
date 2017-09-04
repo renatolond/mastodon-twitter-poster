@@ -63,7 +63,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     Timecop.freeze do
       TwitterUserProcessor::get_last_tweets_for_user(user)
 
-      assert_equal Time.now, user.twitter_last_check
       assert_equal expected_last_tweet_id, user.last_tweet
     end
   end

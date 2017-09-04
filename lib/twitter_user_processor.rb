@@ -40,7 +40,6 @@ class TwitterUserProcessor
     end
 
     user.last_tweet = last_successful_tweet.id unless last_successful_tweet.nil?
-    user.twitter_last_check = Time.now
     user.save
   end
 
