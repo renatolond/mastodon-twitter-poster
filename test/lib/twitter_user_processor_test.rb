@@ -100,4 +100,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TwitterUserProcessor::process_tweet(t, user)
   end
+
+  test 'process tweet - reply to tweet' do
+    user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904746849814360065.json').to_return(web_fixture('twitter_reply.json'))
+
+    t = user.twitter_client.status(904746849814360065)
+
+    TwitterUserProcessor.expects(:process_reply).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
+  test 'process tweet - reply to user' do
+    user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904747662070734848.json').to_return(web_fixture('twitter_mention.json'))
+
+    t = user.twitter_client.status(904747662070734848)
+
+    TwitterUserProcessor.expects(:process_reply).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
 end
