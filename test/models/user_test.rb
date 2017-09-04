@@ -184,4 +184,15 @@ class UserTest < ActiveSupport::TestCase
     u = User.from_omniauth(auth, nil)
     assert_equal user, u
   end
+
+  test 'User with both networks enabled should fail' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    user.posting_from_twitter = true
+    user.posting_from_mastodon = true
+
+    assert_raise ActiveRecord::RecordInvalid do
+      user.save!
+    end
+  end
 end
