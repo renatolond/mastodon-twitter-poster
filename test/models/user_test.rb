@@ -201,14 +201,4 @@ class UserTest < ActiveSupport::TestCase
       user.save!
     end
   end
-
-  test 'Should update last_tweet when posting_from_twitter enabled' do
-    user = create(:user_with_mastodon_and_twitter, posting_from_twitter: false, posting_from_mastodon: false)
-
-    user.posting_from_twitter = true
-
-    user.expects(:save_last_tweet_id).times(1)
-    user.expects(:save_last_toot_id).times(0)
-    user.save!
-  end
 end
