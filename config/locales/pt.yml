@@ -33,5 +33,8 @@ pt:
   masto_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do Mastodon. É uma resposta direta a outro toot."
   masto_mention_options: 'Opções das menções:'
   masto_mention_options_explanation: "Esse serviço considera uma menção um toot que não é uma resposta, mas que começa com uma menção a outro usuário"
-  no_twitter_yet: 'No momento, ainda não postamos tweets no Mastodon. Espere por updates no futuro ou nos ajude com um pull request!'
+  twitter_synchronization_status: 'Postar tweets para o mastodon:'
+  twitter_sync_status_true: 'Sim'
+  twitter_sync_status_false: 'Não'
+  twitter_sync_explanation: 'No momento, somente tweets que não comecem por menções e não sejam retweets serão postados. Qualquer mídia será ignorada. Também é impossível ter as duas direções ligadas ao mesmo tempo.'
   impossible_both_networks: 'Não é possível habilitar as duas redes ao mesmo tempo por enquanto.'

@@ -33,5 +33,8 @@ en:
   masto_reply_options_explanation: "This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot."
   masto_mention_options: 'Mention options:'
   masto_mention_options_explanation: "This service considers mention as a toot that's not a reply, but that begins with a mention to another user."
-  no_twitter_yet: 'At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!'
+  twitter_synchronization_status: 'Post my tweets on Mastodon:'
+  twitter_sync_status_true: 'ON'
+  twitter_sync_status_false: 'OFF'
+  twitter_sync_explanation: 'At the moment, only tweets that are not replies or retweets will be posted. Any media will be ignored. Also, you cannot have both directions enabled at the same time.'
   impossible_both_networks: 'Not possible to have both networks enabled at the moment'

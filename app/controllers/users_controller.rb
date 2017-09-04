@@ -13,6 +13,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:posting_from_mastodon, :masto_should_post_private, :masto_should_post_unlisted, :boost_options, :masto_reply_options, :masto_mention_options, :masto_fix_cross_mention)
+    params.require(:user).permit(:posting_from_mastodon, :masto_should_post_private, :masto_should_post_unlisted, :boost_options, :masto_reply_options, :masto_mention_options, :masto_fix_cross_mention, :posting_from_twitter)
   end
 end
