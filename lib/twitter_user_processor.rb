@@ -45,5 +45,14 @@ class TwitterUserProcessor
   end
 
   def self.process_tweet(tweet, user)
+    if(tweet.retweet? || tweet.text[0..3] == 'RT @')
+      process_retweet(tweet, user)
+    else
+    end
+  end
+
+  def self.process_retweet(_tweet, _user)
+    Rails.logger.debug('Ignoring retweet, not implemented')
+    stats.increment("tweet.retweet.skipped")
   end
 end

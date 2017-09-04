@@ -76,4 +76,28 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TwitterUserProcessor::get_last_tweets_for_user(user)
   end
+
+  test 'process_tweet - retweet' do
+    user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096)
+
+    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
+
+  test 'process tweet - manual retweet' do
+    user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/895311375546888192.json').to_return(web_fixture('twitter_manual_retweet.json'))
+
+    t = user.twitter_client.status(895311375546888192)
+
+    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
 end
