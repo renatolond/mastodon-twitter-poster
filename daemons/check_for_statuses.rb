@@ -22,7 +22,7 @@ class CheckForToots
 
   def self.available_since_last_check
     loop do
-      u = User.where('(posting_from_mastodon = 1 OR posting_from_twitter = 1) AND (mastodon_last_check < now() - interval \'? seconds\' or twitter_last_check < now() - interval \'? seconds\')', true, true, OLDER_THAN_IN_SECONDS, OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc, twitter_last_check: :asc).first
+      u = User.where('(posting_from_mastodon = ? OR posting_from_twitter = ?) AND (mastodon_last_check < now() - interval \'? seconds\' or twitter_last_check < now() - interval \'? seconds\')', true, true, OLDER_THAN_IN_SECONDS, OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc, twitter_last_check: :asc).first
       if u.nil?
         Rails.logger.debug { "No user to look at. Sleeping for #{SLEEP_FOR} seconds" }
         sleeper.sleep(SLEEP_FOR)
