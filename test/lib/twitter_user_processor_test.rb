@@ -24,6 +24,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       assert_equal Time.now, user.twitter_last_check
     end
   end
+  test 'process_user without posting from twitter' do
+    user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago, posting_from_twitter: false)
+
+    TwitterUserProcessor.expects(:get_last_tweets_for_user).times(0)
+
+    Timecop.freeze do
+      TwitterUserProcessor::process_user(user)
+
+      assert_equal Time.now, user.twitter_last_check
+    end
+  end
 
   test 'user_timeline_options with no last_tweet' do
     user = create(:user_with_mastodon_and_twitter, last_tweet: nil)
