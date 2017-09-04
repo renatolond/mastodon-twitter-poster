@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.2'
+gem 'rails-i18n', '~> 5.0.0'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
