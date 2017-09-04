@@ -7,6 +7,9 @@ class UsersController < ApplicationController
     current_user.update_attributes!(user_params)
     flash[:success] = 'Your changes were saved.'
     redirect_to user_path
+  rescue ActiveRecord::RecordInvalid => ex
+    flash[:error] = ex.message
+    redirect_to user_path
   end
 
   def user_params

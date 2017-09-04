@@ -34,3 +34,4 @@ en:
   masto_mention_options: 'Mention options:'
   masto_mention_options_explanation: "This service considers mention as a toot that's not a reply, but that begins with a mention to another user."
   no_twitter_yet: 'At the moment, Tweets are not posted in Mastodon. Wait for future updates or help us with a pull request!'
+  impossible_both_networks: 'Not possible to have both networks enabled at the moment'

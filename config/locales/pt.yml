@@ -34,3 +34,4 @@ pt:
   masto_mention_options: 'Opções das menções:'
   masto_mention_options_explanation: "Esse serviço considera uma menção um toot que não é uma resposta, mas que começa com uma menção a outro usuário"
   no_twitter_yet: 'No momento, ainda não postamos tweets no Mastodon. Espere por updates no futuro ou nos ajude com um pull request!'
+  impossible_both_networks: 'Não é possível habilitar as duas redes ao mesmo tempo por enquanto.'

@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   has_many :authorizations
 
+  validate :one_network_enabled_at_a_time
+
   def twitter
     @twitter ||= authorizations.where(provider: :twitter).last
   end
@@ -98,5 +100,11 @@ class User < ApplicationRecord
     end
 
     authorization.user
+  end
+
+  def one_network_enabled_at_a_time
+    if posting_from_twitter && posting_from_mastodon
+      errors.add(:base, I18n.t(:impossible_both_networks))
+    end
   end
 end
