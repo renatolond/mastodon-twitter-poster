@@ -50,6 +50,7 @@ class TwitterUserProcessor
     elsif tweet.reply?
       process_reply(tweet, user)
     else
+      process_normal_tweet(tweet, user)
     end
   end
 
@@ -61,5 +62,10 @@ class TwitterUserProcessor
   def self.process_reply(_tweet, _user)
     Rails.logger.debug('Ignoring reply, not implemented')
     stats.increment("tweet.reply.skipped")
+  end
+
+  def self.process_normal_tweet(_tweet, _user)
+    Rails.logger.debug('Ignoring normal tweet, not implemented')
+    stats.increment("tweet.normal.skipped")
   end
 end

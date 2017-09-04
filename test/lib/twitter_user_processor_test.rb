@@ -123,4 +123,15 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TwitterUserProcessor::process_tweet(t, user)
   end
+  test 'process tweet - normal tweet' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/902835613539422209.json').to_return(web_fixture('twitter_regular_tweet.json'))
+
+    t = user.twitter_client.status(902835613539422209)
+
+    TwitterUserProcessor.expects(:process_normal_tweet).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
 end
