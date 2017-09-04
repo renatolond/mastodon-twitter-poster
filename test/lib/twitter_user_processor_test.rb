@@ -133,4 +133,25 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TwitterUserProcessor::process_tweet(t, user)
   end
+
+  test 'process normal tweet' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    TwitterUserProcessor.expects(:toot).times(1).returns(nil)
+    tweet = mock()
+    tweet.expects(:text).returns('Tweet')
+
+    TwitterUserProcessor::process_normal_tweet(tweet, user)
+  end
+
+  test 'toot' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    text = 'Oh yeah!'
+    masto_client = mock()
+    user.expects(:mastodon_client).returns(masto_client)
+    masto_client.expects(:create_status).with(text)
+
+    TwitterUserProcessor::toot(text, user)
+  end
 end

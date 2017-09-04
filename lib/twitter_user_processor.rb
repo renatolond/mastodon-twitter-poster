@@ -63,8 +63,13 @@ class TwitterUserProcessor
     stats.increment("tweet.reply.skipped")
   end
 
-  def self.process_normal_tweet(_tweet, _user)
-    Rails.logger.debug('Ignoring normal tweet, not implemented')
-    stats.increment("tweet.normal.skipped")
+  def self.process_normal_tweet(tweet, user)
+    toot(tweet.text, user)
+  end
+
+  def self.toot(text, user)
+    Rails.logger.debug { "Posting to Mastodon: #{text}" }
+    stats.increment('tweet.posted_to_mastodon')
+    user.mastodon_client.create_status(text)
   end
 end
