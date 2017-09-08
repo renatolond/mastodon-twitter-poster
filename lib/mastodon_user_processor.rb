@@ -1,4 +1,6 @@
 require 'stats'
+require 'mastodon_ext'
+require 'toot_transformer'
 
 class MastodonUserProcessor
   def self.stats
@@ -154,16 +156,17 @@ class MastodonUserProcessor
     media_ids = []
     opts = {}
     medias.each do |media|
-      if media.url.last(3) == 'mp4'
-        opts[:force_toot_url] = true
-        next
-      end
-      file = Tempfile.new('media', "#{Rails.root}/tmp")
+      file = Tempfile.new(['media', File.extname(media.url)], "#{Rails.root}/tmp")
       file.binmode
       begin
         file.write HTTParty.get(media.url).body
         file.rewind
-        media_ids << user.twitter_client.upload(file).to_s
+        options = {}
+        options = {media_type: 'video/mp4', media_category: 'tweet_video'} if File.extname(media.url) == '.mp4'
+        options = {media_type: 'image/png', media_category: 'tweet_image'} if File.extname(media.url) == '.png'
+        options = {media_type: 'image/jpeg', media_category: 'tweet_image'} if File.extname(media.url) =~ /\.jpe?g$/
+        options = {media_type: 'image/gif', media_category: 'tweet_image'} if File.extname(media.url) == '.gif'
+        media_ids << user.twitter_client.upload(file, options).to_s
       ensure
         file.close
         file.unlink

@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'mastodon-api', require: 'mastodon'
-gem 'twitter'
+gem 'twitter', :github => 'renatolond/twitter', branch: 'different_uploads'
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'omniauth-mastodon'
