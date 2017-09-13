@@ -149,8 +149,8 @@ class MastodonUserProcessor
 
   def self.tweet(content, user, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    stats.increment('toot.posted_to_twitter')
     user.twitter_client.update(content, opts)
+    stats.increment('toot.posted_to_twitter')
   end
 
   def self.upload_media(user, medias)
