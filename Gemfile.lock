@@ -15,6 +15,16 @@ GIT
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
 
+GIT
+  remote: https://github.com/tootsuite/mastodon-api.git
+  revision: 04385988faed858cfabfad2f1aca80be2c456e54
+  branch: master
+  specs:
+    mastodon-api (1.1.0)
+      addressable (~> 2.4)
+      buftok
+      http (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -141,9 +151,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
-    mastodon-api (1.1.0)
-      addressable (~> 2.4)
-      http (~> 2.0)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     metaclass (0.0.4)
@@ -328,7 +335,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  mastodon-api
+  mastodon-api!
   mocha
   nokogiri
   omniauth-mastodon

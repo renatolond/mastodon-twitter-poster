@@ -147,22 +147,83 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
   test 'process normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
+    text = 'Tweet'
+    medias = []
+    possibly_sensitive = false
 
-    TwitterUserProcessor.expects(:toot).times(1).returns(nil)
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:text).returns('Tweet')
+    tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
+    tweet.expects(:media).returns([])
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
+  end
+
+  test 'process normal tweet with media' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = 'Tweet'
+    medias = [123]
+    possibly_sensitive = false
+
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
+    TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
+    tweet = mock()
+    tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
+
+    TwitterUserProcessor::process_normal_tweet(tweet, user)
+  end
+
+  test 'replace links should return regular link instead of shortened one' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920793930428416.json').to_return(web_fixture('twitter_link.json'))
+
+    t = user.twitter_client.status(914920793930428416)
+
+    assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TwitterUserProcessor::replace_links(t)
+  end
+
+  test 'upload medias to mastodon and post them together with the toot' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920718705594369.json').to_return(web_fixture('twitter_image.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DLJzhYFXcAArwlV.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(914920718705594369)
+
+    assert_equal ['Test posting image. ', [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
   end
 
   test 'toot' do
     user = create(:user_with_mastodon_and_twitter)
 
     text = 'Oh yeah!'
+    medias = []
+    possibly_sensitive = false
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
-    masto_client.expects(:create_status).with(text)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
 
-    TwitterUserProcessor::toot(text, user)
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
+  end
+
+  test 'toot with medias' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    text = 'Oh yeah!'
+    medias = [123]
+    possibly_sensitive = false
+    masto_client = mock()
+    user.expects(:mastodon_client).returns(masto_client)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
+
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
   end
 end
