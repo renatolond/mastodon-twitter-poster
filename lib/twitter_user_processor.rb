@@ -65,7 +65,16 @@ class TwitterUserProcessor
   end
 
   def self.process_normal_tweet(tweet, user)
-    toot(tweet.text, user)
+    text = replace_links(tweet)
+    toot(text, user)
+  end
+
+  def self.replace_links(tweet)
+    text = tweet.text.dup
+    tweet.urls.each do |u|
+      text.gsub!(u.url.to_s, u.expanded_url.to_s)
+    end
+    text
   end
 
   def self.toot(text, user)

@@ -149,10 +149,20 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter)
 
     TwitterUserProcessor.expects(:toot).times(1).returns(nil)
+    TwitterUserProcessor.expects(:replace_links).times(1).returns('Tweet')
     tweet = mock()
-    tweet.expects(:text).returns('Tweet')
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
+  end
+
+  test 'replace links should return regular link instead of shortened one' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920793930428416.json').to_return(web_fixture('twitter_link.json'))
+
+    t = user.twitter_client.status(914920793930428416)
+
+    assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TwitterUserProcessor::replace_links(t)
   end
 
   test 'toot' do
