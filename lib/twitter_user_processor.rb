@@ -67,7 +67,7 @@ class TwitterUserProcessor
   def self.process_normal_tweet(tweet, user)
     text = replace_links(tweet)
     text, medias = find_media(tweet, user, text)
-    toot(text, medias, tweet.possibly_sensitive, user)
+    toot(text, medias, tweet.possibly_sensitive?, user)
   end
 
   def self.find_media(tweet, user, text)

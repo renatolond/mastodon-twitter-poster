@@ -154,7 +154,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
     TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:possibly_sensitive).returns(possibly_sensitive)
+    tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
@@ -170,7 +170,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
     tweet = mock()
-    tweet.expects(:possibly_sensitive).returns(possibly_sensitive)
+    tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
   end
