@@ -147,11 +147,30 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
   test 'process normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
+    text = 'Tweet'
+    medias = [123]
+    possibly_sensitive = false
 
-    TwitterUserProcessor.expects(:toot).times(1).returns(nil)
-    TwitterUserProcessor.expects(:replace_links).times(1).returns('Tweet')
-    TwitterUserProcessor.expects(:find_media).times(1).returns('Tweet')
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
+    TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
     tweet = mock()
+    tweet.expects(:possibly_sensitive).returns(possibly_sensitive)
+
+    TwitterUserProcessor::process_normal_tweet(tweet, user)
+  end
+
+  test 'process normal tweet with media' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = 'Tweet'
+    medias = []
+    possibly_sensitive = false
+
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
+    TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
+    tweet = mock()
+    tweet.expects(:possibly_sensitive).returns(possibly_sensitive)
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
   end
@@ -186,10 +205,25 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter)
 
     text = 'Oh yeah!'
+    medias = []
+    possibly_sensitive = false
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
-    masto_client.expects(:create_status).with(text)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
 
-    TwitterUserProcessor::toot(text, user)
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
+  end
+
+  test 'toot with medias' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    text = 'Oh yeah!'
+    medias = [123]
+    possibly_sensitive = false
+    masto_client = mock()
+    user.expects(:mastodon_client).returns(masto_client)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
+
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
   end
 end

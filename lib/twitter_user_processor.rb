@@ -66,8 +66,8 @@ class TwitterUserProcessor
 
   def self.process_normal_tweet(tweet, user)
     text = replace_links(tweet)
-    text, media = find_media(tweet, text)
-    toot(text, user)
+    text, medias = find_media(tweet, text)
+    toot(text, medias, tweet.possibly_sensitive, user)
   end
 
   def self.find_media(tweet, user, text)
@@ -100,9 +100,9 @@ class TwitterUserProcessor
     text
   end
 
-  def self.toot(text, user)
+  def self.toot(text, medias, possibly_sensitive, user)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     stats.increment('tweet.posted_to_mastodon')
-    user.mastodon_client.create_status(text)
+    user.mastodon_client.create_status(text, sensitive: possibly_sensitive, media_ids: medias)
   end
 end
