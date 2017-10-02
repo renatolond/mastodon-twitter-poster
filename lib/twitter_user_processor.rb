@@ -66,7 +66,30 @@ class TwitterUserProcessor
 
   def self.process_normal_tweet(tweet, user)
     text = replace_links(tweet)
+    text, media = find_media(tweet, text)
     toot(text, user)
+  end
+
+  def self.find_media(tweet, user, text)
+    medias = []
+    tweet.media.each do |media|
+      text.gsub!(media.url, '')
+      url = URI.parse(media.media_url)
+      url.query = nil
+      url = url.to_s
+      file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
+      file.binmode
+      begin
+        file.write HTTParty.get(media.media_url).body
+        file.rewind
+        media = user.mastodon_client.upload_media(file)
+        medias << media.id
+      ensure
+        file.close
+        file.unlink
+      end
+    end
+    return text, medias
   end
 
   def self.replace_links(tweet)
