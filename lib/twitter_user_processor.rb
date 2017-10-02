@@ -34,7 +34,7 @@ class TwitterUserProcessor
         process_tweet(t, user)
         last_successful_tweet = t
       rescue StandardError => ex
-        Rails.logger.error { "Could not process user #{user.twitter.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
+        Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")
         break
       end
