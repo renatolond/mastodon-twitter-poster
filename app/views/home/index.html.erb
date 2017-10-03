@@ -21,3 +21,7 @@
     <% end %>
   </div>
 </div>
+<hr / >
+<% if twitter? or mastodon? %>
+<%= render 'sync_status' %>
+<% end %>
