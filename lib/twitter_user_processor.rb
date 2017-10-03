@@ -73,14 +73,24 @@ class TwitterUserProcessor
   def self.find_media(tweet, user, text)
     medias = []
     tweet.media.each do |media|
+      media_url = nil
+      if media.is_a? Twitter::Media::AnimatedGif
+        media_url = media.video_info.variants.first.url.to_s
+      elsif media.is_a? Twitter::Media::Photo
+        media_url = media.media_url
+      else
+        stats.increment('tweet.unknown_media')
+        Rails.logger.warn { "Unknown media #{media.class.name}" }
+        next
+      end
       text.gsub!(media.url, '')
-      url = URI.parse(media.media_url)
+      url = URI.parse(media_url)
       url.query = nil
       url = url.to_s
       file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
       file.binmode
       begin
-        file.write HTTParty.get(media.media_url).body
+        file.write HTTParty.get(media_url).body
         file.rewind
         media = user.mastodon_client.upload_media(file)
         medias << media.id
