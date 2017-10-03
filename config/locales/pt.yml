@@ -47,3 +47,4 @@ pt:
   masto_not_posting_private: 'Você não está postando toots privados.'
   masto_not_posting_boost: 'Você não está postando toots compartilhados.'
   masto_posting_boost_as_link: 'Você está postando toots compartilhados como links.'
+  change_this_on_options: "Você pode mudar essas configurações nas %{options}."

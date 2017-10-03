@@ -47,3 +47,4 @@ en:
   masto_not_posting_private: "You're not posting private toots."
   masto_not_posting_boost: "You're not posting boosted toots."
   masto_posting_boost_as_link: "You're posting boosted toots as links."
+  change_this_on_options: "You can change these settings by going to %{options}."
