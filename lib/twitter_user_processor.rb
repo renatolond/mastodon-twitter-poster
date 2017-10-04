@@ -1,6 +1,10 @@
 require 'stats'
 
 class TwitterUserProcessor
+  def self.html_entities
+    @@html_entities ||= HTMLEntities.new
+  end
+
   def self.stats
     @@stats ||= Stats.new
   end
@@ -67,6 +71,7 @@ class TwitterUserProcessor
   def self.process_normal_tweet(tweet, user)
     text = replace_links(tweet)
     text, medias = find_media(tweet, user, text)
+    text = self.html_entities.decode(text)
     toot(text, medias, tweet.possibly_sensitive?, user)
   end
 

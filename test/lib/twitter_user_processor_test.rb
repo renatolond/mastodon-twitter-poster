@@ -217,6 +217,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     assert_equal ['Test gif for crossposter ', [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
   end
 
+  test 'tweet with escaped chars' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = '< > 3 # ? ! = $ á é í ó ú ü ä ë ï ö € testing random chars'
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/915659091166613505.json').to_return(web_fixture('twitter_chars.json'))
+    t = user.twitter_client.status(915659091166613505)
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user)
+    TwitterUserProcessor::process_normal_tweet(t, user)
+  end
+
   test 'toot' do
     user = create(:user_with_mastodon_and_twitter)
 
