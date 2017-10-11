@@ -228,6 +228,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
+  test 'tweet with mention should change into mention with @twitter.com' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = '@renatolond@twitter.com @ ohnoes@ test @renatolond@twitter.com lond@lond.com.br @renatolond@twitter.com'
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/898092629677801472.json').to_return(web_fixture('twitter_mention2.json'))
+    t = user.twitter_client.status(898092629677801472)
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user)
+    TwitterUserProcessor::process_normal_tweet(t, user)
+  end
+
   test 'toot' do
     user = create(:user_with_mastodon_and_twitter)
 
