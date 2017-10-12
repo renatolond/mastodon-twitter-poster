@@ -36,7 +36,7 @@ pt:
   twitter_synchronization_status: 'Postar tweets para o mastodon:'
   twitter_sync_status_true: 'Sim'
   twitter_sync_status_false: 'Não'
-  twitter_sync_explanation: 'No momento, somente tweets que não comecem por menções e não sejam retweets serão postados. Qualquer mídia será ignorada. Também é impossível ter as duas direções ligadas ao mesmo tempo.'
+  twitter_sync_explanation: 'No momento, somente tweets que não comecem por menções e não sejam retweets serão postados. Também é impossível ter as duas direções ligadas ao mesmo tempo.'
   impossible_both_networks: 'Não é possível habilitar as duas redes ao mesmo tempo por enquanto.'
   no_sync_right_now: "No momento, você *não* está postando em lugar algum."
   toots_posted_to_twitter: 'Seus toots estão sendo postados no Twitter.'

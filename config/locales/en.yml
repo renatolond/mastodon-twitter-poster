@@ -36,7 +36,7 @@ en:
   twitter_synchronization_status: 'Post my tweets on Mastodon:'
   twitter_sync_status_true: 'ON'
   twitter_sync_status_false: 'OFF'
-  twitter_sync_explanation: 'At the moment, only tweets that are not replies or retweets will be posted. Any media will be ignored. Also, you cannot have both directions enabled at the same time.'
+  twitter_sync_explanation: 'At the moment, only tweets that are not replies or retweets will be posted. Also, you cannot have both directions enabled at the same time.'
   impossible_both_networks: 'Not possible to have both networks enabled at the moment'
   no_sync_right_now: "Currently, you're *not* posting anywhere."
   toots_posted_to_twitter: 'Your toots are being posted to Twitter.'
