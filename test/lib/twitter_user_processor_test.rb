@@ -198,7 +198,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369)
 
-    assert_equal ["Test posting image. \nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
+    assert_equal ["Test posting image.\nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
@@ -214,7 +214,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(915023144573915137)
 
-    assert_equal ["Test gif for crossposter \nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
+    assert_equal ["Test gif for crossposter\nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
   end
 
   test 'tweet with escaped chars' do

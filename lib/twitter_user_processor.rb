@@ -89,7 +89,7 @@ class TwitterUserProcessor
         Rails.logger.warn { "Unknown media #{media.class.name}" }
         next
       end
-      text.gsub!(media.url, '')
+      text.gsub!(media.url, '').strip!
       url = URI.parse(media_url)
       url.query = nil
       url = url.to_s
