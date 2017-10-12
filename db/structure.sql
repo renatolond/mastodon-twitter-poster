@@ -152,7 +152,7 @@ CREATE TABLE users (
     id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    last_toot integer,
+    last_toot bigint,
     last_tweet bigint,
     twitter_last_check timestamp without time zone DEFAULT now(),
     mastodon_last_check timestamp without time zone DEFAULT now(),
@@ -279,6 +279,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810105204'),
 ('20170810105214'),
 ('20170812195419'),
-('20170817073406');
+('20170817073406'),
+('20171012093059');
 
 
