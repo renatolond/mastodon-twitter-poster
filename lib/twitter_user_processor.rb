@@ -99,6 +99,7 @@ class TwitterUserProcessor
         file.write HTTParty.get(media_url).body
         file.rewind
         media = user.mastodon_client.upload_media(file)
+        text << "\n#{media.text_url}"
         medias << media.id
       ensure
         file.close
