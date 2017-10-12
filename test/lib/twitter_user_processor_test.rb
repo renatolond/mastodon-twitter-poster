@@ -198,7 +198,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369)
 
-    assert_equal ["Test posting image.\nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
+    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t, user, t.text.dup)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
@@ -214,7 +214,26 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(915023144573915137)
 
-    assert_equal ["Test gif for crossposter\nhttps://masto.test/media/Sb_IvtOAk9qDLDwbZC8", [273]], TwitterUserProcessor::find_media(t, user, t.text.dup)
+    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t, user, t.text.dup)
+  end
+
+  test 'post tweet with images but no text' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920718705594369.json').to_return(web_fixture('twitter_image2.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DLJzhYFXcAArwlV.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(914920718705594369)
+
+    text = 'https://masto.test/media/Sb_IvtOAk9qDLDwbZC8'
+
+    TwitterUserProcessor.expects(:toot).with(text, [273], false, user)
+    TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
   test 'tweet with escaped chars' do

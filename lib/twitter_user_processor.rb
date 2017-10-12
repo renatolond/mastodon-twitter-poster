@@ -71,13 +71,15 @@ class TwitterUserProcessor
   def self.process_normal_tweet(tweet, user)
     text = replace_links(tweet)
     text = replace_mentions(text)
-    text, medias = find_media(tweet, user, text)
+    text, medias, media_links = find_media(tweet, user, text)
     text = self.html_entities.decode(text)
+    text = media_links.join("\n") if text.empty?
     toot(text, medias, tweet.possibly_sensitive?, user)
   end
 
   def self.find_media(tweet, user, text)
     medias = []
+    media_links = []
     tweet.media.each do |media|
       media_url = nil
       if media.is_a? Twitter::Media::AnimatedGif
@@ -99,14 +101,14 @@ class TwitterUserProcessor
         file.write HTTParty.get(media_url).body
         file.rewind
         media = user.mastodon_client.upload_media(file)
-        text << "\n#{media.text_url}"
+        media_links << media.text_url
         medias << media.id
       ensure
         file.close
         file.unlink
       end
     end
-    return text, medias
+    return text, medias, media_links
   end
 
   def self.replace_mentions(text)
