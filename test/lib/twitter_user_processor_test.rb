@@ -249,7 +249,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
   test 'tweet with mention should change into mention with @twitter.com' do
     user = create(:user_with_mastodon_and_twitter)
-    text = '@renatolond@twitter.com @ ohnoes@ test @renatolond@twitter.com lond@lond.com.br @renatolond@twitter.com'
+    text = '@renatolond@twitter.com @ ohnoes@ test @renatolond@twitter.com lond@lond.com.br @renatolond@twitter.com! @renatolond@twitter.com-azul'
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/898092629677801472.json').to_return(web_fixture('twitter_mention2.json'))
     t = user.twitter_client.status(898092629677801472)
