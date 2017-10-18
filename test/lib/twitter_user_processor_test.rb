@@ -258,6 +258,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
+  test 'tweet with multiple media (but only one link in text)' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = 'Test medias'
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/898629946888814593.json').to_return(web_fixture('twitter_multiple_media.json'))
+    t = user.twitter_client.status(898629946888814593)
+    stub_request(:get, 'http://pbs.twimg.com/media/DHiTJq8WAAAJTBe.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DHiTKKpXgAAV5sb.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DHiTKlyWAAAmZGE.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DHiTK9_WAAIRzVA.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    TwitterUserProcessor.expects(:toot).with(text, [273, 273, 273, 273], false, user)
+    TwitterUserProcessor::process_normal_tweet(t, user)
+  end
+
   test 'toot' do
     user = create(:user_with_mastodon_and_twitter)
 
