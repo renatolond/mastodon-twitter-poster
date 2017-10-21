@@ -104,6 +104,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     equalizer (0.0.11)
     erubi (1.6.1)
     execjs (2.7.0)
@@ -327,6 +331,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   daemons
   devise
+  dotenv-rails
   factory_girl_rails
   faker
   foreman
@@ -363,7 +368,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.4.2p198
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

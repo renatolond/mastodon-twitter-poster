@@ -1,2 +1,1 @@
 web: bundle exec puma -C config/puma.rb
-statsd: node node_modules/statsd/stats.js statsd-config.js

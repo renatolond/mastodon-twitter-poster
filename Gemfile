@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.4.2'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -38,6 +38,7 @@ gem 'httparty'
 
 gem 'statsd-ruby'
 gem 'foreman'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug'
