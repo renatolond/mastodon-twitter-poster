@@ -31,7 +31,7 @@ class TwitterUserProcessor
   def self.get_last_tweets_for_user(user)
     return unless user.mastodon && user.twitter
 
-    new_tweets = user.twitter_client.user_timeline(user_timeline_options(user))
+    new_tweets = user.twitter_client.user_timeline(user_timeline_options(user).merge({tweet_mode: 'extended'}))
     last_successful_tweet = nil
     new_tweets.reverse.each do |t|
       begin
@@ -49,7 +49,7 @@ class TwitterUserProcessor
   end
 
   def self.process_tweet(tweet, user)
-    if(tweet.retweet? || tweet.text[0..3] == 'RT @')
+    if(tweet.retweet? || tweet.full_text[0..3] == 'RT @')
       process_retweet(tweet, user)
     elsif tweet.reply?
       process_reply(tweet, user)
@@ -117,7 +117,7 @@ class TwitterUserProcessor
   end
 
   def self.replace_links(tweet)
-    text = tweet.text.dup
+    text = tweet.full_text.dup
     tweet.urls.each do |u|
       text.gsub!(u.url.to_s, u.expanded_url.to_s)
     end
