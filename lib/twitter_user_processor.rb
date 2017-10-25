@@ -126,7 +126,7 @@ class TwitterUserProcessor
 
   def self.toot(text, medias, possibly_sensitive, user)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
-    stats.increment('tweet.posted_to_mastodon')
     user.mastodon_client.create_status(text, sensitive: possibly_sensitive, media_ids: medias)
+    stats.increment('tweet.posted_to_mastodon')
   end
 end
