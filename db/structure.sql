@@ -79,7 +79,8 @@ CREATE TABLE authorizations (
     token character varying,
     secret character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    mastodon_client_id bigint
 );
 
 
@@ -248,6 +249,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_authorizations_on_mastodon_client_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_authorizations_on_mastodon_client_id ON authorizations USING btree (mastodon_client_id);
+
+
+--
 -- Name: index_authorizations_on_provider_and_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -259,6 +267,14 @@ CREATE UNIQUE INDEX index_authorizations_on_provider_and_uid ON authorizations U
 --
 
 CREATE UNIQUE INDEX index_mastodon_clients_on_domain ON mastodon_clients USING btree (domain);
+
+
+--
+-- Name: authorizations fk_rails_7cfd93d6c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY authorizations
+    ADD CONSTRAINT fk_rails_7cfd93d6c7 FOREIGN KEY (mastodon_client_id) REFERENCES mastodon_clients(id);
 
 
 --
@@ -280,6 +296,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170810105214'),
 ('20170812195419'),
 ('20170817073406'),
-('20171012093059');
+('20171012093059'),
+('20171025125328');
 
 

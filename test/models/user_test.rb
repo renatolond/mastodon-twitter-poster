@@ -141,6 +141,7 @@ class UserTest < ActiveSupport::TestCase
     expected_domain = 'my_domain.com'
 
     authorization = build(:authorization_mastodon, uid: "user@#{expected_domain}")
+    mastodon_client = create(:mastodon_client, domain: expected_domain).reload
     auth = mock()
     credentials = mock()
     auth.expects(:provider).at_least(1).returns(authorization.provider)
@@ -157,6 +158,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal authorization.uid, u.mastodon.uid
     assert_equal authorization.token, u.mastodon.token
     assert_equal authorization.secret, u.mastodon.secret
+    assert_equal mastodon_client.id, u.mastodon.mastodon_client_id
   end
 
   test 'Omniauth with no previous user, not allowing new users' do

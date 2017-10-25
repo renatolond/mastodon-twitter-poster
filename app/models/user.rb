@@ -60,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def mastodon_domain
-    @mastodon_domain ||= "https://#{mastodon.uid.split('@').last}"
+    @mastodon_domain ||= "https://#{mastodon.mastodon_client.domain}"
   end
 
   def mastodon_client
@@ -88,13 +88,9 @@ class User < ApplicationRecord
     authorization.token  = auth.credentials.token
     authorization.secret = auth.credentials.secret
 
-    authorization.save
+    authorization.fetch_profile_data if authorization.token_changed?
 
-    if auth.provider == 'twitter' and user.last_tweet.nil?
-      authorization.user.save_last_tweet_id
-    elsif auth.provider == 'mastodon' and user.last_toot.nil?
-      authorization.user.save_last_toot_id
-    end
+    authorization.save
 
     authorization.user
   end
