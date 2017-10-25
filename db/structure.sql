@@ -146,6 +146,39 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: statuses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE statuses (
+    id bigint NOT NULL,
+    mastodon_client_id bigint NOT NULL,
+    masto_id bigint NOT NULL,
+    tweet_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE statuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE statuses_id_seq OWNED BY statuses.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -202,6 +235,13 @@ ALTER TABLE ONLY mastodon_clients ALTER COLUMN id SET DEFAULT nextval('mastodon_
 
 
 --
+-- Name: statuses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY statuses ALTER COLUMN id SET DEFAULT nextval('statuses_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -241,6 +281,14 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
+-- Name: statuses statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY statuses
+    ADD CONSTRAINT statuses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -267,6 +315,35 @@ CREATE UNIQUE INDEX index_authorizations_on_provider_and_uid ON authorizations U
 --
 
 CREATE UNIQUE INDEX index_mastodon_clients_on_domain ON mastodon_clients USING btree (domain);
+
+
+--
+-- Name: index_statuses_on_mastodon_client_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_statuses_on_mastodon_client_id ON statuses USING btree (mastodon_client_id);
+
+
+--
+-- Name: index_statuses_on_mastodon_client_id_and_masto_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_statuses_on_mastodon_client_id_and_masto_id ON statuses USING btree (mastodon_client_id, masto_id);
+
+
+--
+-- Name: index_statuses_on_tweet_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_statuses_on_tweet_id ON statuses USING btree (tweet_id);
+
+
+--
+-- Name: statuses fk_rails_68a10127d4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY statuses
+    ADD CONSTRAINT fk_rails_68a10127d4 FOREIGN KEY (mastodon_client_id) REFERENCES mastodon_clients(id);
 
 
 --
@@ -297,6 +374,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170812195419'),
 ('20170817073406'),
 ('20171012093059'),
+('20171025115156'),
 ('20171025125328');
 
 

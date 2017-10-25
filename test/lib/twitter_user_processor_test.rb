@@ -140,7 +140,21 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(902835613539422209, tweet_mode: 'extended')
 
+    TwitterUserProcessor.expects(:posted_by_crossposter).with(t).times(1).returns(false)
     TwitterUserProcessor.expects(:process_normal_tweet).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
+
+  test 'process tweet - ignore tweet posted by the crossposter' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/902835613539422209.json').to_return(web_fixture('twitter_regular_tweet.json'))
+
+    t = user.twitter_client.status(902835613539422209)
+
+    TwitterUserProcessor.expects(:posted_by_crossposter).with(t).times(1).returns(true)
+    TwitterUserProcessor.expects(:process_normal_tweet).times(0).returns(nil)
 
     TwitterUserProcessor::process_tweet(t, user)
   end
@@ -148,12 +162,14 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'process normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
     text = 'Tweet'
+    tweet_id = 999999
     medias = []
     possibly_sensitive = false
 
-    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user, tweet_id).times(1).returns(nil)
     TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     tweet = mock()
+    tweet.expects(:id).returns(tweet_id)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
 
@@ -164,12 +180,14 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter)
     text = 'Tweet'
     medias = [123]
+    tweet_id = 9999999
     possibly_sensitive = false
 
-    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user).times(1).returns(nil)
+    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user, tweet_id).times(1).returns(nil)
     TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
     tweet = mock()
+    tweet.expects(:id).returns(tweet_id)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
@@ -232,7 +250,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     text = 'https://masto.test/media/Sb_IvtOAk9qDLDwbZC8'
 
-    TwitterUserProcessor.expects(:toot).with(text, [273], false, user)
+    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id)
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
@@ -243,7 +261,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/923129550372048896.json?tweet_mode=extended').to_return(web_fixture('twitter_280chars.json'))
     t = user.twitter_client.status(923129550372048896, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user)
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
@@ -254,7 +272,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/915662689359278080.json?tweet_mode=extended').to_return(web_fixture('twitter_chars.json'))
     t = user.twitter_client.status(915662689359278080, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user)
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
@@ -265,7 +283,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/898092629677801472.json?tweet_mode=extended').to_return(web_fixture('twitter_mention2.json'))
     t = user.twitter_client.status(898092629677801472, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user)
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
@@ -286,7 +304,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture('mastodon_image_post.json'))
 
-    TwitterUserProcessor.expects(:toot).with(text, [273, 273, 273, 273], false, user)
+    TwitterUserProcessor.expects(:toot).with(text, [273, 273, 273, 273], false, user, t.id)
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
@@ -294,25 +312,60 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter)
 
     text = 'Oh yeah!'
+    tweet_id = 2938928398392
+    masto_id = 98392839283
     medias = []
     possibly_sensitive = false
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
+    masto_status = mock()
+    masto_status.expects(:id).returns(masto_id)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
-    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
   end
 
   test 'toot with medias' do
     user = create(:user_with_mastodon_and_twitter)
 
     text = 'Oh yeah!'
+    tweet_id = 9929292
+    masto_id = 98392839283
     medias = [123]
     possibly_sensitive = false
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias)
+    masto_status = mock()
+    masto_status.expects(:id).returns(masto_id)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
-    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user)
+    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
+  end
+
+  test 'posted by crossposter - new app link' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/923201403337826304.json?tweet_mode=extended').to_return(web_fixture('twitter_used_crossposter2.json'))
+    t = user.twitter_client.status(923201403337826304, tweet_mode: 'extended')
+
+    assert TwitterUserProcessor::posted_by_crossposter(t)
+  end
+  test 'posted by crossposter - github link' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/896020976940535808.json?tweet_mode=extended').to_return(web_fixture('twitter_used_crossposter.json'))
+    t = user.twitter_client.status(896020976940535808, tweet_mode: 'extended')
+
+    assert TwitterUserProcessor::posted_by_crossposter(t)
+  end
+  test 'posted by crossposter - status in the database' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/915662689359278080.json?tweet_mode=extended').to_return(web_fixture('twitter_chars.json'))
+    t = user.twitter_client.status(915662689359278080, tweet_mode: 'extended')
+
+    status = create(:status, tweet_id: t.id)
+
+    assert TwitterUserProcessor::posted_by_crossposter(t)
   end
 end

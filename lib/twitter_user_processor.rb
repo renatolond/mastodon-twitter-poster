@@ -48,7 +48,20 @@ class TwitterUserProcessor
     user.save
   end
 
+  def self.posted_by_crossposter(tweet)
+    return true unless tweet.source['https://crossposter.masto.donte.com.br'].nil? &&
+    tweet.source['https://github.com/renatolond/mastodon-twitter-poster'].nil? &&
+    Status.find_by_tweet_id(tweet.id) == nil
+    false
+  end
+
   def self.process_tweet(tweet, user)
+    if(posted_by_crossposter(tweet))
+      Rails.logger.debug('Ignoring tweet, was posted by the crossposter')
+      stats.increment('tweet.posted_by_crossposter.skipped')
+      return
+    end
+
     if(tweet.retweet? || tweet.full_text[0..3] == 'RT @')
       process_retweet(tweet, user)
     elsif tweet.reply?
@@ -74,7 +87,7 @@ class TwitterUserProcessor
     text, medias, media_links = find_media(tweet, user, text)
     text = self.html_entities.decode(text)
     text = media_links.join("\n") if text.empty?
-    toot(text, medias, tweet.possibly_sensitive?, user)
+    toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
   end
 
   def self.find_media(tweet, user, text)
@@ -124,9 +137,10 @@ class TwitterUserProcessor
     text
   end
 
-  def self.toot(text, medias, possibly_sensitive, user)
+  def self.toot(text, medias, possibly_sensitive, user, tweet_id)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
-    user.mastodon_client.create_status(text, sensitive: possibly_sensitive, media_ids: medias)
+    status = user.mastodon_client.create_status(text, sensitive: possibly_sensitive, media_ids: medias)
     stats.increment('tweet.posted_to_mastodon')
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet_id)
   end
 end
