@@ -22,7 +22,7 @@ FactoryGirl.define do
       masto_domain Faker::Internet.domain_name
     end
     after(:build) do |user, evaluator|
-      user.authorizations << build(:authorization_mastodon, user: user, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
+      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
       user.authorizations << build(:authorization_twitter, user: user)
     end
 

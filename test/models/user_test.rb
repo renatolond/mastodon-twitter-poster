@@ -141,6 +141,7 @@ class UserTest < ActiveSupport::TestCase
     expected_domain = 'my_domain.com'
 
     authorization = build(:authorization_mastodon, uid: "user@#{expected_domain}")
+    mastodon_client = create(:mastodon_client, domain: expected_domain).reload
     auth = mock()
     credentials = mock()
     auth.expects(:provider).at_least(1).returns(authorization.provider)
@@ -157,6 +158,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal authorization.uid, u.mastodon.uid
     assert_equal authorization.token, u.mastodon.token
     assert_equal authorization.secret, u.mastodon.secret
+    assert_equal mastodon_client.id, u.mastodon.mastodon_client_id
   end
 
   test 'Omniauth with no previous user, not allowing new users' do
@@ -200,5 +202,30 @@ class UserTest < ActiveSupport::TestCase
     assert_raise ActiveRecord::RecordInvalid do
       user.save!
     end
+  end
+  test 'User changes domain and toot counter is not reset' do
+    user = create(:user_with_mastodon_and_twitter, last_toot: 20010010)
+
+    authorization = build(:authorization_mastodon, uid: user.mastodon.uid, token: 'super-crazy-token')
+    auth = mock()
+    credentials = mock()
+    auth.expects(:provider).at_least(1).returns(authorization.provider)
+    auth.expects(:uid).at_least(1).returns(authorization.uid)
+    auth.expects(:credentials).at_least(1).returns(credentials)
+    credentials.expects(:token).returns(authorization.token)
+    credentials.expects(:secret).returns(authorization.secret)
+
+    mastodon_id = 123
+    expected_mastodon_status_id = 2
+    mastodon_client = mock()
+    user.expects(:mastodon_client).returns(mastodon_client)
+    user.expects(:mastodon_id).returns(mastodon_id)
+    mastodon_status = mock()
+    mastodon_client.expects(:statuses).with(mastodon_id, {limit: 1}).returns([mastodon_status])
+    mastodon_status.expects(:id).returns(expected_mastodon_status_id)
+
+    u = User.from_omniauth(auth, user)
+    assert_not_equal 20010010, u.last_toot
+    assert_equal expected_mastodon_status_id, u.last_toot
   end
 end
