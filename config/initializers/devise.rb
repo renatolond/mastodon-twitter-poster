@@ -257,7 +257,7 @@ Devise.setup do |config|
 
     return [client.client_id, client.client_secret] unless client.new_record?
 
-    new_client = Mastodon::REST::Client.new(base_url: "https://#{domain}").create_app('Mastodon Twitter Crossposter', callback_url, 'read write')
+    new_client = Mastodon::REST::Client.new(base_url: "https://#{domain}").create_app('Mastodon Twitter Crossposter', callback_url, 'read write', 'https://crossposter.masto.donte.com.br')
 
     client.client_id = new_client.client_id
     client.client_secret = new_client.client_secret
