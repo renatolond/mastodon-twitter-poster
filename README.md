@@ -10,7 +10,7 @@ Rails 5.1
 
 ## Requirements
 
-Without extra configuration, a local postgres instance is needed.
+Without extra configuration, a local postgres instance is needed. Node 6.11 is needed for statsd, can be installed using [nvm](https://github.com/creationix/nvm).
 
 ## Tests
 
