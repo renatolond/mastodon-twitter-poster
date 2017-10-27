@@ -1,7 +1,8 @@
 class TootTransformer
   HTTP_REGEX = /(?:http:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
   HTTPS_REGEX = /(?:https:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
-  TWITTER_MENTION_REGEX = /@([^@]+)@twitter.com/
+  MASTODON_USERNAME_REGEX = /@\w+@[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
+  TWITTER_MENTION_REGEX = /@(\w+)@twitter.com/
   TWITTER_MAX_LENGTH = 140
 
   def self.media_regex(mastodon_domain)
@@ -17,8 +18,9 @@ class TootTransformer
   end
 
   def self.transform_rec(text, toot_url, max_length)
-    https_count, https_length = count_regex(text, HTTPS_REGEX)
-    mod_text = text.gsub(HTTPS_REGEX, '')
+    text_without_usernames = text.gsub(MASTODON_USERNAME_REGEX, '')
+    https_count, https_length = count_regex(text_without_usernames, HTTPS_REGEX)
+    mod_text = text_without_usernames.gsub(HTTPS_REGEX, '')
     http_count, http_length = count_regex(mod_text, HTTP_REGEX)
     final_length = (text.length - http_length - https_length) + http_count*twitter_short_url_length + https_count*twitter_short_url_length_https
     if final_length <= max_length

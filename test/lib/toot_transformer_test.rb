@@ -20,6 +20,13 @@ class TootTransformerTest < ActiveSupport::TestCase
     assert_equal [expected_matches, expected_matches_length], TootTransformer.count_regex('ABCDEFABAB', /ABC?/)
   end
 
+  test 'Transform a text with a username in it and it should be posted in full length' do
+    text = "Oh, apparently there's a talk going on in PGConf.eu by @user1@mastodon.social on Mastodon :)\nHope there's a video of it later!"
+    expected_text = text
+
+    assert_equal expected_text, TootTransformer::transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br/', true)
+  end
+
   test 'Transform a text with no links and exactly 140 characters' do
     text = 'Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters :)'
     expected_text = text
