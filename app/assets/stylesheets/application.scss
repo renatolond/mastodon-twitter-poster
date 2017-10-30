@@ -23,3 +23,7 @@ p.trlike:before {
     display: block;
     max-width: 100px
 }
+
+label.btn.btn-primary:not(.active) {
+background-color: #999
+}
