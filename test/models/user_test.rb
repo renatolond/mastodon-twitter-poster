@@ -149,7 +149,11 @@ class UserTest < ActiveSupport::TestCase
     auth.expects(:credentials).at_least(1).returns(credentials)
     credentials.expects(:token).returns(authorization.token)
     credentials.expects(:secret).returns(authorization.secret)
-    User.any_instance.stubs(:save_last_toot_id)
+    user_mastodon_client = mock()
+    Mastodon::REST::Client.expects(:new).with({base_url: "https://#{expected_domain}", bearer_token: authorization.token}).returns(user_mastodon_client)
+    user_mastodon_client.expects(:verify_credentials).at_least(1).returns(user_mastodon_client)
+    user_mastodon_client.expects(:id).returns(1234)
+    user_mastodon_client.expects(:statuses).with(1234, {limit: 1}).returns([])
     User.expects(:do_not_allow_users).returns(nil)
 
     u = User.from_omniauth(auth, nil)

@@ -87,10 +87,8 @@ class User < ApplicationRecord
     authorization.user   = user
     authorization.token  = auth.credentials.token
     authorization.secret = auth.credentials.secret
-
-    authorization.fetch_profile_data if authorization.token_changed?
-
-    authorization.save
+    auth_creation = AuthorizationCreation.new(authorization)
+    auth_creation.save
 
     authorization.user
   end
