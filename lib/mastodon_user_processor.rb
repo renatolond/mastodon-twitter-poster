@@ -61,7 +61,7 @@ class MastodonUserProcessor
   end
 
   def self.process_toot(toot, user)
-    if posted_by_crossposter(toot)
+    if posted_by_crossposter(toot, user)
       Rails.logger.debug('Ignoring toot, was posted by the crossposter')
       stats.increment('toot.posted_by_crossposter.skipped')
       return
