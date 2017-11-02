@@ -32,10 +32,9 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
   test 'process toot - posted by the crossposter' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
 
-    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/7692449').to_return(web_fixture('mastodon_toot.json'))
-    t = user.mastodon_client.status(7692449)
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_crossposted_toot.json'))
+    t = user.mastodon_client.status(98894252337740537)
 
-    MastodonUserProcessor.expects(:posted_by_crossposter).returns(true)
     MastodonUserProcessor.expects(:process_boost).times(0)
     MastodonUserProcessor.expects(:process_reply).times(0)
     MastodonUserProcessor.expects(:process_mention).times(0)
