@@ -16,6 +16,7 @@ class MastodonUserProcessor
       stats.increment("user.processing_error")
     ensure
       user.mastodon_last_check = Time.now
+      user.twitter_last_check = Time.now unless user.posting_from_twitter
       user.save
     end
   end
