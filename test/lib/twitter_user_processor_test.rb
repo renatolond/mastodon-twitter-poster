@@ -339,7 +339,12 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status.expects(:id).returns(masto_id)
     masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
+    expected_status = Status.new(mastodon_client_id: user.mastodon.mastodon_client_id, tweet_id: tweet_id, masto_id: masto_id)
+
     TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
+
+    ignored_attributes = %w(id created_at updated_at)
+    assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)
   end
 
   test 'posted by crossposter - new app link' do
