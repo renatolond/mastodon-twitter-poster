@@ -14,6 +14,9 @@ module Mastodon
     def visibility
       self.attributes['visibility']
     end
+    def application
+      self.attributes['application']
+    end
     def is_mention?
       text_content[0] == '@'
     end

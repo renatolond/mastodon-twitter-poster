@@ -16,7 +16,6 @@ class MastodonUserProcessor
       stats.increment("user.processing_error")
     ensure
       user.mastodon_last_check = Time.now
-      user.twitter_last_check = Time.now # XXX remove this when possible to post from both networks at same time
       user.save
     end
   end
@@ -54,7 +53,19 @@ class MastodonUserProcessor
     user.save
   end
 
+  def self.posted_by_crossposter(toot, user)
+    return true unless toot.application['website'] != 'https://crossposter.masto.donte.com.br' &&
+      Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
+    false
+  end
+
   def self.process_toot(toot, user)
+    if posted_by_crossposter(toot)
+      Rails.logger.debug('Ignoring toot, was posted by the crossposter')
+      stats.increment('toot.posted_by_crossposter.skipped')
+      return
+    end
+
     if toot.is_direct?
       Rails.logger.debug('Ignoring direct toot. We do not treat them')
       stats.increment("toot.direct.skipped")
@@ -84,7 +95,7 @@ class MastodonUserProcessor
   def self.boost_as_link(toot, user)
     content = "Boosted: #{toot.url}"
     if should_post(toot, user)
-      tweet(content, user)
+      tweet(content, user, toot.id)
     else
       Rails.logger.debug('Ignoring boost because of visibility configuration')
       stats.increment("toot.boost.visibility.skipped")
@@ -116,7 +127,7 @@ class MastodonUserProcessor
       if opts.delete(:force_toot_url)
         tweet_content = handle_force_url(tweet_content, toot, user)
       end
-      tweet(tweet_content, user, opts)
+      tweet(tweet_content, user, toot.id, opts)
     else
       stats.increment("toot.normal.visibility.skipped")
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
@@ -146,10 +157,11 @@ class MastodonUserProcessor
     end
   end
 
-  def self.tweet(content, user, opts = {})
+  def self.tweet(content, user, toot_id, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    user.twitter_client.update(content, opts)
+    status = user.twitter_client.update(content, opts)
     stats.increment('toot.posted_to_twitter')
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot_id, tweet_id: status.id)
   end
 
   def self.upload_media(user, medias)
