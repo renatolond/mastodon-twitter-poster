@@ -75,6 +75,14 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)
   end
 
+  test 'posted by the crossposter - boost not posted' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6901463').to_return(web_fixture('mastodon_boost.json'))
+    t = user.mastodon_client.status(6901463)
+
+    refute MastodonUserProcessor::posted_by_crossposter(t, user)
+  end
   test 'posted by the crossposter - not posted' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
 

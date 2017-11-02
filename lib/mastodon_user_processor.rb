@@ -55,7 +55,7 @@ class MastodonUserProcessor
   end
 
   def self.posted_by_crossposter(toot, user)
-    return true unless toot.application['website'] != 'https://crossposter.masto.donte.com.br' &&
+    return true unless (toot.application.nil? || toot.application['website'] != 'https://crossposter.masto.donte.com.br') &&
       Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
     false
   end
