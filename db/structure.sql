@@ -51,6 +51,17 @@ CREATE TYPE masto_reply_options AS ENUM (
 );
 
 
+--
+-- Name: retweet_options; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE retweet_options AS ENUM (
+    'RETWEET_DO_NOT_POST',
+    'RETWEET_POST_AS_LINK',
+    'RETWEET_POST_AS_OLD_RT'
+);
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -197,7 +208,8 @@ CREATE TABLE users (
     masto_should_post_unlisted boolean DEFAULT false,
     posting_from_mastodon boolean DEFAULT false,
     posting_from_twitter boolean DEFAULT false,
-    masto_fix_cross_mention boolean DEFAULT false
+    masto_fix_cross_mention boolean DEFAULT false,
+    retweet_options retweet_options DEFAULT 'RETWEET_DO_NOT_POST'::retweet_options
 );
 
 
@@ -375,6 +387,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170817073406'),
 ('20171012093059'),
 ('20171025115156'),
-('20171025125328');
+('20171025125328'),
+('20171102154204');
 
 

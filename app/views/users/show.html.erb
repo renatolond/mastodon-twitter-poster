@@ -82,6 +82,15 @@
   </label>
 <% end %>
 </div>
+<p><%= t :retweet_options %><br />
+<% User.retweet_options.keys.each do |retweet_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :retweet_options, retweet_option %>
+  <%= t retweet_option.to_sym %>
+  </label>
+</div>
+<% end %>
 <p><%= t :twitter_sync_explanation %></p>
 <p class="trlike"></p>
 

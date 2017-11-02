@@ -71,9 +71,16 @@ class TwitterUserProcessor
     end
   end
 
-  def self.process_retweet(_tweet, _user)
-    Rails.logger.debug('Ignoring retweet, not implemented')
-    stats.increment("tweet.retweet.skipped")
+  def self.process_retweet(tweet, user)
+    if user.retweet_do_not_post?
+      Rails.logger.debug('Ignoring retweet, not implemented')
+      stats.increment("tweet.retweet.skipped")
+    elsif user.retweet_post_as_link?
+      content = "RT: #{tweet.url}"
+      toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
+    elsif user.retweet_post_as_old_rt?
+      process_normal_tweet(tweet, user)
+    end
   end
 
   def self.process_reply(_tweet, _user)

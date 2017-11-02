@@ -12,6 +12,12 @@ class User < ApplicationRecord
     masto_mention_do_not_post: 'MASTO_MENTION_DO_NOT_POST'
   }
 
+  enum retweet_options: {
+    retweet_do_not_post: 'RETWEET_DO_NOT_POST',
+    retweet_post_as_link: 'RETWEET_POST_AS_LINK',
+    retweet_post_as_old_rt: 'RETWEET_POST_AS_OLD_RT'
+  }
+
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
 
   has_many :authorizations

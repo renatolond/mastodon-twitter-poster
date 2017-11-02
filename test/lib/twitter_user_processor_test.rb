@@ -159,6 +159,52 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_tweet(t, user)
   end
 
+  test 'process_retweet - retweet as link' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+    text = "RT: #{t.url}"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - do not post RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_do_not_post'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:toot).times(0)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - retweet as old RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+    text = "RT @renatolonddev@twitter.com: test"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+  test 'process_retweet - retweet manual retweet as old RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/895311375546888192.json?tweet_mode=extended').to_return(web_fixture('twitter_manual_retweet.json'))
+
+    t = user.twitter_client.status(895311375546888192, tweet_mode: 'extended')
+    text = "RT @renatolonddev@twitter.com: Hello, world!"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
   test 'process normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
     text = 'Tweet'
