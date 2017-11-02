@@ -3,7 +3,7 @@
 <% else %>
   <% if current_user.posting_from_twitter? %>
   <p><%= t :tweets_posted_to_mastodon %></p>
-  <% elsif current_user.posting_from_mastodon? %>
+  <% if current_user.posting_from_mastodon? %>
   <p><%= t :toots_posted_to_twitter %><br />
   <%= current_user.masto_should_post_unlisted? ? t(:masto_posting_unlisted) : t(:masto_not_posting_unlisted) %> <%= current_user.masto_should_post_private? ? t(:masto_posting_private) : t(:masto_not_posting_private) %> <%= (current_user.boost_options == 'masto_boost_do_not_post') ? t(:masto_not_posting_boost) : t(:masto_posting_boost_as_link) %></p>
   <% end %>
