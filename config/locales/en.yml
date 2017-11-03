@@ -51,3 +51,7 @@ en:
   retweet_do_not_post: 'Do not post Retweets on Mastodon'
   retweet_post_as_link: 'Post Retweets on Mastodon as links (RT: https://twitter.com/renatolonddev/status/904738384861700096)'
   retweet_post_as_old_rt: 'Post Retweets on Mastodon as old-style RTs (RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_options: 'Quote options'
+  quote_do_not_post: 'Do not post quotes on Mastodon'
+  quote_post_as_link: 'Post quotes on Mastodon as links (I like this idea https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea RT @renatolonddev@twitter.com: Hello, world!)'

@@ -18,6 +18,12 @@ class User < ApplicationRecord
     retweet_post_as_old_rt: 'RETWEET_POST_AS_OLD_RT'
   }
 
+  enum quote_options: {
+    quote_do_not_post: 'QUOTE_DO_NOT_POST',
+    quote_post_as_link: 'QUOTE_POST_AS_LINK',
+    quote_post_as_old_rt: 'QUOTE_POST_AS_OLD_RT'
+  }
+
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
 
   has_many :authorizations

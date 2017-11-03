@@ -91,6 +91,15 @@
   </label>
 </div>
 <% end %>
+<p><%= t :quote_options %><br />
+<% User.quote_options.keys.each do |quote_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :quote_options, quote_option %>
+  <%= t quote_option.to_sym %>
+  </label>
+</div>
+<% end %>
 <p><%= t :twitter_sync_explanation %></p>
 <p class="trlike"></p>
 

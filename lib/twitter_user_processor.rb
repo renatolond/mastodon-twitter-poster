@@ -64,6 +64,8 @@ class TwitterUserProcessor
 
     if(tweet.retweet? || tweet.full_text[0..3] == 'RT @')
       process_retweet(tweet, user)
+    elsif tweet.quoted_status?
+      process_quote(tweet, user)
     elsif tweet.reply?
       process_reply(tweet, user)
     else
@@ -73,13 +75,29 @@ class TwitterUserProcessor
 
   def self.process_retweet(tweet, user)
     if user.retweet_do_not_post?
-      Rails.logger.debug('Ignoring retweet, not implemented')
+      Rails.logger.debug('Ignoring retweet because user chose so')
       stats.increment("tweet.retweet.skipped")
     elsif user.retweet_post_as_link?
       content = "RT: #{tweet.url}"
       toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
     elsif user.retweet_post_as_old_rt?
-      process_normal_tweet(tweet, user)
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
+      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+    end
+  end
+
+  def self.process_quote(tweet, user)
+    if user.quote_do_not_post?
+      Rails.logger.debug('Ignoring quote because user chose so')
+      stats.increment("tweet.quote.skipped")
+    elsif user.quote_post_as_link?
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
+      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+    elsif user.quote_post_as_old_rt?
+      quote = tweet.quoted_status
+      full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
+      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, tweet.media + quote.media, user)
+      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
     end
   end
 
@@ -88,19 +106,24 @@ class TwitterUserProcessor
     stats.increment("tweet.reply.skipped")
   end
 
-  def self.process_normal_tweet(tweet, user)
-    text = replace_links(tweet)
+  def self.convert_twitter_text(text, urls, media, user)
+    text = replace_links(text, urls)
     text = replace_mentions(text)
-    text, medias, media_links = find_media(tweet, user, text)
+    text, medias, media_links = find_media(media, user, text)
     text = self.html_entities.decode(text)
     text = media_links.join("\n") if text.empty?
+    [text, medias]
+  end
+
+  def self.process_normal_tweet(tweet, user)
+    text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
     toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
   end
 
-  def self.find_media(tweet, user, text)
+  def self.find_media(media, user, text)
     medias = []
     media_links = []
-    tweet.media.each do |media|
+    media.each do |media|
       media_url = nil
       if media.is_a? Twitter::Media::AnimatedGif
         media_url = media.video_info.variants.first.url.to_s
@@ -136,9 +159,8 @@ class TwitterUserProcessor
     text.gsub(twitter_mention_regex, '\1\2@twitter.com\3')
   end
 
-  def self.replace_links(tweet)
-    text = tweet.full_text.dup
-    tweet.urls.each do |u|
+  def self.replace_links(text, urls)
+    urls.each do |u|
       text.gsub!(u.url.to_s, u.expanded_url.to_s)
     end
     text
