@@ -15,6 +15,7 @@ FactoryGirl.define do
     boost_options 'masto_boost_do_not_post'
     masto_reply_options 'masto_reply_do_not_post'
     masto_mention_options 'masto_mention_do_not_post'
+    retweet_options 'retweet_do_not_post'
   end
 
   factory :user_with_mastodon_and_twitter, parent: :user do |user|

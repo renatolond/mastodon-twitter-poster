@@ -36,7 +36,7 @@ en:
   twitter_synchronization_status: 'Post my tweets on Mastodon:'
   twitter_sync_status_true: 'ON'
   twitter_sync_status_false: 'OFF'
-  twitter_sync_explanation: 'At the moment, only tweets that are not replies or retweets will be posted.'
+  twitter_sync_explanation: 'At the moment, tweets that are replies will be not posted.'
   no_sync_right_now: "Currently, you're *not* posting anywhere."
   toots_posted_to_twitter: 'Your toots are being posted to Twitter.'
   tweets_posted_to_mastodon: 'Your tweets are being posted to Mastodon.'
@@ -47,3 +47,11 @@ en:
   masto_not_posting_boost: "You're not posting boosted toots."
   masto_posting_boost_as_link: "You're posting boosted toots as links."
   change_this_on_options: "You can change these settings by going to %{options}."
+  retweet_options: 'Retweets options'
+  retweet_do_not_post: 'Do not post Retweets on Mastodon'
+  retweet_post_as_link: 'Post Retweets on Mastodon as links (RT: https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_post_as_old_rt: 'Post Retweets on Mastodon as old-style RTs (RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_options: 'Quote options'
+  quote_do_not_post: 'Do not post quotes on Mastodon'
+  quote_post_as_link: 'Post quotes on Mastodon as links (I like this idea https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea RT @renatolonddev@twitter.com: Hello, world!)'

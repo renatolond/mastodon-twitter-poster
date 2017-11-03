@@ -87,6 +87,18 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::get_last_tweets_for_user(user)
   end
 
+  test 'process_tweet - quote' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
+
   test 'process_tweet - retweet' do
     user = create(:user_with_mastodon_and_twitter)
 
@@ -159,6 +171,120 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_tweet(t, user)
   end
 
+  test 'process_quote - do not post quote' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_do_not_post'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:toot).times(0)
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_quote - quote as link' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+    text = 'What about a quote? https://twitter.com/renatolonddev/status/895751593924210690'
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_quote - quote with image as old style RT' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926428711141986309.json?tweet_mode=extended').to_return(web_fixture('twitter_quote_with_img.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DNDP6u5W4AAHTJ0.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+    t = user.twitter_client.status(926428711141986309, tweet_mode: 'extended')
+    text = "Quote with pic\nRT @renatolonddev@twitter.com Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there lives one blind text. Separated they live in Bookmarksgrove right at the drops of the Semantics, a large language ocean. A small river named Jujen flows by their place and supplies(280)"
+
+    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_quote - quote as old style RT' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_retweet - retweet as link' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+    text = "RT: #{t.url}"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - do not post RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_do_not_post'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:toot).times(0)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - retweet as old RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+    text = "RT @renatolonddev@twitter.com: test"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - retweet with images as old RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926428678573187072.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet_with_img.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DM-lvDVWsAAsrCU.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+    t = user.twitter_client.status(926428678573187072, tweet_mode: 'extended')
+    text = "RT @renatolonddev@twitter.com:"
+
+    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
+  test 'process_retweet - retweet manual retweet as old RT' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/895311375546888192.json?tweet_mode=extended').to_return(web_fixture('twitter_manual_retweet.json'))
+
+    t = user.twitter_client.status(895311375546888192, tweet_mode: 'extended')
+    text = "RT @renatolonddev@twitter.com: Hello, world!"
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
   test 'process normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
     text = 'Tweet'
@@ -169,9 +295,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user, tweet_id).times(1).returns(nil)
     TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
     tweet = mock()
+    tweet.expects(:full_text).returns(text)
     tweet.expects(:id).returns(tweet_id)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
+    tweet.expects(:urls).returns([])
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
   end
@@ -188,7 +316,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
     tweet = mock()
     tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:full_text).returns(text)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
+    tweet.expects(:media).returns([])
+    tweet.expects(:urls).returns([])
 
     TwitterUserProcessor::process_normal_tweet(tweet, user)
   end
@@ -200,7 +331,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920793930428416, tweet_mode: 'extended')
 
-    assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TwitterUserProcessor::replace_links(t)
+    assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TwitterUserProcessor::replace_links(t.full_text.dup, t.urls)
   end
 
   test 'upload medias to mastodon and post them together with the toot' do
@@ -216,7 +347,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended')
 
-    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t, user, t.full_text.dup)
+    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text.dup)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
@@ -232,7 +363,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(915023144573915137, tweet_mode: 'extended')
 
-    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t, user, t.full_text.dup)
+    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text.dup)
   end
 
   test 'post tweet with images but no text' do
