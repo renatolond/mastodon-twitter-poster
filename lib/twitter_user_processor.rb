@@ -81,8 +81,7 @@ class TwitterUserProcessor
       content = "RT: #{tweet.url}"
       toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
     elsif user.retweet_post_as_old_rt?
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
-      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+      process_normal_tweet(tweet, user)
     end
   end
 
@@ -91,8 +90,7 @@ class TwitterUserProcessor
       Rails.logger.debug('Ignoring quote because user chose so')
       stats.increment("tweet.quote.skipped")
     elsif user.quote_post_as_link?
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
-      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+      process_normal_tweet(tweet, user)
     elsif user.quote_post_as_old_rt?
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
@@ -120,10 +118,10 @@ class TwitterUserProcessor
     toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
   end
 
-  def self.find_media(media, user, text)
+  def self.find_media(tweet_medias, user, text)
     medias = []
     media_links = []
-    media.each do |media|
+    tweet_medias.each do |media|
       media_url = nil
       if media.is_a? Twitter::Media::AnimatedGif
         media_url = media.video_info.variants.first.url.to_s
