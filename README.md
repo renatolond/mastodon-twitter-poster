@@ -4,13 +4,53 @@ This is an app for crossposting between Mastodon and Twitter. The app is made so
 
 ## Ruby on Rails
 
-Ruby 2.4.1
+Ruby 2.4.2
 
 Rails 5.1
 
 ## Requirements
 
 Without extra configuration, a local postgres instance is needed. Node 6.11 is needed for statsd, can be installed using [nvm](https://github.com/creationix/nvm).
+
+## Setup
+
+You need to install Yarn and Ruby 2.4.2. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
+
+```
+# Install bundler
+gem install bundler
+# Use bundler to install Ruby dependencies
+bundle install --deployment --without development test
+# Use yarn to install node.js dependencies
+yarn install --pure-lockfile
+```
+
+A separate user is recommended.
+
+By default, the crossposter will use a statsd instance to send error and stats data to Librato. If you don't want that or want to setup something else, you need to change `statsd-config.js`
+
+To start the web app, the worker which will fetch tweets and toots in background and the statsd instance, you need to do:
+`bundle exec foreman start -e .env.production"`
+
+If you are using systemd, you can create a service with something like:
+
+```
+[Unit]
+Description=crossposter-service
+After=network.target
+
+[Service]
+Type=simple
+User=crossposter
+WorkingDirectory=/home/crossposter/live
+ExecStart=/bin/bash -lc "bundle exec foreman start -e .env.production"
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+And put it on `/etc/systemd/system/crossposter.service`
 
 ## Tests
 
