@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Date: Thu, 09 Nov 2017 12:30:46 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+Server: Mastodon
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-RateLimit-Limit: 300
+X-RateLimit-Remaining: 299
+X-RateLimit-Reset: 2017-11-09T12:35:00.607301Z
+Vary: Accept-Encoding, Origin
+ETag: W/"fe687070064f43a6728f5196956b062c"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 36158687-757b-4c62-a3d5-705f77dc4b5b
+X-Runtime: 0.009649
+Strict-Transport-Security: max-age=31536000
+Content-Security-Policy: style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'self'; img-src data: https:; media-src data: https:; connect-src 'self' wss://mastodon.xyz; upgrade-insecure-requests
+Public-Key-Pins: pin-sha256="yDVf4mkP2VvJ+3iqrJz9Fe2RrmgVlQoTw3wySHgWdyQ="; pin-sha256="BqrmPEkrvmXOYUIoCzBh5YeMQpc9goED8NSiQgghPLg="; max-age=5184000; includeSubdomains
+Referrer-Policy: no-referrer
+X-Clacks-Overhead: GNU Natalie Nguyen
+
+{"id":"98974469120828056","created_at":"2017-11-09T12:29:07.045Z","in_reply_to_id":null,"in_reply_to_account_id":null,"sensitive":false,"spoiler_text":"","visibility":"public","language":"en","uri":"https://mastodon.xyz/users/renatolonddev/statuses/98974469120828056","content":"\u003cp\u003eOne morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted     his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any momen    t. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. \u0026quot;What\u0026apos;s happened to me?\u003c/p\u003e","url":"https://mastodon.xyz/@renatolonddev/98974469120828056","reblogs_count":0,"favourites_count":0,"reblog":null,"application":{"name":"Web","website":null},"account":{"id":"83677","username":"renatolonddev","acct":"renatolonddev","display_name":"","locked":false,"created_at":"2017-08-09T13:19:31.247Z","note":"\u003cp\u003e\u003c/p\u003e","url":"https://mastodon.xyz/@renatolonddev","avatar":"https://mastodon.xyz/avatars/original/missing.png","avatar_static":"https://mastodon.xyz/avatars/original/missing.png","header":"https://mastodon.xyz/headers/original/missing.png","header_static":"https://mastodon.xyz/headers/original/missing.png","followers_count":2,"following_count":1,"statuses_count":67},"media_attachments":[],"mentions":[],"tags":[],"emojis":[]}
