@@ -122,12 +122,17 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
   test 'Recover from too big status' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
 
+    text = 'One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted     his head a little he could see his brown belly, slightly domed and… https://mastodon.xyz/@renatolonddev/98974469120828056'
+
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98974469120828056').to_return(web_fixture('masto_500_chars.json'))
     t = user.mastodon_client.status(98974469120828056)
 
-    stub_request(:post, 'https://api.twitter.com/1.1/statuses/update.json').to_return(web_fixture('twitter_update_too_big.json'), web_fixture('twitter_update.json'))
+    stub_big_post = stub_request(:post, 'https://api.twitter.com/1.1/statuses/update.json').with { |request| request.body == 'status=One+morning%2C+when+Gregor+Samsa+woke+from+troubled+dreams%2C+he+found+himself+transformed+in+his+bed+into+a+horrible+vermin.+He+lay+on+his+armour-like+back%2C+and+if+he+lifted+++++his+head+a+little+he+could+see+his+brown+belly%2C+slightly+domed+and%E2%80%A6+https%3A%2F%2Fmastodon.xyz%2F%40renatolonddev%2F98974469120828056'}.to_return(web_fixture('twitter_update_too_big.json'))
+    stub_request(:post, 'https://api.twitter.com/1.1/statuses/update.json').with { |request| request.body == 'status=One+morning%2C+when+Gregor+Samsa+woke+from+troubled+dreams%2C+he+found+himself+transformed+in+his+bed+into+a%E2%80%A6+https%3A%2F%2Fmastodon.xyz%2F%40renatolonddev%2F98974469120828056' }.to_return(web_fixture('twitter_update.json'))
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.process_toot
+    mastodon_user_processor.tweet(text)
+
+    assert_requested(stub_big_post)
   end
 end
