@@ -74,7 +74,7 @@ class MastodonExtTest < ActiveSupport::TestCase
   end
 
   test 'Is mention? with mention starting the toot' do
-    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('status6845573.json'))
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('mastodon_reply.json'))
     status_starts_with_mention = @client.status(6845573)
     assert status_starts_with_mention.is_mention?
   end

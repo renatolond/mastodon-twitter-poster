@@ -36,7 +36,7 @@ class MastodonUserProcessor
     last_sucessful_toot = nil
     new_toots.to_a.reverse.each do |t|
       begin
-        process_toot(t, user)
+        MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
       rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}." }
@@ -54,93 +54,108 @@ class MastodonUserProcessor
     user.save
   end
 
-  def self.posted_by_crossposter(toot, user)
+  def initialize(toot, user)
+    @toot = toot
+    @user = user
+  end
+
+  def toot
+    @toot
+  end
+
+  def user
+    @user
+  end
+
+  def posted_by_crossposter
     return true unless (toot.application.nil? || toot.application['website'] != 'https://crossposter.masto.donte.com.br') &&
       Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
     false
   end
 
-  def self.process_toot(toot, user)
-    if posted_by_crossposter(toot, user)
+  def process_toot
+    if posted_by_crossposter
       Rails.logger.debug('Ignoring toot, was posted by the crossposter')
-      stats.increment('toot.posted_by_crossposter.skipped')
+      MastodonUserProcessor::stats.increment('toot.posted_by_crossposter.skipped')
       return
     end
 
     if toot.is_direct?
       Rails.logger.debug('Ignoring direct toot. We do not treat them')
-      stats.increment("toot.direct.skipped")
+      MastodonUserProcessor::stats.increment("toot.direct.skipped")
       # no sense in treating direct toots. could become an option in future, maybe.
       return
     elsif toot.is_reblog?
-      process_boost(toot, user)
+      process_boost
     elsif toot.is_reply?
-      process_reply(toot, user)
+      process_reply
     elsif toot.is_mention?
-      process_mention(toot, user)
+      process_mention
     else
-      process_normal_toot(toot, user)
+      process_normal_toot
     end
   end
 
-  def self.process_boost(toot, user)
+  def process_boost
     if user.masto_boost_do_not_post?
       Rails.logger.debug('Ignoring masto boost because user choose so')
-      stats.increment("toot.boost.skipped")
+      MastodonUserProcessor::stats.increment("toot.boost.skipped")
       return
     elsif user.masto_boost_post_as_link?
-      boost_as_link(toot, user)
+      boost_as_link
     end
   end
 
-  def self.boost_as_link(toot, user)
+  def boost_as_link
     content = "Boosted: #{toot.url}"
-    if should_post(toot, user)
-      tweet(content, user, toot.id)
+    if should_post
+      tweet(content)
     else
       Rails.logger.debug('Ignoring boost because of visibility configuration')
-      stats.increment("toot.boost.visibility.skipped")
+      MastodonUserProcessor::stats.increment("toot.boost.visibility.skipped")
     end
   end
 
-  def self.process_reply(_toot, user)
+  def process_reply
     if user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
-      stats.increment("toot.reply.skipped")
+      MastodonUserProcessor::stats.increment("toot.reply.skipped")
       return
     end
   end
 
-  def self.process_mention(_toot, user)
+  def process_mention
     if user.masto_mention_do_not_post?
       Rails.logger.debug('Ignoring masto mention because user choose so')
-      stats.increment("toot.mention.skipped")
+      MastodonUserProcessor::stats.increment("toot.mention.skipped")
       return
     end
   end
 
-  def self.process_normal_toot(toot, user)
+  TWITTER_MAX_CHARS = 280
+
+  def process_normal_toot
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
-    if should_post(toot, user)
-      tweet_content = TootTransformer.transform(toot_content_to_post(toot), toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+    if should_post
+      tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
       opts = {}
-      opts.merge!(upload_media(user, toot.media_attachments)) unless toot.sensitive?
+      opts.merge!(upload_media(toot.media_attachments)) unless toot.sensitive?
       if opts.delete(:force_toot_url)
-        tweet_content = handle_force_url(tweet_content, toot, user)
+        tweet_content = handle_force_url(tweet_content)
       end
-      tweet(tweet_content, user, toot.id, opts)
+      tweet(tweet_content, opts)
     else
-      stats.increment("toot.normal.visibility.skipped")
+      MastodonUserProcessor::stats.increment("toot.normal.visibility.skipped")
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
   end
 
-  def self.handle_force_url(content, toot, user)
+  def handle_force_url(content)
     return content if content.include?(toot.url)
-    TootTransformer.transform(content + "… #{toot.url}", toot.url, user.mastodon_domain, nil)
+    TootTransformer.new(TWITTER_MAX_CHARS).transform(content + "… #{toot.url}", toot.url, user.mastodon_domain, nil)
   end
 
-  def self.toot_content_to_post(toot)
+  def toot_content_to_post
     if toot.sensitive?
       "CW: #{toot.spoiler_text} … #{toot.url}"
     else
@@ -148,7 +163,7 @@ class MastodonUserProcessor
     end
   end
 
-  def self.should_post(toot, user)
+  def should_post
     if toot.is_public? ||
         (toot.is_unlisted? && user.masto_should_post_unlisted?) ||
         (toot.is_private? && user.masto_should_post_private?)
@@ -158,14 +173,22 @@ class MastodonUserProcessor
     end
   end
 
-  def self.tweet(content, user, toot_id, opts = {})
+  TWITTER_TOO_LONG_ERROR_CODE = 186
+  TWITTER_OLD_MAX_CHARS = 140
+
+  def tweet(content, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
+    begin
     status = user.twitter_client.update(content, opts)
-    stats.increment('toot.posted_to_twitter')
-    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot_id, tweet_id: status.id)
+    rescue Twitter::Error::Forbidden => ex
+      raise ex unless ex.code == TWITTER_TOO_LONG_ERROR_CODE
+      status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.masto_fix_cross_mention), opts)
+    end
+    MastodonUserProcessor::stats.increment('toot.posted_to_twitter')
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
   end
 
-  def self.upload_media(user, medias)
+  def upload_media(medias)
     media_ids = []
     opts = {}
     medias.each do |media|
