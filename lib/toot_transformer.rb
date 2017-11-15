@@ -3,7 +3,6 @@ class TootTransformer
   HTTPS_REGEX = /(?:https:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
   MASTODON_USERNAME_REGEX = /@\w+@[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
   TWITTER_MENTION_REGEX = /@(\w+)@twitter.com/
-  TWITTER_MAX_LENGTH = 140
 
   def twitter_max_length
     @twitter_max_length
@@ -25,7 +24,7 @@ class TootTransformer
     text.gsub!(TWITTER_MENTION_REGEX, '\1') if fix_cross_mention
     text.gsub!(TootTransformer::media_regex(mastodon_domain), '')
     text.tr!('*', '＊') # XXX temporary fix for asterisk problem
-    transform_rec(text, toot_url, TWITTER_MAX_LENGTH)
+    transform_rec(text, toot_url, twitter_max_length)
   end
 
   def transform_rec(text, toot_url, max_length)

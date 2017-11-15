@@ -27,11 +27,11 @@ class TootTransformerTest < ActiveSupport::TestCase
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br/', true)
   end
 
-  test 'Transform a text with no links and exactly 140 characters' do
-    text = 'Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters Exactly 140 characters :)'
+  test 'Transform a text with no links and exactly 280 characters' do
+    text = 'Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters Exactly 280 characters :):)'
     expected_text = text
 
-    assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://mastodon.xyz/@renatolond/1111111', 'https://mastodon.xyz', true)
+    assert_equal expected_text, TootTransformer.new(280).transform(text, 'https://mastodon.xyz/@renatolond/1111111', 'https://mastodon.xyz', true)
   end
 
   test 'Transform a text with one big link (still inside the 140 char because of twitter short link)' do
