@@ -21,13 +21,60 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/7706182').to_return(web_fixture('mastodon_direct_toot.json'))
     t = user.mastodon_client.status(7706182)
 
-    MastodonUserProcessor.expects(:process_boost).times(0)
-    MastodonUserProcessor.expects(:process_reply).times(0)
-    MastodonUserProcessor.expects(:process_mention).times(0)
-    MastodonUserProcessor.expects(:process_normal_toot).times(0)
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.expects(:posted_by_crossposter).returns(false)
+
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - boost' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6901463').to_return(web_fixture('mastodon_boost.json'))
+    t = user.mastodon_client.status(6901463)
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
     mastodon_user_processor.expects(:posted_by_crossposter).returns(false)
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.expects(:process_boost).once
+
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - reply' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('mastodon_reply.json'))
+    t = user.mastodon_client.status(6845573)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:posted_by_crossposter).returns(false)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.expects(:process_reply).once
+
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - mention' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6846109').to_return(web_fixture('mastodon_mention.json'))
+    t = user.mastodon_client.status(6846109)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:posted_by_crossposter).returns(false)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.expects(:process_mention).once
 
     mastodon_user_processor.process_toot
   end
@@ -38,12 +85,11 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_crossposted_toot.json'))
     t = user.mastodon_client.status(98894252337740537)
 
-    MastodonUserProcessor.expects(:process_boost).times(0)
-    MastodonUserProcessor.expects(:process_reply).times(0)
-    MastodonUserProcessor.expects(:process_mention).times(0)
-    MastodonUserProcessor.expects(:process_normal_toot).times(0)
-
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
     mastodon_user_processor.process_toot
   end
 
