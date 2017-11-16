@@ -58,5 +58,14 @@ module Mastodon
       @text_content = Status::html_entities.decode(@text_content)
     end
   end
+  module REST
+    module Media
+      # XXX change this in mastodon-api instead.
+      def upload_media(file, opts = {})
+        file = file.is_a?(HTTP::FormData::File) ? file : HTTP::FormData::File.new(file)
+        perform_request_with_object(:post, '/api/v1/media', { file: file }.merge(opts), Mastodon::Media)
+      end
+    end
+  end
 end
 
