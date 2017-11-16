@@ -21,7 +21,7 @@ class TootTransformer
   end
 
   def transform(text, toot_url, mastodon_domain, fix_cross_mention)
-    text.gsub!(TWITTER_MENTION_REGEX, '\1') if fix_cross_mention
+    text.gsub!(TWITTER_MENTION_REGEX, '@\1') if fix_cross_mention
     text.gsub!(TootTransformer::media_regex(mastodon_domain), '')
     text.tr!('*', '＊') # XXX temporary fix for asterisk problem
     transform_rec(text, toot_url, twitter_max_length)
