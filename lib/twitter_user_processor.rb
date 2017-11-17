@@ -141,9 +141,7 @@ class TwitterUserProcessor
       begin
         file.write HTTParty.get(media_url).body
         file.rewind
-        opts = {}
-        opts[:description] = media.to_h[:ext_alt_text] unless media.to_h[:ext_alt_text].nil?
-        media = user.mastodon_client.upload_media(file, opts)
+        media = user.mastodon_client.upload_media(file, media.to_h[:ext_alt_text])
         media_links << media.text_url
         medias << media.id
       ensure

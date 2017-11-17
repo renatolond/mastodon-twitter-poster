@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'mastodon-api', :github => 'tootsuite/mastodon-api', branch: 'master', require: 'mastodon'
+gem 'mastodon-api', require: 'mastodon', :github => 'renatolond/mastodon-api', branch: 'feature/images_description'
 gem 'twitter', :github => 'renatolond/twitter', branch: 'different_uploads'
 gem 'devise'
 gem 'omniauth-twitter'

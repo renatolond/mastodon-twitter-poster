@@ -361,8 +361,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     upload_media_answer = mock()
     upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
     upload_media_answer.expects(:id).returns(273)
-    user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, opts|
-      opts[:description] == %q(An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.)
+    user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
+      description == %q(An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.)
     }
 
     t = user.twitter_client.status(931274037812228097, tweet_mode: 'extended', include_ext_alt_text: true)
