@@ -56,18 +56,12 @@ class TootTransformerTest < ActiveSupport::TestCase
   end
 
   test 'Transform text with twitter mention in it' do
-    skip('Twitter mention is temporarily disabled')
     text = 'Hey, @renatolond@twitter.com, how is it going?'
     expected_text = 'Hey, @renatolond, how is it going?'
 
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://mastodon.xyz/@renatolond/1111111', 'https://mastodon.xyz', true)
   end
-  test 'Transform text with twitter mention in it and omit the @' do
-    text = 'Hey, @renatolond@twitter.com, how is it going?'
-    expected_text = 'Hey, renatolond, how is it going?'
 
-    assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://mastodon.xyz/@renatolond/1111111', 'https://mastodon.xyz', true)
-  end
   test 'Transform text with twitter mention in it and conversion off' do
     text = 'Hey, @renatolond@twitter.com, how is it going?'
     expected_text = 'Hey, @renatolond@twitter.com, how is it going?'
