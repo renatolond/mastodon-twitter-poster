@@ -181,4 +181,41 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
 
     assert_requested(stub_big_post)
   end
+
+  test 'upload images' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98889131472877168').to_return(web_fixture('mastodon_image.json'))
+    t = user.mastodon_client.status(98889131472877168)
+
+    stub_request(:get, 'https://6-28.mastodon.xyz/media_attachments/files/000/966/280/original/488f8918c5035959.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    user.twitter_client.expects(:upload).returns('9283923').with() { |file, options|
+      options == {:media_type => "image/png", :media_category => "tweet_image"}
+    }
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.upload_media(t.media_attachments)
+  end
+  test 'image description should be uploaded to twitter' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99016225502890297').to_return(web_fixture('mastodon_image_with_description.json'))
+    t = user.mastodon_client.status(99016225502890297)
+
+    stub_request(:get, 'https://6-28.mastodon.xyz/media_attachments/files/001/076/793/original/fe104e1dd1cab077.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    user.twitter_client.expects(:upload).returns('222917').with() { |file, options|
+      options == {:media_type => "image/png", :media_category => "tweet_image"}
+    }
+
+    stub_request(:post, "https://api.twitter.com/1.1/media/metadata/create.json").
+      with(body: "{\"alt_text\":{\"text\":\"An image: a triangular sign, similar to the one indicating priority, saying in big letters \\\"test\\\"\"},\"media_id\":\"222917\"}")
+      .to_return(:status => 200)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.upload_media(t.media_attachments)
+  end
 end

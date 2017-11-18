@@ -31,7 +31,7 @@ class TwitterUserProcessor
   def self.get_last_tweets_for_user(user)
     return unless user.mastodon && user.twitter
 
-    new_tweets = user.twitter_client.user_timeline(user_timeline_options(user).merge({tweet_mode: 'extended'}))
+    new_tweets = user.twitter_client.user_timeline(user_timeline_options(user).merge({tweet_mode: 'extended', include_ext_alt_text: true}))
     last_successful_tweet = nil
     new_tweets.reverse.each do |t|
       begin
@@ -141,7 +141,7 @@ class TwitterUserProcessor
       begin
         file.write HTTParty.get(media_url).body
         file.rewind
-        media = user.mastodon_client.upload_media(file)
+        media = user.mastodon_client.upload_media(file, media.to_h[:ext_alt_text])
         media_links << media.text_url
         medias << media.id
       ensure

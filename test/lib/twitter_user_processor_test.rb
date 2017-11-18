@@ -54,7 +54,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'get_last_tweets_for_user - check tweet order' do
     user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
 
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
     tweet_order = [902865452224962560, 902921539997270016]
     TwitterUserProcessor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError).with() {
@@ -66,7 +66,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'get_last_tweets_for_user - check user params' do
     user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
 
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
     expected_last_tweet_id = 902865452224962560
     TwitterUserProcessor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
@@ -80,7 +80,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'get_last_tweets_for_user - check tweets called' do
     user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
 
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
     TwitterUserProcessor.expects(:process_tweet).times(2).returns(nil).then.raises(StandardError)
 
@@ -337,7 +337,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'upload medias to mastodon and post them together with the toot' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
 
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920718705594369.json?tweet_mode=extended').to_return(web_fixture('twitter_image.json'))
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920718705594369.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image.json'))
 
     stub_request(:get, 'http://pbs.twimg.com/media/DLJzhYFXcAArwlV.jpg')
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
@@ -345,9 +345,29 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture('mastodon_image_post.json'))
 
-    t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended')
+    t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended', include_ext_alt_text: true)
 
     assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text.dup)
+  end
+
+  test 'image description should be uploaded to mastodon' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/931274037812228097.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image_with_description.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DOyMj5JXcAEsOBr.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    upload_media_answer = mock()
+    upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
+    upload_media_answer.expects(:id).returns(273)
+    user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
+      description == %q(An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.)
+    }
+
+    t = user.twitter_client.status(931274037812228097, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    assert_equal ['Oh!', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do

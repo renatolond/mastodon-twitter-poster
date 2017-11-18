@@ -1,6 +1,16 @@
 GIT
+  remote: https://github.com/renatolond/mastodon-api.git
+  revision: 3864a6a5ea626d91e957c3900e9358756798da14
+  branch: feature/images_description
+  specs:
+    mastodon-api (1.1.0)
+      addressable (~> 2.4)
+      buftok
+      http (~> 2.0)
+
+GIT
   remote: https://github.com/renatolond/twitter.git
-  revision: 1f0b58fdf4c4c087d42efedbe89f56f7e5a69cd7
+  revision: b1ddf5ed5d4bb451ae4651eba711823dae4abe42
   branch: different_uploads
   specs:
     twitter (5.15.0)
@@ -14,16 +24,6 @@ GIT
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
-
-GIT
-  remote: https://github.com/tootsuite/mastodon-api.git
-  revision: 04385988faed858cfabfad2f1aca80be2c456e54
-  branch: master
-  specs:
-    mastodon-api (1.1.0)
-      addressable (~> 2.4)
-      buftok
-      http (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -371,4 +371,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
