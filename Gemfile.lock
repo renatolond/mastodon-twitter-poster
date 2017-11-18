@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/renatolond/twitter.git
-  revision: 1f0b58fdf4c4c087d42efedbe89f56f7e5a69cd7
+  revision: b1ddf5ed5d4bb451ae4651eba711823dae4abe42
   branch: different_uploads
   specs:
     twitter (5.15.0)

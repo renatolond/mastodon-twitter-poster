@@ -205,7 +205,9 @@ class MastodonUserProcessor
         options = {media_type: 'image/png', media_category: 'tweet_image'} if File.extname(url) == '.png'
         options = {media_type: 'image/jpeg', media_category: 'tweet_image'} if File.extname(url) =~ /\.jpe?g$/
         options = {media_type: 'image/gif', media_category: 'tweet_image'} if File.extname(url) == '.gif'
-        media_ids << user.twitter_client.upload(file, options).to_s
+        media_id = user.twitter_client.upload(file, options).to_s
+        media_ids << media_id
+        user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].nil?
       ensure
         file.close
         file.unlink
