@@ -237,6 +237,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     expected_response = {media_ids: '394934'}
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:force_toot_url=).with(true).times(3)
     assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
   end
 

@@ -200,7 +200,7 @@ class MastodonUserProcessor
       if media_type.nil?
         media_type = detect_media_type(url)
       elsif media_type != detect_media_type(url) || [:gif, :mp4].include?(media_type)
-        force_toot_url = true
+        self.force_toot_url = true
         next
       end
 
