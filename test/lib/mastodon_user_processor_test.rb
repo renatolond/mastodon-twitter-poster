@@ -107,7 +107,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.expects(:should_post).returns(true)
     mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
     mastodon_user_processor.expects(:toot_content_to_post).returns(t.text_content)
-    mastodon_user_processor.expects(:upload_media).returns({})
+    mastodon_user_processor.expects(:treat_media_attachments).returns({})
 
     mastodon_user_processor.process_normal_toot
   end
@@ -194,9 +194,10 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     user.twitter_client.expects(:upload).returns('9283923').with() { |file, options|
       options == {:media_type => "image/png", :media_category => "tweet_image"}
     }
+    expected_response = {media_ids: '9283923'}
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.upload_media(t.media_attachments)
+    assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
   end
   test 'image description should be uploaded to twitter' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
@@ -214,8 +215,41 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "https://api.twitter.com/1.1/media/metadata/create.json").
       with(body: "{\"alt_text\":{\"text\":\"An image: a triangular sign, similar to the one indicating priority, saying in big letters \\\"test\\\"\"},\"media_id\":\"222917\"}")
       .to_return(:status => 200)
+    expected_response = {media_ids: '222917'}
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.upload_media(t.media_attachments)
+    assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
+  end
+
+  test 'when processing a post with gifs, only the first one should be crossposted' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99030580269911610').to_return(web_fixture('mastodon_4_gifs.json'))
+    t = user.mastodon_client.status(99030580269911610)
+
+    stub_request(:get, "https://6-28.mastodon.xyz/media_attachments/files/001/090/604/original/media.mp4")
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLLQqpiWsAE9aTU.mp4') })
+
+    user.twitter_client.expects(:upload).returns('394934').with() { |file, options|
+      options == {:media_type => "video/mp4", :media_category => "tweet_video"}
+    }
+
+    expected_response = {media_ids: '394934'}
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
+  end
+
+  test 'if force toot url is on, should add the toot url even if less than max characters' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_should_post_unlisted: true)
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99030580269911610').to_return(web_fixture('mastodon_4_gifs.json'))
+    t = user.mastodon_client.status(99030580269911610)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:treat_media_attachments).returns({media_ids: '394934'})
+    mastodon_user_processor.expects(:force_toot_url).returns(true)
+    mastodon_user_processor.expects(:tweet).with('4 gifs from masto… https://mastodon.xyz/@renatolonddev/99030580269911610', {media_ids: '394934'})
+    mastodon_user_processor.process_normal_toot
   end
 end

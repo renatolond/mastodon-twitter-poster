@@ -139,8 +139,8 @@ class MastodonUserProcessor
     if should_post
       tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
       opts = {}
-      opts.merge!(upload_media(toot.media_attachments)) unless toot.sensitive?
-      if opts.delete(:force_toot_url)
+      opts.merge!(treat_media_attachments(toot.media_attachments)) unless toot.sensitive?
+      if force_toot_url
         tweet_content = handle_force_url(tweet_content)
       end
       tweet(tweet_content, opts)
@@ -188,33 +188,67 @@ class MastodonUserProcessor
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
   end
 
-  def upload_media(medias)
+  def treat_media_attachments(medias)
     media_ids = []
     opts = {}
+    media_type = nil
     medias.each do |media|
       url = URI.parse(media.url)
       url.query = nil
       url = url.to_s
-      file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
-      file.binmode
-      begin
-        file.write HTTParty.get(media.url).body
-        file.rewind
-        options = {}
-        options = {media_type: 'video/mp4', media_category: 'tweet_video'} if File.extname(url) == '.mp4'
-        options = {media_type: 'image/png', media_category: 'tweet_image'} if File.extname(url) == '.png'
-        options = {media_type: 'image/jpeg', media_category: 'tweet_image'} if File.extname(url) =~ /\.jpe?g$/
-        options = {media_type: 'image/gif', media_category: 'tweet_image'} if File.extname(url) == '.gif'
-        media_id = user.twitter_client.upload(file, options).to_s
-        media_ids << media_id
-        user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].nil?
-      ensure
-        file.close
-        file.unlink
+
+      if media_type.nil?
+        media_type = detect_media_type(url)
+      elsif media_type != detect_media_type(url) || [:gif, :mp4].include?(media_type)
+        force_toot_url = true
+        next
       end
+
+      media_ids << upload_media(media, url)
     end
 
     opts[:media_ids] = media_ids.join(',') unless media_ids.empty?
     opts
+  end
+
+  def upload_media(media, url)
+    file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
+    file.binmode
+    media_id = nil
+    begin
+      file.write HTTParty.get(media.url).body
+      file.rewind
+      options = detect_twitter_filetype(url)
+      media_id = user.twitter_client.upload(file, options).to_s
+      user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].nil?
+    ensure
+      file.close
+      file.unlink
+    end
+    return media_id
+  end
+
+  def detect_twitter_filetype(url)
+    options = {}
+    options = {media_type: 'video/mp4', media_category: 'tweet_video'} if File.extname(url) == '.mp4'
+    options = {media_type: 'image/png', media_category: 'tweet_image'} if File.extname(url) == '.png'
+    options = {media_type: 'image/jpeg', media_category: 'tweet_image'} if File.extname(url) =~ /\.jpe?g$/
+    options = {media_type: 'image/gif', media_category: 'tweet_image'} if File.extname(url) == '.gif'
+    options
+  end
+
+  def detect_media_type(url)
+    return :mp4 if File.extname(url) == '.mp4'
+    return :gif if File.extname(url) == '.gif'
+    return :image if File.extname(url) == '.png' || File.extname(url) =~ /\.jpe?g$/
+  end
+
+  private
+  def force_toot_url=(force)
+    @force_toot_url = force
+  end
+
+  def force_toot_url
+    @force_toot_url ||= false
   end
 end
