@@ -70,3 +70,4 @@ pt:
   masto_not_posting_reply: "Você não está postando replies."
   masto_posting_reply_to_self: "Você está postando replies pra você mesmo."
   log_out: 'Fazer logout'
+  for_news_and_status: 'Para novidades e status, siga o profile no Mastodon em:'
