@@ -253,4 +253,53 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.expects(:tweet).with('4 gifs from masto… https://mastodon.xyz/@renatolonddev/99030580269911610', {media_ids: '394934'})
     mastodon_user_processor.process_normal_toot
   end
+
+  test 'process_reply - Do not post replies' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_reply_options: User.masto_reply_options['masto_reply_do_not_post'])
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('mastodon_reply.json'))
+    t = user.mastodon_client.status(6845573)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:tweet).never
+
+    mastodon_user_processor.process_reply
+  end
+
+  test 'process_reply - Do not post reply if self is set and reply is for someone else' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_reply_options: User.masto_reply_options['masto_reply_post_self'])
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('mastodon_reply.json'))
+    t = user.mastodon_client.status(6845573)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:tweet).never
+
+    mastodon_user_processor.process_reply
+  end
+
+  test 'process_reply - Do not post reply if self is set and reply is to self, but we don\'t know the id' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_reply_options: User.masto_reply_options['masto_reply_post_self'])
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99054621935581878').to_return(web_fixture('mastodon_self_reply.json'))
+    t = user.mastodon_client.status(99054621935581878)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:tweet).never
+
+    mastodon_user_processor.process_reply
+  end
+  test 'process_reply - Post reply if self is set and reply is to self, and we know the id' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_should_post_unlisted: true, masto_reply_options: User.masto_reply_options['masto_reply_post_self'])
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99054621935581878').to_return(web_fixture('mastodon_self_reply.json'))
+    t = user.mastodon_client.status(99054621935581878)
+
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, masto_id: t.in_reply_to_id)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:tweet).with(t.text_content, {in_reply_to_status_id: status.tweet_id}).once
+
+    mastodon_user_processor.process_reply
+  end
 end

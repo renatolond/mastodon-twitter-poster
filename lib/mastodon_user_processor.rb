@@ -67,6 +67,14 @@ class MastodonUserProcessor
     @user
   end
 
+  def replied_status=(replied_status)
+    @replied_status=replied_status
+  end
+
+  def replied_status
+    @replied_status
+  end
+
   def posted_by_crossposter
     return true unless (toot.application.nil? || toot.application['website'] != 'https://crossposter.masto.donte.com.br') &&
       Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
@@ -117,7 +125,20 @@ class MastodonUserProcessor
   end
 
   def process_reply
-    if user.masto_reply_do_not_post?
+    if user.masto_reply_post_self? && toot.in_reply_to_account_id == toot.account.id
+      self.replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.in_reply_to_id)
+      if self.replied_status.nil?
+        Rails.logger.debug('Ignoring masto reply to self because we haven\'t crossposted the original')
+        MastodonUserProcessor::stats.increment("toot.reply_to_self.skipped")
+      else
+        if should_post
+          post_toot
+        else
+          MastodonUserProcessor::stats.increment("toot.reply_to_self.visibility.skipped")
+          Rails.logger.debug('Ignoring normal toot because of visibility configuration')
+        end
+      end
+    elsif user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
       MastodonUserProcessor::stats.increment("toot.reply.skipped")
       return
@@ -137,17 +158,22 @@ class MastodonUserProcessor
   def process_normal_toot
     Rails.logger.debug{ "Processing toot: #{toot.text_content}" }
     if should_post
-      tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
-      opts = {}
-      opts.merge!(treat_media_attachments(toot.media_attachments)) unless toot.sensitive?
-      if force_toot_url
-        tweet_content = handle_force_url(tweet_content)
-      end
-      tweet(tweet_content, opts)
+      post_toot
     else
       MastodonUserProcessor::stats.increment("toot.normal.visibility.skipped")
       Rails.logger.debug('Ignoring normal toot because of visibility configuration')
     end
+  end
+
+  def post_toot
+    tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+    opts = {}
+    opts.merge!(treat_media_attachments(toot.media_attachments)) unless toot.sensitive?
+    opts.merge!(in_reply_to_status_id: self.replied_status.tweet_id) if self.replied_status
+    if force_toot_url
+      tweet_content = handle_force_url(tweet_content)
+    end
+    tweet(tweet_content, opts)
   end
 
   def handle_force_url(content)

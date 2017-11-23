@@ -47,7 +47,8 @@ CREATE TYPE masto_mention_options AS ENUM (
 --
 
 CREATE TYPE masto_reply_options AS ENUM (
-    'MASTO_REPLY_DO_NOT_POST'
+    'MASTO_REPLY_DO_NOT_POST',
+    'MASTO_REPLY_POST_SELF'
 );
 
 
@@ -402,6 +403,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171025125328'),
 ('20171102154204'),
 ('20171103102943'),
-('20171103132222');
+('20171103132222'),
+('20171123155339');
 
 
