@@ -15,6 +15,7 @@ en:
   masto_boost_do_not_post: 'Do not post boosts on twitter'
   masto_boost_post_as_link: 'Post boosts on twitter as links (Boosted: https://mastodon.social/@renatolond/15082784)'
   masto_reply_do_not_post: 'Do not post replies on twitter'
+  masto_reply_post_self: 'Post replies to my own toots on twitter (threads)'
   masto_mention_do_not_post: 'Do not post mentions on twitter'
   masto_sync_status_true: 'ON'
   masto_sync_status_false: 'OFF'
@@ -36,7 +37,6 @@ en:
   twitter_synchronization_status: 'Post my tweets on Mastodon:'
   twitter_sync_status_true: 'ON'
   twitter_sync_status_false: 'OFF'
-  twitter_sync_explanation: 'At the moment, tweets that are replies will be not posted.'
   no_sync_right_now: "Currently, you're *not* posting anywhere."
   toots_posted_to_twitter: 'Your toots are being posted to Twitter.'
   tweets_posted_to_mastodon: 'Your tweets are being posted to Mastodon.'
@@ -55,3 +55,7 @@ en:
   quote_do_not_post: 'Do not post quotes on Mastodon'
   quote_post_as_link: 'Post quotes on Mastodon as links (I like this idea https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea RT @renatolonddev@twitter.com: Hello, world!)'
+  twitter_reply_do_not_post: 'Do not post replies on Mastodon'
+  twitter_reply_post_self: 'Post replies to my own tweets on Mastodon (threads)'
+  twitter_reply_options: 'Reply options:'
+  twitter_reply_options_explanation: "This is when you click the reply button on Twitter's interface. It's a direct reply to another tweet."
