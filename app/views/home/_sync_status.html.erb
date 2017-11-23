@@ -2,11 +2,17 @@
 <p><%= t :no_sync_right_now %></p>
 <% else %>
   <% if current_user.posting_from_twitter? %>
-  <p><%= t :tweets_posted_to_mastodon %></p>
+  <p><%= t :tweets_posted_to_mastodon %><br />
+  <%= current_user.retweet_do_not_post? ? t(:twitter_not_posting_rt) : (current_user.retweet_post_as_link? ? t(:twitter_posting_rt_as_link) : t(:twitter_posting_rt_old_style)) %>
+  <%= current_user.quote_do_not_post? ? t(:twitter_not_posting_quote) : (current_user.quote_post_as_link? ? t(:twitter_posting_quote_as_link) : t(:twitter_posting_quote_old_style)) %>
+  <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %></p>
   <% end %>
   <% if current_user.posting_from_mastodon? %>
   <p><%= t :toots_posted_to_twitter %><br />
-  <%= current_user.masto_should_post_unlisted? ? t(:masto_posting_unlisted) : t(:masto_not_posting_unlisted) %> <%= current_user.masto_should_post_private? ? t(:masto_posting_private) : t(:masto_not_posting_private) %> <%= (current_user.boost_options == 'masto_boost_do_not_post') ? t(:masto_not_posting_boost) : t(:masto_posting_boost_as_link) %></p>
+  <%= current_user.masto_should_post_unlisted? ? t(:masto_posting_unlisted) : t(:masto_not_posting_unlisted) %>
+  <%= current_user.masto_should_post_private? ? t(:masto_posting_private) : t(:masto_not_posting_private) %>
+  <%= (current_user.boost_options == 'masto_boost_do_not_post') ? t(:masto_not_posting_boost) : t(:masto_posting_boost_as_link) %>
+  <%= current_user.masto_reply_do_not_post? ? t(:masto_not_posting_reply) : t(:masto_posting_reply_to_self) %></p>
   <% end %>
 <% end %>
 

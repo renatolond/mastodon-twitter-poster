@@ -59,3 +59,13 @@ pt:
   twitter_reply_post_self: 'Postar respostas aos meus próprios tweets no Mastodon (threads)'
   twitter_reply_options: 'Opções das respostas:'
   twitter_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do twitter. É uma resposta direta a outro toot."
+  twitter_not_posting_rt: "Você não está postando retweets."
+  twitter_posting_rt_as_link: "Você está postando retweets como links."
+  twitter_posting_rt_old_style: "Você está postando retweets como RTs à moda antiga."
+  twitter_not_posting_quote: "Você não está postando quotes."
+  twitter_posting_quote_as_link: "Você está postando quotes como links."
+  twitter_posting_quote_old_style: "Você está postando quotes como RTs à moda antiga."
+  twitter_not_posting_reply: "Você não está postando replies."
+  twitter_posting_reply_to_self: "Você está postando replies pra você mesmo."
+  masto_not_posting_reply: "Você não está postando replies."
+  masto_posting_reply_to_self: "Você está postando replies pra você mesmo."

@@ -59,3 +59,13 @@ en:
   twitter_reply_post_self: 'Post replies to my own tweets on Mastodon (threads)'
   twitter_reply_options: 'Reply options:'
   twitter_reply_options_explanation: "This is when you click the reply button on Twitter's interface. It's a direct reply to another tweet."
+  twitter_not_posting_rt: "You're not posting retweets."
+  twitter_posting_rt_as_link: "You're posting retweets as links."
+  twitter_posting_rt_old_style: "You're posting retweets like old-style RTs."
+  twitter_not_posting_quote: "You're not posting quotes."
+  twitter_posting_quote_as_link: "You're posting quotes as links."
+  twitter_posting_quote_old_style: "You're posting quotes as old-style RTs."
+  twitter_not_posting_reply: "You're not posting replies."
+  twitter_posting_reply_to_self: "You're posting replies to yourself."
+  masto_not_posting_reply: "You're not posting replies."
+  masto_posting_reply_to_self: "You're posting replies to yourself."
