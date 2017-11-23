@@ -175,7 +175,7 @@ class MastodonUserProcessor
     tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
     opts = {}
     opts.merge!(treat_media_attachments(toot.media_attachments)) unless toot.sensitive?
-    opts.merge!(in_reply_to_status_id: self.replied_status.tweet_id) if self.replied_status
+    opts.merge!(in_reply_to_status_id: self.replied_status.tweet_id, auto_populate_reply_metadata: true) if self.replied_status
     if force_toot_url
       tweet_content = handle_force_url(tweet_content)
     end

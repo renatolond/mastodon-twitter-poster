@@ -308,7 +308,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     status = create(:status, mastodon_client: user.mastodon.mastodon_client, masto_id: t.in_reply_to_id)
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.expects(:tweet).with("I'm replying to myself!", {in_reply_to_status_id: status.tweet_id}).once
+    mastodon_user_processor.expects(:tweet).with("I'm replying to myself!", {in_reply_to_status_id: status.tweet_id, auto_populate_reply_metadata:true}).once
 
     mastodon_user_processor.process_reply
   end
