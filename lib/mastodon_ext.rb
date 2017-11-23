@@ -11,6 +11,9 @@ module Mastodon
     def is_reply?
       in_reply_to_id.nil? == false
     end
+    def in_reply_to_account_id
+      self.attributes['in_reply_to_account_id']
+    end
     def visibility
       self.attributes['visibility']
     end

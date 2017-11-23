@@ -100,7 +100,16 @@
   </label>
 </div>
 <% end %>
-<p><%= t :twitter_sync_explanation %></p>
+<p><%= t :twitter_reply_options %><br />
+<small><%= t :twitter_reply_options_explanation %></small></p>
+<% User.twitter_reply_options.keys.each do |reply_option| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :twitter_reply_options, reply_option %>
+  <%= t reply_option.to_sym %>
+  </label>
+</div>
+<% end %>
 <p class="trlike"></p>
 
 <%= f.submit %>

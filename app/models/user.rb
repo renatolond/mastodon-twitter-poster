@@ -5,7 +5,13 @@ class User < ApplicationRecord
   }
 
   enum masto_reply_options: {
-    masto_reply_do_not_post: 'MASTO_REPLY_DO_NOT_POST'
+    masto_reply_do_not_post: 'MASTO_REPLY_DO_NOT_POST',
+    masto_reply_post_self: 'MASTO_REPLY_POST_SELF'
+  }
+
+  enum twitter_reply_options: {
+    twitter_reply_do_not_post: 'TWITTER_REPLY_DO_NOT_POST',
+    twitter_reply_post_self: 'TWITTER_REPLY_POST_SELF'
   }
 
   enum masto_mention_options: {

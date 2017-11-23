@@ -99,9 +99,27 @@ class TwitterUserProcessor
     end
   end
 
-  def self.process_reply(_tweet, _user)
-    Rails.logger.debug('Ignoring reply, not implemented')
-    stats.increment("tweet.reply.skipped")
+  def self.process_reply(tweet, user)
+    if user.twitter_reply_do_not_post?
+      Rails.logger.debug('Ignoring reply, because user choose so')
+      stats.increment("tweet.reply.skipped")
+      return
+    end
+
+    if user.twitter_reply_post_self? && tweet.in_reply_to_user_id != tweet.user.id
+      Rails.logger.debug('Ignoring reply, because reply is not to self')
+      stats.increment("tweet.reply.skipped")
+      return
+    end
+
+    replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
+    if replied_status.nil?
+      Rails.logger.debug('Ignoring twitter reply to self because we haven\'t crossposted the original')
+      MastodonUserProcessor::stats.increment("tweet.reply_to_self.skipped")
+    else
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
+      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id, replied_status.masto_id)
+    end
   end
 
   def self.convert_twitter_text(text, urls, media, user)
@@ -164,9 +182,11 @@ class TwitterUserProcessor
     text
   end
 
-  def self.toot(text, medias, possibly_sensitive, user, tweet_id)
+  def self.toot(text, medias, possibly_sensitive, user, tweet_id, in_reply_to_id = nil)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
-    status = user.mastodon_client.create_status(text, sensitive: possibly_sensitive, media_ids: medias)
+    opts = {sensitive: possibly_sensitive, media_ids: medias}
+    opts[:in_reply_to_id] = in_reply_to_id unless in_reply_to_id.nil?
+    status = user.mastodon_client.create_status(text, opts)
     stats.increment('tweet.posted_to_mastodon')
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet_id)
   end

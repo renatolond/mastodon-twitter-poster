@@ -47,7 +47,8 @@ CREATE TYPE masto_mention_options AS ENUM (
 --
 
 CREATE TYPE masto_reply_options AS ENUM (
-    'MASTO_REPLY_DO_NOT_POST'
+    'MASTO_REPLY_DO_NOT_POST',
+    'MASTO_REPLY_POST_SELF'
 );
 
 
@@ -70,6 +71,16 @@ CREATE TYPE retweet_options AS ENUM (
     'RETWEET_DO_NOT_POST',
     'RETWEET_POST_AS_LINK',
     'RETWEET_POST_AS_OLD_RT'
+);
+
+
+--
+-- Name: twitter_reply_options; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE twitter_reply_options AS ENUM (
+    'TWITTER_REPLY_DO_NOT_POST',
+    'TWITTER_REPLY_POST_SELF'
 );
 
 
@@ -221,7 +232,8 @@ CREATE TABLE users (
     posting_from_twitter boolean DEFAULT false,
     masto_fix_cross_mention boolean DEFAULT false,
     retweet_options retweet_options DEFAULT 'RETWEET_DO_NOT_POST'::retweet_options,
-    quote_options quote_options DEFAULT 'QUOTE_DO_NOT_POST'::quote_options
+    quote_options quote_options DEFAULT 'QUOTE_DO_NOT_POST'::quote_options,
+    twitter_reply_options twitter_reply_options DEFAULT 'TWITTER_REPLY_DO_NOT_POST'::twitter_reply_options
 );
 
 
@@ -402,6 +414,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171025125328'),
 ('20171102154204'),
 ('20171103102943'),
-('20171103132222');
+('20171103132222'),
+('20171123155339'),
+('20171123191320');
 
 
