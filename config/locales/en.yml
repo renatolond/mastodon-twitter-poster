@@ -69,3 +69,4 @@ en:
   twitter_posting_reply_to_self: "You're posting replies to yourself."
   masto_not_posting_reply: "You're not posting replies."
   masto_posting_reply_to_self: "You're posting replies to yourself."
+  log_out: 'Logout'
