@@ -271,7 +271,10 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/6845573').to_return(web_fixture('mastodon_reply.json'))
     t = user.mastodon_client.status(6845573)
+    account_to_reply = t.in_reply_to_account_id
+    t.expects(:in_reply_to_account_id).returns(account_to_reply)
 
+    Status.expects(:find_by).never
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
     mastodon_user_processor.expects(:tweet).never
 
@@ -284,6 +287,10 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99054621935581878').to_return(web_fixture('mastodon_self_reply.json'))
     t = user.mastodon_client.status(99054621935581878)
 
+    account_to_reply = t.in_reply_to_account_id
+    t.expects(:in_reply_to_account_id).returns(account_to_reply)
+    Status.expects(:find_by).once
+
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
     mastodon_user_processor.expects(:tweet).never
 
@@ -295,10 +302,13 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99054621935581878').to_return(web_fixture('mastodon_self_reply.json'))
     t = user.mastodon_client.status(99054621935581878)
 
+    account_to_reply = t.in_reply_to_account_id
+    t.expects(:in_reply_to_account_id).returns(account_to_reply)
+
     status = create(:status, mastodon_client: user.mastodon.mastodon_client, masto_id: t.in_reply_to_id)
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.expects(:tweet).with(t.text_content, {in_reply_to_status_id: status.tweet_id}).once
+    mastodon_user_processor.expects(:tweet).with("I'm replying to myself!", {in_reply_to_status_id: status.tweet_id}).once
 
     mastodon_user_processor.process_reply
   end

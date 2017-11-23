@@ -524,4 +524,60 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     assert TwitterUserProcessor::posted_by_crossposter(t)
   end
+  test 'process_reply - Do not post replies' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_do_not_post'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904746849814360065.json?tweet_mode=extended').to_return(web_fixture('twitter_reply.json'))
+
+    t = user.twitter_client.status(904746849814360065, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:toot).never
+    TwitterUserProcessor::process_reply(t, user)
+  end
+
+  test 'process_reply - Do not post reply if self is set and reply is for someone else' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904746849814360065.json?tweet_mode=extended').to_return(web_fixture('twitter_reply.json'))
+
+    t = user.twitter_client.status(904746849814360065, tweet_mode: 'extended')
+    user_to_reply = t.in_reply_to_user_id
+    t.expects(:in_reply_to_user_id).returns(user_to_reply)
+
+    Status.expects(:find_by).never
+
+    TwitterUserProcessor.expects(:toot).never
+    TwitterUserProcessor::process_reply(t, user)
+  end
+
+  test 'process_reply - Do not post reply if self is set and reply is to self, but we don\'t know the id' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/933772488345088001.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_self_reply.json'))
+
+    t = user.twitter_client.status(933772488345088001, tweet_mode: 'extended', include_ext_alt_text: true)
+    user_to_reply = t.in_reply_to_user_id
+    t.expects(:in_reply_to_user_id).returns(user_to_reply)
+
+    Status.expects(:find_by).once
+
+    TwitterUserProcessor.expects(:toot).never
+    TwitterUserProcessor::process_reply(t, user)
+  end
+  test 'process_reply - Post reply if self is set and reply is to self, and we know the id' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/933772488345088001.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_self_reply.json'))
+
+    t = user.twitter_client.status(933772488345088001, tweet_mode: 'extended', include_ext_alt_text: true)
+    user_to_reply = t.in_reply_to_user_id
+    t.expects(:in_reply_to_user_id).returns(user_to_reply)
+
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, tweet_id: t.in_reply_to_status_id)
+
+    medias = []
+    sensitive = false
+    TwitterUserProcessor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, user, t.id, status.masto_id).once
+    TwitterUserProcessor::process_reply(t, user)
+  end
 end

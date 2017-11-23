@@ -125,23 +125,29 @@ class MastodonUserProcessor
   end
 
   def process_reply
-    if user.masto_reply_post_self? && toot.in_reply_to_account_id == toot.account.id
-      self.replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.in_reply_to_id)
-      if self.replied_status.nil?
-        Rails.logger.debug('Ignoring masto reply to self because we haven\'t crossposted the original')
-        MastodonUserProcessor::stats.increment("toot.reply_to_self.skipped")
-      else
-        if should_post
-          post_toot
-        else
-          MastodonUserProcessor::stats.increment("toot.reply_to_self.visibility.skipped")
-          Rails.logger.debug('Ignoring normal toot because of visibility configuration')
-        end
-      end
-    elsif user.masto_reply_do_not_post?
+    if user.masto_reply_do_not_post?
       Rails.logger.debug('Ignoring masto reply because user choose so')
       MastodonUserProcessor::stats.increment("toot.reply.skipped")
       return
+    end
+
+    if user.masto_reply_post_self? && toot.in_reply_to_account_id != toot.account.id
+      Rails.logger.debug('Ignoring masto reply because reply is not to self')
+      MastodonUserProcessor::stats.increment("toot.reply.skipped")
+      return
+    end
+
+    self.replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.in_reply_to_id)
+    if self.replied_status.nil?
+      Rails.logger.debug('Ignoring masto reply to self because we haven\'t crossposted the original')
+      MastodonUserProcessor::stats.increment("toot.reply_to_self.skipped")
+    else
+      if should_post
+        post_toot
+      else
+        MastodonUserProcessor::stats.increment("toot.reply_to_self.visibility.skipped")
+        Rails.logger.debug('Ignoring normal toot because of visibility configuration')
+      end
     end
   end
 
