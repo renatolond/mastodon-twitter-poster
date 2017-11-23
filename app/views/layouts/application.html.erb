@@ -26,12 +26,17 @@
             <ul class="nav navbar-nav">
               <li><%= link_to(t(:home), root_path)%></li>
             </ul>
+            <% if current_user %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to(t(:log_out), destroy_user_session_path, method: :delete) %></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to(t(:options), user_path) %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to(t(:accounts), account_path) %></li>
             </ul>
+            <% end %>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
