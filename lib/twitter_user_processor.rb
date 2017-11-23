@@ -159,9 +159,15 @@ class TwitterUserProcessor
       begin
         file.write HTTParty.get(media_url).body
         file.rewind
-        media = user.mastodon_client.upload_media(file, media.to_h[:ext_alt_text])
-        media_links << media.text_url
-        medias << media.id
+        returned_media = nil
+        begin
+          returned_media = user.mastodon_client.upload_media(file, media.to_h[:ext_alt_text])
+        rescue => ex
+          Rails.logger.error("Caught exception #{ex} when posting alt_text #{media.to_h[:ext_alt_text]}")
+          returned_media = user.mastodon_client.upload_media(file)
+        end
+        media_links << returned_media.text_url
+        medias << returned_media.id
       ensure
         file.close
         file.unlink
