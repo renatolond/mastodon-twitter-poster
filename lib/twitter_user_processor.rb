@@ -64,10 +64,10 @@ class TwitterUserProcessor
 
     if(tweet.retweet? || tweet.full_text[0..3] == 'RT @')
       process_retweet(tweet, user)
-    elsif tweet.quoted_status?
-      process_quote(tweet, user)
     elsif tweet.reply?
       process_reply(tweet, user)
+    elsif tweet.quoted_status?
+      process_quote(tweet, user)
     else
       process_normal_tweet(tweet, user)
     end
