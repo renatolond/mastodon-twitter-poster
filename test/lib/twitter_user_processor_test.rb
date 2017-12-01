@@ -99,12 +99,48 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_tweet(t, user)
   end
 
+  test 'process_tweet - quote with url' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936731134456745984.json?tweet_mode=extended').to_return(web_fixture('twitter_quote_with_url.json'))
+
+    t = user.twitter_client.status(936731134456745984, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
+
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_tweet - quote of quote' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936734115738669057.json?tweet_mode=extended').to_return(web_fixture('twitter_quote_of_quote.json'))
+
+    t = user.twitter_client.status(936734115738669057, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
+
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+
   test 'process_tweet - retweet' do
     user = create(:user_with_mastodon_and_twitter)
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
+
+    TwitterUserProcessor::process_tweet(t, user)
+  end
+  test 'process_tweet - retweet with image' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/935492027109793792.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_long_rt_with_media.json'))
+
+    t = user.twitter_client.status(935492027109793792, tweet_mode: 'extended', include_ext_alt_text: true)
 
     TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
 
@@ -222,6 +258,32 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_quote(t, user)
   end
 
+  test 'process_quote - quote as old style RT: quote with URL gets url replaced' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936731134456745984.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_with_url.json'))
+
+    t = user.twitter_client.status(936731134456745984, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = []
+    sensitive = false
+    text = "Hey, about that link, let me test a quote!\nRT @renatolonddev@twitter.com A link to http://masto.donte.com.br. You see, I really want this link to become a twitter one :)"
+    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
+  test 'process_quote - quote as old style RT: quote of a quote gets url replaced' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936734115738669057.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_of_quote.json'))
+
+    t = user.twitter_client.status(936734115738669057, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = []
+    sensitive = false
+    text = "Maybe I have to quote this one, then?\nRT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288"
+    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
   test 'process_retweet - retweet as link' do
     user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
 
@@ -256,6 +318,30 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
     TwitterUserProcessor::process_retweet(t, user)
   end
+
+  test 'process_retweet - retweet as old style RT: retweet of long tweet with images get images posted' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/935492027109793792.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_long_rt_with_media.json'))
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-0-_X0AAda9v.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-3ukXUAIQlR3.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-88rXkAInWpE.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(935492027109793792, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = [273, 273, 273, 273]
+    sensitive = false
+    text = "RT @renatolonddev@twitter.com: Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
+    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
+    TwitterUserProcessor::process_retweet(t, user)
+  end
+
 
   test 'process_retweet - retweet with images as old RT' do
     user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
