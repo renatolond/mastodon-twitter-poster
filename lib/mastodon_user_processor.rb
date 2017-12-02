@@ -252,7 +252,7 @@ class MastodonUserProcessor
       file.rewind
       options = detect_twitter_filetype(url)
       media_id = user.twitter_client.upload(file, options).to_s
-      user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].nil?
+      user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].blank?
     ensure
       file.close
       file.unlink
