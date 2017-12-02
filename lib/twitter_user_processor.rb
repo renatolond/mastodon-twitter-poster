@@ -81,7 +81,9 @@ class TwitterUserProcessor
       content = "RT: #{tweet.url}"
       toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
     elsif user.retweet_post_as_old_rt?
-      process_normal_tweet(tweet, user)
+      retweet = tweet.retweeted_status
+      text, medias = convert_twitter_text(tweet.full_text, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq, user)
+      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
     end
   end
 
@@ -94,7 +96,7 @@ class TwitterUserProcessor
     elsif user.quote_post_as_old_rt?
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
-      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, tweet.media + quote.media, user)
+      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq, user)
       toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
     end
   end
