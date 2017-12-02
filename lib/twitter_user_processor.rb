@@ -1,4 +1,5 @@
 require 'stats'
+require 'tweet_transformer'
 
 class TwitterUserProcessor
   def self.html_entities
@@ -35,7 +36,7 @@ class TwitterUserProcessor
     last_successful_tweet = nil
     new_tweets.reverse.each do |t|
       begin
-        process_tweet(t, user)
+        TwitterUserProcessor.new(t, user).process_tweet
         last_successful_tweet = t
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
@@ -48,108 +49,137 @@ class TwitterUserProcessor
     user.save
   end
 
-  def self.posted_by_crossposter(tweet)
+  def initialize(tweet, user)
+    @tweet = tweet
+    @user = user
+  end
+
+  def tweet
+    @tweet
+  end
+
+  def user
+    @user
+  end
+
+  def replied_status=(replied_status)
+    @replied_status=replied_status
+  end
+
+  def replied_status
+    @replied_status
+  end
+
+  def posted_by_crossposter
     return true unless tweet.source['https://crossposter.masto.donte.com.br'].nil? &&
     tweet.source['https://github.com/renatolond/mastodon-twitter-poster'].nil? &&
     Status.find_by_tweet_id(tweet.id) == nil
     false
   end
 
-  def self.process_tweet(tweet, user)
-    if(posted_by_crossposter(tweet))
+  def process_tweet
+    if(posted_by_crossposter)
       Rails.logger.debug('Ignoring tweet, was posted by the crossposter')
-      stats.increment('tweet.posted_by_crossposter.skipped')
+      self.class.stats.increment('tweet.posted_by_crossposter.skipped')
       return
     end
 
     if(tweet.retweet? || tweet.full_text[0..3] == 'RT @')
-      process_retweet(tweet, user)
+      process_retweet
     elsif tweet.reply?
-      process_reply(tweet, user)
+      process_reply
     elsif tweet.quoted_status?
-      process_quote(tweet, user)
+      process_quote
     else
-      process_normal_tweet(tweet, user)
+      process_normal_tweet
     end
   end
 
-  def self.process_retweet(tweet, user)
+  def process_retweet
     if user.retweet_do_not_post?
       Rails.logger.debug('Ignoring retweet because user chose so')
-      stats.increment("tweet.retweet.skipped")
+      self.class.stats.increment("tweet.retweet.skipped")
     elsif user.retweet_post_as_link?
       content = "RT: #{tweet.url}"
-      toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
+      save_status = true
+      toot(content, [], tweet.possibly_sensitive?, save_status)
     elsif user.retweet_post_as_old_rt?
       retweet = tweet.retweeted_status
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq, user)
-      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
+      save_status = true
+      toot(text, medias, tweet.possibly_sensitive?, save_status)
     end
   end
 
-  def self.process_quote(tweet, user)
+  def process_quote
     if user.quote_do_not_post?
       Rails.logger.debug('Ignoring quote because user chose so')
-      stats.increment("tweet.quote.skipped")
+      self.class.stats.increment("tweet.quote.skipped")
     elsif user.quote_post_as_link?
-      process_normal_tweet(tweet, user)
+      process_normal_tweet
     elsif user.quote_post_as_old_rt?
-      process_quote_as_old_rt(tweet, user)
+      process_quote_as_old_rt
     end
   end
 
-  def self.process_quote_as_old_rt(tweet, user)
+  def process_quote_as_old_rt
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
-      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq, user)
+      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
       if text.length <= 500
-        toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+        save_status = true
+        toot(text, medias, tweet.possibly_sensitive?, save_status)
       else
-        text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media, user)
-        quote_id = toot(text, medias, tweet.possibly_sensitive?, user)
-        text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media, user)
-        toot(text, medias, tweet.possibly_sensitive?, user, tweet.id, quote_id)
+        text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
+        save_status = false
+        quote_id = toot(text, medias, tweet.possibly_sensitive?, save_status)
+        text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
+        save_status = true
+        self.replied_status = Status.new(masto_id: quote_id)
+        toot(text, medias, tweet.possibly_sensitive?, save_status)
       end
   end
 
-  def self.process_reply(tweet, user)
+  def process_reply
     if user.twitter_reply_do_not_post?
       Rails.logger.debug('Ignoring reply, because user choose so')
-      stats.increment("tweet.reply.skipped")
+      self.class.stats.increment("tweet.reply.skipped")
       return
     end
 
     if user.twitter_reply_post_self? && tweet.in_reply_to_user_id != tweet.user.id
       Rails.logger.debug('Ignoring reply, because reply is not to self')
-      stats.increment("tweet.reply.skipped")
+      self.class.stats.increment("tweet.reply.skipped")
       return
     end
 
-    replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
+    self.replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
     if replied_status.nil?
       Rails.logger.debug('Ignoring twitter reply to self because we haven\'t crossposted the original')
-      MastodonUserProcessor::stats.increment("tweet.reply_to_self.skipped")
+      self.class.stats.increment("tweet.reply_to_self.skipped")
     else
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
-      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id, replied_status.masto_id)
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+      save_status = true
+      toot(text, medias, tweet.possibly_sensitive?, save_status)
     end
   end
 
-  def self.convert_twitter_text(text, urls, media, user)
-    text = replace_links(text, urls)
-    text = replace_mentions(text)
-    text, medias, media_links = find_media(media, user, text)
-    text = self.html_entities.decode(text)
+  def convert_twitter_text(text, urls, media)
+    text = TweetTransformer::replace_links(text, urls)
+    text = TweetTransformer::replace_mentions(text)
+    text, medias, media_links = find_media(media, text)
+    text = self.class.html_entities.decode(text)
     text = media_links.join("\n") if text.empty?
     [text, medias]
   end
 
-  def self.process_normal_tweet(tweet, user)
-    text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media, user)
-    toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+  def process_normal_tweet
+    text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+    save_status = true
+    toot(text, medias, tweet.possibly_sensitive?, save_status)
   end
 
-  def self.find_media(tweet_medias, user, text)
+  def find_media(tweet_medias, text)
     medias = []
     media_links = []
     tweet_medias.each do |media|
@@ -189,25 +219,13 @@ class TwitterUserProcessor
     return text, medias, media_links
   end
 
-  def self.replace_mentions(text)
-    twitter_mention_regex = /(\s|^.?)(@[A-Za-z0-9_]+)([^A-Za-z0-9_@]|[^@]$)/
-    text.gsub(twitter_mention_regex, '\1\2@twitter.com\3')
-  end
-
-  def self.replace_links(text, urls)
-    urls.each do |u|
-      text.gsub!(u.url.to_s, u.expanded_url.to_s)
-    end
-    text
-  end
-
-  def self.toot(text, medias, possibly_sensitive, user, tweet_id = nil, in_reply_to_id = nil)
+  def toot(text, medias, possibly_sensitive, save_status)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     opts = {sensitive: possibly_sensitive, media_ids: medias}
-    opts[:in_reply_to_id] = in_reply_to_id unless in_reply_to_id.nil?
+    opts[:in_reply_to_id] = replied_status.masto_id unless replied_status.nil?
     status = user.mastodon_client.create_status(text, opts)
-    stats.increment('tweet.posted_to_mastodon')
-    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet_id) if tweet_id
+    self.class.stats.increment('tweet.posted_to_mastodon')
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet.id) if save_status
     status.id
   end
 end
