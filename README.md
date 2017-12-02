@@ -2,6 +2,8 @@
 
 This is an app for crossposting between Mastodon and Twitter. The app is made so that multiple users can connect to it using the OAuth interface from both Twitter and Mastodon and choose options on how the crosspost should work.
 
+If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from whatever Mastodo server you are in 🙂
+
 ## Features
 
 * Post from Twitter to Mastodon
