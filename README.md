@@ -2,7 +2,7 @@
 
 This is an app for crossposting between Mastodon and Twitter. The app is made so that multiple users can connect to it using the OAuth interface from both Twitter and Mastodon and choose options on how the crosspost should work.
 
-If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from whatever Mastodo server you are in 🙂
+If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from whatever Mastodo server you are in 
 
 ## Features
 
@@ -11,14 +11,15 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - You can choose between posting retweets and quotes as links or as the old-style RTs, starting by RT @username@twitter.com.
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
-  - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there 
+  - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there.
 
 * Post from Mastodon to Twitter
+  - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
   - Mind your privacy: you can choose which privacy levels you want to crosspost. Only posting public toots, for instance.
   - You can choose between posting boosts or not.
   - Automatically fix mentions to twitter users! If you post @user@twitter.com they will be mentioned on twitter when the toot gets crossposted.
-  - Your own threads can also be crossposted, obeying to the choices you made regarding your privacy.
-  - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
+  - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
+  - No other replies will be posted. There's no risk of filling your twitter timeline with replies to people that are not there.
   
 The crossposter will never follow anyone or post anything but the content you selected to be crossposted.
 
