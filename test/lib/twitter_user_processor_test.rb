@@ -284,6 +284,43 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_quote(t, user)
   end
 
+  test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-0-_X0AAda9v.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-3ukXUAIQlR3.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-88rXkAInWpE.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(936933954241945606, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = [273, 273, 273, 273]
+
+    sensitive = false
+    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
+
+    masto_status = mock()
+    quote_masto_id = 919819281111
+    masto_status.expects(:id).returns(quote_masto_id).once
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias).returns(masto_status)
+
+    text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
+    medias = []
+
+    masto_status = mock()
+    masto_id = 919819281112
+    masto_status.expects(:id).returns(masto_id).twice
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id).returns(masto_status)
+
+    TwitterUserProcessor::process_quote(t, user)
+  end
+
   test 'process_retweet - retweet as link' do
     user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
 
@@ -556,7 +593,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
-    masto_status.expects(:id).returns(masto_id)
+    masto_status.expects(:id).returns(masto_id).twice
     masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
     TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
@@ -573,7 +610,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
-    masto_status.expects(:id).returns(masto_id)
+    masto_status.expects(:id).returns(masto_id).twice
     masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
     expected_status = Status.new(mastodon_client_id: user.mastodon.mastodon_client_id, tweet_id: tweet_id, masto_id: masto_id)
