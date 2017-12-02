@@ -62,12 +62,12 @@ class TwitterUserProcessor
     @user
   end
 
-  def replied_status=(replied_status)
-    @replied_status=replied_status
+  def replied_status_id=(replied_status_id)
+    @replied_status_id=replied_status_id
   end
 
-  def replied_status
-    @replied_status
+  def replied_status_id
+    @replied_status_id
   end
 
   def posted_by_crossposter
@@ -135,7 +135,7 @@ class TwitterUserProcessor
         quote_id = toot(text, medias, quote.possibly_sensitive?, save_status)
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
-        self.replied_status = Status.new(masto_id: quote_id)
+        self.replied_status_id = quote_id
         toot(text, medias, tweet.possibly_sensitive?, save_status)
       end
   end
@@ -153,11 +153,12 @@ class TwitterUserProcessor
       return
     end
 
-    self.replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
+    replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
     if replied_status.nil?
       Rails.logger.debug('Ignoring twitter reply to self because we haven\'t crossposted the original')
       self.class.stats.increment("tweet.reply_to_self.skipped")
     else
+      self.replied_status_id = replied_status.masto_id
       text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
       toot(text, medias, tweet.possibly_sensitive?, save_status)
@@ -222,7 +223,7 @@ class TwitterUserProcessor
   def toot(text, medias, possibly_sensitive, save_status)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     opts = {sensitive: possibly_sensitive, media_ids: medias}
-    opts[:in_reply_to_id] = replied_status.masto_id unless replied_status.nil?
+    opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment('tweet.posted_to_mastodon')
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet.id) if save_status

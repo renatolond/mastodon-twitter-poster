@@ -752,6 +752,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, save_status).once
     twitter_user_processor.process_reply
-    assert status.masto_id, twitter_user_processor.replied_status
+    assert status.masto_id, twitter_user_processor.replied_status_id
   end
 end
