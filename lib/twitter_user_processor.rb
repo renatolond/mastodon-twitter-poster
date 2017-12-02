@@ -132,7 +132,7 @@ class TwitterUserProcessor
       else
         text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         save_status = false
-        quote_id = toot(text, medias, tweet.possibly_sensitive?, save_status)
+        quote_id = toot(text, medias, quote.possibly_sensitive?, save_status)
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status = Status.new(masto_id: quote_id)
