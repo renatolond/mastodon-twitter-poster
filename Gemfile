@@ -39,6 +39,7 @@ gem 'httparty'
 gem 'statsd-ruby'
 gem 'foreman'
 gem 'dotenv-rails'
+gem 'ruby-filemagic'
 
 group :development, :test do
   gem 'byebug'
