@@ -97,7 +97,14 @@ class TwitterUserProcessor
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq, user)
-      toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+      if text.length <= 500
+        toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
+      else
+        text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media, user)
+        quote_id = toot(text, medias, tweet.possibly_sensitive?, user)
+        text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media, user)
+        toot(text, medias, tweet.possibly_sensitive?, user, tweet.id, quote_id)
+      end
     end
   end
 
@@ -190,12 +197,13 @@ class TwitterUserProcessor
     text
   end
 
-  def self.toot(text, medias, possibly_sensitive, user, tweet_id, in_reply_to_id = nil)
+  def self.toot(text, medias, possibly_sensitive, user, tweet_id = nil, in_reply_to_id = nil)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     opts = {sensitive: possibly_sensitive, media_ids: medias}
     opts[:in_reply_to_id] = in_reply_to_id unless in_reply_to_id.nil?
     status = user.mastodon_client.create_status(text, opts)
     stats.increment('tweet.posted_to_mastodon')
-    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet_id)
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet_id) if tweet_id
+    status.id
   end
 end
