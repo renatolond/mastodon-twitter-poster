@@ -57,9 +57,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
     tweet_order = [902865452224962560, 902921539997270016]
-    TwitterUserProcessor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError).with() {
+    twitter_user_processor = mock()
+    TwitterUserProcessor.expects(:new).returns(twitter_user_processor).at_least(1).with() {
       |value| value.id == tweet_order.delete_at(0)
     }
+    twitter_user_processor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
 
     TwitterUserProcessor::get_last_tweets_for_user(user)
   end
@@ -69,7 +71,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
     expected_last_tweet_id = 902865452224962560
-    TwitterUserProcessor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
+    twitter_user_processor = mock()
+    TwitterUserProcessor.expects(:new).returns(twitter_user_processor).at_least(1)
+    twitter_user_processor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
 
     Timecop.freeze do
       TwitterUserProcessor::get_last_tweets_for_user(user)
@@ -82,7 +86,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/user_timeline.json?since_id=1000000&tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_usertimeline_2tweets.json'))
 
-    TwitterUserProcessor.expects(:process_tweet).times(2).returns(nil).then.raises(StandardError)
+    twitter_user_processor = mock()
+    TwitterUserProcessor.expects(:new).returns(twitter_user_processor).at_least(1)
+    twitter_user_processor.expects(:process_tweet).times(2).returns(nil).then.raises(StandardError)
 
     TwitterUserProcessor::get_last_tweets_for_user(user)
   end
@@ -94,9 +100,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_quote).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process_tweet - quote with url' do
@@ -106,9 +112,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(936731134456745984, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
-
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_quote).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process_tweet - quote of quote' do
@@ -118,9 +124,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(936734115738669057, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_quote).times(1).returns(nil)
-
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_quote).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
 
@@ -131,9 +137,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_retweet).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
   test 'process_tweet - retweet with image' do
     user = create(:user_with_mastodon_and_twitter)
@@ -142,9 +148,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(935492027109793792, tweet_mode: 'extended', include_ext_alt_text: true)
 
-    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_retweet).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process tweet - manual retweet' do
@@ -154,9 +160,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(895311375546888192, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_retweet).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_retweet).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process tweet - reply to tweet' do
@@ -166,9 +172,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(904746849814360065, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_reply).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_reply).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
   test 'process tweet - reply to user' do
     user = create(:user_with_mastodon_and_twitter)
@@ -177,9 +183,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(904747662070734848, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:process_reply).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:process_reply).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
   test 'process tweet - normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
@@ -188,10 +194,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(902835613539422209, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:posted_by_crossposter).with(t).times(1).returns(false)
-    TwitterUserProcessor.expects(:process_normal_tweet).times(1).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).times(1).returns(false)
+    twitter_user_processor.expects(:process_normal_tweet).times(1).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process tweet - ignore tweet posted by the crossposter' do
@@ -201,10 +207,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(902835613539422209)
 
-    TwitterUserProcessor.expects(:posted_by_crossposter).with(t).times(1).returns(true)
-    TwitterUserProcessor.expects(:process_normal_tweet).times(0).returns(nil)
-
-    TwitterUserProcessor::process_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).times(1).returns(true)
+    twitter_user_processor.expects(:process_normal_tweet).times(0).returns(nil)
+    twitter_user_processor.process_tweet
   end
 
   test 'process_quote - do not post quote' do
@@ -214,8 +220,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).times(0)
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).times(0)
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as link' do
@@ -226,8 +233,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
     text = 'What about a quote? https://twitter.com/renatolonddev/status/895751593924210690'
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true).times(1).returns(nil)
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote with image as old style RT' do
@@ -242,8 +250,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(926428711141986309, tweet_mode: 'extended')
     text = "Quote with pic\nRT @renatolonddev@twitter.com Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there lives one blind text. Separated they live in Bookmarksgrove right at the drops of the Semantics, a large language ocean. A small river named Jujen flows by their place and supplies(280)"
 
-    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [273], false, true).times(1).returns(nil)
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as old style RT' do
@@ -254,8 +263,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
     text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!"
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true).times(1).returns(nil)
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as old style RT: quote with URL gets url replaced' do
@@ -266,9 +276,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(936731134456745984, tweet_mode: 'extended', include_ext_alt_text: true)
     medias = []
     sensitive = false
+    save_status = true
     text = "Hey, about that link, let me test a quote!\nRT @renatolonddev@twitter.com A link to http://masto.donte.com.br. You see, I really want this link to become a twitter one :)"
-    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status).once
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as old style RT: quote of a quote gets url replaced' do
@@ -279,9 +291,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(936734115738669057, tweet_mode: 'extended', include_ext_alt_text: true)
     medias = []
     sensitive = false
+    save_status = true
     text = "Maybe I have to quote this one, then?\nRT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288"
-    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status).once
+    twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots' do
@@ -318,7 +332,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status.expects(:id).returns(masto_id).twice
     user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id).returns(masto_status)
 
-    TwitterUserProcessor::process_quote(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.process_quote
   end
 
   test 'process_retweet - retweet as link' do
@@ -329,8 +344,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
     text = "RT: #{t.url}"
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true).times(1).returns(nil)
+    twitter_user_processor.process_retweet
   end
 
   test 'process_retweet - do not post RT' do
@@ -340,8 +356,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).times(0)
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_retweet
   end
 
   test 'process_retweet - retweet as old RT' do
@@ -352,8 +369,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
     text = "RT @renatolonddev@twitter.com: test"
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true).times(1).returns(nil)
+    twitter_user_processor.process_retweet
   end
 
   test 'process_retweet - retweet as old style RT: retweet of long tweet with images get images posted' do
@@ -374,9 +392,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(935492027109793792, tweet_mode: 'extended', include_ext_alt_text: true)
     medias = [273, 273, 273, 273]
     sensitive = false
+    save_status = true
     text = "RT @renatolonddev@twitter.com: Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
-    TwitterUserProcessor.expects(:toot).with(text, medias, sensitive, user, t.id).once
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status).once
+    twitter_user_processor.process_retweet
   end
 
 
@@ -392,8 +412,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(926428678573187072, tweet_mode: 'extended')
     text = "RT @renatolonddev@twitter.com:"
 
-    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [273], false, true).times(1).returns(nil)
+    twitter_user_processor.process_retweet
   end
 
   test 'process_retweet - retweet manual retweet as old RT' do
@@ -404,8 +425,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(895311375546888192, tweet_mode: 'extended')
     text = "RT @renatolonddev@twitter.com: Hello, world!"
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id).times(1).returns(nil)
-    TwitterUserProcessor::process_retweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true).times(1).returns(nil)
+    twitter_user_processor.process_retweet
   end
 
   test 'process normal tweet' do
@@ -414,17 +436,18 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     tweet_id = 999999
     medias = []
     possibly_sensitive = false
+    save_status = true
 
-    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user, tweet_id).times(1).returns(nil)
-    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
+    TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
     tweet.expects(:full_text).returns(text)
-    tweet.expects(:id).returns(tweet_id)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
     tweet.expects(:urls).returns([])
 
-    TwitterUserProcessor::process_normal_tweet(tweet, user)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status).times(1).returns(nil)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'process normal tweet with media' do
@@ -433,28 +456,19 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [123]
     tweet_id = 9999999
     possibly_sensitive = false
+    save_status = true
 
-    TwitterUserProcessor.expects(:toot).with(text, medias, possibly_sensitive, user, tweet_id).times(1).returns(nil)
-    TwitterUserProcessor.expects(:replace_links).times(1).returns(text)
-    TwitterUserProcessor.expects(:find_media).times(1).returns([text, medias])
+    TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:id).returns(tweet_id)
     tweet.expects(:full_text).returns(text)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
     tweet.expects(:urls).returns([])
 
-    TwitterUserProcessor::process_normal_tweet(tweet, user)
-  end
-
-  test 'replace links should return regular link instead of shortened one' do
-    user = create(:user_with_mastodon_and_twitter)
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/914920793930428416.json?tweet_mode=extended').to_return(web_fixture('twitter_link.json'))
-
-    t = user.twitter_client.status(914920793930428416, tweet_mode: 'extended')
-
-    assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TwitterUserProcessor::replace_links(t.full_text.dup, t.urls)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:find_media).times(1).returns([text, medias])
+    twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status).times(1).returns(nil)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'upload medias to mastodon and post them together with the toot' do
@@ -470,7 +484,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended', include_ext_alt_text: true)
 
-    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text.dup)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text.dup)
   end
 
   test 'image description should be uploaded to mastodon' do
@@ -490,7 +505,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(931274037812228097, tweet_mode: 'extended', include_ext_alt_text: true)
 
-    assert_equal ['Oh!', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal ['Oh!', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
@@ -506,7 +522,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(915023144573915137, tweet_mode: 'extended')
 
-    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], TwitterUserProcessor::find_media(t.media, user, t.full_text.dup)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text.dup)
   end
 
   test 'post tweet with images but no text' do
@@ -524,8 +541,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     text = 'https://masto.test/media/Sb_IvtOAk9qDLDwbZC8'
 
-    TwitterUserProcessor.expects(:toot).with(text, [273], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [273], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'tweet with 280 chars' do
@@ -535,8 +553,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/923129550372048896.json?tweet_mode=extended').to_return(web_fixture('twitter_280chars.json'))
     t = user.twitter_client.status(923129550372048896, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'tweet with escaped chars' do
@@ -546,8 +565,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/915662689359278080.json?tweet_mode=extended').to_return(web_fixture('twitter_chars.json'))
     t = user.twitter_client.status(915662689359278080, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'tweet with mention should change into mention with @twitter.com' do
@@ -557,8 +577,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/898092629677801472.json?tweet_mode=extended').to_return(web_fixture('twitter_mention2.json'))
     t = user.twitter_client.status(898092629677801472, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'tweet with dot before mention should change into mention with @twitter.com' do
@@ -568,8 +589,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936931607960621056.json?tweet_mode=extended').to_return(web_fixture('twitter_mention_with_dot.json'))
     t = user.twitter_client.status(936931607960621056, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'tweet with multiple media (but only one link in text)' do
@@ -589,8 +611,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture('mastodon_image_post.json'))
 
-    TwitterUserProcessor.expects(:toot).with(text, [273, 273, 273, 273], false, user, t.id)
-    TwitterUserProcessor::process_normal_tweet(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [273, 273, 273, 273], false, true)
+    twitter_user_processor.process_normal_tweet
   end
 
   test 'toot' do
@@ -601,13 +624,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_id = 98392839283
     medias = []
     possibly_sensitive = false
+    save_status = true
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
     masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
 
-    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
+    tweet = mock()
+    tweet.expects(:id).returns(tweet_id)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.toot(text, medias, possibly_sensitive, save_status)
   end
 
   test 'toot with medias' do
@@ -618,6 +645,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_id = 98392839283
     medias = [123]
     possibly_sensitive = false
+    save_status = true
     masto_client = mock()
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
@@ -626,7 +654,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     expected_status = Status.new(mastodon_client_id: user.mastodon.mastodon_client_id, tweet_id: tweet_id, masto_id: masto_id)
 
-    TwitterUserProcessor::toot(text, medias, possibly_sensitive, user, tweet_id)
+    tweet = mock()
+    tweet.expects(:id).returns(tweet_id)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.toot(text, medias, possibly_sensitive, save_status)
 
     ignored_attributes = %w(id created_at updated_at)
     assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)
@@ -638,7 +669,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/923201403337826304.json?tweet_mode=extended').to_return(web_fixture('twitter_used_crossposter2.json'))
     t = user.twitter_client.status(923201403337826304, tweet_mode: 'extended')
 
-    assert TwitterUserProcessor::posted_by_crossposter(t)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert twitter_user_processor.posted_by_crossposter
   end
   test 'posted by crossposter - github link' do
     user = create(:user_with_mastodon_and_twitter)
@@ -646,7 +678,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/896020976940535808.json?tweet_mode=extended').to_return(web_fixture('twitter_used_crossposter.json'))
     t = user.twitter_client.status(896020976940535808, tweet_mode: 'extended')
 
-    assert TwitterUserProcessor::posted_by_crossposter(t)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert twitter_user_processor.posted_by_crossposter
   end
   test 'posted by crossposter - status in the database' do
     user = create(:user_with_mastodon_and_twitter)
@@ -656,7 +689,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     status = create(:status, tweet_id: t.id)
 
-    assert TwitterUserProcessor::posted_by_crossposter(t)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert twitter_user_processor.posted_by_crossposter
   end
   test 'process_reply - Do not post replies' do
     user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_do_not_post'])
@@ -665,8 +699,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(904746849814360065, tweet_mode: 'extended')
 
-    TwitterUserProcessor.expects(:toot).never
-    TwitterUserProcessor::process_reply(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_reply
   end
 
   test 'process_reply - Do not post reply if self is set and reply is for someone else' do
@@ -680,8 +715,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     Status.expects(:find_by).never
 
-    TwitterUserProcessor.expects(:toot).never
-    TwitterUserProcessor::process_reply(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_reply
   end
 
   test 'process_reply - Do not post reply if self is set and reply is to self, but we don\'t know the id' do
@@ -695,8 +731,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     Status.expects(:find_by).once
 
-    TwitterUserProcessor.expects(:toot).never
-    TwitterUserProcessor::process_reply(t, user)
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_reply
   end
   test 'process_reply - Post reply if self is set and reply is to self, and we know the id' do
     user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
@@ -711,7 +748,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     medias = []
     sensitive = false
-    TwitterUserProcessor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, user, t.id, status.masto_id).once
-    TwitterUserProcessor::process_reply(t, user)
+    save_status = true
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, save_status).once
+    twitter_user_processor.process_reply
+    assert status.masto_id, twitter_user_processor.replied_status_id
   end
 end
