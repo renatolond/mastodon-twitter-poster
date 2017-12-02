@@ -9,7 +9,7 @@ This is an app for crossposting between Mastodon and Twitter. The app is made so
   - You can choose between posting retweets and quotes as links or as the old-style RTs, starting by RT @username@twitter.com.
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
-  - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there 😉
+  - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there 
 
 * Post from Mastodon to Twitter
   - Mind your privacy: you can choose which privacy levels you want to crosspost. Only posting public toots, for instance.
@@ -17,6 +17,10 @@ This is an app for crossposting between Mastodon and Twitter. The app is made so
   - Automatically fix mentions to twitter users! If you post @user@twitter.com they will be mentioned on twitter when the toot gets crossposted.
   - Your own threads can also be crossposted, obeying to the choices you made regarding your privacy.
   - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
+  
+The crossposter will never follow anyone or post anything but the content you selected to be crossposted.
+
+If you decide to crosspost from Twitter to Mastodon, remember to turn on notifications about when people mention you to avoid not seeing interactions!
 
 ## Ruby on Rails
 
