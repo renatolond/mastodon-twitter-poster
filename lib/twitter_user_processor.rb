@@ -94,6 +94,11 @@ class TwitterUserProcessor
     elsif user.quote_post_as_link?
       process_normal_tweet(tweet, user)
     elsif user.quote_post_as_old_rt?
+      process_quote_as_old_rt(tweet, user)
+    end
+  end
+
+  def self.process_quote_as_old_rt(tweet, user)
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq, user)
@@ -105,7 +110,6 @@ class TwitterUserProcessor
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media, user)
         toot(text, medias, tweet.possibly_sensitive?, user, tweet.id, quote_id)
       end
-    end
   end
 
   def self.process_reply(tweet, user)
