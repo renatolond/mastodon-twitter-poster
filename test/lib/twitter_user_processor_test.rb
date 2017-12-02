@@ -561,6 +561,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor::process_normal_tweet(t, user)
   end
 
+  test 'tweet with dot before mention should change into mention with @twitter.com' do
+    user = create(:user_with_mastodon_and_twitter)
+    text = '.@renatolond@twitter.com hey, check this out!'
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936931607960621056.json?tweet_mode=extended').to_return(web_fixture('twitter_mention_with_dot.json'))
+    t = user.twitter_client.status(936931607960621056, tweet_mode: 'extended')
+
+    TwitterUserProcessor.expects(:toot).with(text, [], false, user, t.id)
+    TwitterUserProcessor::process_normal_tweet(t, user)
+  end
+
   test 'tweet with multiple media (but only one link in text)' do
     user = create(:user_with_mastodon_and_twitter)
     text = 'Test medias'
