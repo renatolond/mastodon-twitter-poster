@@ -229,50 +229,60 @@ class MastodonUserProcessor
       url.query = nil
       url = url.to_s
 
-      if media_type.nil?
-        media_type = detect_media_type(url)
-      elsif media_type != detect_media_type(url) || [:gif, :mp4].include?(media_type)
+      if ['image/gif', 'video/mp4'].include?(media_type)
         self.force_toot_url = true
         next
       end
 
-      media_ids << upload_media(media, url)
+      file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
+      file.binmode
+      begin
+        file.write HTTParty.get(media.url).body
+        file.rewind
+        file_type = detect_media_type(file)
+
+        if media_type.nil?
+          media_type = file_type
+        elsif media_type != file_type
+          self.force_toot_url = true
+          next
+        end
+
+        media_ids << upload_media(media, file, file_type)
+      ensure
+        file.close
+        file.unlink
+      end
     end
 
     opts[:media_ids] = media_ids.join(',') unless media_ids.empty?
     opts
   end
 
-  def upload_media(media, url)
-    file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
-    file.binmode
+  def upload_media(media, file, file_type)
     media_id = nil
-    begin
-      file.write HTTParty.get(media.url).body
-      file.rewind
-      options = detect_twitter_filetype(url)
+      options = detect_twitter_filetype(file_type)
       media_id = user.twitter_client.upload(file, options).to_s
       user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].blank?
-    ensure
-      file.close
-      file.unlink
-    end
     return media_id
   end
 
-  def detect_twitter_filetype(url)
+  def self.file_magic
+    @@fm ||= FileMagic.mime
+  end
+
+  def detect_twitter_filetype(file_type)
     options = {}
-    options = {media_type: 'video/mp4', media_category: 'tweet_video'} if File.extname(url) == '.mp4'
-    options = {media_type: 'image/png', media_category: 'tweet_image'} if File.extname(url) == '.png'
-    options = {media_type: 'image/jpeg', media_category: 'tweet_image'} if File.extname(url) =~ /\.jpe?g$/
-    options = {media_type: 'image/gif', media_category: 'tweet_image'} if File.extname(url) == '.gif'
+    if file_type == 'video/mp4'
+      options = {media_type: 'video/mp4', media_category: 'tweet_video'}
+    else
+      options = {media_type: file_type, media_category: 'tweet_image'}
+    end
     options
   end
 
-  def detect_media_type(url)
-    return :mp4 if File.extname(url) == '.mp4'
-    return :gif if File.extname(url) == '.gif'
-    return :image if File.extname(url) == '.png' || File.extname(url) =~ /\.jpe?g$/
+  def detect_media_type(file)
+    self.class.file_magic.file(file.path, true)
   end
 
   private

@@ -189,7 +189,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     t = user.mastodon_client.status(98889131472877168)
 
     stub_request(:get, 'https://6-28.mastodon.xyz/media_attachments/files/000/966/280/original/488f8918c5035959.png')
-      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DP_-0-_X0AAda9v.png') })
 
     user.twitter_client.expects(:upload).returns('9283923').with() { |file, options|
       options == {:media_type => "image/png", :media_category => "tweet_image"}
@@ -206,7 +206,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     t = user.mastodon_client.status(99016225502890297)
 
     stub_request(:get, 'https://6-28.mastodon.xyz/media_attachments/files/001/076/793/original/fe104e1dd1cab077.png')
-      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DP_-0-_X0AAda9v.png') })
 
     user.twitter_client.expects(:upload).returns('222917').with() { |file, options|
       options == {:media_type => "image/png", :media_category => "tweet_image"}
@@ -227,7 +227,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     t = user.mastodon_client.status(99016225502890297)
 
     stub_request(:get, 'https://6-28.mastodon.xyz/media_attachments/files/001/076/793/original/fe104e1dd1cab077.png')
-      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DP_-0-_X0AAda9v.png') })
 
     user.twitter_client.expects(:upload).returns('222917').with() { |file, options|
       options == {:media_type => "image/png", :media_category => "tweet_image"}
