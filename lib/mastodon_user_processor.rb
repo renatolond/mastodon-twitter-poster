@@ -225,9 +225,7 @@ class MastodonUserProcessor
     opts = {}
     media_type = nil
     medias.each do |media|
-      url = URI.parse(media.url)
-      url.query = nil
-      url = url.to_s
+      url = get_url_for_media(media)
 
       if ['image/gif', 'video/mp4'].include?(media_type)
         self.force_toot_url = true
@@ -240,10 +238,9 @@ class MastodonUserProcessor
         file.write HTTParty.get(media.url).body
         file.rewind
         file_type = detect_media_type(file)
+        media_type = file_type if media_type.nil?
 
-        if media_type.nil?
-          media_type = file_type
-        elsif media_type != file_type
+        if media_type != file_type
           self.force_toot_url = true
           next
         end
@@ -257,6 +254,12 @@ class MastodonUserProcessor
 
     opts[:media_ids] = media_ids.join(',') unless media_ids.empty?
     opts
+  end
+
+  def get_url_for_media(media)
+    url = URI.parse(media.url)
+    url.query = nil
+    url.to_s
   end
 
   def upload_media(media, file, file_type)
