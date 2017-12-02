@@ -82,7 +82,7 @@ class TwitterUserProcessor
       toot(content, [], tweet.possibly_sensitive?, user, tweet.id)
     elsif user.retweet_post_as_old_rt?
       retweet = tweet.retweeted_status
-      text, medias = convert_twitter_text(tweet.full_text, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq, user)
+      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq, user)
       toot(text, medias, tweet.possibly_sensitive?, user, tweet.id)
     end
   end
