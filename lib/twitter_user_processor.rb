@@ -190,7 +190,7 @@ class TwitterUserProcessor
       elsif media.is_a? Twitter::Media::Photo
         media_url = media.media_url
       else
-        stats.increment('tweet.unknown_media')
+        self.class.stats.increment('tweet.unknown_media')
         Rails.logger.warn { "Unknown media #{media.class.name}" }
         next
       end
