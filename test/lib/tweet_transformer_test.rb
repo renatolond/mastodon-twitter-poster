@@ -10,4 +10,10 @@ class TweetTransformerTest < ActiveSupport::TestCase
 
     assert_equal 'Test posting link https://github.com/renatolond/mastodon-twitter-poster :)', TweetTransformer::replace_links(t.full_text.dup, t.urls)
   end
+
+  test 'regression: tweet with username in the end should return the correct tweet handle' do
+    text = 'Test text by @renatolond'
+
+    assert_equal 'Test text by @renatolond@twitter.com', TweetTransformer::replace_mentions(text)
+  end
 end
