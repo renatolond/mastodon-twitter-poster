@@ -39,7 +39,7 @@ class MastodonUserProcessor
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
       rescue Twitter::Error::Forbidden => ex
-        Rails.logger.error { "Bad authentication for user #{user.mastodon.uid}." }
+        Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
         stats.increment("twitter.bad_auth")
         break
       rescue => ex
