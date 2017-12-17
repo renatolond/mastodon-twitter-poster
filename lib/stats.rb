@@ -14,6 +14,6 @@ class Stats
   end
 
   def timing(name, ms)
-    @statsd.increment(name, ms)
+    @statsd.timing(name, ms)
   end
 end

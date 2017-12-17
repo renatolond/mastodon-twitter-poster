@@ -248,7 +248,7 @@ class TwitterUserProcessor
     opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment('tweet.posted_to_mastodon')
-    self.class.stats.timing('tweet.average_time_to_post', (Time.now.to_f*1000).round - (tweet.created_at.to_f*1000).round)
+    self.class.stats.timing('tweet.average_time_to_post', ((Time.now - tweet.created_at) * 1000).round(5))
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: status.id, tweet_id: tweet.id) if save_status
     status.id
   end
