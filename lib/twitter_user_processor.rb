@@ -13,6 +13,14 @@ class TwitterUserProcessor
   def self.process_user(user)
     begin
       get_last_tweets_for_user(user) if user.posting_from_twitter
+    rescue HTTP::Error => ex
+      if ex.message == 'Unknown MIME type: text/html'
+        Rails.logger.warn { 'Domain #{user.mastodon.mastodon_client.domain} seems offline' }
+        stats.increment('domain.offline')
+      else
+        Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
+        stats.increment("user.processing_error")
+      end
     rescue StandardError => ex
       Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
       stats.increment("user.processing_error")
