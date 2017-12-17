@@ -329,7 +329,25 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     status = create(:status, mastodon_client: user.mastodon.mastodon_client, masto_id: t.in_reply_to_id)
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:twitter_status_exist?).with(status.tweet_id).returns(true)
     mastodon_user_processor.expects(:tweet).with("I'm replying to myself!", {in_reply_to_status_id: status.tweet_id, auto_populate_reply_metadata:true}).once
+
+    mastodon_user_processor.process_reply
+  end
+  test 'process_reply - Post reply if self is set and reply is to self, and we know the id but the tweet does not exist anymore' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz', masto_should_post_unlisted: true, masto_reply_options: User.masto_reply_options['masto_reply_post_self'])
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/99054621935581878').to_return(web_fixture('mastodon_self_reply.json'))
+    t = user.mastodon_client.status(99054621935581878)
+
+    account_to_reply = t.in_reply_to_account_id
+    t.expects(:in_reply_to_account_id).returns(account_to_reply)
+
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, masto_id: t.in_reply_to_id)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:twitter_status_exist?).with(status.tweet_id).returns(false)
+    mastodon_user_processor.expects(:tweet).never
 
     mastodon_user_processor.process_reply
   end

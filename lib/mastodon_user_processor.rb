@@ -158,6 +158,11 @@ class MastodonUserProcessor
       Rails.logger.debug('Ignoring masto reply to self because we haven\'t crossposted the original')
       MastodonUserProcessor::stats.increment("toot.reply_to_self.skipped")
     else
+      unless twitter_status_exist?(self.replied_status.tweet_id)
+        Rails.logger.debug('Ignoring masto reply to self because the one we were replying to doesn\'t exist anymore')
+        MastodonUserProcessor::stats.increment("toot.reply_to_self.skipped")
+        return
+      end
       if should_post
         post_toot
       else
@@ -165,6 +170,15 @@ class MastodonUserProcessor
         Rails.logger.debug('Ignoring normal toot because of visibility configuration')
       end
     end
+  end
+
+  def twitter_status_exist?(tweet_id)
+    begin
+      user.twitter_client.status(tweet_id)
+    rescue Twitter::Error::NotFound
+      return false
+    end
+    true
   end
 
   def process_mention
