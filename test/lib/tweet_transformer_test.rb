@@ -16,4 +16,10 @@ class TweetTransformerTest < ActiveSupport::TestCase
 
     assert_equal 'Test text by @renatolond@twitter.com', TweetTransformer::replace_mentions(text)
   end
+
+  test 'regression: multiple usernames on twitter seem to be lost when crossposting' do
+    text = '@usera @userb @userc @userd hello!'
+
+    assert_equal '@usera@twitter.com @userb@twitter.com @userc@twitter.com @userd@twitter.com hello!', TweetTransformer::replace_mentions(text)
+  end
 end
