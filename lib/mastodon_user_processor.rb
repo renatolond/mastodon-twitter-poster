@@ -46,6 +46,14 @@ class MastodonUserProcessor
       begin
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
+      rescue HTTP::Error => ex
+        if ex.message == 'Unknown MIME type: text/html'
+          Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
+          stats.increment('domain.offline')
+        else
+          Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
+          stats.increment("toot.processing_error")
+        end
       rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
         stats.increment("twitter.bad_auth")
