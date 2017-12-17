@@ -633,6 +633,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     tweet = mock()
     tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:created_at).returns(Time.now)
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status)
   end
@@ -656,6 +657,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     tweet = mock()
     tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:created_at).returns(Time.now)
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status)
 

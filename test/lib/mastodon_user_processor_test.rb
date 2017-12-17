@@ -125,6 +125,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, 'https://api.twitter.com/1.1/statuses/update.json').to_return(web_fixture('twitter_update.json'))
     toot = mock()
     toot.expects(:id).returns(masto_id)
+    toot.expects(:created_at).returns('2017-12-02T12:57:49.941Z')
     MastodonUserProcessor.new(toot, user).tweet(text)
     ignored_attributes = %w(id created_at updated_at)
     assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)

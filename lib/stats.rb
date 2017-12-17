@@ -12,4 +12,8 @@ class Stats
   def increment(name)
     @statsd.increment("#{name}")
   end
+
+  def timing(name, ms)
+    @statsd.increment(name, ms)
+  end
 end

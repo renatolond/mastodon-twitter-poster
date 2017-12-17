@@ -247,6 +247,7 @@ class MastodonUserProcessor
       status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.masto_fix_cross_mention), opts)
     end
     MastodonUserProcessor::stats.increment('toot.posted_to_twitter')
+    MastodonUserProcessor::stats.timing('toot.average_time_to_post', (Time.now.to_f*1000).round - (DateTime.strptime(toot.created_at, '%FT%T.%L%z').to_f*1000).round)
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
   end
 
