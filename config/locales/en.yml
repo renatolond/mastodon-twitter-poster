@@ -71,3 +71,5 @@ en:
   masto_posting_reply_to_self: "You're posting replies to yourself."
   log_out: 'Logout'
   for_news_and_status: 'For news and status, follow the Mastodon profile at: '
+  features: 'Features'
+  status: 'Status'

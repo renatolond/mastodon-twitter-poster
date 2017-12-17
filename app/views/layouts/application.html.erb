@@ -26,6 +26,12 @@
             <ul class="nav navbar-nav">
               <li><%= link_to(t(:home), root_path)%></li>
             </ul>
+            <ul class="nav navbar-nav">
+              <li><%= link_to(t(:features), 'https://github.com/renatolond/mastodon-twitter-poster#features', target: :_blank) %></li>
+            </ul>
+            <ul class="nav navbar-nav">
+              <li><%= link_to(t(:status), 'https://metrics.librato.com/s/public/241h4bwu2?duration=21600', target: :_blank) %></li>
+            </ul>
             <% if current_user %>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to(t(:log_out), destroy_user_session_path, method: :delete) %></li>
