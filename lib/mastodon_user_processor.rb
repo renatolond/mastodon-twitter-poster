@@ -13,7 +13,7 @@ class MastodonUserProcessor
       get_last_toots_for_user(user) if user.posting_from_mastodon
     rescue HTTP::Error => ex
       if ex.message == 'Unknown MIME type: text/html'
-        Rails.logger.warn { 'Domain #{user.mastodon.mastodon_client.domain} seems offline' }
+        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
       else
         Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
