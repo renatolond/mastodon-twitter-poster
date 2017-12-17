@@ -159,10 +159,24 @@ class TwitterUserProcessor
       self.class.stats.increment("tweet.reply_to_self.skipped")
     else
       self.replied_status_id = replied_status.masto_id
+      unless mastodon_status_exist?(replied_status_id)
+        Rails.logger.debug('Ignoring twitter reply to self because the one we were replying to doesn\'t exist anymore')
+        self.class.stats.increment("tweet.reply_to_self.skipped")
+        return
+      end
       text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
       toot(text, medias, tweet.possibly_sensitive?, save_status)
     end
+  end
+
+  def mastodon_status_exist?(status_id)
+    begin
+      user.mastodon_client.status(status_id)
+    rescue KeyError
+      return false
+    end
+    true
   end
 
   def convert_twitter_text(text, urls, media)

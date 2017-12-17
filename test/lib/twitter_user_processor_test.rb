@@ -735,6 +735,26 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.expects(:toot).never
     twitter_user_processor.process_reply
   end
+  test 'process_reply - Post reply if self is set and reply is to self, and we know the id but the toot does not exist anymore' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/933772488345088001.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_self_reply.json'))
+
+    t = user.twitter_client.status(933772488345088001, tweet_mode: 'extended', include_ext_alt_text: true)
+    user_to_reply = t.in_reply_to_user_id
+    t.expects(:in_reply_to_user_id).returns(user_to_reply)
+
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, tweet_id: t.in_reply_to_status_id)
+
+    medias = []
+    sensitive = false
+    save_status = true
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(false)
+    twitter_user_processor.process_reply
+    assert status.masto_id, twitter_user_processor.replied_status_id
+  end
   test 'process_reply - Post reply if self is set and reply is to self, and we know the id' do
     user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
 
@@ -751,6 +771,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     save_status = true
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, save_status).once
+    twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(true)
     twitter_user_processor.process_reply
     assert status.masto_id, twitter_user_processor.replied_status_id
   end
