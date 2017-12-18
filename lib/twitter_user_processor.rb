@@ -42,9 +42,11 @@ class TwitterUserProcessor
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
           stats.increment('domain.offline')
+          break
         else
           Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
           stats.increment("tweet.processing_error")
+          break
         end
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }

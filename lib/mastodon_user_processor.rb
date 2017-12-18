@@ -50,9 +50,11 @@ class MastodonUserProcessor
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
           stats.increment('domain.offline')
+          break
         else
           Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
           stats.increment("toot.processing_error")
+          break
         end
       rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
