@@ -213,6 +213,8 @@ class TwitterUserProcessor
         media_url = media.video_info.variants.first.url.to_s
       elsif media.is_a? Twitter::Media::Photo
         media_url = media.media_url
+      elsif media.is_a? Twitter::Media::Video
+        media_url = media.video_info.variants.max_by { |v| v.bitrate }.url.to_s
       else
         self.class.stats.increment('tweet.unknown_media')
         Rails.logger.warn { "Unknown media #{media.class.name}" }
