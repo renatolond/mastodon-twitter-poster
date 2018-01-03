@@ -117,9 +117,10 @@ class TwitterUserProcessor
       content = "RT: #{tweet.url}"
       save_status = true
       toot(content, [], tweet.possibly_sensitive?, save_status)
-    elsif user.retweet_post_as_old_rt?
+    elsif user.retweet_post_as_old_rt? || user.retweet_post_as_old_rt_with_link?
       retweet = tweet.retweeted_status
       text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
+      text << "\n#{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
       toot(text, medias, tweet.possibly_sensitive?, save_status)
     end
@@ -131,7 +132,7 @@ class TwitterUserProcessor
       self.class.stats.increment("tweet.quote.skipped")
     elsif user.quote_post_as_link?
       process_normal_tweet
-    elsif user.quote_post_as_old_rt?
+    elsif user.quote_post_as_old_rt? || user.quote_post_as_old_rt_with_link?
       process_quote_as_old_rt
     end
   end
@@ -140,11 +141,13 @@ class TwitterUserProcessor
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
+      text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length <= 500
         save_status = true
         toot(text, medias, tweet.possibly_sensitive?, save_status)
       else
         text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
+        text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
         quote_id = toot(text, medias, quote.possibly_sensitive?, save_status)
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)

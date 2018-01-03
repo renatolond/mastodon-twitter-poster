@@ -3,8 +3,14 @@
 <% else %>
   <% if current_user.posting_from_twitter? %>
   <p><%= t :tweets_posted_to_mastodon %><br />
-  <%= current_user.retweet_do_not_post? ? t(:twitter_not_posting_rt) : (current_user.retweet_post_as_link? ? t(:twitter_posting_rt_as_link) : t(:twitter_posting_rt_old_style)) %>
-  <%= current_user.quote_do_not_post? ? t(:twitter_not_posting_quote) : (current_user.quote_post_as_link? ? t(:twitter_posting_quote_as_link) : t(:twitter_posting_quote_old_style)) %>
+  <%= t(:twitter_not_posting_rt) if current_user.retweet_do_not_post? %>
+  <%= t(:twitter_posting_rt_as_link) if current_user.retweet_post_as_link? %>
+  <%= t(:twitter_posting_rt_old_style) if current_user.retweet_post_as_old_rt? %>
+  <%= t(:twitter_posting_rt_old_style_with_link) if current_user.retweet_post_as_old_rt_with_link? %>
+  <%= t(:twitter_not_posting_quote) if current_user.quote_do_not_post? %>
+  <%= t(:twitter_posting_quote_as_link) if current_user.quote_post_as_link? %>
+  <%= t(:twitter_posting_quote_old_style) if current_user.quote_post_as_old_rt? %>
+  <%= t(:twitter_posting_quote_old_style_with_link) if current_user.quote_post_as_old_rt_with_link? %>
   <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %></p>
   <% end %>
   <% if current_user.posting_from_mastodon? %>

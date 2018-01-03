@@ -51,10 +51,12 @@ en:
   retweet_do_not_post: 'Do not post Retweets on Mastodon'
   retweet_post_as_link: 'Post Retweets on Mastodon as links (RT: https://twitter.com/renatolonddev/status/904738384861700096)'
   retweet_post_as_old_rt: 'Post Retweets on Mastodon as old-style RTs (RT @renatolonddev@twitter.com: Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'Post Retweets on Mastodon as old-style RTs with links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_options: 'Quote options'
   quote_do_not_post: 'Do not post quotes on Mastodon'
   quote_post_as_link: 'Post quotes on Mastodon as links (I like this idea https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_post_as_old_rt_with_link: 'Post quotes on Mastodon as old-style RTs with links (I like this idea RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   twitter_reply_do_not_post: 'Do not post replies on Mastodon'
   twitter_reply_post_self: 'Post replies to my own tweets on Mastodon (threads)'
   twitter_reply_options: 'Reply options:'
@@ -62,9 +64,11 @@ en:
   twitter_not_posting_rt: "You're not posting retweets."
   twitter_posting_rt_as_link: "You're posting retweets as links."
   twitter_posting_rt_old_style: "You're posting retweets like old-style RTs."
+  twitter_posting_rt_old_style_with_link: "You're posting retweets like old-style RTs with links."
   twitter_not_posting_quote: "You're not posting quotes."
   twitter_posting_quote_as_link: "You're posting quotes as links."
   twitter_posting_quote_old_style: "You're posting quotes as old-style RTs."
+  twitter_posting_quote_old_style_with_link: "You're posting quotes as old-style RTs with links."
   twitter_not_posting_reply: "You're not posting replies."
   twitter_posting_reply_to_self: "You're posting replies to yourself."
   masto_not_posting_reply: "You're not posting replies."
