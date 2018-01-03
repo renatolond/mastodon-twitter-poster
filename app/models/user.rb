@@ -21,13 +21,15 @@ class User < ApplicationRecord
   enum retweet_options: {
     retweet_do_not_post: 'RETWEET_DO_NOT_POST',
     retweet_post_as_link: 'RETWEET_POST_AS_LINK',
-    retweet_post_as_old_rt: 'RETWEET_POST_AS_OLD_RT'
+    retweet_post_as_old_rt: 'RETWEET_POST_AS_OLD_RT',
+    retweet_post_as_old_rt_with_link: 'RETWEET_POST_AS_OLD_RT_WITH_LINK'
   }
 
   enum quote_options: {
     quote_do_not_post: 'QUOTE_DO_NOT_POST',
     quote_post_as_link: 'QUOTE_POST_AS_LINK',
-    quote_post_as_old_rt: 'QUOTE_POST_AS_OLD_RT'
+    quote_post_as_old_rt: 'QUOTE_POST_AS_OLD_RT',
+    quote_post_as_old_rt_with_link: 'QUOTE_POST_AS_OLD_RT_WITH_LINK'
   }
 
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
