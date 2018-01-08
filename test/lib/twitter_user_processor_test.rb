@@ -362,6 +362,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture('mastodon_image_post.json'))
+    stub_request(:put, "#{user.mastodon_client.base_url}/api/v1/media/273")
+      .to_return(web_fixture('mastodon_image_post.json'))
 
     t = user.twitter_client.status(936933954241945606, tweet_mode: 'extended', include_ext_alt_text: true)
     medias = [273, 273, 273, 273]
@@ -450,6 +452,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-88rXkAInWpE.jpg')
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+    stub_request(:put, "#{user.mastodon_client.base_url}/api/v1/media/273")
       .to_return(web_fixture('mastodon_image_post.json'))
 
     t = user.twitter_client.status(935492027109793792, tweet_mode: 'extended', include_ext_alt_text: true)
@@ -578,15 +582,38 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     upload_media_answer = mock()
     upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
-    upload_media_answer.expects(:id).returns(273)
+    upload_media_answer.expects(:id).twice.returns(273)
     user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
-      description == %q(An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.)
+      description == nil
     }
+    user.mastodon_client.expects(:update_media_description).with(273, %q(An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.))
 
     t = user.twitter_client.status(931274037812228097, tweet_mode: 'extended', include_ext_alt_text: true)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     assert_equal ['Oh!', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text)
+  end
+
+  test 'image description with utf-8 should be uploaded to mastodon' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/948534907998961664.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image_with_description_with_utf8.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DSnfUY8XUAAjjXv.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    upload_media_answer = mock()
+    upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
+    upload_media_answer.expects(:id).twice.returns(273)
+    user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
+      description == nil
+    }
+    user.mastodon_client.expects(:update_media_description).with(273, %q(Tést different chárãcters that shoüld be UTF-8. 😉))
+
+    t = user.twitter_client.status(948534907998961664, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal ['Test accented chars in description.', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text)
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
