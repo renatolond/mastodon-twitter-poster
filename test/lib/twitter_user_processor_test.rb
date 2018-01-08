@@ -325,6 +325,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture('mastodon_image_post.json'))
+    stub_request(:put, "#{user.mastodon_client.base_url}/api/v1/media/273")
+      .to_return(web_fixture('mastodon_image_post.json'))
 
     t = user.twitter_client.status(936933954241945606, tweet_mode: 'extended', include_ext_alt_text: true)
     medias = [273, 273, 273, 273]
