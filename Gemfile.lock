@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/renatolond/mastodon-api.git
-  revision: 611c6472dffb249e7afe9f9728dd0f3a33d8993e
+  revision: 59f817a7fee9022760270a8695be95597b0592c2
   branch: feature/update_image_description
   specs:
     mastodon-api (1.1.0)
