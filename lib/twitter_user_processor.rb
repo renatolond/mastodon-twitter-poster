@@ -38,6 +38,10 @@ class TwitterUserProcessor
       begin
         TwitterUserProcessor.new(t, user).process_tweet
         last_successful_tweet = t
+      rescue HTTP::ConnectionError
+        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
+        stats.increment('domain.offline')
+        break
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
@@ -48,10 +52,6 @@ class TwitterUserProcessor
           stats.increment("tweet.processing_error")
           break
         end
-      rescue HTTP::ConnectionError
-        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
-        stats.increment('domain.offline')
-        break
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")

@@ -11,6 +11,9 @@ class MastodonUserProcessor
   def self.process_user(user)
     begin
       get_last_toots_for_user(user) if user.posting_from_mastodon
+    rescue HTTP::ConnectionError
+      Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
+      stats.increment('domain.offline')
     rescue HTTP::Error => ex
       if ex.message == 'Unknown MIME type: text/html'
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
@@ -19,9 +22,6 @@ class MastodonUserProcessor
         Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
         stats.increment("user.processing_error")
       end
-    rescue HTTP::ConnectionError
-      Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
-      stats.increment('domain.offline')
     rescue StandardError => ex
       Rails.logger.error { "Could not process user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
       stats.increment("user.processing_error")
@@ -49,6 +49,10 @@ class MastodonUserProcessor
       begin
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
+      rescue HTTP::ConnectionError
+        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
+        stats.increment('domain.offline')
+        break
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
@@ -59,10 +63,6 @@ class MastodonUserProcessor
           stats.increment("toot.processing_error")
           break
         end
-      rescue HTTP::ConnectionError
-        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
-        stats.increment('domain.offline')
-        break
       rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
         stats.increment("twitter.bad_auth")
