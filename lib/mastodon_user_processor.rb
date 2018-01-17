@@ -255,9 +255,11 @@ class MastodonUserProcessor
       raise ex unless ex.code == TWITTER_TOO_LONG_ERROR_CODE
       status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.masto_fix_cross_mention), opts)
     end
+    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
     MastodonUserProcessor::stats.increment('toot.posted_to_twitter')
     MastodonUserProcessor::stats.timing('toot.average_time_to_post', ((Time.now-DateTime.strptime(toot.created_at, '%FT%T.%L%z'))*1000).round(5))
-    Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
+  rescue ActiveRecord::RecordNotUnique
+    Rails.logger.warn { "Duplicated tweet when crossposting #{user.mastodon.uid}, toot #{toot.id}. -- #{status.id} -- Skipping" }
   end
 
   def treat_media_attachments(medias)
