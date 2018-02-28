@@ -22,4 +22,54 @@ class TweetTransformerTest < ActiveSupport::TestCase
 
     assert_equal '@usera@twitter.com @userb@twitter.com @userc@twitter.com @userd@twitter.com hello!', TweetTransformer::replace_mentions(text)
   end
+
+  test 'detect cw: "tw/cw:" format with no space' do
+    text = %q(TW/CW: spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "tw/cw:" format with weird casing and no space' do
+    text = %q(Tw/cW: spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "tw/cw:" format with spaces' do
+    text = %q(TW/CW:           spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "tw, cw," format with spaces' do
+    text = %q(TW, CW,           spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "cw:" format with spaces' do
+    text = %q(CW:           spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+
+  test 'detect cw: with "cw:" and twitter link, make it look like rt' do
+    text = 'CW: gatinho! https://twitter.com/gifsdegatinhos/status/967054283299610625'
+
+    cw = 'gatinho!'
+    filtered_text = 'RT: https://twitter.com/gifsdegatinhos/status/967054283299610625'
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
 end
