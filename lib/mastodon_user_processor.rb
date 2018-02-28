@@ -14,6 +14,9 @@ class MastodonUserProcessor
     rescue HTTP::ConnectionError
       Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
       stats.increment('domain.offline')
+    rescue OpenSSL::SSL::SSLError
+      Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
+      stats.increment('domain.ssl_error')
     rescue HTTP::Error => ex
       if ex.message == 'Unknown MIME type: text/html'
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
@@ -52,6 +55,10 @@ class MastodonUserProcessor
       rescue HTTP::ConnectionError
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
+        break
+      rescue OpenSSL::SSL::SSLError
+        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
+        stats.increment('domain.ssl_error')
         break
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'

@@ -42,6 +42,9 @@ class TwitterUserProcessor
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
         break
+      rescue OpenSSL::SSL::SSLError
+        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
+        stats.increment('domain.ssl_error')
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
@@ -246,6 +249,8 @@ class TwitterUserProcessor
           file.unlink
         end
         text = new_text
+      rescue OpenSSL::SSL::SSLError => ex
+	raise ex
       rescue => ex
         Rails.logger.error("Caught exception #{ex} when uploading #{media_url}")
         next
