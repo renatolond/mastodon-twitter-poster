@@ -2,7 +2,7 @@
 
 This is an app for crossposting between Mastodon and Twitter. The app is made so that multiple users can connect to it using the OAuth interface from both Twitter and Mastodon and choose options on how the crosspost should work.
 
-If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from whatever Mastodo server you are in 
+If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from whatever Mastodon server you are in
 
 ## Features
 
@@ -12,7 +12,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
   - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there.
-  - Infer content warnings: if your tweet begins with a line containing content warning it will be posted behind a content warning on Mastodon. More information about which formats are supported can be seen below at [Experimental Content Warning recognition](#experimental-content-warning-recognition)
+  - Infer content warnings: if your tweet begins with a line containing "content warning" it will be posted behind a content warning on Mastodon. More information about which formats are supported can be seen below at [Experimental Content Warning recognition](#experimental-content-warning-recognition)
 
 * Post from Mastodon to Twitter
   - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
@@ -106,7 +106,7 @@ TW, CW, content warning
 my tweet
 ```
 
-All of these posts will be posted with the same content: `my tweet` and will have a content warning of `content warning`. The crossposter attempts to remove any extra spaces between the `CW:` (or equivalent) tag.
+All of these posts will be posted in Mastodon with the same content: `my tweet` and will have a content warning of `content warning`. The crossposter attempts to remove any extra spaces between the `CW:` (or equivalent) tag.
 This also works for quote-retweets. That is, if you are retweeting and you want to add a content warning to the tweet, you can just quote-retweet writing `CW: content warning`.
 This does not work for several tweets in a thread. Each tweet needs to have it's own CW.
 
