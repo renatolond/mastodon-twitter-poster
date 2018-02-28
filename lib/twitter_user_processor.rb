@@ -119,13 +119,13 @@ class TwitterUserProcessor
     elsif user.retweet_post_as_link?
       content = "RT: #{tweet.url}"
       save_status = true
-      toot(content, [], tweet.possibly_sensitive?, save_status)
+      toot(content, [], tweet.possibly_sensitive?, save_status, nil)
     elsif user.retweet_post_as_old_rt? || user.retweet_post_as_old_rt_with_link?
       retweet = tweet.retweeted_status
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
+      text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
       text << "\n#{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive?, save_status)
+      toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
     end
   end
 
@@ -143,20 +143,20 @@ class TwitterUserProcessor
   def process_quote_as_old_rt
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
-      text, medias = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
+      text, medias, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
       text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length <= 500
         save_status = true
-        toot(text, medias, tweet.possibly_sensitive?, save_status)
+        toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
       else
         text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
-        quote_id = toot(text, medias, quote.possibly_sensitive?, save_status)
+        quote_id = toot(text, medias, quote.possibly_sensitive? || cw.present?, save_status, cw)
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status_id = quote_id
-        toot(text, medias, tweet.possibly_sensitive?, save_status)
+        toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
       end
   end
 
@@ -184,9 +184,9 @@ class TwitterUserProcessor
         self.class.stats.increment("tweet.reply_to_self.skipped")
         return
       end
-      text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+      text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive?, save_status)
+      toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
     end
   end
 
@@ -202,16 +202,17 @@ class TwitterUserProcessor
   def convert_twitter_text(text, urls, media)
     text = TweetTransformer::replace_links(text, urls)
     text = TweetTransformer::replace_mentions(text)
+    text, cw = TweetTransformer::detect_cw(text)
     text, medias, media_links = find_media(media, text)
     text = self.class.html_entities.decode(text)
     text = media_links.join("\n") if text.empty?
-    [text, medias]
+    [text, medias, cw]
   end
 
   def process_normal_tweet
-    text, medias = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+    text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
-    toot(text, medias, tweet.possibly_sensitive?, save_status)
+    toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
   end
 
   def find_media(tweet_medias, text)
@@ -259,10 +260,11 @@ class TwitterUserProcessor
     return text, medias, media_links
   end
 
-  def toot(text, medias, possibly_sensitive, save_status)
+  def toot(text, medias, possibly_sensitive, save_status, content_warning)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     opts = {sensitive: possibly_sensitive, media_ids: medias}
     opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
+    opts[:spoiler_text] = content_warning unless content_warning.nil?
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment('tweet.posted_to_mastodon')
     self.class.stats.timing('tweet.average_time_to_post', ((Time.now - tweet.created_at) * 1000).round(5))

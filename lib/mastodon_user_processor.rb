@@ -257,7 +257,7 @@ class MastodonUserProcessor
   def tweet(content, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
     begin
-    status = user.twitter_client.update(content, opts)
+      status = user.twitter_client.update(content, opts)
     rescue Twitter::Error::Forbidden => ex
       raise ex unless ex.code == TWITTER_TOO_LONG_ERROR_CODE
       status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.masto_fix_cross_mention), opts)
