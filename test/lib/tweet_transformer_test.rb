@@ -72,4 +72,12 @@ Here's my spoiler!)
 
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
+  test 'detect cw: "cw " format with no space' do
+    text = %q(CW spoiler
+Here's my spoiler!)
+    cw = 'spoiler'
+    filtered_text = "Here's my spoiler!"
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
 end
