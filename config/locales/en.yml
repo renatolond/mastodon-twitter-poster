@@ -77,3 +77,6 @@ en:
   for_news_and_status: 'For news and status, follow the Mastodon profile at: '
   features: 'Features'
   status: 'Status'
+  twitter_content_warning: 'Twitter content warning'
+  twitter_content_warning_explanation: 'Any text added to this box will be used as content warning for every toot crossposted from twitter (except for tweets in which specific CWs are detected)'
+  twitter_content_warning_status: 'All of your tweets are being posted behind the CW: "%{cw}"'

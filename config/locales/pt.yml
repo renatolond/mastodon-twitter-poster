@@ -77,3 +77,6 @@ pt:
   for_news_and_status: 'Para novidades e status, siga o profile no Mastodon em:'
   features: 'Funcionalidades'
   status: 'Status'
+  twitter_content_warning: 'Aviso de conteúdo do Twitter'
+  twitter_content_warning_explanation: 'Qualquer texto adicionado aqui será usado como aviso de conteúdo para todos os status vindo do Twitter (exceto para aqueles que em que um aviso de conteúdo específico for detectado)'
+  twitter_content_warning_status: 'Todos os seus tweets estão sendo postados com o aviso de conteúdo: "%{cw}"'
