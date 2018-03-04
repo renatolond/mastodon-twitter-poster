@@ -109,7 +109,10 @@ my tweet
 ```
 
 All of these posts will be posted in Mastodon with the same content: `my tweet` and will have a content warning of `content warning`. The crossposter attempts to remove any extra spaces between the `CW:` (or equivalent) tag.
+
 This also works for quote-retweets. That is, if you are retweeting and you want to add a content warning to the tweet, you can just quote-retweet writing `CW: content warning`.
+![Example of a quote-retweet adding a content warning](cw_quote_example.png)
+
 This does not work for several tweets in a thread. Each tweet needs to have it's own CW.
 
 Even though this is an experimental feature, it cannot be disabled. The reason is that content warnings are important for people in Mastodon and the crossposter should still try to keep it in a good environment, even if bringing content from Twitter.
