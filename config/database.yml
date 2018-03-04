@@ -82,4 +82,4 @@ production:
   <<: *default
   database: <%= ENV['DB_NAME'] || 'mastodon_twitter_poster_production' %>
   username: <%= ENV['DB_USER'] || 'mastodon_twitter_poster' %>
-  password: <%= ENV['DB_PASS'] || ENV['MASTODON_TWITTER_POSTER_DATABASE_PASSWORD'] || '' %>
+  password: <%= ENV['DB_PASS'] || ENV['MASTODON_TWITTER_POSTER_DATABASE_PASSWORD'] %>
