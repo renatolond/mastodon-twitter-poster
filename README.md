@@ -112,6 +112,7 @@ All of these posts will be posted in Mastodon with the same content: `my tweet` 
 
 This also works for quote-retweets. That is, if you are retweeting and you want to add a content warning to the tweet, you can just quote-retweet writing `CW: content warning`.
 ![Example of a quote-retweet adding a content warning](cw_quote_example.png)
+![Example of the quote-retweet after being crossposted](crossposted_cw_quote_example.png)
 
 This does not work for several tweets in a thread. Each tweet needs to have it's own CW.
 
