@@ -12,6 +12,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
   - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there.
+  - Possibility to add a content warning to all tweets being posted to Mastodon
   - Infer content warnings: if your tweet begins with a line containing "content warning" it will be posted behind a content warning on Mastodon. More information about which formats are supported can be seen below at [Experimental Content Warning recognition](#experimental-content-warning-recognition)
 
 * Post from Mastodon to Twitter
@@ -86,7 +87,7 @@ Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a po
 To start the project locally, you can do `foreman start` which will start both the webserver and the daemons. Or you can take a look at the procfile to start each of them separately (if you don't want the web interface to be accessible, for instance).
 
 ## Experimental Content Warning recognition
-When posting from Twitter to Mastodon the Crossposter tries to detect content warnings in the tweets and post them over to Mastodon. Some formats are supported and more can be added in the future, but currently, this are the ones that will be recognized:
+When posting from Twitter to Mastodon the Crossposter tries to detect content warnings in the tweets and post them over to Mastodon. The detected CW takes precedence over the default twitter one if exists. Some formats are supported and more can be added in the future, but currently, this are the ones that will be recognized:
 
 ```
 CW: content warning
