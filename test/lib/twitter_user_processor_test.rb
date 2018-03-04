@@ -187,6 +187,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.expects(:process_reply).times(1).returns(nil)
     twitter_user_processor.process_tweet
   end
+
   test 'process tweet - normal tweet' do
     user = create(:user_with_mastodon_and_twitter)
 
@@ -281,6 +282,22 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
+    twitter_user_processor.process_quote
+  end
+
+  test 'process_quote - quote as old style RT - with twitter cw' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'], twitter_content_warning: 'Twitter stuff')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!"
+
+    cw = 'Twitter stuff'
+    sensitive = true
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], sensitive, true, cw).times(1).returns(nil)
     twitter_user_processor.process_quote
   end
 
@@ -385,6 +402,46 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
     user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id).returns(masto_status)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.process_quote
+  end
+
+  test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots with link in quote - with twitter cw' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: 'Twitter stuff')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-0-_X0AAda9v.png')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-3ukXUAIQlR3.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'http://pbs.twimg.com/media/DP_-88rXkAInWpE.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+    stub_request(:put, "#{user.mastodon_client.base_url}/api/v1/media/273")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(936933954241945606, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = [273, 273, 273, 273]
+
+    sensitive = true
+    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\nhttps://twitter.com/renatolonddev/status/936747599071207425"
+
+    masto_status = mock()
+    quote_masto_id = 919819281111
+    masto_status.expects(:id).returns(quote_masto_id).once
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: 'Twitter stuff').returns(masto_status)
+
+    text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
+    medias = []
+
+    masto_status = mock()
+    masto_id = 919819281112
+    masto_status.expects(:id).returns(masto_id).twice
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: 'Twitter stuff').returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -547,6 +604,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     possibly_sensitive = false
     save_status = true
     cw = nil
+
+    TweetTransformer.expects(:replace_links).times(1).returns(text)
+    tweet = mock()
+    tweet.expects(:full_text).returns(text)
+    tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
+    tweet.expects(:media).returns([])
+    tweet.expects(:urls).returns([])
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status, cw).times(1).returns(nil)
+    twitter_user_processor.process_normal_tweet
+  end
+
+  test 'process normal tweet - with twitter cw' do
+    user = create(:user_with_mastodon_and_twitter, twitter_content_warning: 'Twitter stuff')
+    text = 'Tweet'
+    tweet_id = 999999
+    medias = []
+    possibly_sensitive = true
+    save_status = true
+    cw = 'Twitter stuff'
 
     TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
@@ -948,6 +1026,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     sensitive = false
     save_status = true
     cw = nil
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, save_status, cw).once
+    twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(true)
+    twitter_user_processor.process_reply
+    assert status.masto_id, twitter_user_processor.replied_status_id
+  end
+  test 'process_reply - Post reply if self is set and reply is to self, and we know the id - with twitter cw' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'], twitter_content_warning: 'Twitter stuff')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/933772488345088001.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_self_reply.json'))
+
+    t = user.twitter_client.status(933772488345088001, tweet_mode: 'extended', include_ext_alt_text: true)
+    user_to_reply = t.in_reply_to_user_id
+    t.expects(:in_reply_to_user_id).returns(user_to_reply)
+
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, tweet_id: t.in_reply_to_status_id)
+
+    medias = []
+    sensitive = true
+    save_status = true
+    cw = 'Twitter stuff'
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with("I'm talking to myself here.", medias, sensitive, save_status, cw).once
     twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(true)
