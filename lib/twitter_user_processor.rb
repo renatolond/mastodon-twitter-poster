@@ -125,7 +125,7 @@ class TwitterUserProcessor
       text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
       text << "\n#{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
+      toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -147,16 +147,16 @@ class TwitterUserProcessor
       text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length <= 500
         save_status = true
-        toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
+        toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       else
         text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
-        quote_id = toot(text, medias, quote.possibly_sensitive? || cw.present?, save_status, cw)
+        quote_id = toot(text, medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
         text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status_id = quote_id
-        toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
+        toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       end
   end
 
@@ -186,7 +186,7 @@ class TwitterUserProcessor
       end
       text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
+      toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -212,7 +212,7 @@ class TwitterUserProcessor
   def process_normal_tweet
     text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
-    toot(text, medias, tweet.possibly_sensitive? || cw.present?, save_status, cw)
+    toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
   end
 
   def find_media(tweet_medias, text)
@@ -251,7 +251,7 @@ class TwitterUserProcessor
         end
         text = new_text
       rescue OpenSSL::SSL::SSLError => ex
-	raise ex
+        raise ex
       rescue => ex
         Rails.logger.error("Caught exception #{ex} when uploading #{media_url}")
         next

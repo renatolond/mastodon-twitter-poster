@@ -11,7 +11,8 @@
   <%= t(:twitter_posting_quote_as_link) if current_user.quote_post_as_link? %>
   <%= t(:twitter_posting_quote_old_style) if current_user.quote_post_as_old_rt? %>
   <%= t(:twitter_posting_quote_old_style_with_link) if current_user.quote_post_as_old_rt_with_link? %>
-  <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %></p>
+  <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %>
+  <%= t(:twitter_content_warning_status, cw: current_user.twitter_content_warning) unless current_user.twitter_content_warning.blank? %></p>
   <% end %>
   <% if current_user.posting_from_mastodon? %>
   <p><%= t :toots_posted_to_twitter %><br />

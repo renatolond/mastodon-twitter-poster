@@ -32,6 +32,13 @@ class User < ApplicationRecord
     quote_post_as_old_rt_with_link: 'QUOTE_POST_AS_OLD_RT_WITH_LINK'
   }
 
+  before_validation :strip_whitespace
+
+  def strip_whitespace
+    self.twitter_content_warning = self.twitter_content_warning.strip if self.twitter_content_warning.respond_to?(:strip)
+    self.twitter_content_warning = nil if self.twitter_content_warning.blank?
+  end
+
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
 
   has_many :authorizations

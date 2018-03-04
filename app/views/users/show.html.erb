@@ -110,6 +110,11 @@
   </label>
 </div>
 <% end %>
+<div class="form-group">
+  <%= f.label :twitter_content_warning, t(:twitter_content_warning) %>
+  <%= f.text_field :twitter_content_warning, class: "form-control", placeholder: 'From twitter' %>
+  <p class="help-block"><%= t :twitter_content_warning_explanation %></p>
+</div>
 <p class="trlike"></p>
 
 <%= f.submit %>
