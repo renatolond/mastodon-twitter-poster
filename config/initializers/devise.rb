@@ -1,3 +1,5 @@
+require 'mastodon_limited'
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -252,7 +254,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth :twitter, ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_CLIENT_SECRET']
 
-  config.omniauth :mastodon, scope: 'read write', credentials: lambda { |domain, callback_url|
+  config.omniauth :mastodon_limited, scope: 'read write', credentials: lambda { |domain, callback_url|
     client = MastodonClient.where(domain: domain).first_or_initialize(domain: domain)
 
     return [client.client_id, client.client_secret] unless client.new_record?
