@@ -122,10 +122,10 @@ class TwitterUserProcessor
       toot(content, [], tweet.possibly_sensitive?, save_status, nil)
     elsif user.retweet_post_as_old_rt? || user.retweet_post_as_old_rt_with_link?
       retweet = tweet.retweeted_status
-      text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
+      text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
       text << "\n#{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+      toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -143,20 +143,20 @@ class TwitterUserProcessor
   def process_quote_as_old_rt
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
-      text, medias, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
+      text, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
       text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length <= 500
         save_status = true
-        toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+        toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       else
-        text, medias = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
+        text, cw = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
-        quote_id = toot(text, medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
-        text, medias = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
+        quote_id = toot(text, @medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+        text, cw = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status_id = quote_id
-        toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+        toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       end
   end
 
@@ -184,9 +184,9 @@ class TwitterUserProcessor
         self.class.stats.increment("tweet.reply_to_self.skipped")
         return
       end
-      text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+      text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
-      toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+      toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -203,61 +203,81 @@ class TwitterUserProcessor
     text = TweetTransformer::replace_links(text, urls)
     text = TweetTransformer::replace_mentions(text)
     text, cw = TweetTransformer::detect_cw(text)
-    text, medias, media_links = find_media(media, text)
+    text = find_media(media, text)
     text = self.class.html_entities.decode(text)
-    text = media_links.join("\n") if text.empty?
-    [text, medias, cw]
+    text = '🖼️' if text.empty?
+    [text, cw]
   end
 
   def process_normal_tweet
-    text, medias, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
+    text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
-    toot(text, medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+    toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+  end
+
+  class UnknownMediaException < StandardError
+    def initialize(exception)
+      @exception = exception
+    end
+
+    def inner_exception
+      @exception
+    end
   end
 
   def find_media(tweet_medias, text)
-    medias = []
-    media_links = []
+    @medias = []
     tweet_medias.each do |media|
-      media_url = nil
-      if media.is_a? Twitter::Media::AnimatedGif
-        media_url = media.video_info.variants.first.url.to_s
-      elsif media.is_a? Twitter::Media::Photo
-        media_url = media.media_url
-      elsif media.is_a? Twitter::Media::Video
-        media_url = media.video_info.variants.max_by { |v| (v.bitrate.is_a?(Integer)? v.bitrate : -999) }.url.to_s
-      else
-        self.class.stats.increment('tweet.unknown_media')
-        Rails.logger.warn { "Unknown media #{media.class.name}" }
-        next
-      end
+      media_url = media_url_for(media)
+      next if media_url.nil?
       new_text = text.gsub(media.url, '').strip
       begin
-        url = URI.parse(media_url)
-        url.query = nil
-        url = url.to_s
-        file = Tempfile.new(['media', File.extname(url)], "#{Rails.root}/tmp")
+        file = Tempfile.new(['media', File.extname(clean_url(media_url))], "#{Rails.root}/tmp")
         file.binmode
-        begin
-          file.write HTTParty.get(media_url).body
-          file.rewind
-          returned_media = user.mastodon_client.upload_media(file)
-          user.mastodon_client.update_media_description(returned_media.id, media.to_h[:ext_alt_text]) if media.to_h[:ext_alt_text].present?
-          media_links << returned_media.text_url
-          medias << returned_media.id
-        ensure
-          file.close
-          file.unlink
-        end
+        file.write HTTParty.get(media_url).body
+        file.rewind
+        @medias << upload_media(media, file)
         text = new_text
-      rescue OpenSSL::SSL::SSLError => ex
-        raise ex
-      rescue => ex
-        Rails.logger.error("Caught exception #{ex} when uploading #{media_url}")
+      rescue UnknownMediaException => ex
+        Rails.logger.error("Caught exception #{ex.inner_exception} when uploading #{media_url}")
         next
+      ensure
+        file.close
+        file.unlink
       end
     end
-    return text, medias, media_links
+    return text
+  end
+
+  def clean_url(media_url)
+    url = URI.parse(media_url)
+    url.query = nil
+    url = url.to_s
+  end
+
+  def media_url_for(media)
+    if media.is_a? Twitter::Media::AnimatedGif
+      return media.video_info.variants.first.url.to_s
+    elsif media.is_a? Twitter::Media::Photo
+      return media.media_url
+    elsif media.is_a? Twitter::Media::Video
+      return media.video_info.variants.max_by { |v| (v.bitrate.is_a?(Integer)? v.bitrate : -999) }.url.to_s
+    end
+
+    self.class.stats.increment('tweet.unknown_media')
+    Rails.logger.warn { "Unknown media #{media.class.name}" }
+    return nil
+  end
+
+  def upload_media(media, file, retries = 3)
+    returned_media = user.mastodon_client.upload_media(file)
+    user.mastodon_client.update_media_description(returned_media.id, media.to_h[:ext_alt_text]) if media.to_h[:ext_alt_text].present?
+    return returned_media.id
+  rescue HTTP::Error => ex
+    retry unless (retries -= 1).zero?
+    raise ex
+  rescue => ex
+    raise UnknownMediaException.new(ex)
   end
 
   def toot(text, medias, possibly_sensitive, save_status, content_warning)
