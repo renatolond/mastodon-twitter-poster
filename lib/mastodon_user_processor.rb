@@ -287,6 +287,11 @@ class MastodonUserProcessor
         file.write HTTParty.get(media.url).body
         file.rewind
         file_type = detect_media_type(file)
+        if file_type == 'video/webm'
+          self.force_toot_url = true
+          next
+        end
+
         media_type = file_type if media_type.nil?
 
         if media_type != file_type
@@ -325,8 +330,8 @@ class MastodonUserProcessor
 
   def detect_twitter_filetype(file_type)
     options = {}
-    if file_type == 'video/mp4'
-      options = {media_type: 'video/mp4', media_category: 'tweet_video'}
+    if ['video/mp4', 'video/webm'].include?(file_type)
+      options = {media_type: file_type, media_category: 'tweet_video'}
     else
       options = {media_type: file_type, media_category: 'tweet_image'}
     end
