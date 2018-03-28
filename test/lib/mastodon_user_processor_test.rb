@@ -147,6 +147,14 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
 
     refute MastodonUserProcessor.new(t, user).posted_by_crossposter
   end
+  test 'posted by the crossposter - name match' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_crossposted_toot2.json'))
+    t = user.mastodon_client.status(98894252337740537)
+
+    assert MastodonUserProcessor.new(t, user).posted_by_crossposter
+  end
   test 'posted by the crossposter - link match' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
 

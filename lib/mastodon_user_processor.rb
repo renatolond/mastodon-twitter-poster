@@ -108,7 +108,11 @@ class MastodonUserProcessor
   end
 
   def posted_by_crossposter
-    return true unless (toot.application.nil? || toot.application['website'] != 'https://crossposter.masto.donte.com.br') &&
+    application = toot.application || {}
+    website = application['website'] || ''
+    name = application['name'] || ''
+    return true unless website['https://crossposter.masto.donte.com.br'].nil? &&
+      name["Mastodon Twitter Crossposter"].nil? &&
       Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
     false
   end
