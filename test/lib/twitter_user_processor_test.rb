@@ -211,6 +211,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:posted_by_crossposter).times(1).returns(true)
     twitter_user_processor.expects(:process_normal_tweet).times(0).returns(nil)
+    twitter_user_processor.expects(:process_reply).times(0).returns(nil)
+    twitter_user_processor.expects(:process_retweet).times(0).returns(nil)
+    twitter_user_processor.expects(:process_quote).times(0).returns(nil)
     twitter_user_processor.process_tweet
   end
 
@@ -655,8 +658,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     tweet.expects(:urls).returns([])
 
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
-    twitter_user_processor.expects(:find_media).times(1).returns([text, medias])
+    twitter_user_processor.expects(:find_media).times(1).returns(text)
     twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status, cw).times(1).returns(nil)
+    twitter_user_processor.instance_variable_set(:@medias, medias)
     twitter_user_processor.process_normal_tweet
   end
 
@@ -674,7 +678,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(942479048684400640, tweet_mode: 'extended', include_ext_alt_text: true)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
-    assert_equal ["In case you need a moment of happy in your twitter feed", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal "In case you need a moment of happy in your twitter feed", twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
   end
 
   test 'upload medias to mastodon and post them together with the toot' do
@@ -691,7 +696,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended', include_ext_alt_text: true)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
-    assert_equal ["Test posting image.", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal "Test posting image.", twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
   end
 
   test 'image description should be uploaded to mastodon' do
@@ -703,7 +709,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
 
     upload_media_answer = mock()
-    upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
     upload_media_answer.expects(:id).twice.returns(273)
     user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
       description == nil
@@ -713,7 +718,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(931274037812228097, tweet_mode: 'extended', include_ext_alt_text: true)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
-    assert_equal ['Oh!', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text)
+    assert_equal 'Oh!', twitter_user_processor.find_media(t.media, t.full_text)
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
   end
 
   test 'image description with utf-8 should be uploaded to mastodon' do
@@ -725,7 +731,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
 
     upload_media_answer = mock()
-    upload_media_answer.expects(:text_url).returns("https://masto.test/media/Sb_IvtOAk9qDLDwbZC8")
     upload_media_answer.expects(:id).twice.returns(273)
     user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
       description == nil
@@ -735,7 +740,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(948534907998961664, tweet_mode: 'extended', include_ext_alt_text: true)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
-    assert_equal ['Test accented chars in description.', [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text)
+    assert_equal 'Test accented chars in description.', twitter_user_processor.find_media(t.media, t.full_text)
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
+  end
+
+  test 'test upload_media retry mechanism' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/948534907998961664.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image_with_description_with_utf8.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DSnfUY8XUAAjjXv.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+    upload_media_answer = mock()
+    user.mastodon_client.expects(:upload_media).times(3).raises(HTTP::Error)
+
+    t = user.twitter_client.status(948534907998961664, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_raises HTTP::Error do
+      twitter_user_processor.find_media(t.media, t.full_text)
+    end
   end
 
   test 'upload gif to mastodon and post it together with the toot' do
@@ -752,7 +777,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     t = user.twitter_client.status(915023144573915137, tweet_mode: 'extended')
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
-    assert_equal ["Test gif for crossposter", [273], ["https://masto.test/media/Sb_IvtOAk9qDLDwbZC8"]], twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal 'Test gif for crossposter', twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
   end
 
   test 'post tweet with images but no text' do
@@ -768,7 +794,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369, tweet_mode: 'extended')
 
-    text = 'https://masto.test/media/Sb_IvtOAk9qDLDwbZC8'
+    text = '🖼️'
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [273], false, true, nil)
