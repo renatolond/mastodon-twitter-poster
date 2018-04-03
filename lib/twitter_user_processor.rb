@@ -152,6 +152,7 @@ class TwitterUserProcessor
         text, cw = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
+        @idempotency_key = "#{user.mastodon.uid.split('@')[0]}-#{quote.id}"
         quote_id = toot(text, @medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
         text, cw = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
@@ -285,6 +286,12 @@ class TwitterUserProcessor
     opts = {sensitive: possibly_sensitive, media_ids: medias}
     opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
     opts[:spoiler_text] = content_warning unless content_warning.nil?
+    if @idempotency_key.nil?
+      opts[:headers] = {'Idempotency-Key' => "#{user.mastodon.uid.split('@')[0]}-#{tweet.id}"}
+    else
+      opts[:headers] = {'Idempotency-Key' => @idempotency_key}
+      @idempotency_key = nil
+    end
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment('tweet.posted_to_mastodon')
     self.class.stats.timing('tweet.average_time_to_post', ((Time.now - tweet.created_at) * 1000).round(5))

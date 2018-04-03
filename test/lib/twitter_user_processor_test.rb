@@ -371,7 +371,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   end
 
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots with link in quote' do
-    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt_with_link'])
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'])
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -396,7 +400,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -404,14 +408,18 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
   end
 
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots with link in quote - with twitter cw' do
-    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: 'Twitter stuff')
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: 'Twitter stuff')
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -436,7 +444,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: 'Twitter stuff').returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: 'Twitter stuff', headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -444,13 +452,17 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: 'Twitter stuff').returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: 'Twitter stuff', headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
   end
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots' do
-    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt'])
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -475,7 +487,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -483,7 +495,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -872,7 +884,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   end
 
   test 'toot' do
-    user = create(:user_with_mastodon_and_twitter)
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter])
 
     text = 'Oh yeah!'
     tweet_id = 2938928398392
@@ -885,17 +901,21 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     tweet = mock()
-    tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:id).twice.returns(tweet_id)
     tweet.expects(:created_at).returns(Time.now)
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
   end
 
   test 'toot with cw' do
-    user = create(:user_with_mastodon_and_twitter)
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter])
 
     text = 'Oh yeah!'
     tweet_id = 2938928398392
@@ -908,17 +928,21 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, spoiler_text: cw).returns(masto_status)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, spoiler_text: cw, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     tweet = mock()
-    tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:id).twice.returns(tweet_id)
     tweet.expects(:created_at).returns(Time.now)
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
   end
 
   test 'toot with medias' do
-    user = create(:user_with_mastodon_and_twitter)
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter])
 
     text = 'Oh yeah!'
     tweet_id = 9929292
@@ -931,12 +955,12 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias).returns(masto_status)
+    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     expected_status = Status.new(mastodon_client_id: user.mastodon.mastodon_client_id, tweet_id: tweet_id, masto_id: masto_id)
 
     tweet = mock()
-    tweet.expects(:id).returns(tweet_id)
+    tweet.expects(:id).twice.returns(tweet_id)
     tweet.expects(:created_at).returns(Time.now)
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
@@ -1079,4 +1103,32 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_reply
     assert status.masto_id, twitter_user_processor.replied_status_id
   end
+
+  test 'toot headers' do
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter])
+
+    text = 'Oh yeah!'
+    tweet_id = 2938928398392
+    masto_id = 98392839283
+    medias = []
+    possibly_sensitive = false
+    save_status = true
+    cw = nil
+
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/statuses").
+  with(body: {"sensitive"=>"false", "status"=>"Oh yeah!"},
+       headers: {'Accept'=>'*/*', 'Authorization'=>'Bearer another-beautiful-token-here', 'Connection'=>'close', 'Content-Length'=>'34', 'Content-Type'=>'application/x-www-form-urlencoded', 'Host'=>user.mastodon_client.base_url['https://'.length..-1], 'User-Agent'=>'MastodonRubyGem/1.1.0', 'Idempotency-Key' => "#{masto_user}-#{tweet_id}"}).
+      to_return(web_fixture('mastodon_status_post.json'))
+
+    tweet = mock()
+    tweet.expects(:id).twice.returns(tweet_id)
+    tweet.expects(:created_at).returns(Time.now)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
+  end
+
 end
