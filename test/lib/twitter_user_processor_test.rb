@@ -400,7 +400,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -408,7 +408,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -487,7 +487,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -495,7 +495,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -901,7 +901,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
+    masto_client.expects(:create_status).with(text, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     tweet = mock()
     tweet.expects(:id).twice.returns(tweet_id)
@@ -928,7 +928,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, spoiler_text: cw, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
+    masto_client.expects(:create_status).with(text, media_ids: medias, spoiler_text: cw, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     tweet = mock()
     tweet.expects(:id).twice.returns(tweet_id)
@@ -955,7 +955,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.expects(:mastodon_client).returns(masto_client)
     masto_status = mock()
     masto_status.expects(:id).returns(masto_id).twice
-    masto_client.expects(:create_status).with(text, sensitive: possibly_sensitive, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
+    masto_client.expects(:create_status).with(text, media_ids: medias, headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
 
     expected_status = Status.new(mastodon_client_id: user.mastodon.mastodon_client_id, tweet_id: tweet_id, masto_id: masto_id)
 
@@ -1120,8 +1120,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     cw = nil
 
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/statuses").
-  with(body: {"sensitive"=>"false", "status"=>"Oh yeah!"},
-       headers: {'Accept'=>'*/*', 'Authorization'=>'Bearer another-beautiful-token-here', 'Connection'=>'close', 'Content-Length'=>'34', 'Content-Type'=>'application/x-www-form-urlencoded', 'Host'=>user.mastodon_client.base_url['https://'.length..-1], 'User-Agent'=>'MastodonRubyGem/1.1.0', 'Idempotency-Key' => "#{masto_user}-#{tweet_id}"}).
+  with(body: {"status"=>"Oh yeah!"},
+       headers: {'Accept'=>'*/*', 'Authorization'=>'Bearer another-beautiful-token-here', 'Connection'=>'close', 'Content-Length'=>'18', 'Content-Type'=>'application/x-www-form-urlencoded', 'Host'=>user.mastodon_client.base_url['https://'.length..-1], 'User-Agent'=>'MastodonRubyGem/1.1.0', 'Idempotency-Key' => "#{masto_user}-#{tweet_id}"}).
       to_return(web_fixture('mastodon_status_post.json'))
 
     tweet = mock()

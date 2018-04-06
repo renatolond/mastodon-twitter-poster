@@ -283,7 +283,8 @@ class TwitterUserProcessor
 
   def toot(text, medias, possibly_sensitive, save_status, content_warning)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
-    opts = {sensitive: possibly_sensitive, media_ids: medias}
+    opts = {media_ids: medias}
+    opts[:sensitive]  = true if possibly_sensitive
     opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
     opts[:spoiler_text] = content_warning unless content_warning.nil?
     if @idempotency_key.nil?
