@@ -51,8 +51,8 @@ class TwitterUserProcessor
           stats.increment('domain.offline')
           break
         else
-          Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
-          stats.increment("tweet.processing_error")
+          Rails.logger.error { "Issue connecting to post #{user.twitter.uid}, tweet #{t.id}. (#{user.mastodon.mastodon_client.domain})  -- #{ex} -- Bailing out" }
+          stats.increment("tweet.http_error")
           break
         end
       rescue StandardError => ex

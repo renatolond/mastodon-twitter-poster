@@ -22,8 +22,8 @@ class MastodonUserProcessor
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
       else
-        Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
-        stats.increment("user.processing_error")
+        Rails.logger.error { "Issue connecting to user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
+        stats.increment("user.http_error")
       end
     rescue StandardError => ex
       Rails.logger.error { "Could not process user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
@@ -66,8 +66,8 @@ class MastodonUserProcessor
           stats.increment('domain.offline')
           break
         else
-          Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
-          stats.increment("toot.processing_error")
+          Rails.logger.error { "Issue connecting to post #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
+          stats.increment("toot.http_error")
           break
         end
       rescue Twitter::Error::Forbidden => ex
