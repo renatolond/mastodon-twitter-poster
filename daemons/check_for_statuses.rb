@@ -5,6 +5,7 @@ require 'twitter_user_processor'
 require 'toot_transformer'
 require 'httparty'
 require 'interruptible_sleep'
+require 'stats'
 
 class CheckForToots
   OLDER_THAN_IN_SECONDS = 30
@@ -20,6 +21,10 @@ class CheckForToots
     @@sleeper ||= InterruptibleSleep.new
   end
 
+  def self.stats
+    @@stats ||= Stats.new
+  end
+
   def self.available_since_last_check
     loop do
       u = User.where('(posting_from_mastodon = ? OR posting_from_twitter = ?) AND (mastodon_last_check < now() - interval \'? seconds\' or twitter_last_check < now() - interval \'? seconds\')', true, true, OLDER_THAN_IN_SECONDS, OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc, twitter_last_check: :asc).first
@@ -27,8 +32,8 @@ class CheckForToots
         Rails.logger.debug { "No user to look at. Sleeping for #{SLEEP_FOR} seconds" }
         sleeper.sleep(SLEEP_FOR)
       else
-        MastodonUserProcessor::process_user(u) if u.posting_from_mastodon
-        TwitterUserProcessor::process_user(u) if u.posting_from_twitter
+        stats.time('mastodon.processing_time') { MastodonUserProcessor::process_user(u) } if u.posting_from_mastodon
+        stats.time('twitter.processing_time') { TwitterUserProcessor::process_user(u) } if u.posting_from_twitter
       end
       break if finished
     end

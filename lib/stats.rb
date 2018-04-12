@@ -16,4 +16,8 @@ class Stats
   def timing(name, ms)
     @statsd.timing(name, ms)
   end
+
+  def time(name, &blk)
+    @statsd.time(name, &blk)
+  end
 end
