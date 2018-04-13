@@ -79,6 +79,29 @@ WantedBy=multi-user.target
 ```
 And put it on `/etc/systemd/system/crossposter.service`
 
+And a second one like this:
+
+```
+[Unit]
+Description=crossposter-sidekiq-service
+After=network.target
+
+[Service]
+Type=simple
+User=crossposter
+WorkingDirectory=/home/crossposter/live
+Environment="RAILS_ENV=production"
+Environment="DB_POOL=5"
+ExecStart=/bin/bash -lc "bundle exec sidekiq -c 5 -q default"
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+And put it on `/etc/systemd/system/crossposter-sidekiq.service`
+(note that DB_POOL and the number of sidekiq threads should be the same)
+
 ## Tests
 
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
