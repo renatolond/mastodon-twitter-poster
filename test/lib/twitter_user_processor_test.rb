@@ -16,10 +16,12 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test 'process_user with error' do
     user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago, posting_from_twitter: true)
 
-    TwitterUserProcessor.expects(:get_last_tweets_for_user).times(1).returns(StandardError)
+    TwitterUserProcessor.expects(:get_last_tweets_for_user).times(1).raises(StandardError)
 
     Timecop.freeze do
-      TwitterUserProcessor::process_user(user)
+      assert_raises StandardError do
+        TwitterUserProcessor::process_user(user)
+      end
 
       assert_equal Time.now, user.twitter_last_check
     end
@@ -63,7 +65,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     }
     twitter_user_processor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
 
-    TwitterUserProcessor::get_last_tweets_for_user(user)
+    assert_raises TwitterUserProcessor::TweetError do
+      TwitterUserProcessor::get_last_tweets_for_user(user)
+    end
   end
   test 'get_last_tweets_for_user - check user params' do
     user = create(:user_with_mastodon_and_twitter, twitter_last_check: 6.days.ago)
@@ -76,7 +80,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.expects(:process_tweet).at_least(1).returns(nil).then.raises(StandardError)
 
     Timecop.freeze do
-      TwitterUserProcessor::get_last_tweets_for_user(user)
+      assert_raises TwitterUserProcessor::TweetError do
+        TwitterUserProcessor::get_last_tweets_for_user(user)
+      end
 
       assert_equal expected_last_tweet_id, user.last_tweet
     end
@@ -90,7 +96,9 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     TwitterUserProcessor.expects(:new).returns(twitter_user_processor).at_least(1)
     twitter_user_processor.expects(:process_tweet).times(2).returns(nil).then.raises(StandardError)
 
-    TwitterUserProcessor::get_last_tweets_for_user(user)
+    assert_raises TwitterUserProcessor::TweetError do
+      TwitterUserProcessor::get_last_tweets_for_user(user)
+    end
   end
 
   test 'process_tweet - quote' do
