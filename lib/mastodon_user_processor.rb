@@ -1,6 +1,5 @@
 require 'stats'
 require 'mastodon_ext'
-require 'toot_transformer'
 require 'uri'
 
 class MastodonUserProcessor
