@@ -232,7 +232,8 @@ CREATE TABLE users (
     retweet_options retweet_options DEFAULT 'RETWEET_DO_NOT_POST'::retweet_options,
     quote_options quote_options DEFAULT 'QUOTE_DO_NOT_POST'::quote_options,
     twitter_reply_options twitter_reply_options DEFAULT 'TWITTER_REPLY_DO_NOT_POST'::twitter_reply_options,
-    twitter_content_warning character varying
+    twitter_content_warning character varying,
+    locked boolean DEFAULT false NOT NULL
 );
 
 
@@ -417,6 +418,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123155339'),
 ('20171123191320'),
 ('20180103212954'),
-('20180304150232');
+('20180304150232'),
+('20180412164151');
 
 
