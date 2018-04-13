@@ -12,12 +12,9 @@ class ProcessUserJob < ApplicationJob
 
   def perform(id)
     u = User.find(id)
-    begin
-      self.class.stats.time('mastodon.processing_time') { MastodonUserProcessor::process_user(u) } if u.posting_from_mastodon
-      self.class.stats.time('twitter.processing_time') { TwitterUserProcessor::process_user(u) } if u.posting_from_twitter
-    ensure
-      u.locked = false
-      u.save
-    end
+    self.class.stats.time('mastodon.processing_time') { MastodonUserProcessor::process_user(u) } if u.posting_from_mastodon
+    self.class.stats.time('twitter.processing_time') { TwitterUserProcessor::process_user(u) } if u.posting_from_twitter
+    u.locked = false
+    u.save
   end
 end
