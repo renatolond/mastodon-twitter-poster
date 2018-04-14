@@ -5,8 +5,9 @@ unless Rails.env.test?
   end
 
   begin
-    TootTransformer::twitter_short_url_length = twitter_client.configuration.short_url_length
-    TootTransformer::twitter_short_url_length_https = twitter_client.configuration.short_url_length_https
+    twitter_config = twitter_client.configuration
+    TootTransformer::twitter_short_url_length = twitter_config.short_url_length
+    TootTransformer::twitter_short_url_length_https = twitter_config.short_url_length_https
   rescue Twitter::Error::Forbidden, Twitter::Error::BadRequest
     Rails.logger.error { "Missing Twitter credentials" }
     exit
