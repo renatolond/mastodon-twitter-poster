@@ -91,7 +91,7 @@ Type=simple
 User=crossposter
 WorkingDirectory=/home/crossposter/live
 Environment="RAILS_ENV=production"
-Environment="DB_POOL=5"
+Environment="RAILS_MAX_THREADS=5"
 ExecStart=/bin/bash -lc "bundle exec sidekiq -c 5 -q default"
 TimeoutSec=15
 Restart=always
@@ -100,7 +100,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 And put it on `/etc/systemd/system/crossposter-sidekiq.service`
-(note that DB_POOL and the number of sidekiq threads should be the same)
+(note that RAILS_MAX_THREADS and the number of sidekiq threads should be the same)
 
 ## Tests
 
