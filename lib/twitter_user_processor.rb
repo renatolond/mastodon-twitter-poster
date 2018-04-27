@@ -10,12 +10,24 @@ class TwitterUserProcessor
     @@stats ||= Stats.new
   end
 
+  class TweetError < StandardError
+    def initialize(error)
+      @error = error
+    end
+    def error
+      @error
+    end
+  end
+
   def self.process_user(user)
     begin
       get_last_tweets_for_user(user) if user.posting_from_twitter
+    rescue TweetError => ex
+      raise ex.error
     rescue StandardError => ex
       Rails.logger.error { "Could not process user #{user.twitter.uid}. -- #{ex} -- Bailing out" }
       stats.increment("user.processing_error")
+      raise ex
     ensure
       user.twitter_last_check = Time.now
       user.mastodon_last_check = Time.now unless user.posting_from_mastodon
@@ -38,30 +50,32 @@ class TwitterUserProcessor
       begin
         TwitterUserProcessor.new(t, user).process_tweet
         last_successful_tweet = t
-      rescue HTTP::ConnectionError
+      rescue HTTP::ConnectionError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
-        break
+        raise TweetError.new(ex)
       rescue OpenSSL::SSL::SSLError
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
         stats.increment('domain.ssl_error')
+        raise TweetError.new(ex)
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
           stats.increment('domain.offline')
-          break
+          raise TweetError.new(ex)
         else
           Rails.logger.error { "Issue connecting to post #{user.twitter.uid}, tweet #{t.id}. (#{user.mastodon.mastodon_client.domain})  -- #{ex} -- Bailing out" }
           stats.increment("tweet.http_error")
-          break
+          raise TweetError.new(ex)
         end
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")
-        break
+        raise TweetError.new(ex)
       end
     end
 
+  ensure
     user.last_tweet = last_successful_tweet.id unless last_successful_tweet.nil?
     user.save
   end

@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'toot_transformer'
 
 class TootTransformerTest < ActiveSupport::TestCase
   test 'Count regex without matches' do

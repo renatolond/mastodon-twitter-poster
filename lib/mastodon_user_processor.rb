@@ -1,6 +1,5 @@
 require 'stats'
 require 'mastodon_ext'
-require 'toot_transformer'
 require 'uri'
 
 class MastodonUserProcessor
@@ -8,31 +7,45 @@ class MastodonUserProcessor
     @@stats ||= Stats.new
   end
 
+  class TootError < StandardError
+    def initialize(error)
+      @error = error
+    end
+    def error
+      @error
+    end
+  end
+
   def self.process_user(user)
-    begin
-      get_last_toots_for_user(user) if user.posting_from_mastodon
-    rescue HTTP::ConnectionError
+    get_last_toots_for_user(user) if user.posting_from_mastodon
+  rescue HTTP::ConnectionError => ex
+    Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
+    stats.increment('domain.offline')
+    raise ex
+  rescue OpenSSL::SSL::SSLError => ex
+    Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
+    stats.increment('domain.ssl_error')
+    raise ex
+  rescue HTTP::Error => ex
+    if ex.message == 'Unknown MIME type: text/html'
       Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
       stats.increment('domain.offline')
-    rescue OpenSSL::SSL::SSLError
-      Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
-      stats.increment('domain.ssl_error')
-    rescue HTTP::Error => ex
-      if ex.message == 'Unknown MIME type: text/html'
-        Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
-        stats.increment('domain.offline')
-      else
-        Rails.logger.error { "Issue connecting to user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
-        stats.increment("user.http_error")
-      end
-    rescue StandardError => ex
-      Rails.logger.error { "Could not process user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
-      stats.increment("user.processing_error")
-    ensure
-      user.mastodon_last_check = Time.now
-      user.twitter_last_check = Time.now unless user.posting_from_twitter
-      user.save
+      raise ex
+    else
+      Rails.logger.error { "Issue connecting to user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
+      stats.increment("user.http_error")
+      raise ex
     end
+  rescue TootError => ex
+    raise ex.error
+  rescue => ex
+    Rails.logger.error { "Could not process user #{user.mastodon.uid}. -- #{ex} -- Bailing out" }
+    stats.increment("user.processing_error")
+    raise ex
+  ensure
+    user.mastodon_last_check = Time.now
+    user.twitter_last_check = Time.now unless user.posting_from_twitter
+    user.save
   end
 
   def self.statuses_options(user)
@@ -52,35 +65,35 @@ class MastodonUserProcessor
       begin
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
-      rescue HTTP::ConnectionError
+      rescue HTTP::ConnectionError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
-        break
-      rescue OpenSSL::SSL::SSLError
+        raise TootError.new(ex)
+      rescue OpenSSL::SSL::SSLError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
         stats.increment('domain.ssl_error')
-        break
+        raise TootError.new(ex)
       rescue HTTP::Error => ex
         if ex.message == 'Unknown MIME type: text/html'
           Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
           stats.increment('domain.offline')
-          break
+          raise TootError.new(ex)
         else
           Rails.logger.error { "Issue connecting to post #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
           stats.increment("toot.http_error")
-          break
+          raise TootError.new(ex)
         end
       rescue Twitter::Error::Forbidden => ex
         Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
         stats.increment("twitter.bad_auth")
-        break
+        raise TootError.new(ex)
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("toot.processing_error")
-        break
+        raise TootError.new(ex)
       end
     end
-
+  ensure
     user.last_toot = last_sucessful_toot.id unless last_sucessful_toot.nil?
     user.mastodon_last_check = Time.now
     user.save

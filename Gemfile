@@ -40,6 +40,7 @@ gem 'statsd-ruby'
 gem 'foreman'
 gem 'dotenv-rails'
 gem 'ruby-filemagic'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'byebug'
