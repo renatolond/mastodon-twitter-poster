@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :authorization, aliases: [:authorization_twitter] do
     provider :twitter
     uid 123456

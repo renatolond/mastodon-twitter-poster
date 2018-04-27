@@ -11,7 +11,7 @@ require 'rails/test_help'
 Rails.application.eager_load! if ENV['COVERAGE']
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
@@ -24,4 +24,4 @@ end
 
 require 'webmock/minitest'
 WebMock.disable_net_connect!
-require 'mocha/mini_test'
+require 'mocha/minitest'
