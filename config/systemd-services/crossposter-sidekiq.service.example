@@ -1,0 +1,16 @@
+[Unit]
+Description=mastodon-twitter-crossposter-sidekiq
+After=network.target
+
+[Service]
+Type=simple
+User=crossposter
+WorkingDirectory=/home/crossposter/live
+Environment="RAILS_ENV=production"
+Environment="RAILS_MAX_THREADS=5"
+ExecStart=/bin/bash -lc "bundle exec sidekiq -c 5 -q default"
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

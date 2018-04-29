@@ -1,0 +1,14 @@
+[Unit]
+Description=mastodon-twitter-crossposter
+After=network.target
+
+[Service]
+Type=simple
+User=crossposter
+WorkingDirectory=/home/crossposter/live
+ExecStart=/bin/bash -lc "bundle exec foreman start -e .env.production"
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -102,6 +102,8 @@ WantedBy=multi-user.target
 And put it on `/etc/systemd/system/crossposter-sidekiq.service`
 (note that RAILS_MAX_THREADS and the number of sidekiq threads should be the same)
 
+These example files are provided in the `config/systemd-services` directory. You may copy these files (with necessary modifications, if applicable) to `/etc/systemd/system/` to run the system in the background.
+
 ## Tests
 
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
