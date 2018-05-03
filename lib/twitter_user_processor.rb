@@ -137,7 +137,7 @@ class TwitterUserProcessor
     elsif user.retweet_post_as_old_rt? || user.retweet_post_as_old_rt_with_link?
       retweet = tweet.retweeted_status
       text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
-      text << "\n#{retweet.url}" if user.retweet_post_as_old_rt_with_link?
+      text << "\n🐦🔗: #{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
       toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
@@ -158,13 +158,13 @@ class TwitterUserProcessor
       quote = tweet.quoted_status
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
-      text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
+      text << "\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length <= 500
         save_status = true
         toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       else
         text, cw = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
-        text << "\n#{quote.url}" if user.quote_post_as_old_rt_with_link?
+        text << "\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
         save_status = false
         @idempotency_key = "#{user.mastodon.uid.split('@')[0]}-#{quote.id}"
         quote_id = toot(text, @medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
