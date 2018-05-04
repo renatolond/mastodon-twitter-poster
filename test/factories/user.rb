@@ -17,6 +17,9 @@ FactoryBot.define do
     masto_mention_options 'masto_mention_do_not_post'
     retweet_options 'retweet_do_not_post'
     twitter_reply_options 'twitter_reply_do_not_post'
+    twitter_original_visibility nil
+    twitter_retweet_visibility 'unlisted'
+    twitter_quote_visibility 'unlisted'
   end
 
   factory :user_with_mastodon_and_twitter, parent: :user do |user|

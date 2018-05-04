@@ -49,6 +49,17 @@ CREATE TYPE masto_reply_options AS ENUM (
 
 
 --
+-- Name: masto_visibility; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE masto_visibility AS ENUM (
+    'MASTO_PUBLIC',
+    'MASTO_UNLISTED',
+    'MASTO_PRIVATE'
+);
+
+
+--
 -- Name: quote_options; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -222,18 +233,21 @@ CREATE TABLE users (
     twitter_last_check timestamp without time zone DEFAULT now(),
     mastodon_last_check timestamp without time zone DEFAULT now(),
     boost_options boost_options DEFAULT 'MASTO_BOOST_DO_NOT_POST'::boost_options,
-    masto_reply_options masto_reply_options DEFAULT 'MASTO_REPLY_DO_NOT_POST'::masto_reply_options,
+    masto_reply_options masto_reply_options DEFAULT 'MASTO_REPLY_POST_SELF'::masto_reply_options,
     masto_mention_options masto_mention_options DEFAULT 'MASTO_MENTION_DO_NOT_POST'::masto_mention_options,
     masto_should_post_private boolean DEFAULT false,
     masto_should_post_unlisted boolean DEFAULT false,
     posting_from_mastodon boolean DEFAULT false,
     posting_from_twitter boolean DEFAULT false,
     masto_fix_cross_mention boolean DEFAULT false,
-    retweet_options retweet_options DEFAULT 'RETWEET_DO_NOT_POST'::retweet_options,
-    quote_options quote_options DEFAULT 'QUOTE_DO_NOT_POST'::quote_options,
-    twitter_reply_options twitter_reply_options DEFAULT 'TWITTER_REPLY_DO_NOT_POST'::twitter_reply_options,
+    retweet_options retweet_options DEFAULT 'RETWEET_POST_AS_OLD_RT_WITH_LINK'::retweet_options,
+    quote_options quote_options DEFAULT 'QUOTE_POST_AS_OLD_RT_WITH_LINK'::quote_options,
+    twitter_reply_options twitter_reply_options DEFAULT 'TWITTER_REPLY_POST_SELF'::twitter_reply_options,
     twitter_content_warning character varying,
-    locked boolean DEFAULT false NOT NULL
+    locked boolean DEFAULT false NOT NULL,
+    twitter_original_visibility masto_visibility,
+    twitter_retweet_visibility masto_visibility DEFAULT 'MASTO_UNLISTED'::masto_visibility,
+    twitter_quote_visibility masto_visibility DEFAULT 'MASTO_UNLISTED'::masto_visibility
 );
 
 
@@ -419,6 +433,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171123191320'),
 ('20180103212954'),
 ('20180304150232'),
-('20180412164151');
+('20180412164151'),
+('20180503105007'),
+('20180503110516');
 
 
