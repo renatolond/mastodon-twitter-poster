@@ -83,4 +83,56 @@ Yet more of the same spoiler)
 
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
+  test 'detect cw: "spoiler " format with no space' do
+    text = %q(Spoiler spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "spoiler: " format with space' do
+    text = %q(Spoiler: spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: with "spoiler:" and twitter link, make it look like rt' do
+    text = 'Spoiler: gatinho! https://twitter.com/gifsdegatinhos/status/967054283299610625'
+
+    cw = 'gatinho!'
+    filtered_text = 'RT: https://twitter.com/gifsdegatinhos/status/967054283299610625'
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "CN " format with no space' do
+    text = %q(CN spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "CN: " format with space' do
+    text = %q(CN: spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
 end
