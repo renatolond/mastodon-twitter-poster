@@ -82,6 +82,10 @@
   </label>
 <% end %>
 </div>
+<div class="select">
+  <%= f.label :twitter_original_visibility, t(:twitter_original_visibility), class: 'control-label' %>
+  <%= f.select :twitter_original_visibility, translated_masto_privacy_for_select(User, :twitter_original_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
+</div>
 <p><%= t :retweet_options %><br />
 <% User.retweet_options.keys.each do |retweet_option| %>
 <div class="radio">
@@ -91,6 +95,10 @@
   </label>
 </div>
 <% end %>
+<div class="select">
+  <%= f.label :twitter_retweet_visibility, t(:twitter_retweet_visibility), class: 'control-label' %>
+  <%= f.select :twitter_retweet_visibility, translated_masto_privacy_for_select(User, :twitter_retweet_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
+</div>
 <p><%= t :quote_options %><br />
 <% User.quote_options.keys.each do |quote_option| %>
 <div class="radio">
@@ -100,6 +108,10 @@
   </label>
 </div>
 <% end %>
+<div class="select">
+  <%= f.label :twitter_quote_visibility, t(:twitter_quote_visibility), class: 'control-label' %>
+  <%= f.select :twitter_quote_visibility, translated_masto_privacy_for_select(User, :twitter_quote_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
+</div>
 <p><%= t :twitter_reply_options %><br />
 <small><%= t :twitter_reply_options_explanation %></small></p>
 <% User.twitter_reply_options.keys.each do |reply_option| %>

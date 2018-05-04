@@ -3,15 +3,22 @@
 <% else %>
   <% if current_user.posting_from_twitter? %>
   <p><%= t :tweets_posted_to_mastodon %><br />
+  <%= t(:twitter_original_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_original_visibility || 'default'}") %><br />
+
   <%= t(:twitter_not_posting_rt) if current_user.retweet_do_not_post? %>
   <%= t(:twitter_posting_rt_as_link) if current_user.retweet_post_as_link? %>
   <%= t(:twitter_posting_rt_old_style) if current_user.retweet_post_as_old_rt? %>
   <%= t(:twitter_posting_rt_old_style_with_link) if current_user.retweet_post_as_old_rt_with_link? %>
+  <% unless current_user.retweet_do_not_post? %> <%= t(:twitter_retweet_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_retweet_visibility || 'default'}") %> <% end %><br />
+
   <%= t(:twitter_not_posting_quote) if current_user.quote_do_not_post? %>
   <%= t(:twitter_posting_quote_as_link) if current_user.quote_post_as_link? %>
   <%= t(:twitter_posting_quote_old_style) if current_user.quote_post_as_old_rt? %>
   <%= t(:twitter_posting_quote_old_style_with_link) if current_user.quote_post_as_old_rt_with_link? %>
-  <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %>
+  <% unless current_user.quote_do_not_post? %> <%= t(:twitter_quote_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_quote_visibility || 'default'}") %> <% end %><br />
+
+  <%= current_user.twitter_reply_do_not_post? ? t(:twitter_not_posting_reply) : t(:twitter_posting_reply_to_self) %><br />
+
   <%= t(:twitter_content_warning_status, cw: current_user.twitter_content_warning) unless current_user.twitter_content_warning.blank? %></p>
   <% end %>
   <% if current_user.posting_from_mastodon? %>

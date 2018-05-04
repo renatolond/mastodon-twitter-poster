@@ -127,6 +127,7 @@ class TwitterUserProcessor
   end
 
   def process_retweet
+    @type = :retweet
     if user.retweet_do_not_post?
       Rails.logger.debug('Ignoring retweet because user chose so')
       self.class.stats.increment("tweet.retweet.skipped")
@@ -144,6 +145,7 @@ class TwitterUserProcessor
   end
 
   def process_quote
+    @type = :quote
     if user.quote_do_not_post?
       Rails.logger.debug('Ignoring quote because user chose so')
       self.class.stats.increment("tweet.quote.skipped")
@@ -225,6 +227,7 @@ class TwitterUserProcessor
   end
 
   def process_normal_tweet
+    @type = :original if @type.blank?
     text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
     toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
@@ -295,10 +298,22 @@ class TwitterUserProcessor
     raise UnknownMediaException.new(ex)
   end
 
+  def define_visibility
+    if @type == :quote
+      @visibility = @user.twitter_quote_visibility
+    elsif @type == :retweet
+      @visibility = @user.twitter_retweet_visibility
+    elsif @type == :original
+      @visibility = @user.twitter_original_visibility
+    end
+  end
+
   def toot(text, medias, possibly_sensitive, save_status, content_warning)
     Rails.logger.debug { "Posting to Mastodon: #{text}" }
     opts = {media_ids: medias}
     opts[:sensitive]  = true if possibly_sensitive
+    define_visibility
+    opts[:visibility] = @visibility if @visibility.present?
     opts[:in_reply_to_id] = replied_status_id unless replied_status_id.nil?
     opts[:spoiler_text] = content_warning unless content_warning.nil?
     if @idempotency_key.nil?

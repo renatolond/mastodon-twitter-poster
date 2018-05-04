@@ -32,6 +32,15 @@ class User < ApplicationRecord
     quote_post_as_old_rt_with_link: 'QUOTE_POST_AS_OLD_RT_WITH_LINK'
   }
 
+  masto_visibility = {
+    public: 'MASTO_PUBLIC',
+    unlisted: 'MASTO_UNLISTED',
+    private: 'MASTO_PRIVATE'
+  }.freeze
+  enum twitter_original_visibility: masto_visibility, _prefix: true
+  enum twitter_retweet_visibility: masto_visibility, _prefix: true
+  enum twitter_quote_visibility: masto_visibility, _prefix: true
+
   before_validation :strip_whitespace
 
   def strip_whitespace

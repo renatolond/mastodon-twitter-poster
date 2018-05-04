@@ -383,7 +383,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = 'comidas.social'
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'])
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_quote_visibility: nil)
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -427,7 +427,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = 'comidas.social'
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: 'Twitter stuff')
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: 'Twitter stuff', twitter_quote_visibility: nil)
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -470,7 +470,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = 'comidas.social'
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt'])
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt'], twitter_quote_visibility: nil)
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars.json'))
     stub_request(:get, 'http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png')
@@ -918,6 +918,34 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
   end
 
+  test 'toot with visibility' do
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], twitter_original_visibility: User.twitter_original_visibilities['private'])
+
+    text = 'Oh yeah!'
+    tweet_id = 2938928398392
+    masto_id = 98392839283
+    medias = []
+    possibly_sensitive = false
+    save_status = true
+    cw = nil
+    masto_client = mock()
+    user.expects(:mastodon_client).returns(masto_client)
+    masto_status = mock()
+    masto_status.expects(:id).returns(masto_id).twice
+    masto_client.expects(:create_status).with(text, media_ids: medias, visibility: 'private', headers: {"Idempotency-Key" => "#{masto_user}-#{tweet_id}"}).returns(masto_status)
+
+    tweet = mock()
+    tweet.expects(:id).twice.returns(tweet_id)
+    tweet.expects(:created_at).returns(Time.now)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.instance_variable_set(:@type, :original)
+    twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
+  end
+
   test 'toot with cw' do
     masto_user = 'beterraba'
     masto_domain = 'comidas.social'
@@ -1139,4 +1167,96 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
   end
 
+  test 'process_quote sets type to quote - quote as old rt' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    tweet = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_quote
+    assert_equal :quote, twitter_user_processor.instance_variable_get(:@type)
+  end
+  test 'process_quote sets type to quote - quote as link' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['quote_post_as_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
+
+    tweet = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_quote
+    assert_equal :quote, twitter_user_processor.instance_variable_get(:@type)
+  end
+  test 'process_retweet sets type to retweet - retweet as old rt' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    tweet = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_retweet
+    assert_equal :retweet, twitter_user_processor.instance_variable_get(:@type)
+  end
+  test 'process_retweet sets type to retweet - retweet as link' do
+    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
+
+    tweet = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_retweet
+    assert_equal :retweet, twitter_user_processor.instance_variable_get(:@type)
+  end
+  test 'process_normal_tweet sets type to original' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/902835613539422209.json?tweet_mode=extended').to_return(web_fixture('twitter_regular_tweet.json'))
+
+    tweet = user.twitter_client.status(902835613539422209, tweet_mode: 'extended')
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_normal_tweet
+    assert_equal :original, twitter_user_processor.instance_variable_get(:@type)
+  end
+  test 'define_visibility - quote' do
+    user = create(:user_with_mastodon_and_twitter, twitter_quote_visibility: User.twitter_quote_visibilities['private'])
+    tweet = mock()
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.instance_variable_set(:@type, :quote)
+
+    twitter_user_processor.define_visibility
+    assert_equal 'private', twitter_user_processor.instance_variable_get(:@visibility)
+  end
+  test 'define_visibility - retweet' do
+    user = create(:user_with_mastodon_and_twitter, twitter_retweet_visibility: User.twitter_retweet_visibilities['private'])
+    tweet = mock()
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.instance_variable_set(:@type, :retweet)
+
+    twitter_user_processor.define_visibility
+    assert_equal 'private', twitter_user_processor.instance_variable_get(:@visibility)
+  end
+  test 'define_visibility - original' do
+    user = create(:user_with_mastodon_and_twitter, twitter_original_visibility: User.twitter_original_visibilities['private'])
+    tweet = mock()
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.instance_variable_set(:@type, :original)
+
+    twitter_user_processor.define_visibility
+    assert_equal 'private', twitter_user_processor.instance_variable_get(:@visibility)
+  end
 end
