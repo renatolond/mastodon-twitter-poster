@@ -2,8 +2,7 @@
   return {
     librato: {
       email: process.env.LIBRATO_EMAIL,
-      token: process.env.LIBRATO_TOKEN,
-      tags: { dyno: process.env.DYNO }
+      token: process.env.LIBRATO_TOKEN
     }
     , backends: ["statsd-librato-backend"]
     , port: 8125
