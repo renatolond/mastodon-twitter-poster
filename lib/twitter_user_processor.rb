@@ -142,7 +142,7 @@ class TwitterUserProcessor
       text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
       text << "\n\n🐦🔗: #{retweet.url}" if user.retweet_post_as_old_rt_with_link?
       save_status = true
-      toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+      toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -165,7 +165,7 @@ class TwitterUserProcessor
       text << "\n\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length + (user.twitter_content_warning&.length||0) <= 500
         save_status = true
-        toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+        toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       else
         text, cw = convert_twitter_text("RT @#{quote.user.screen_name} #{quote.full_text}", quote.urls, quote.media)
         text << "\n\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
@@ -175,7 +175,7 @@ class TwitterUserProcessor
         text, cw = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status_id = quote_id
-        toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+        toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       end
   end
 
@@ -205,7 +205,7 @@ class TwitterUserProcessor
       end
       text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
-      toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+      toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     end
   end
 
@@ -232,7 +232,7 @@ class TwitterUserProcessor
     @type = :original if @type.blank?
     text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
-    toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+    toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
   end
 
   class UnknownMediaException < StandardError
