@@ -36,7 +36,6 @@ gem 'foreman'
 gem 'dotenv-rails'
 gem 'ruby-filemagic'
 gem 'sidekiq'
-gem "schema_plus_enums"
 
 group :development, :test do
   gem 'byebug'
