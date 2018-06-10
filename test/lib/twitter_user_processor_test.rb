@@ -465,6 +465,38 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
   end
+  test 'process_quote - quote as old style RT: quote + twitter cw bigger than 500 chars get split in two toots with link in quote' do
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    spoiler_text = 'Twitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuff'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_content_warning: spoiler_text, twitter_quote_visibility: nil)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/936734115738669057.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_of_quote.json'))
+
+    t = user.twitter_client.status(936734115738669057, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = []
+
+    sensitive = true
+    text = "RT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288\n🐦🔗: https://twitter.com/renatolonddev/status/936731134456745984"
+
+    masto_status = mock()
+    quote_masto_id = 919819281111
+    masto_status.expects(:id).returns(quote_masto_id).once
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: spoiler_text, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
+
+    text = "Maybe I have to quote this one, then?"
+    medias = []
+
+    masto_status = mock()
+    masto_id = 919819281112
+    masto_status.expects(:id).returns(masto_id).twice
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: spoiler_text, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.process_quote
+  end
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots' do
     masto_user = 'beterraba'
     masto_domain = 'comidas.social'

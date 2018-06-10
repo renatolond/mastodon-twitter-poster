@@ -163,7 +163,7 @@ class TwitterUserProcessor
       full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
       text << "\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
-      if text.length <= 500
+      if text.length + (user.twitter_content_warning&.length||0) <= 500
         save_status = true
         toot(text, @medias, tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
       else
