@@ -1,4 +1,4 @@
-if defined?(Rake) || Rails.env.test?
+if Rails.env.test? || File.split($0).last == 'rake'
   Rails.logger.warn { "Using hardcoded values for twitter url length" }
   TootTransformer::twitter_short_url_length = 23
   TootTransformer::twitter_short_url_length_https = 23
