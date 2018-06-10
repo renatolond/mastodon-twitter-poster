@@ -29,7 +29,7 @@ If you decide to crosspost from Twitter to Mastodon, remember to turn on notific
 
 ## Ruby on Rails
 
-Ruby 2.4.2
+Ruby 2.4.4
 
 Rails 5.1
 
@@ -41,7 +41,7 @@ The poster uses the [ruby-filemagic gem](https://github.com/blackwinter/ruby-fil
 
 ## Setup
 
-You need to install Yarn and Ruby 2.4.2. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
+You need to install Yarn and Ruby 2.4.4. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
 
 ```
 # Install bundler
