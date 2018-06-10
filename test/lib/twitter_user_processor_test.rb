@@ -1291,4 +1291,26 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.define_visibility
     assert_equal 'private', twitter_user_processor.instance_variable_get(:@visibility)
   end
+  test 'toot longer than 500 chars is ignored' do
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter])
+
+    text = 'Bulbasaur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ivysaur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venusaur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Charmander Lorem ipsum dolor sit amet, consectetur adipiscing elit. Charmeleon Lorem ipsum dolor sit amet, consectetur adipiscing elit. Charizard Lorem ipsum dolor sit amet, consectetur adipiscing elit. Squirtle Lorem ipsum dolor sit amet, consectetur adipiscing elit. Wartortle Lorem ipsum dolor sit pikachu'
+    tweet_id = 2938928398392
+    masto_id = 98392839283
+    medias = []
+    possibly_sensitive = false
+    save_status = true
+    cw = nil
+    user.expects(:mastodon_client).never
+
+    tweet = mock()
+    tweet.expects(:id).once.returns(tweet_id)
+    tweet.expects(:created_at).never
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
+  end
 end

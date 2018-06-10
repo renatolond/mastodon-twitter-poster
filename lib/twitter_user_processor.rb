@@ -324,6 +324,7 @@ class TwitterUserProcessor
       opts[:headers] = {'Idempotency-Key' => @idempotency_key}
       @idempotency_key = nil
     end
+    return if (text.length + (opts[:spoiler_text]&.size || 0)) > 500
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment('tweet.posted_to_mastodon')
     self.class.stats.timing('tweet.average_time_to_post', ((Time.now - tweet.created_at) * 1000).round(5))
