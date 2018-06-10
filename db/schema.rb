@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180503110516) do
     t.index ["provider", "uid"], :name=>"index_authorizations_on_provider_and_uid", :unique=>true
   end
 
-  create_table "mastodon_clients", id: :serial, default: %q{nextval('mastodon_clients_id_seq'::regclass)}, force: :cascade do |t|
+  create_table "mastodon_clients", force: :cascade do |t|
     t.string   "domain"
     t.string   "client_id"
     t.string   "client_secret"
