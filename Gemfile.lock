@@ -143,11 +143,13 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    its-it (1.3.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     json (2.1.0)
     jwt (1.5.6)
+    key_struct (0.4.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -166,6 +168,8 @@ GEM
     minitest (5.11.3)
     mocha (1.5.0)
       metaclass (~> 0.0.1)
+    modware (0.1.3)
+      key_struct (~> 0.4)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -266,6 +270,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    schema_monkey (2.1.5)
+      activerecord (>= 4.2)
+      modware (~> 0.1)
+    schema_plus_core (2.1.1)
+      activerecord (~> 5.0)
+      its-it (~> 1.2)
+      schema_monkey (~> 2.1)
+    schema_plus_enums (0.1.7)
+      activerecord (>= 4.2, < 5.2)
+      its-it (~> 1.2)
+      schema_plus_core
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -362,6 +377,7 @@ DEPENDENCIES
   rails_12factor
   ruby-filemagic
   sass-rails
+  schema_plus_enums
   selenium-webdriver
   sidekiq
   simplecov
