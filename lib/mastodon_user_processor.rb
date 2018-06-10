@@ -337,7 +337,10 @@ class MastodonUserProcessor
     media_id = nil
       options = detect_twitter_filetype(file_type)
       media_id = user.twitter_client.upload(file, options).to_s
-      user.twitter_client.create_metadata(media_id, alt_text: {text: media.to_h['description']}) unless media.to_h['description'].blank?
+      unless media.to_h['description'].blank?
+        alt_text = (media.to_h['description']).truncate(420, separator: /[ \n]/, omission: '…')
+        user.twitter_client.create_metadata(media_id, alt_text: {text: alt_text})
+      end
     return media_id
   end
 
