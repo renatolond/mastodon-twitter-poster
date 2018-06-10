@@ -339,7 +339,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
-    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!\n🐦🔗: https://twitter.com/renatolonddev/status/895751593924210690"
+    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!\n\n🐦🔗: https://twitter.com/renatolonddev/status/895751593924210690"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -403,7 +403,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [273, 273, 273, 273]
 
     sensitive = false
-    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
+    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -447,7 +447,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [273, 273, 273, 273]
 
     sensitive = true
-    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
+    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -479,7 +479,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = []
 
     sensitive = true
-    text = "RT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288\n🐦🔗: https://twitter.com/renatolonddev/status/936731134456745984"
+    text = "RT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288\n\n🐦🔗: https://twitter.com/renatolonddev/status/936731134456745984"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -572,7 +572,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
-    text = "RT @renatolonddev@twitter.com: test\n🐦🔗: https://twitter.com/renatolonddev/status/896020223169581056"
+    text = "RT @renatolonddev@twitter.com: test\n\n🐦🔗: https://twitter.com/renatolonddev/status/896020223169581056"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
