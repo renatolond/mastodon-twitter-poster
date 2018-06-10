@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'stats'
 require 'mastodon_ext'
 require 'uri'

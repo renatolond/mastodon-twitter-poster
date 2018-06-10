@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TweetTransformer
   def self.replace_links(text, urls)
     urls.each do |u|
-      text.gsub!(u.url.to_s, u.expanded_url.to_s)
+      text = text.gsub(u.url.to_s, u.expanded_url.to_s)
     end
     text
   end
