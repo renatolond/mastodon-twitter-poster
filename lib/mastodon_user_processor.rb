@@ -238,6 +238,10 @@ class MastodonUserProcessor
 
   def post_toot
     tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+    if toot.sensitive? && toot.spoiler_text.blank?
+      self.force_toot_url = true
+    end
+
     opts = {}
     opts.merge!(treat_media_attachments(toot.media_attachments)) unless toot.sensitive?
     opts.merge!(in_reply_to_status_id: self.replied_status.tweet_id, auto_populate_reply_metadata: true) if self.replied_status
@@ -249,12 +253,14 @@ class MastodonUserProcessor
 
   def handle_force_url(content)
     return content if content.include?(toot.url)
-    TootTransformer.new(TWITTER_MAX_CHARS).transform(content + "… #{toot.url}", toot.url, user.mastodon_domain, nil)
+    TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post + "… #{toot.url}", toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
   end
 
   def toot_content_to_post
-    if toot.sensitive?
+    if toot.sensitive? && toot.spoiler_text.present?
       "CW: #{toot.spoiler_text} … #{toot.url}"
+    elsif toot.sensitive? && toot.spoiler_text.blank?
+      "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
     else
       toot.text_content
     end
