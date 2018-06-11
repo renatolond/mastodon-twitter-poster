@@ -9,7 +9,7 @@ cache:
         - vendor/assets/bower_components
         - node_modules
 rvm:
-  - 2.4.4
+  - 2.5.1
 bundler_args: --without production
 addons:
     postgresql: "9.6"

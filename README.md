@@ -29,7 +29,7 @@ If you decide to crosspost from Twitter to Mastodon, remember to turn on notific
 
 ## Ruby on Rails
 
-Ruby 2.4.4
+Ruby 2.5.1
 
 Rails 5.1
 
