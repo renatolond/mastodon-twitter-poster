@@ -112,6 +112,50 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.process_normal_toot
   end
 
+  test 'process normal toot - image marked as sensitive, without cw' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br')
+    first_text = %Q(Chilling on this sunny afternoon 😎\n\nPic cw: alcohol, food… 1 🖼️)
+    text = %Q(Chilling on this sunny afternoon 😎\n\nPic cw: alcohol, food… 1 🖼️… https://masto.donte.com.br/@renatolond/100181471701443791)
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/100181471701443791').to_return(web_fixture('mastodon_image_sensible.json'))
+    t = user.mastodon_client.status(100181471701443791)
+
+    toot_transformer = mock()
+    toot_transformer2 = mock()
+    TootTransformer.expects(:new).with(280).twice.returns(toot_transformer, toot_transformer2)
+    toot_transformer.expects(:transform).with(first_text, t.url, 'https://masto.donte.com.br', false).returns(t.text_content)
+    toot_transformer2.expects(:transform).with(text, t.url, 'https://masto.donte.com.br', false).returns(text)
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+    mastodon_user_processor.expects(:treat_media_attachments).never
+
+    mastodon_user_processor.process_normal_toot
+  end
+
+  # don't think this can really happen, but added a test just in case to avoid double url
+  test 'process normal toot - image marked as sensitive, without cw - with force toot url on' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br')
+    first_text = %Q(Chilling on this sunny afternoon 😎\n\nPic cw: alcohol, food… 1 🖼️)
+    text = %Q(Chilling on this sunny afternoon 😎\n\nPic cw: alcohol, food… 1 🖼️… https://masto.donte.com.br/@renatolond/100181471701443791)
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/100181471701443791').to_return(web_fixture('mastodon_image_sensible.json'))
+    t = user.mastodon_client.status(100181471701443791)
+
+    toot_transformer = mock()
+    toot_transformer2 = mock()
+    TootTransformer.expects(:new).with(280).twice.returns(toot_transformer, toot_transformer2)
+    toot_transformer.expects(:transform).with(first_text, t.url, 'https://masto.donte.com.br', false).returns(t.text_content)
+    toot_transformer2.expects(:transform).with(text, t.url, 'https://masto.donte.com.br', false).returns(text)
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:force_toot_url).returns(true)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+    mastodon_user_processor.expects(:treat_media_attachments).never
+
+    mastodon_user_processor.process_normal_toot
+  end
+
   test 'tweet' do
     user = create(:user_with_mastodon_and_twitter)
 
