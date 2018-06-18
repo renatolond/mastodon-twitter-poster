@@ -833,6 +833,30 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
   end
 
+  test 'tweet with image and video should not crosspost both' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1006154061740036101.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image_and_video.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/DfaTyV2V4AAUo_-.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:get, 'https://video.twimg.com/ext_tw_video/1006142294158815232/pu/vid/720x1280/4KL1D3rSrIdi42YM.mp4?tag=3')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLLQqpiWsAE9aTU.mp4') })
+
+    upload_media_answer = mock()
+    upload_media_answer.expects(:id).once.returns(273)
+    user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
+      description == nil
+    }
+
+    t = user.twitter_client.status(1006154061740036101, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal 'Small hail falling in Stearns Co. #mnwx (Video from Kayla Neussendorfer in Richmond)https://twitter.com/Matt_Brickman/status/1006142590876618754/video/1 http://dlvr.it/QWvwKb', twitter_user_processor.find_media(t.media, TweetTransformer::replace_links(t.full_text, t.urls))
+    assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
+  end
+
+
   test 'post tweet with images but no text' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
 

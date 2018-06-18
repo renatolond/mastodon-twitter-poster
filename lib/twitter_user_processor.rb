@@ -247,7 +247,13 @@ class TwitterUserProcessor
 
   def find_media(tweet_medias, text)
     @medias = []
+    media_type = nil
     tweet_medias.each do |media|
+      media_type = media.type if media_type.nil?
+      if media_type != media.type
+        text = text.gsub(media.url, media.expanded_url.to_s).strip
+        next
+      end
       media_url = media_url_for(media)
       next if media_url.nil?
       new_text = text.gsub(media.url, '').strip
