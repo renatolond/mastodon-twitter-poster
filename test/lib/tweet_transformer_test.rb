@@ -135,4 +135,16 @@ Yet more of the same spoiler)
 
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
+  test 'ignore "cw:" on the second line' do
+    text = %q(Wut!
+CW: spoiler
+Here's my spoiler!)
+    filtered_text = "Wut!
+CW: spoiler
+Here's my spoiler!"
+    cw = nil
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+
 end
