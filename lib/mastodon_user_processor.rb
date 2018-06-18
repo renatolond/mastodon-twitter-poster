@@ -312,7 +312,7 @@ class MastodonUserProcessor
         file.write HTTParty.get(media.url).body
         file.rewind
         file_type = detect_media_type(file)
-        if file_type == 'video/webm'
+        if file_type == 'video/webm' || file_type == 'application/octet-stream'
           self.force_toot_url = true
           next
         end
