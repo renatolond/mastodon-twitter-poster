@@ -721,6 +721,10 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/942479048684400640.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_video.json'))
 
+    stub_request(:head, 'https://video.twimg.com/ext_tw_video/942478818975006720/pu/vid/480x480/qXMcRgrilCk9mDm1.mp4')
+      .to_return(:status => 200, :headers => {"content-type"=>["video/mp4"], "content-length"=>["2820542"], :body => nil})
+    stub_request(:head, 'https://video.twimg.com/ext_tw_video/942478818975006720/pu/vid/240x240/LWd-ivaT-cP8aOWK.mp4')
+      .to_return(:status => 200, :headers => {"content-type"=>["video/mp4"], "content-length"=>["909519"], :body => nil})
     stub_request(:get, 'https://video.twimg.com/ext_tw_video/942478818975006720/pu/vid/480x480/qXMcRgrilCk9mDm1.mp4')
       .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLLQqpiWsAE9aTU.mp4') })
 
@@ -732,6 +736,26 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     assert_equal "In case you need a moment of happy in your twitter feed", twitter_user_processor.find_media(t.media, t.full_text.dup)
     assert_equal [273], twitter_user_processor.instance_variable_get(:@medias)
+  end
+
+  test 'do not upload video to mastodon if all bitrates bigger than 8mb' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.test')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/942479048684400640.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_video.json'))
+
+    stub_request(:head, 'https://video.twimg.com/ext_tw_video/942478818975006720/pu/vid/480x480/qXMcRgrilCk9mDm1.mp4')
+      .to_return(:status => 200, :headers => {"content-type"=>["video/mp4"], "content-length"=>["28205420"], :body => nil})
+    stub_request(:head, 'https://video.twimg.com/ext_tw_video/942478818975006720/pu/vid/240x240/LWd-ivaT-cP8aOWK.mp4')
+      .to_return(:status => 200, :headers => {"content-type"=>["video/mp4"], "content-length"=>["9095190"], :body => nil})
+
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(942479048684400640, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert_equal "In case you need a moment of happy in your twitter feed https://twitter.com/LisaAbeyta/status/942479048684400640/video/1", twitter_user_processor.find_media(t.media, t.full_text.dup)
+    assert_equal [], twitter_user_processor.instance_variable_get(:@medias)
   end
 
   test 'upload medias to mastodon and post them together with the toot' do

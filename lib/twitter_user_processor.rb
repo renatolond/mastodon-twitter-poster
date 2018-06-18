@@ -255,7 +255,10 @@ class TwitterUserProcessor
         next
       end
       media_url = media_url_for(media)
-      next if media_url.nil?
+      if media_url.nil?
+        text = text.gsub(media.url, media.expanded_url.to_s).strip
+        next
+      end
       new_text = text.gsub(media.url, '').strip
       begin
         file = Tempfile.new(['media', File.extname(clean_url(media_url))], "#{Rails.root}/tmp")
@@ -287,12 +290,22 @@ class TwitterUserProcessor
     elsif media.is_a? Twitter::Media::Photo
       return media.media_url
     elsif media.is_a? Twitter::Media::Video
-      return media.video_info.variants.max_by { |v| (v.bitrate.is_a?(Integer)? v.bitrate : -999) }.url.to_s
+      return filter_videos_and_select_biggest_quality(media)
     end
 
     self.class.stats.increment('tweet.unknown_media')
     Rails.logger.warn { "Unknown media #{media.class.name}" }
     return nil
+  end
+
+  def filter_videos_and_select_biggest_quality(media)
+    available = media.video_info.variants.select { |v|
+      next false if v.content_type != 'video/mp4';
+      h = HTTParty.head(v.url.to_s);
+      next false if h['content-length'].to_i > 8.megabytes;
+      next true
+    }
+    return available.max_by { |v| (v.bitrate.is_a?(Integer)? v.bitrate : -999) }.url.to_s unless available.empty?
   end
 
   def upload_media(media, file, retries = 3)
