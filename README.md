@@ -1,4 +1,3 @@
-<p align="center"><img src="app/logo/Logo1.png" alt="mastodon-twitter-poster" height="300px"></p>
 
 
 
