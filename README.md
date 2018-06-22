@@ -1,4 +1,4 @@
-
+<p align="center"><img src="app/logo/Logo1.png" alt="mastodon-twitter-poster" height="300px"></p>
 
 
 # Mastodon-Twitter Crossposter [![Maintainability](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/maintainability)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/test_coverage)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/test_coverage) [![Build Status](https://travis-ci.org/renatolond/mastodon-twitter-poster.svg?branch=master)](https://travis-ci.org/renatolond/mastodon-twitter-poster)
