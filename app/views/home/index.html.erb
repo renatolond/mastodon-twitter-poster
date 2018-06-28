@@ -15,7 +15,7 @@
     <% if mastodon? %>
     <button class="btn btn-default btn-lg"><i class="fa fa-mastodon" aria-hidden="true"></i><%= t :mastodon_logged_in %> <i class="fa fa-check" aria-hidden="true"></i></button>
     <% else %>
-    <%= link_to(user_mastodon_omniauth_authorize_path, class: 'btn btn-default btn-lg') do %>
+    <%= link_to(mastodon_identifier_user_path, class: 'btn btn-default btn-lg') do %>
     <i class="fa fa-mastodon" aria-hidden="true"></i> Mastodon
     <% end %>
     <% end %>

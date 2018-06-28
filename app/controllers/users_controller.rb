@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :mastodon_identifier
   def show
   end
 
@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   rescue ActiveRecord::RecordInvalid => ex
     flash[:error] = ex.message
     redirect_to user_path
+  end
+
+  def mastodon_identifier
   end
 
   def user_params

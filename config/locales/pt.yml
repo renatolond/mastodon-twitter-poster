@@ -74,7 +74,7 @@ pt:
   masto_not_posting_reply: "Você não está postando replies."
   masto_posting_reply_to_self: "Você está postando replies pra você mesmo."
   log_out: 'Fazer logout'
-  for_news_and_status: 'Para novidades e status, siga o profile no Mastodon em:'
+  for_news_and_status: 'Para novidades e status:'
   features: 'Funcionalidades'
   status: 'Status'
   twitter_content_warning: 'Aviso de conteúdo do Twitter'
@@ -96,3 +96,9 @@ pt:
   twitter_original_visibility_status: 'Você está postando seus próprios tweets com a privacidade: '
   twitter_retweet_visibility_status: 'Você está postando retweets com a privacidade: '
   twitter_quote_visibility_status: 'Você está postando citações com a privacidade: '
+  masto_login:
+      please: 'Conecte o seu Mastodon'
+      identifier: 'Identificador'
+      login: 'Entrar'
+      invalid_identifier: 'Identificador inválido. Use o seu usuário no formato usuário@instância, como crossposter@masto.donte.com.br'
+  follow_us_on_the_fediverse: 'Siga-nos no fediverso!'

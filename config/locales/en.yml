@@ -74,7 +74,7 @@ en:
   masto_not_posting_reply: "You're not posting replies."
   masto_posting_reply_to_self: "You're posting replies to yourself."
   log_out: 'Logout'
-  for_news_and_status: 'For news and status, follow the Mastodon profile at: '
+  for_news_and_status: 'For news and status:'
   features: 'Features'
   status: 'Status'
   twitter_content_warning: 'Twitter content warning'
@@ -96,3 +96,9 @@ en:
   twitter_original_visibility_status: 'Your posting your own tweets with the privacy: '
   twitter_retweet_visibility_status: 'Your posting retweets with the privacy: '
   twitter_quote_visibility_status: 'Your posting quotes with the privacy: '
+  masto_login:
+      please: 'Connect your Mastodon'
+      identifier: 'Identifier'
+      login: 'Login'
+      invalid_identifier: 'Invalid identifier. You need to use the format user@instance, like crossposter@masto.donte.com.br'
+  follow_us_on_the_fediverse: 'Follow us on the fediverse!'
