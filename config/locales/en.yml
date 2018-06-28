@@ -96,3 +96,8 @@ en:
   twitter_original_visibility_status: 'Your posting your own tweets with the privacy: '
   twitter_retweet_visibility_status: 'Your posting retweets with the privacy: '
   twitter_quote_visibility_status: 'Your posting quotes with the privacy: '
+  masto_login:
+      please: 'Connect your Mastodon'
+      identifier: 'Identifier'
+      login: 'Login'
+      invalid_identifier: 'Invalid identifier. You need to use the format user@instance, like crossposter@masto.donte.com.br'

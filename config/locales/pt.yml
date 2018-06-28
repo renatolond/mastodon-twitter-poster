@@ -96,3 +96,8 @@ pt:
   twitter_original_visibility_status: 'Você está postando seus próprios tweets com a privacidade: '
   twitter_retweet_visibility_status: 'Você está postando retweets com a privacidade: '
   twitter_quote_visibility_status: 'Você está postando citações com a privacidade: '
+  masto_login:
+      please: 'Conecte o seu Mastodon'
+      identifier: 'Identificador'
+      login: 'Entrar'
+      invalid_identifier: 'Identificador inválido. Use o seu usuário no formato usuário@instância, como crossposter@masto.donte.com.br'

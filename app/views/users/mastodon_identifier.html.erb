@@ -1,0 +1,21 @@
+<div class="row vertical-offset-100">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= t('masto_login.please')%></h3>
+      </div>
+      <div class="panel-body">
+        <%= form_tag user_mastodon_omniauth_authorize_path, method: :post, 'data-toggle' => 'validator' do %>
+          <div class="form-group">
+            <%= label_tag(:identifier, t('masto_login.identifier')) %>
+            <%= text_field_tag(:identifier, '', type: 'email', class: 'form-control', placeholder: 'crossposter@masto.donte.com.br', required: '', 'data-error' => t('masto_login.invalid_identifier') ) %>
+            <div class="help-block with-errors"></div>
+          </div>
+          <div class="form-group">
+            <%= submit_tag t('masto_login.login'), class: 'btn btn-primary btn-default' %>
+          </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
