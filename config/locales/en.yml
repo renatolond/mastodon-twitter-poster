@@ -101,3 +101,4 @@ en:
       identifier: 'Identifier'
       login: 'Login'
       invalid_identifier: 'Invalid identifier. You need to use the format user@instance, like crossposter@masto.donte.com.br'
+  follow_us_on_the_fediverse: 'Follow us on the fediverse!'

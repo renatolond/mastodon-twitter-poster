@@ -73,7 +73,9 @@
       <div class="container">
 
         <p><%=t :service_ran_by%> <%=link_to('@renatolond@masto.donte.com.br', 'https://masto.donte.com.br/@renatolond') %> / <%=link_to('@renatolond', 'https://twitter.com/renatolond')%>. <%=link_to(t(:source_code_and_issues), 'https://github.com/renatolond/mastodon-twitter-poster') %>.</br>
-        <%=t(:for_news_and_status)%> <%=link_to('@crossposter@masto.donte.com.br', 'https://masto.donte.com.br/@crossposter')%></p>
+        <%=t(:for_news_and_status)%> <%= link_to('https://masto.donte.com.br/@crossposter', class: 'btn btn-social btn-sm btn-mastodon', target: '_blank') do %>
+        <i class="fa fa-mastodon" aria-hidden="true"></i> <%= t('follow_us_on_the_fediverse') %>
+        <% end %></p>
       </div>
     </footer>
   </body>

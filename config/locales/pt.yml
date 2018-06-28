@@ -101,3 +101,4 @@ pt:
       identifier: 'Identificador'
       login: 'Entrar'
       invalid_identifier: 'Identificador inválido. Use o seu usuário no formato usuário@instância, como crossposter@masto.donte.com.br'
+  follow_us_on_the_fediverse: 'Siga-nos no fediverso!'
