@@ -74,7 +74,7 @@ en:
   masto_not_posting_reply: "You're not posting replies."
   masto_posting_reply_to_self: "You're posting replies to yourself."
   log_out: 'Logout'
-  for_news_and_status: 'For news and status, follow the Mastodon profile at: '
+  for_news_and_status: 'For news and status:'
   features: 'Features'
   status: 'Status'
   twitter_content_warning: 'Twitter content warning'
