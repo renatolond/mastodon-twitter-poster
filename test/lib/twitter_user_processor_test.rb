@@ -237,35 +237,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_quote
   end
 
-  test 'process_quote - quote as link' do
-    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_link'])
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
-
-    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
-    text = 'What about a quote? https://twitter.com/renatolonddev/status/895751593924210690'
-
-    twitter_user_processor = TwitterUserProcessor.new(t, user)
-    twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
-    twitter_user_processor.process_quote
-  end
-
-  test 'process_quote - quote as link with cw gets behind cw' do
-    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_link'])
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/967415134170894341.json?tweet_mode=extended').to_return(web_fixture('twitter_quote_with_cw.json'))
-
-    t = user.twitter_client.status(967415134170894341, tweet_mode: 'extended')
-    text = "RT: https://twitter.com/gifsdegatinhos/status/967054283299610625"
-    sensitive = true
-    cw = 'gatinho!'
-
-    twitter_user_processor = TwitterUserProcessor.new(t, user)
-    twitter_user_processor.expects(:toot).with(text, [], sensitive, true, cw).times(1).returns(nil)
-    twitter_user_processor.process_quote
-  end
-
-
   test 'process_quote - quote with image as old style RT' do
     user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
 
@@ -539,19 +510,6 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
-  end
-
-  test 'process_retweet - retweet as link' do
-    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
-
-    t = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
-    text = "RT: #{t.url}"
-
-    twitter_user_processor = TwitterUserProcessor.new(t, user)
-    twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
-    twitter_user_processor.process_retweet
   end
 
   test 'process_retweet - do not post RT' do
@@ -1260,34 +1218,8 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_quote
     assert_equal :quote, twitter_user_processor.instance_variable_get(:@type)
   end
-  test 'process_quote sets type to quote - quote as link' do
-    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['quote_post_as_link'])
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended').to_return(web_fixture('twitter_quote.json'))
-
-    tweet = user.twitter_client.status(926388565587779584, tweet_mode: 'extended')
-
-    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
-    twitter_user_processor.expects(:toot)
-
-    twitter_user_processor.process_quote
-    assert_equal :quote, twitter_user_processor.instance_variable_get(:@type)
-  end
   test 'process_retweet sets type to retweet - retweet as old rt' do
     user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_old_rt'])
-
-    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
-
-    tweet = user.twitter_client.status(904738384861700096, tweet_mode: 'extended')
-
-    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
-    twitter_user_processor.expects(:toot)
-
-    twitter_user_processor.process_retweet
-    assert_equal :retweet, twitter_user_processor.instance_variable_get(:@type)
-  end
-  test 'process_retweet sets type to retweet - retweet as link' do
-    user = create(:user_with_mastodon_and_twitter, retweet_options: User.retweet_options['retweet_post_as_link'])
 
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended').to_return(web_fixture('twitter_retweet.json'))
 

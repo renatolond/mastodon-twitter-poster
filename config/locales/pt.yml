@@ -49,12 +49,10 @@ pt:
   change_this_on_options: "Você pode mudar essas configurações nas %{options}."
   retweet_options: 'Opções de Retweets'
   retweet_do_not_post: 'Não postar retweets no Mastodon'
-  retweet_post_as_link: 'Postar retweets no Mastodon como links (RT: https://twitter.com/renatolonddev/status/904738384861700096)'
   retweet_post_as_old_rt: 'Postar Retweets no Mastodon como RTs à moda antiga (RT @renatolonddev@twitter.com: Hello, world!)'
   retweet_post_as_old_rt_with_link: 'Postar Retweets no Mastodon como RTs à moda antiga com links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_options: 'Opções de retweets com comentários (citação)'
   quote_do_not_post: 'Não postar citações no Mastodon'
-  quote_post_as_link: 'Postar citações no Mastodon como links (Eu gosto dessa ideia https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_post_as_old_rt: 'Postar citações no Mastodon como RTs à moda antiga (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world!)'
   quote_post_as_old_rt_with_link: 'Postar citações no Mastodon como RTs à moda antiga com links (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   twitter_reply_do_not_post: 'Não postar respostas no Mastodon'
@@ -62,11 +60,9 @@ pt:
   twitter_reply_options: 'Opções das respostas:'
   twitter_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do twitter. É uma resposta direta a outro toot."
   twitter_not_posting_rt: "Você não está postando retweets."
-  twitter_posting_rt_as_link: "Você está postando retweets como links."
   twitter_posting_rt_old_style: "Você está postando retweets como RTs à moda antiga."
   twitter_posting_rt_old_style_with_link: "Você está postando retweets como RTs à moda antiga com links."
   twitter_not_posting_quote: "Você não está postando quotes."
-  twitter_posting_quote_as_link: "Você está postando quotes como links."
   twitter_posting_quote_old_style: "Você está postando quotes como RTs à moda antiga."
   twitter_posting_quote_old_style_with_link: "Você está postando quotes como RTs à moda antiga com links."
   twitter_not_posting_reply: "Você não está postando replies."

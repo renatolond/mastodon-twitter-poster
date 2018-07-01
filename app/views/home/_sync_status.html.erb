@@ -6,13 +6,11 @@
   <%= t(:twitter_original_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_original_visibility || 'default'}") %><br />
 
   <%= t(:twitter_not_posting_rt) if current_user.retweet_do_not_post? %>
-  <%= t(:twitter_posting_rt_as_link) if current_user.retweet_post_as_link? %>
   <%= t(:twitter_posting_rt_old_style) if current_user.retweet_post_as_old_rt? %>
   <%= t(:twitter_posting_rt_old_style_with_link) if current_user.retweet_post_as_old_rt_with_link? %>
   <% unless current_user.retweet_do_not_post? %> <%= t(:twitter_retweet_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_retweet_visibility || 'default'}") %> <% end %><br />
 
   <%= t(:twitter_not_posting_quote) if current_user.quote_do_not_post? %>
-  <%= t(:twitter_posting_quote_as_link) if current_user.quote_post_as_link? %>
   <%= t(:twitter_posting_quote_old_style) if current_user.quote_post_as_old_rt? %>
   <%= t(:twitter_posting_quote_old_style_with_link) if current_user.quote_post_as_old_rt_with_link? %>
   <% unless current_user.quote_do_not_post? %> <%= t(:twitter_quote_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_quote_visibility || 'default'}") %> <% end %><br />

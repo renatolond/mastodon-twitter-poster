@@ -133,10 +133,6 @@ class TwitterUserProcessor
     if user.retweet_do_not_post?
       Rails.logger.debug('Ignoring retweet because user chose so')
       self.class.stats.increment("tweet.retweet.skipped")
-    elsif user.retweet_post_as_link?
-      content = "RT: #{tweet.url}"
-      save_status = true
-      toot(content, [], tweet.possibly_sensitive?, save_status, nil)
     elsif user.retweet_post_as_old_rt? || user.retweet_post_as_old_rt_with_link?
       retweet = tweet.retweeted_status
       text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls + retweet.urls, (tweet.media + retweet.media).uniq)
@@ -151,8 +147,6 @@ class TwitterUserProcessor
     if user.quote_do_not_post?
       Rails.logger.debug('Ignoring quote because user chose so')
       self.class.stats.increment("tweet.quote.skipped")
-    elsif user.quote_post_as_link?
-      process_normal_tweet
     elsif user.quote_post_as_old_rt? || user.quote_post_as_old_rt_with_link?
       process_quote_as_old_rt
     end
