@@ -80,5 +80,10 @@ class TootTransformerTest < ActiveSupport::TestCase
 
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://mastodon.xyz/@renatolond/1111111', 'https://mastodon.xyz', true)
   end
+  test 'Transform with uppercase links and downcase them' do
+    text = 'Is twitter ever going to allow for regular stuff? Http://www.test.com Https://anothertest.com'
+    expected_text = 'Is twitter ever going to allow for regular stuff? http://www.test.com https://anothertest.com'
 
+    assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', true)
+  end
 end
