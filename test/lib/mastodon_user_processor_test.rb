@@ -404,4 +404,15 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
 
     mastodon_user_processor.process_reply
   end
+  test 'gif with more than 60 fps should be ignored' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
+
+    stub_request(:get, 'https://mastodon.xyz/api/v1/statuses/98889131472877168').to_return(web_fixture('mastodon_mp4_with_high_fps.json'))
+    t = user.mastodon_client.status(98889131472877168)
+    expected_response = {}
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:force_toot_url=).with(true).times(1)
+    assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
+  end
 end

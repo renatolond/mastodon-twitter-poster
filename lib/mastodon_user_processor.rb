@@ -301,7 +301,7 @@ class MastodonUserProcessor
     medias.each do |media|
       url = get_url_for_media(media)
 
-      if ['image/gif', 'video/mp4'].include?(media_type)
+      if ['image/gif', 'video/mp4'].include?(media_type) || (media.attributes.dig('meta', 'fps').present? && media.attributes.dig('meta', 'fps') > 60)
         self.force_toot_url = true
         next
       end
