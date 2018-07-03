@@ -197,6 +197,7 @@ class TwitterUserProcessor
         self.class.stats.increment("tweet.reply_to_self.skipped")
         return
       end
+      @type = :original
       text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
       save_status = true
       toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)

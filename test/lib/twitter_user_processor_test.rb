@@ -1244,6 +1244,24 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_normal_tweet
     assert_equal :original, twitter_user_processor.instance_variable_get(:@type)
   end
+  test 'process_reply sets type to original' do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options['twitter_reply_post_self'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/933772488345088001.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_self_reply.json'))
+
+    tweet = user.twitter_client.status(933772488345088001, tweet_mode: 'extended', include_ext_alt_text: true)
+
+    user_to_reply = tweet.in_reply_to_user_id
+    tweet.expects(:in_reply_to_user_id).returns(user_to_reply)
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
+
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(true)
+    twitter_user_processor.expects(:toot)
+
+    twitter_user_processor.process_reply
+    assert_equal :original, twitter_user_processor.instance_variable_get(:@type)
+  end
   test 'define_visibility - quote' do
     user = create(:user_with_mastodon_and_twitter, twitter_quote_visibility: User.twitter_quote_visibilities['private'])
     tweet = mock()
