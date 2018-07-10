@@ -56,7 +56,7 @@ class TwitterUserProcessor
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment('domain.offline')
         raise TweetError.new(ex)
-      rescue OpenSSL::SSL::SSLError
+      rescue OpenSSL::SSL::SSLError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} has SSL issues" }
         stats.increment('domain.ssl_error')
         raise TweetError.new(ex)
