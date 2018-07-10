@@ -152,9 +152,13 @@ class TwitterUserProcessor
     end
   end
 
+  def quote_short_url()
+    tweet.urls.find { |u| u.expanded_url == tweet.quoted_status.url }.url
+  end
+
   def process_quote_as_old_rt
       quote = tweet.quoted_status
-      full_text = "#{tweet.full_text.gsub(" #{tweet.urls.first.url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
+      full_text = "#{tweet.full_text.gsub(" #{quote_short_url}", '')}\nRT @#{quote.user.screen_name} #{quote.full_text}"
       text, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
       text << "\n\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
       if text.length + (user.twitter_content_warning&.length||0) <= 500
@@ -166,7 +170,7 @@ class TwitterUserProcessor
         save_status = false
         @idempotency_key = "#{user.mastodon.uid.split('@')[0]}-#{quote.id}"
         quote_id = toot(text, @medias, quote.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
-        text, cw = convert_twitter_text(tweet.full_text.gsub(" #{tweet.urls.first.url}", ''), tweet.urls, tweet.media)
+        text, cw = convert_twitter_text(tweet.full_text.gsub(" #{quote_short_url}", ''), tweet.urls, tweet.media)
         save_status = true
         self.replied_status_id = quote_id
         toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)

@@ -304,6 +304,19 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_quote
   end
 
+  test 'process_quote - quote as old style RT with link should keep links' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt_with_link'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_with_link_in_quote.json'))
+
+    t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended', include_ext_alt_text: true)
+    text = "I'll put a link to pudim in this quote http://pudim.com.br/\nRT @renatolonddev@twitter.com test\n\n🐦🔗: https://twitter.com/renatolonddev/status/1012728220343525377"
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
+    twitter_user_processor.process_quote
+  end
+
   test 'process_quote - quote as old style RT with link' do
     user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt_with_link'])
 
