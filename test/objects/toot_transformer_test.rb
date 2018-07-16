@@ -76,7 +76,7 @@ class TootTransformerTest < ActiveSupport::TestCase
 
   test 'Remove mentions for Twitter' do
     text = 'Hey @renatolond! Hey @renatolond@twitter.com! Hey @renatolond@masto.donte.com.br! Hey @foca.alada @foca. Can you see this?'.freeze
-    expected_text = 'Hey @renatolond@masto.donte.com.br! Hey renatolond! Hey @renatolond@masto.donte.com.br! Can you see this?'
+    expected_text = 'Hey @renatolond@masto.donte.com.br! Hey renatolond! Hey @renatolond@masto.donte.com.br! Hey @foca.alada@masto.donte.com.br @foca@masto.donte.com.br. Can you see this?'
 
     assert_equal expected_text, TootTransformer.new(280).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
   end
