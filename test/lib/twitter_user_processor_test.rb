@@ -310,7 +310,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_with_link_in_quote.json'))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: 'extended', include_ext_alt_text: true)
-    text = "I'll put a link to pudim in this quote http://pudim.com.br/\nRT @renatolonddev@twitter.com test\n\n🐦🔗: https://twitter.com/renatolonddev/status/1012728220343525377"
+    text = "I'll put a link to pudim in this quote http://pudim.com.br/\nRT @RenatoLondDev@twitter.com test\n\n🐦🔗: https://twitter.com/RenatoLondDev/status/1012728220343525377"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
