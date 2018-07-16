@@ -90,4 +90,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.active_job.queue_adapter = :sidekiq
+
+  # Reduce sidekiq logging to warn levels
+  Sidekiq::Logging.logger.level = Logger::WARN
 end
