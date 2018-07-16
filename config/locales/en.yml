@@ -27,8 +27,6 @@ en:
   masto_synchronization_status: 'Post my toots on twitter:'
   post_unlisted_toots: 'Post unlisted toots?:'
   post_private_toots: 'Post private toots?:'
-  fix_cross_mentions: 'Fix cross mentions?'
-  fix_cross_mentions_explanation: "When this option is on, if you post a toot that contains '@user@twitter.com', this will be replaced by '@user' when posted in twitter."
   boost_options: 'Boost options:'
   masto_reply_options: 'Reply options:'
   masto_reply_options_explanation: "This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot."

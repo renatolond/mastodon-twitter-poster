@@ -6,6 +6,7 @@ class TootTransformer
   IGNORE_CASE_HTTP = Regexp.new(/(?:http:\/\/)/i.to_s + /(?:www\.)?[-a-zA-Z0-9@:%._+\~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%\_+.~#?&\/=]*)/.to_s)
   IGNORE_CASE_HTTPS = Regexp.new(/(?:https:\/\/)/i.to_s + /[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/.to_s)
   MASTODON_USERNAME_REGEX = /@\w+@[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
+  MASTO_MENTION_REGEX = /(\s|^.?)(@[A-Za-z0-9_]+[A-Za-z0-9_\.]+[A-Za-z0-9_]+)(?=[^A-Za-z0-9_@]|$)/
   TWITTER_MENTION_REGEX = /@(\w+)@twitter.com/
 
   def twitter_max_length
@@ -35,9 +36,14 @@ class TootTransformer
     text
   end
 
-  def transform(text, toot_url, mastodon_domain, fix_cross_mention)
+  def replace_twitter_mentions(text, mastodon_domain)
+    text = text.gsub(MASTO_MENTION_REGEX, "\\1\\2@#{mastodon_domain}")
+    text.gsub(TWITTER_MENTION_REGEX, '\1')
+  end
+
+  def transform(text, toot_url, mastodon_domain, mastodon_domain_urn)
     text = self.class.replace_uppercase_links(text)
-    text = text.gsub(TWITTER_MENTION_REGEX, '@\1') if fix_cross_mention
+    text = replace_twitter_mentions(text, mastodon_domain_urn)
     text = text.gsub(TootTransformer::media_regex(mastodon_domain), '')
     text.tr!('*', '＊') # XXX temporary fix for asterisk problem
     transform_rec(text, toot_url, twitter_max_length)

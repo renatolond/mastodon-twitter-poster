@@ -237,7 +237,7 @@ class MastodonUserProcessor
   end
 
   def post_toot
-    tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+    tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain)
     if toot.sensitive? && toot.spoiler_text.blank?
       self.force_toot_url = true
     end
@@ -253,7 +253,7 @@ class MastodonUserProcessor
 
   def handle_force_url(content)
     return content if content.include?(toot.url)
-    TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post + "… #{toot.url}", toot.url, user.mastodon_domain, user.masto_fix_cross_mention)
+    TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post + "… #{toot.url}", toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain)
   end
 
   def toot_content_to_post
@@ -285,7 +285,7 @@ class MastodonUserProcessor
       status = user.twitter_client.update(content, opts)
     rescue Twitter::Error::Forbidden => ex
       raise ex unless ex.code == TWITTER_TOO_LONG_ERROR_CODE
-      status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.masto_fix_cross_mention), opts)
+      status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain), opts)
     end
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
     MastodonUserProcessor::stats.increment('toot.posted_to_twitter')

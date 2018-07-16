@@ -30,16 +30,6 @@
   </label>
 <% end %>
 </div>
-<p><%= t :fix_cross_mentions%><br />
-<small><%= t :fix_cross_mentions_explanation%></small></p>
-<div class="btn-group" data-toggle="buttons">
-<% [true, false].each do |option| %>
-  <label class="btn btn-primary<% if current_user.masto_fix_cross_mention == option %> active<% end %>">
-    <%= f.radio_button :masto_fix_cross_mention, option %>
-    <%= t "masto_sync_status_#{option}".to_sym %>
-  </label>
-<% end %>
-</div>
 <p><%= t :boost_options %><br />
 <% User.boost_options.keys.each do |boost_option| %>
 <div class="radio">

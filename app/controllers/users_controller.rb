@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:posting_from_mastodon, :masto_should_post_private, :masto_should_post_unlisted, :boost_options, :masto_reply_options, :masto_mention_options, :masto_fix_cross_mention, :posting_from_twitter, :retweet_options, :quote_options, :twitter_reply_options, :twitter_content_warning, :twitter_original_visibility, :twitter_retweet_visibility, :twitter_quote_visibility)
+    params.require(:user).permit(:posting_from_mastodon, :masto_should_post_private, :masto_should_post_unlisted, :boost_options, :masto_reply_options, :masto_mention_options, :posting_from_twitter, :retweet_options, :quote_options, :twitter_reply_options, :twitter_content_warning, :twitter_original_visibility, :twitter_retweet_visibility, :twitter_quote_visibility)
   end
 
   private
