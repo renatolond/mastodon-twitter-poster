@@ -22,7 +22,6 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
   - Mind your privacy: you can choose which privacy levels you want to crosspost. Only posting public toots, for instance.
   - You can choose between posting boosts or not.
-  - Automatically fix mentions to twitter users! If you post @user@twitter.com they will be mentioned on twitter when the toot gets crossposted.
   - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
   - No other replies will be posted. There's no risk of filling your twitter timeline with replies to people that are not there.
   
