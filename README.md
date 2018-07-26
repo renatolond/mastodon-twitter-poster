@@ -73,6 +73,9 @@ from Procfile.worker
 
 An example nginx configuration can be found at `util/nginx.conf`. It assumes the crossposter is running at port 3000, in the directory `/home/crossposter/live` and the domain `crossposter.example.com` needs to be replaced by your own.
 
+An example of the configuration file is provided at `.env.example`. To generate `SECRET_KEY_BASE`, you need to run `bundle exec rake secret` and copy the resulting hash. You need to configure an app on Twitter with permission to read and write. The credentials that they give you need to be added to TWITTER_CLIENT_ID and TWITTER_CLIENT_SECRET. \\
+If you're not using Librato, you don't need to fill any of the Librato variables.
+
 To start the web app, the worker which will fetch tweets and toots in background and the statsd instance, you need to do:
 `bundle exec foreman start -e .env.production"`
 
