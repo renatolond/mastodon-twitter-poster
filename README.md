@@ -58,6 +58,21 @@ A separate user is recommended.
 
 By default, the crossposter will use a statsd instance to send error and stats data to Librato. If you don't want that or want to setup something else, you need to change `statsd-config.js`
 
+Before starting for the first time, you need to generate the assets and setup the database:
+
+```
+bundle exec rake db:setup # sets up the database
+bundle exec rake assets:precompile # generates the assets
+```
+
+If you are not going to use Statsd/Librato, you can remove the line
+```
+statsd: node node_modules/.bin/statsd statsd-config.js
+```
+from Procfile.worker
+
+An example nginx configuration can be found at `util/nginx.conf`. It assumes the crossposter is running at port 3000, in the directory `/home/crossposter/live` and the domain `crossposter.example.com` needs to be replaced by your own.
+
 To start the web app, the worker which will fetch tweets and toots in background and the statsd instance, you need to do:
 `bundle exec foreman start -e .env.production"`
 
