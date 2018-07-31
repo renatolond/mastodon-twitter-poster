@@ -43,6 +43,8 @@ The poster uses the [ruby-filemagic gem](https://github.com/blackwinter/ruby-fil
 
 ## Setup
 
+Note: If you are running side-by-side with Mastodon or other sidekiq-using software, you need to configure redis to avoid issues with mixed jobs. More info at the end.
+
 You need to install Yarn and Ruby 2.4.4. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
 
 ```
@@ -123,6 +125,24 @@ And put it on `/etc/systemd/system/crossposter-sidekiq.service`
 (note that RAILS_MAX_THREADS and the number of sidekiq threads should be the same)
 
 These example files are provided in the `config/systemd-services` directory. You may copy these files (with necessary modifications, if applicable) to `/etc/systemd/system/` to run the system in the background.
+
+### Running side-by-side with other sidekiq/redis applications
+
+If you are running the crossposter on a server with other sidekiq/redis applications, you need extra configuration to make sure everything is separated.
+
+For a more in-depth information, you can check out [Sidekiq Wiki](https://github.com/mperham/sidekiq/wiki/Using-Redis), but one thing you can do it's to use another redis db, which could be done by creating a file in `config/initializers/sidekiq.rb` with the content like
+
+```
+Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://redis.example.com:7372/2' }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: 'redis://redis.example.com:7372/2' }
+end
+```
+
+You need to replace all values with actual values relevant to your server.
 
 ## Tests
 
