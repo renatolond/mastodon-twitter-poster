@@ -106,6 +106,7 @@ class TwitterUserProcessor
   def posted_by_crossposter
     return true unless tweet.source['https://crossposter.masto.donte.com.br'].nil? &&
     tweet.source['https://github.com/renatolond/mastodon-twitter-poster'].nil? &&
+    tweet.source['https://moa.party'].nil? &&
     Status.find_by_tweet_id(tweet.id) == nil
     false
   end
