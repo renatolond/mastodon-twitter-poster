@@ -5,9 +5,15 @@ class TootTransformer
   HTTPS_REGEX = /(?:https:\/\/)[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
   IGNORE_CASE_HTTP = Regexp.new(/(?:http:\/\/)/i.to_s + /(?:www\.)?[-a-zA-Z0-9@:%._+\~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%\_+.~#?&\/=]*)/.to_s)
   IGNORE_CASE_HTTPS = Regexp.new(/(?:https:\/\/)/i.to_s + /[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/.to_s)
-  MASTODON_USERNAME_REGEX = /@\w+@[\w.-]+(?:\.[\w.-]+)+[\w\-._~:\/?#\[\]@!\$&'\(\)\*\+,;=.]+/
-  MASTO_MENTION_REGEX = /(\s|^.?)(@[A-Za-z0-9_]+[A-Za-z0-9_\.]+[A-Za-z0-9_]+)(?=[^A-Za-z0-9_@]|$)/
-  TWITTER_MENTION_REGEX = /@(\w+)@twitter.com/
+
+  # This is a mix of a relaxed version of the Mastodon username regex and HTTP_REGEX
+  MASTODON_USERNAME_REGEX = /[@＠]([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))[@＠]([-a-zA-Z0-9@:%._+\~#=]{2,256}\.[a-z]{2,63}\b(?:[-a-zA-Z0-9@:%\_+.~#?&\/=]*))/
+  # Should be the same as above, with first @ replaced by an elephant emoji
+  ELE_MASTODON_USERNAME_REGEX = /🐘([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))@([-a-zA-Z0-9@:%._+\~#=]{2,256}\.[a-z]{2,63}\b(?:[-a-zA-Z0-9@:%\_+.~#?&\/=]*))/
+
+  # Tries to detect anything that twitter would detect as a mention, even if it's not really accepted in mastodon
+  MASTO_MENTION_REGEX = /(\s|^.?|[^\p{L}0-9_＠!@#$%&\/*]|\s[^\p{L}0-9_＠!@#$%&*])[@＠]([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))(?=[^A-Za-z0-9_@＠]|$)/
+  TWITTER_MENTION_REGEX = /[＠@]([a-zA-Z0-9_]+)[@＠]twitter.com/
 
   def twitter_max_length
     @twitter_max_length
@@ -37,8 +43,10 @@ class TootTransformer
   end
 
   def replace_twitter_mentions(text, mastodon_domain)
-    text = text.gsub(MASTO_MENTION_REGEX, "\\1\\2@#{mastodon_domain}")
-    text.gsub(TWITTER_MENTION_REGEX, '\1')
+    text = text.gsub(MASTO_MENTION_REGEX, "\\1🐘\\2@#{mastodon_domain}")
+    text = text.gsub(TWITTER_MENTION_REGEX, '\1')
+    text = text.gsub(MASTODON_USERNAME_REGEX, "🐘\\1@\\2")
+    text
   end
 
   def transform(text, toot_url, mastodon_domain, mastodon_domain_urn)
@@ -50,7 +58,7 @@ class TootTransformer
   end
 
   def transform_rec(text, toot_url, max_length)
-    text_without_usernames = text.gsub(MASTODON_USERNAME_REGEX, '')
+    text_without_usernames = text.gsub(ELE_MASTODON_USERNAME_REGEX, '')
     https_count, https_length = TootTransformer::count_regex(text_without_usernames, HTTPS_REGEX)
     mod_text = text_without_usernames.gsub(HTTPS_REGEX, '')
     http_count, http_length = TootTransformer::count_regex(mod_text, HTTP_REGEX)

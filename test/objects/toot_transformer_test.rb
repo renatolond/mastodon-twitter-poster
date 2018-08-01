@@ -20,7 +20,7 @@ class TootTransformerTest < ActiveSupport::TestCase
   end
 
   test 'Transform a text with a username in it and it should be posted in full length' do
-    text = "Oh, apparently there's a talk going on in PGConf.eu by @user1@mastodon.social on Mastodon :)\nHope there's a video of it later!".freeze
+    text = "Oh, apparently there's a talk going on in PGConf.eu by 🐘user1@mastodon.social on Mastodon :)\nHope there's a video of it later!".freeze
     expected_text = text
 
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br/', 'masto.donte.com.br')
@@ -74,10 +74,10 @@ class TootTransformerTest < ActiveSupport::TestCase
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
   end
 
-  test 'Remove mentions for Twitter' do
-    text = 'Hey @renatolond! Hey @renatolond@twitter.com! Hey @renatolond@masto.donte.com.br! Hey @foca.alada @foca. Can you see this?'.freeze
-    expected_text = 'Hey @renatolond@masto.donte.com.br! Hey renatolond! Hey @renatolond@masto.donte.com.br! Hey @foca.alada@masto.donte.com.br @foca@masto.donte.com.br. Can you see this?'
+  test 'Remove all possible mentions for Twitter' do
+    text = 'Hey @renatolond! Hey @renatolond@twitter.com! Hey @RenatoLond@masto.donte.com.br! Hey @foca.alada @FoCa @foca-alada @foca_alada @x @xx @xxx @- @_ @. ＠bozo ＠nervoso＠masto.donte.com.br @user1@mastodon.social @_bar_baz @_bar_baz@twitter.com @user1@mastodon.technology /@testuser /@testuser@twitter.com ,@test a`@bogus usuario@email.com @🐾@instance.com and others. Can you see this?'.freeze
+    expected_text = 'Hey 🐘renatolond@masto.donte.com.br! Hey renatolond! Hey 🐘RenatoLond@masto.donte.com.br! Hey 🐘foca.alada@masto.donte.com.br 🐘FoCa@masto.donte.com.br 🐘foca@masto.donte.com.br-alada 🐘foca_alada@masto.donte.com.br 🐘x@masto.donte.com.br 🐘xx@masto.donte.com.br 🐘xxx@masto.donte.com.br @- 🐘_@masto.donte.com.br @. 🐘bozo@masto.donte.com.br 🐘nervoso@masto.donte.com.br 🐘user1@mastodon.social 🐘_bar_baz@masto.donte.com.br _bar_baz 🐘user1@mastodon.technology /🐘testuser@masto.donte.com.br /testuser ,🐘test@masto.donte.com.br a`🐘bogus@masto.donte.com.br usuario@email.com @🐾🐘instance.com@masto.donte.com.br and others. Can you see this?'
 
-    assert_equal expected_text, TootTransformer.new(280).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
+    assert_equal expected_text, TootTransformer.new(1000).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
   end
 end
