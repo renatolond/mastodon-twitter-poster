@@ -142,10 +142,21 @@ class MastodonUserProcessor
     false
   end
 
+  def content_on_the_word_list
+    words_regex = Regexp.union(*@user.masto_word_list)
+    toot.text_content.match?(words_regex)|| toot.spoiler_text.match?(words_regex)
+  end
+
   def process_toot
     if posted_by_crossposter
       Rails.logger.debug('Ignoring toot, was posted by the crossposter')
       MastodonUserProcessor::stats.increment('toot.posted_by_crossposter.skipped')
+      return
+    end
+
+    if (@user.masto_using_blocklist && content_on_the_word_list) || (@user.masto_using_allowlist && !content_on_the_word_list)
+      Rails.logger.debug('Ignoring toot, does not obey word list')
+      MastodonUserProcessor::stats.increment('toot.word_list.skipped')
       return
     end
 

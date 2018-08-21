@@ -112,10 +112,21 @@ class TwitterUserProcessor
     false
   end
 
+  def content_on_the_word_list
+    words_regex = Regexp.union(*@user.twitter_word_list)
+    tweet.full_text.match?(words_regex)
+  end
+
   def process_tweet
     if(posted_by_crossposter)
       Rails.logger.debug('Ignoring tweet, was posted by the crossposter')
       self.class.stats.increment('tweet.posted_by_crossposter.skipped')
+      return
+    end
+
+    if (@user.twitter_using_blocklist && content_on_the_word_list) || (@user.twitter_using_allowlist && !content_on_the_word_list)
+      Rails.logger.debug('Ignoring tweet, does not obey word list')
+      self.class.stats.increment('tweet.word_list.skipped')
       return
     end
 

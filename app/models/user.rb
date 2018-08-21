@@ -99,6 +99,22 @@ class User < ApplicationRecord
     @mastodon_client ||= Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token)
   end
 
+  def twitter_using_blocklist
+    twitter_block_or_allow_list == 'BLOCK_WITH_WORDS'
+  end
+
+  def twitter_using_allowlist
+    twitter_block_or_allow_list == 'ALLOW_WITH_WORDS'
+  end
+
+  def masto_using_blocklist
+    masto_block_or_allow_list == 'BLOCK_WITH_WORDS'
+  end
+
+  def masto_using_allowlist
+    masto_block_or_allow_list == 'ALLOW_WITH_WORDS'
+  end
+
   def self.do_not_allow_users
     ENV['DO_NOT_ALLOW_NEW_USERS']
   end
