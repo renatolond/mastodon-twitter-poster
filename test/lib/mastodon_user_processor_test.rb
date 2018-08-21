@@ -170,6 +170,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     toot = mock()
     toot.expects(:id).returns(masto_id)
     toot.expects(:created_at).returns('2017-12-02T12:57:49.941Z')
+    toot.expects(:url).returns('https://masto.donte.com.br/@renatolond/100181471701443791')
     MastodonUserProcessor.new(toot, user).tweet(text)
     ignored_attributes = %w(id created_at updated_at)
     assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)
