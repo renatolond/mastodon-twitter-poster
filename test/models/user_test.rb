@@ -140,7 +140,7 @@ class UserTest < ActiveSupport::TestCase
   test 'Omniauth with no previous user, allowing new users' do
     expected_domain = 'my_domain.com'
 
-    authorization = build(:authorization_mastodon, uid: "user@#{expected_domain}")
+    authorization = build(:authorization_mastodon, uid: "user@#{expected_domain}", secret: 'oh-my-secret!')
     mastodon_client = create(:mastodon_client, domain: expected_domain).reload
     auth = mock()
     credentials = mock()
