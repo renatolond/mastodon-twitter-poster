@@ -1,15 +1,13 @@
-<h3><%= t :connections %></h1>
-<p><%= t :manage_your_accounts %></p>
+<div class="content">
+  <h1 class="title is-3"><%= t :connections %></h1>
+  <p><%= t :manage_your_accounts %></p>
 
-<ul>
-  <% @authorizations.each do |auth| %>
-  <li>
-    <% if auth.provider == 'twitter' %>
-    Twitter
-    <% else %>
-    Mastodon
+  <ul>
+    <% @authorizations.each do |auth| %>
+    <li>
+      <%= auth.provider.humanize %>:
+      <%= link_to(t(:disconnect), authorization_path(auth), method: :delete) %>
+    </li>
     <% end %>
-    <%= link_to(t(:disconnect), authorization_path(auth), method: :delete) %>
-  </li>
-  <% end %>
-</ul>
+  </ul>
+</div>

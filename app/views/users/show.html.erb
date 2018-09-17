@@ -1,123 +1,25 @@
-<h3><%= t :synchronization_options %></h3>
+<%= render 'tabs' %>
+<div class="content">
+  <h1 class="title is-3"><%= t :synchronization_options %></h1>
 
-<h4>Mastodon -> Twitter</h4>
-<%= form_for(current_user) do |f|%>
-<p><%= t :masto_synchronization_status %></p>
-<div class="btn-group" data-toggle="buttons">
-<% [true, false].each do |option| %>
-  <label class="btn btn-primary<% if current_user.posting_from_mastodon == option %> active<% end %>">
-    <%= f.radio_button :posting_from_mastodon, option %>
-    <%= t "masto_sync_status_#{option}".to_sym %>
-  </label>
-<% end %>
-</div>
-<p class="trlike"></p>
-<p><%= t :post_unlisted_toots%></p>
-<div class="btn-group" data-toggle="buttons">
-<% [true, false].each do |option| %>
-  <label class="btn btn-primary<% if current_user.masto_should_post_unlisted == option %> active<% end %>">
-    <%= f.radio_button :masto_should_post_unlisted, option %>
-    <%= t "masto_should_post_unlisted_#{option}".to_sym %>
-  </label>
-<% end %>
-</div>
-<p><%= t :post_private_toots%></p>
-<div class="btn-group" data-toggle="buttons">
-<% [true, false].each do |option| %>
-  <label class="btn btn-primary<% if current_user.masto_should_post_private == option %> active<% end %>">
-    <%= f.radio_button :masto_should_post_private, option %>
-    <%= t "masto_should_post_private_#{option}".to_sym %>
-  </label>
-<% end %>
-</div>
-<p><%= t :boost_options %><br />
-<% User.boost_options.keys.each do |boost_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :boost_options, boost_option %>
-  <%= t boost_option.to_sym %>
-  </label>
-</div>
-<% end %>
-<p><%= t :masto_reply_options %><br />
-<small><%= t :masto_reply_options_explanation %></small></p>
-<% User.masto_reply_options.keys.each do |reply_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :masto_reply_options, reply_option %>
-  <%= t reply_option.to_sym %>
-  </label>
-</div>
-<% end %>
+  <h2 class="subtitle is-5"><%= t('from_mastodon') %></h2>
+  <%= form_for(current_user) do |f|%>
+  <div class="field">
+    <%= f.check_box :posting_from_mastodon, class: 'switch is-success' %>
+    <%= f.label :posting_from_mastodon, t(:masto_synchronization_status), class: 'checkbox' %>
+  </div>
 
-<p><%= t :masto_mention_options %><br />
-<small><%= t :masto_mention_options_explanation %></small>
-</p>
-<% User.masto_mention_options.keys.each do |mention_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :masto_mention_options, mention_option %>
-  <%= t mention_option.to_sym %>
-  </label>
-</div>
-<% end %>
-<hr />
-<h4>Twitter -> Mastodon</h4>
-<p><%= t :twitter_synchronization_status %></p>
-<div class="btn-group" data-toggle="buttons">
-<% [true, false].each do |option| %>
-  <label class="btn btn-primary<% if current_user.posting_from_twitter == option %> active<% end %>">
-    <%= f.radio_button :posting_from_twitter, option %>
-    <%= t "twitter_sync_status_#{option}".to_sym %>
-  </label>
-<% end %>
-</div>
-<div class="select">
-  <%= f.label :twitter_original_visibility, t(:twitter_original_visibility), class: 'control-label' %>
-  <%= f.select :twitter_original_visibility, translated_masto_privacy_for_select(User, :twitter_original_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
-</div>
-<p><%= t :retweet_options %><br />
-<% User.retweet_options.keys.each do |retweet_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :retweet_options, retweet_option %>
-  <%= t retweet_option.to_sym %>
-  </label>
-</div>
-<% end %>
-<div class="select">
-  <%= f.label :twitter_retweet_visibility, t(:twitter_retweet_visibility), class: 'control-label' %>
-  <%= f.select :twitter_retweet_visibility, translated_masto_privacy_for_select(User, :twitter_retweet_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
-</div>
-<p><%= t :quote_options %><br />
-<% User.quote_options.keys.each do |quote_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :quote_options, quote_option %>
-  <%= t quote_option.to_sym %>
-  </label>
-</div>
-<% end %>
-<div class="select">
-  <%= f.label :twitter_quote_visibility, t(:twitter_quote_visibility), class: 'control-label' %>
-  <%= f.select :twitter_quote_visibility, translated_masto_privacy_for_select(User, :twitter_quote_visibilities), { include_blank: t('default_visibility') }, class: 'form-control' %>
-</div>
-<p><%= t :twitter_reply_options %><br />
-<small><%= t :twitter_reply_options_explanation %></small></p>
-<% User.twitter_reply_options.keys.each do |reply_option| %>
-<div class="radio">
-  <label>
-  <%= f.radio_button :twitter_reply_options, reply_option %>
-  <%= t reply_option.to_sym %>
-  </label>
-</div>
-<% end %>
-<div class="form-group">
-  <%= f.label :twitter_content_warning, t(:twitter_content_warning) %>
-  <%= f.text_field :twitter_content_warning, class: "form-control", placeholder: 'From twitter' %>
-  <p class="help-block"><%= t :twitter_content_warning_explanation %></p>
-</div>
-<p class="trlike"></p>
+  <p><%= link_to(t('.advanced_from_mastodon_options'), advanced_mastodon_user_path) %></p>
 
-<%= f.submit %>
-<% end %>
+  <h2 class="subtitle is-5"><%= t('from_twitter') %></h2>
+
+  <div class="field">
+    <%= f.check_box :posting_from_twitter, class: 'switch is-success' %>
+    <%= f.label :posting_from_twitter, t(:twitter_synchronization_status), class: 'checkbox' %>
+  </div>
+
+  <p><%= link_to(t('.advanced_from_twitter_options'), advanced_twitter_user_path) %></p>
+
+  <%= f.submit class: 'button is-primary' %>
+  <% end %>
+</div>

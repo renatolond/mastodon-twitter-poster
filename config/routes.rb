@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   resource :user do
+    get 'advanced_mastodon'
+    get 'advanced_twitter'
     get 'mastodon_identifier'
   end
   root to: "home#index"

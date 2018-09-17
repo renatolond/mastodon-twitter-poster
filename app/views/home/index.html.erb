@@ -1,27 +1,39 @@
-<p><%= t :crossposter_explanation %></p>
-<p><%= t :login_to_get_started %></p>
+<div class="content">
+  <p><%= t :crossposter_explanation %></p>
+  <p><%= t :login_to_get_started %></p>
 
-<div class="row">
-  <div class="col-md-3 text-center">
-    <% if twitter? %>
-    <button class="btn btn-default btn-lg"><i class="fa fa-twitter" aria-hidden="true"></i><%= t :twitter_logged_in %> <i class="fa fa-check" aria-hidden="true"></i></button>
-    <% else %>
-    <%= link_to(user_twitter_omniauth_authorize_path, class: 'btn btn-default btn-lg') do %>
-    <i class="fa fa-twitter" aria-hidden="true"></i> Twitter
-    <% end %>
-    <% end %>
+  <div class="columns">
+    <div class="column is-3 is-offset-3 has-text-centered">
+      <% if twitter? %>
+      <button class="button is-twitter is-large">
+        <span class="icon is-small"><i class="fa fa-twitter" aria-hidden="true"></i></span>
+        <span><%= t :twitter_logged_in %></span>
+        <span class="icon is-small"><i class="fa fa-check" aria-hidden="true"></i></span>
+      </button>
+      <% else %>
+      <%= link_to(user_twitter_omniauth_authorize_path, class: 'button is-large') do %>
+      <span class="icon is-small"><i class="fa fa-twitter" aria-hidden="true"></i></span>
+      <span>Twitter</span>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="column is-3 has-text-centered">
+      <% if mastodon? %>
+      <button class="button is-mastodon is-large">
+        <span class="icon is-small"><i class="fa fa-mastodon" aria-hidden="true"></i></span>
+        <span><%= t :mastodon_logged_in %></span>
+        <span class="icon is-small"><i class="fa fa-check" aria-hidden="true"></i></span>
+      </button>
+      <% else %>
+      <%= link_to(mastodon_identifier_user_path, class: 'button is-large') do %>
+      <span class="icon is-small"><i class="fa fa-mastodon" aria-hidden="true"></i></span>
+      <span>Mastodon</span>
+      <% end %>
+      <% end %>
+    </div>
   </div>
-  <div class="col-md-2 text-center">
-    <% if mastodon? %>
-    <button class="btn btn-default btn-lg"><i class="fa fa-mastodon" aria-hidden="true"></i><%= t :mastodon_logged_in %> <i class="fa fa-check" aria-hidden="true"></i></button>
-    <% else %>
-    <%= link_to(mastodon_identifier_user_path, class: 'btn btn-default btn-lg') do %>
-    <i class="fa fa-mastodon" aria-hidden="true"></i> Mastodon
-    <% end %>
-    <% end %>
-  </div>
+  <% if twitter? or mastodon? %>
+  <hr / >
+  <%= render 'sync_status' %>
+  <% end %>
 </div>
-<hr / >
-<% if twitter? or mastodon? %>
-<%= render 'sync_status' %>
-<% end %>

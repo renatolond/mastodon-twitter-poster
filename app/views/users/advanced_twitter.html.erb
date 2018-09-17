@@ -1,0 +1,86 @@
+<%= render 'tabs' %>
+<div class="content">
+  <h2 class="subtitle is-5"><%= t('from_twitter') %></h2>
+
+  <%= form_for(current_user) do |f|%>
+
+  <div class="field">
+    <%= f.check_box :posting_from_twitter, class: 'switch is-success' %>
+    <%= f.label :posting_from_twitter, t(:twitter_synchronization_status), class: 'checkbox' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :twitter_original_visibility, t(:twitter_original_visibility), class: 'label' %>
+    <div class="control">
+      <div class="select">
+        <%= f.select :twitter_original_visibility, translated_masto_privacy_for_select(User, :twitter_original_visibilities), { include_blank: t('default_visibility') } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :retweet_options %></label>
+    <div class="control">
+      <% User.retweet_options.keys.each do |retweet_option| %>
+      <%= f.label :retweet_options, value: retweet_option, class: 'radio' do %>
+      <%= f.radio_button :retweet_options, retweet_option %>
+      <%= t retweet_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :twitter_retweet_visibility, t(:twitter_retweet_visibility), class: 'label' %>
+    <div class="control">
+      <div class="select">
+        <%= f.select :twitter_retweet_visibility, translated_masto_privacy_for_select(User, :twitter_retweet_visibilities), { include_blank: t('default_visibility') } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :quote_options %></label>
+    <div class="control">
+      <% User.quote_options.keys.each do |quote_option| %>
+      <%= f.label :quote_options, value: quote_option, class: 'radio' do %>
+      <%= f.radio_button :quote_options, quote_option %>
+      <%= t quote_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :twitter_quote_visibility, t(:twitter_quote_visibility), class: 'label' %>
+    <div class="control">
+      <div class="select">
+        <%= f.select :twitter_quote_visibility, translated_masto_privacy_for_select(User, :twitter_quote_visibilities), { include_blank: t('default_visibility') } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :twitter_reply_options %></label>
+    <div class="control">
+      <% User.twitter_reply_options.keys.each do |twitter_reply_option| %>
+      <%= f.label :twitter_reply_options, value: twitter_reply_option, class: 'radio' do %>
+      <%= f.radio_button :twitter_reply_options, twitter_reply_option %>
+      <%= t twitter_reply_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+    <p class="help"><%= t :twitter_reply_options_explanation %></p>
+  </div>
+
+  <div class="field">
+    <%= f.label :twitter_content_warning, t(:twitter_content_warning), class: 'label' %>
+    <div class="control">
+      <%= f.text_field :twitter_content_warning, placeholder: 'From twitter', class: 'input' %>
+    </div>
+    <p class="help"><%= t :twitter_content_warning_explanation %></p>
+  </div>
+
+  <%= f.submit class: 'button is-primary' %>
+  <% end %>
+</div>

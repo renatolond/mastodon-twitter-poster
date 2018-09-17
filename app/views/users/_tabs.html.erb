@@ -1,0 +1,7 @@
+<div class="tabs is-boxed">
+  <ul>
+    <li<% if action_name == 'show' %> class="is-active"<% end %>><%= link_to t('crossposting_overview'), user_path %></li>
+    <li<% if action_name == 'advanced_mastodon' %> class="is-active"<% end %>><%= link_to t('from_mastodon'), advanced_mastodon_user_path %></li>
+    <li<% if action_name == 'advanced_twitter' %> class="is-active"<% end %>><%= link_to t('from_twitter'), advanced_twitter_user_path %></li>
+  </ul>
+</div>

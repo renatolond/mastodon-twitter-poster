@@ -24,15 +24,15 @@ pt-BR:
   masto_should_post_private_true: 'Sim'
   masto_should_post_private_false: 'Não'
   synchronization_options: 'Opções da sincronização'
-  masto_synchronization_status: 'Postar toots para o twitter:'
-  post_unlisted_toots: 'Postar toots não listados?:'
-  post_private_toots: 'Post toots privados?:'
+  masto_synchronization_status: 'Postar toots para o twitter'
+  post_unlisted_toots: 'Postar toots não listados?'
+  post_private_toots: 'Post toots privados?'
   boost_options: 'Opções de toots compartilhados:'
   masto_reply_options: 'Opções das respostas:'
   masto_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do Mastodon. É uma resposta direta a outro toot."
   masto_mention_options: 'Opções das menções:'
   masto_mention_options_explanation: "Esse serviço considera uma menção um toot que não é uma resposta, mas que começa com uma menção a outro usuário"
-  twitter_synchronization_status: 'Postar tweets para o mastodon:'
+  twitter_synchronization_status: 'Postar tweets para o mastodon'
   twitter_sync_status_true: 'Sim'
   twitter_sync_status_false: 'Não'
   no_sync_right_now: "No momento, você *não* está postando em lugar algum."
@@ -96,3 +96,10 @@ pt-BR:
       login: 'Entrar'
       invalid_identifier: 'Identificador inválido. Use o seu usuário no formato usuário@instância, como crossposter@masto.donte.com.br'
   follow_us_on_the_fediverse: 'Siga-nos no fediverso!'
+  from_twitter: 'Do Twitter para o Mastodon'
+  from_mastodon: 'Do Mastodon para o Twitter'
+  crossposting_overview: 'Visão geral das opções'
+  users:
+    show:
+      advanced_from_mastodon_options: 'Opções avançadas para postar do Mastodon para o Twitter'
+      advanced_from_twitter_options: 'Opções avançadas para postar do Twitter para o Mastodon'

@@ -10,71 +10,62 @@
   </head>
 
   <body>
-    <div class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-        <%= link_to('Mastodon Twitter Crossposter', :root, class: 'navbar-brand') %>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <%= link_to('Mastodon Twitter Crossposter', :root, class: 'navbar-item') %>
+          <span class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <%= link_to(t(:home), root_path, class: 'navbar-item')%>
+            <%= link_to(t(:features), 'https://github.com/renatolond/mastodon-twitter-poster#features', target: :_blank, class: 'navbar-item') %>
+            <%= link_to(t(:status), 'https://metrics.librato.com/s/public/241h4bwu2?duration=21600', target: :_blank, class: 'navbar-item') %>
           </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><%= link_to(t(:home), root_path)%></li>
-            </ul>
-            <ul class="nav navbar-nav">
-              <li><%= link_to(t(:features), 'https://github.com/renatolond/mastodon-twitter-poster#features', target: :_blank) %></li>
-            </ul>
-            <ul class="nav navbar-nav">
-              <li><%= link_to(t(:status), 'https://metrics.librato.com/s/public/241h4bwu2?duration=21600', target: :_blank) %></li>
-            </ul>
+          <div class="navbar-end">
             <% if current_user %>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to(t(:log_out), destroy_user_session_path, method: :delete) %></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to(t(:options), user_path) %></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to(t(:accounts), account_path) %></li>
-            </ul>
+            <%= link_to(t(:accounts), account_path, class: 'navbar-item') %>
+            <%= link_to(t(:options), user_path, class: 'navbar-item') %>
+            <%= link_to(t(:log_out), destroy_user_session_path, method: :delete, class: 'navbar-item') %>
             <% end %>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-      <% if flash[:success] %>
-      <div class="alert alert-success" role="alert">
-        <%= flash[:success] %>
+          </div>
+        </div>
       </div>
-      <% end %>
-      <% if flash[:notice] %>
-      <div class="alert alert-info" role="alert">
-        <%= flash[:notice] %>
-      </div>
-      <% end %>
-      <% if flash[:alert] %>
-      <div class="alert alert-warning" role="alert">
-        <%= flash[:alert] %>
-      </div>
-      <% end %>
+    </nav>
       <% if flash[:error] %>
-      <div class="alert alert-danger" role="alert">
+      <div class="notification is-danger">
         <%= flash[:error] %>
       </div>
       <% end %>
-      <%= yield %>
+      <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <%= flash[:alert] %>
+      </div>
+      <% end %>
+      <% if flash[:notice] %>
+      <div class="notification is-info">
+        <%= flash[:notice] %>
+      </div>
+      <% end %>
+      <% if flash[:success] %>
+      <div class="notification is-success">
+        <%= flash[:success] %>
+      </div>
+      <% end %>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
     <hr />
     <footer class="footer">
-      <div class="container">
-
+      <div class="content has-text-centered">
         <p><%=t :service_ran_by%> <%=link_to('@renatolond@masto.donte.com.br', 'https://masto.donte.com.br/@renatolond') %> / <%=link_to('@renatolond', 'https://twitter.com/renatolond')%>. <%=link_to(t(:source_code_and_issues), 'https://github.com/renatolond/mastodon-twitter-poster') %>.</br>
-        <%=t(:for_news_and_status)%> <%= link_to('https://masto.donte.com.br/@crossposter', class: 'btn btn-social btn-sm btn-mastodon', target: '_blank') do %>
-        <i class="fa fa-mastodon" aria-hidden="true"></i> <%= t('follow_us_on_the_fediverse') %>
+        <%=t(:for_news_and_status)%> <%= link_to('https://masto.donte.com.br/@crossposter', class: 'button is-mastodon', target: '_blank') do %>
+        <span class="icon is-small"><i class="fa fa-mastodon" aria-hidden="true"></i></span> <span><%= t('follow_us_on_the_fediverse') %></span>
         <% end %></p>
       </div>
     </footer>
