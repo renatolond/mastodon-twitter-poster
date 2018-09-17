@@ -25,9 +25,9 @@ nl:
   masto_should_post_private_true: AAN
   masto_should_post_private_false: UIT
   synchronization_options: Synchronisatie-opties
-  masto_synchronization_status: 'Mijn toots op Twitter plaatsen:'
-  post_unlisted_toots: 'Niet-vermelde toots plaatsen?:'
-  post_private_toots: 'Privétoots plaatsen?:'
+  masto_synchronization_status: Mijn toots op Twitter plaatsen
+  post_unlisted_toots: Niet-vermelde toots plaatsen?
+  post_private_toots: Privétoots plaatsen?
   boost_options: 'Boostopties:'
   masto_reply_options: 'Antwoordopties:'
   masto_reply_options_explanation: Dit is als je in Mastodon op de knop antwoorden
@@ -35,7 +35,7 @@ nl:
   masto_mention_options: 'Vermeldingsopties:'
   masto_mention_options_explanation: Deze dienst beschouwt een vermelding als een
     toot zonder antwoorden, maar die begint met een vermelding van een andere gebruiker.
-  twitter_synchronization_status: 'Mijn tweets op Mastodon plaatsen:'
+  twitter_synchronization_status: Mijn tweets op Mastodon plaatsen
   twitter_sync_status_true: AAN
   twitter_sync_status_false: UIT
   no_sync_right_now: Momenteel plaats je *nergens* berichten.
@@ -114,3 +114,12 @@ nl:
     invalid_identifier: Ongeldige identificatie. Je moet de opmaak gebruiker@instantie
       gebruiken, bijv. crossposter@masto.donte.com.br
   follow_us_on_the_fediverse: Volg ons op het fediversum!
+  from_twitter: Van Twitter naar Mastodon
+  from_mastodon: Van Mastodon naar Twitter
+  crossposting_overview: Optiesoverzicht
+  users:
+    show:
+      advanced_from_mastodon_options: Geavanceerde opties voor het plaatsen van Mastodon-berichten
+        op Twitter
+      advanced_from_twitter_options: Geavanceerde opties voor het plaatsen van Twitter-berichten
+        op Mastodon
