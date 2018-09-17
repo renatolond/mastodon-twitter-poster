@@ -3,16 +3,34 @@ class UsersController < ApplicationController
   def show
   end
 
+  def advanced_mastodon
+  end
+
+  def advanced_twitter
+  end
+
   def update
     current_user.update_attributes!(user_params)
     changes = current_user.previous_changes
     update_last_tweet_if_needed(changes)
     update_last_toot_if_needed(changes)
     flash[:success] = 'Your changes were saved.'
-    redirect_to user_path
+    redirect_to find_path
   rescue ActiveRecord::RecordInvalid => ex
     flash[:error] = ex.message
-    redirect_to user_path
+    redirect_to find_path
+  end
+
+  def find_path
+    url = Rails.application.routes.recognize_path(request.referrer)
+    last_action = url[:action]
+    if ['show', 'advanced_mastodon', 'advanced_twitter'].include? last_action
+      { action: last_action }
+    else
+      user_path
+    end
+  rescue
+    user_path
   end
 
   def mastodon_identifier

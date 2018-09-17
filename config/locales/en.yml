@@ -24,15 +24,15 @@ en:
   masto_should_post_private_true: 'ON'
   masto_should_post_private_false: 'OFF'
   synchronization_options: 'Synchronization options'
-  masto_synchronization_status: 'Post my toots on twitter:'
-  post_unlisted_toots: 'Post unlisted toots?:'
-  post_private_toots: 'Post private toots?:'
+  masto_synchronization_status: 'Post my toots on twitter'
+  post_unlisted_toots: 'Post unlisted toots?'
+  post_private_toots: 'Post private toots?'
   boost_options: 'Boost options:'
   masto_reply_options: 'Reply options:'
   masto_reply_options_explanation: "This is when you click the reply button on Mastodon's interface. It's a direct reply to another toot."
   masto_mention_options: 'Mention options:'
   masto_mention_options_explanation: "This service considers mention as a toot that's not a reply, but that begins with a mention to another user."
-  twitter_synchronization_status: 'Post my tweets on Mastodon:'
+  twitter_synchronization_status: 'Post my tweets on Mastodon'
   twitter_sync_status_true: 'ON'
   twitter_sync_status_false: 'OFF'
   no_sync_right_now: "Currently, you're *not* posting anywhere."
@@ -96,3 +96,10 @@ en:
       login: 'Login'
       invalid_identifier: 'Invalid identifier. You need to use the format user@instance, like crossposter@masto.donte.com.br'
   follow_us_on_the_fediverse: 'Follow us on the fediverse!'
+  from_twitter: 'From Twitter to Mastodon'
+  from_mastodon: 'From Mastodon to Twitter'
+  crossposting_overview: 'Options overview'
+  users:
+    show:
+      advanced_from_mastodon_options: 'Advanced options for posting from Mastodon to Twitter'
+      advanced_from_twitter_options: 'Advanced options for posting from Twitter to Mastodon'

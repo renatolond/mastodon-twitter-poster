@@ -1,0 +1,61 @@
+<%= render 'tabs' %>
+<div class="content">
+  <h2 class="subtitle is-5"><%= t(:from_mastodon) %></h2>
+
+  <%= form_for(current_user) do |f|%>
+
+  <div class="field">
+    <%= f.check_box :posting_from_mastodon, class: 'switch is-success' %>
+    <%= f.label :posting_from_mastodon, t(:masto_synchronization_status), class: 'checkbox' %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :masto_should_post_unlisted, class: 'switch is-success' %>
+    <%= f.label :masto_should_post_unlisted, t(:post_unlisted_toots), class: 'checkbox' %>
+  </div>
+
+  <div class="field">
+    <%= f.check_box :masto_should_post_private, class: 'switch is-success' %>
+    <%= f.label :masto_should_post_private, t(:post_private_toots), class: 'checkbox' %>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :boost_options %></label>
+    <div class="control">
+      <% User.boost_options.keys.each do |boost_option| %>
+      <%= f.label :boost_options, value: boost_option, class: 'radio' do %>
+      <%= f.radio_button :boost_options, boost_option %>
+      <%= t boost_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :masto_reply_options %></label>
+    <div class="control">
+      <% User.masto_reply_options.keys.each do |reply_option| %>
+      <%= f.label :masto_reply_options, value: reply_option, class: 'radio' do %>
+      <%= f.radio_button :masto_reply_options, reply_option %>
+      <%= t reply_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+    <p class="help"><%= t :masto_reply_options_explanation %></p>
+  </div>
+
+  <div class="field">
+    <label class="label"><%= t :masto_mention_options %></label>
+    <div class="control">
+      <% User.masto_mention_options.keys.each do |mention_option| %>
+      <%= f.label :masto_mention_options, value: mention_option, class: 'radio' do %>
+      <%= f.radio_button :masto_mention_options, mention_option %>
+      <%= t mention_option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+    <p class="help"><%= t :masto_mention_options_explanation %></p>
+  </div>
+  <%= f.submit class: 'button is-primary' %>
+  <% end %>
+</div>
