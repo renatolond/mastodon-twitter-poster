@@ -28,3 +28,13 @@
   border-color: transparent;
   color: #fff;
 }
+
+@include mobile {
+  .tabs ul {
+    flex-direction: column;
+
+    li {
+      width: 100%;
+    }
+  }
+}

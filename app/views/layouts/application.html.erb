@@ -3,7 +3,7 @@
   <head>
     <title>MastodonTwitterPoster</title>
     <%= csrf_meta_tags %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://cdn.jsdelivr.net/npm/fork-awesome@1.0.11/css/fork-awesome.min.css" rel="stylesheet" integrity="sha384-uuYw9QCBRSK1iU8peX/dvpGqv5uv83afJrv7ZBTX8tG7dB+HR6JUDl20dBl30UZO" crossorigin="anonymous">
@@ -56,13 +56,13 @@
         <%= flash[:success] %>
       </div>
       <% end %>
-      <div class="container">
+      <div class="section">
         <%= yield %>
       </div>
     </div>
     <hr />
     <footer class="footer">
-      <div class="content has-text-centered">
+      <div class="section has-text-centered">
         <p><%=t :service_ran_by%> <%=link_to('@renatolond@masto.donte.com.br', 'https://masto.donte.com.br/@renatolond') %> / <%=link_to('@renatolond', 'https://twitter.com/renatolond')%>. <%=link_to(t(:source_code_and_issues), 'https://github.com/renatolond/mastodon-twitter-poster') %>.</br>
         <%=t(:for_news_and_status)%> <%= link_to('https://masto.donte.com.br/@crossposter', class: 'button is-mastodon', target: '_blank') do %>
         <span class="icon is-small"><i class="fa fa-mastodon" aria-hidden="true"></i></span> <span><%= t('follow_us_on_the_fediverse') %></span>
