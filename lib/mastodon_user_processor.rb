@@ -282,7 +282,7 @@ class MastodonUserProcessor
 
   def tweet(content, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    raise 'Contains @' if content.gsub(toot.url, '').gsub(/https:\/\/[^\s\/]+\/@[^\s\/]+\/[0-9]+/, '').gsub('@ ', '').gsub(/@\Z/, '').match?(/[^A-Za-z0-9]@＠/)
+    raise 'Contains @' if content.gsub(toot.url, '').gsub(/https:\/\/[^\s\/]+\/[@＠][^\s\/]+\/[0-9]+/, '').gsub('@ ', '').gsub(/[@＠]\Z/, '').match?(/(?:^|[^A-Za-z0-9])[@＠]/)
     begin
       status = user.twitter_client.update(content, opts)
     rescue Twitter::Error::Forbidden => ex
