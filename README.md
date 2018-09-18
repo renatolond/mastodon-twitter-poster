@@ -10,7 +10,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
 ## Features
 
 * Post from Twitter to Mastodon
-  - You can choose between posting only your tweets, or also posting retweets and quotes. 
+  - You can choose between posting only your tweets, or also posting retweets and quotes.
   - You can choose between posting retweets and quotes as links or as the old-style RTs, starting by RT @username@twitter.com.
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
@@ -24,7 +24,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - You can choose between posting boosts or not.
   - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
   - No other replies will be posted. There's no risk of filling your twitter timeline with replies to people that are not there.
-  
+
 The crossposter will never follow anyone or post anything but the content you selected to be crossposted.
 
 If you decide to crosspost from Twitter to Mastodon, remember to turn on notifications about when people mention you to avoid not seeing interactions!
@@ -201,3 +201,17 @@ This also works for quote-retweets. That is, if you are retweeting and you want 
 This does not work for several tweets in a thread. Each tweet needs to have it's own CW.
 
 Even though this is an experimental feature, it cannot be disabled. The reason is that content warnings are important for people in Mastodon and the crossposter should still try to keep it in a good environment, even if bringing content from Twitter.
+
+## Contributing
+
+Mastodon Twitter Crossposter is **100% free** and **open source**. We encourage and support an active, healthy community that accepts contributions from the public &ndash; including you!
+
+## License
+
+Copyright (C) 2017-2018 Renato Cerqueira & other crossposter contributors
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
