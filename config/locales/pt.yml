@@ -1,105 +1,123 @@
-
 pt:
-  crossposter_explanation: "Esse serviço permite que você conecte uma conta do Mastodon e uma do Twitter e poste entre as duas. Você pode escolher certas opções, como se você deseja postar reblogs, toots unlisted ou respostas."
-  login_to_get_started: "Faça login no Twitter e no Mastodon para começar"
-  service_ran_by: "Esse serviço é gerenciado por"
-  source_code_and_issues: "Código fonte e problemas"
-  twitter_logged_in: "Twitter conectado"
-  mastodon_logged_in: "Mastodon conectado"
-  home: 'Início'
-  accounts: 'Contas'
-  connections: 'Conexões'
-  manage_your_accounts: 'Gerencia suas contas conectadas'
-  disconnect: 'Desconectar'
-  options: 'Opções'
-  masto_boost_do_not_post: 'Não postar toots compartilhados no twitter'
-  masto_boost_post_as_link: 'Postar toots compartilhados no twitter como links (Boosted: https://mastodon.social/@renatolond/15082784)'
-  masto_reply_do_not_post: 'Não postar respostas no twitter'
-  masto_reply_post_self: 'Postar respostas aos meus próprios toots no twitter (threads)'
-  masto_mention_do_not_post: 'Não postar menções no twitter'
-  masto_sync_status_true: 'Sim'
-  masto_sync_status_false: 'Não'
-  masto_should_post_unlisted_true: 'Sim'
-  masto_should_post_unlisted_false: 'Não'
-  masto_should_post_private_true: 'Sim'
-  masto_should_post_private_false: 'Não'
-  synchronization_options: 'Opções da sincronização'
-  masto_synchronization_status: 'Postar toots para o twitter'
-  post_unlisted_toots: 'Postar toots não listados?'
-  post_private_toots: 'Post toots privados?'
+  crossposter_explanation: Esse serviço permite que você conecte uma conta do Mastodon
+    e uma do Twitter e poste entre as duas. Você pode escolher certas opções, como
+    se você deseja postar reblogs, toots unlisted ou respostas.
+  login_to_get_started: Faça login no Twitter e no Mastodon para começar
+  service_ran_by: Esse serviço é gerenciado por
+  source_code_and_issues: Código fonte e problemas
+  twitter_logged_in: Twitter conectado
+  mastodon_logged_in: Mastodon conectado
+  home: Início
+  accounts: Contas
+  connections: Conexões
+  manage_your_accounts: Gerencia suas contas conectadas
+  disconnect: Desconectar
+  options: Opções
+  masto_boost_do_not_post: Não postar toots compartilhados no twitter
+  masto_boost_post_as_link: 'Postar toots compartilhados no twitter como links (Boosted:
+    https://mastodon.social/@renatolond/15082784)'
+  masto_reply_do_not_post: Não postar respostas no twitter
+  masto_reply_post_self: Postar respostas aos meus próprios toots no twitter (threads)
+  masto_mention_do_not_post: Não postar menções no twitter
+  masto_sync_status_true: Sim
+  masto_sync_status_false: Não
+  masto_should_post_unlisted_true: Sim
+  masto_should_post_unlisted_false: Não
+  masto_should_post_private_true: Sim
+  masto_should_post_private_false: Não
+  synchronization_options: Opções da sincronização
+  masto_synchronization_status: Postar toots para o twitter
+  post_unlisted_toots: Postar toots não listados?
+  post_private_toots: Post toots privados?
   boost_options: 'Opções de toots compartilhados:'
   masto_reply_options: 'Opções das respostas:'
-  masto_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do Mastodon. É uma resposta direta a outro toot."
+  masto_reply_options_explanation: Isso acontece quando você clica no botão de responder
+    na interface do Mastodon. É uma resposta direta a outro toot.
   masto_mention_options: 'Opções das menções:'
-  masto_mention_options_explanation: "Esse serviço considera uma menção um toot que não é uma resposta, mas que começa com uma menção a outro usuário"
-  twitter_synchronization_status: 'Postar tweets para o mastodon'
-  twitter_sync_status_true: 'Sim'
-  twitter_sync_status_false: 'Não'
-  no_sync_right_now: "No momento, você *não* está postando em lugar algum."
-  toots_posted_to_twitter: 'Seus toots estão sendo postados no Twitter.'
-  tweets_posted_to_mastodon: 'Seus tweets estão sendo postados no Mastodon.'
-  masto_posting_unlisted: 'Você está postando toots não listados.'
-  masto_not_posting_unlisted: 'Você não está postando toots não listados.'
-  masto_posting_private: 'Você está postando toots privados.'
-  masto_not_posting_private: 'Você não está postando toots privados.'
-  masto_not_posting_boost: 'Você não está postando toots compartilhados.'
-  masto_posting_boost_as_link: 'Você está postando toots compartilhados como links.'
-  change_this_on_options: "Você pode mudar essas configurações nas %{options}."
-  retweet_options: 'Opções de Retweets'
-  retweet_do_not_post: 'Não postar retweets no Mastodon'
-  retweet_post_as_old_rt: 'Postar Retweets no Mastodon como RTs à moda antiga (RT @renatolonddev@twitter.com: Hello, world!)'
-  retweet_post_as_old_rt_with_link: 'Postar Retweets no Mastodon como RTs à moda antiga com links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  quote_options: 'Opções de retweets com comentários (citação)'
-  quote_do_not_post: 'Não postar citações no Mastodon'
-  quote_post_as_old_rt: 'Postar citações no Mastodon como RTs à moda antiga (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world!)'
-  quote_post_as_old_rt_with_link: 'Postar citações no Mastodon como RTs à moda antiga com links (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: 'Não postar respostas no Mastodon'
-  twitter_reply_post_self: 'Postar respostas aos meus próprios tweets no Mastodon (threads)'
+  masto_mention_options_explanation: Esse serviço considera uma menção um toot que
+    não é uma resposta, mas que começa com uma menção a outro usuário.
+  twitter_synchronization_status: Postar tweets para o mastodon
+  twitter_sync_status_true: Sim
+  twitter_sync_status_false: Não
+  no_sync_right_now: No momento, você *não* está postando em lugar algum.
+  toots_posted_to_twitter: Seus toots estão sendo postados no Twitter.
+  tweets_posted_to_mastodon: Seus tweets estão sendo postados no Mastodon.
+  masto_posting_unlisted: Você está postando toots não listados.
+  masto_not_posting_unlisted: Você não está postando toots não listados.
+  masto_posting_private: Você está postando toots privados.
+  masto_not_posting_private: Você não está postando toots privados.
+  masto_not_posting_boost: Você não está postando toots compartilhados.
+  masto_posting_boost_as_link: Você está postando toots compartilhados como links.
+  change_this_on_options: Você pode mudar essas configurações nas %{options}.
+  retweet_options: Opções de Retweets
+  retweet_do_not_post: Não postar retweets no Mastodon
+  retweet_post_as_old_rt: 'Postar Retweets no Mastodon como RTs à moda antiga (RT
+    @renatolonddev@twitter.com: Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'Postar Retweets no Mastodon como RTs à moda antiga
+    com links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_options: Opções de retweets com comentários (citação)
+  quote_do_not_post: Não postar citações no Mastodon
+  quote_post_as_old_rt: 'Postar citações no Mastodon como RTs à moda antiga (Eu gosto
+    dessa ideia RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_post_as_old_rt_with_link: 'Postar citações no Mastodon como RTs à moda antiga
+    com links (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  twitter_reply_do_not_post: Não postar respostas no Mastodon
+  twitter_reply_post_self: Postar respostas aos meus próprios tweets no Mastodon (threads)
   twitter_reply_options: 'Opções das respostas:'
-  twitter_reply_options_explanation: "Isso acontece quando você clica no botão de responder na interface do twitter. É uma resposta direta a outro toot."
-  twitter_not_posting_rt: "Você não está postando retweets."
-  twitter_posting_rt_old_style: "Você está postando retweets como RTs à moda antiga."
-  twitter_posting_rt_old_style_with_link: "Você está postando retweets como RTs à moda antiga com links."
-  twitter_not_posting_quote: "Você não está postando quotes."
-  twitter_posting_quote_old_style: "Você está postando quotes como RTs à moda antiga."
-  twitter_posting_quote_old_style_with_link: "Você está postando quotes como RTs à moda antiga com links."
-  twitter_not_posting_reply: "Você não está postando replies."
-  twitter_posting_reply_to_self: "Você está postando replies pra você mesmo."
-  masto_not_posting_reply: "Você não está postando replies."
-  masto_posting_reply_to_self: "Você está postando replies pra você mesmo."
-  log_out: 'Fazer logout'
+  twitter_reply_options_explanation: Isso acontece quando você clica no botão de responder
+    na interface do twitter. É uma resposta direta a outro toot.
+  twitter_not_posting_rt: Você não está postando retweets.
+  twitter_posting_rt_old_style: Você está postando retweets como RTs à moda antiga.
+  twitter_posting_rt_old_style_with_link: Você está postando retweets como RTs à moda
+    antiga com links.
+  twitter_not_posting_quote: Você não está postando quotes.
+  twitter_posting_quote_old_style: Você está postando quotes como RTs à moda antiga.
+  twitter_posting_quote_old_style_with_link: Você está postando quotes como RTs à
+    moda antiga com links.
+  twitter_not_posting_reply: Você não está postando replies.
+  twitter_posting_reply_to_self: Você está postando replies pra você mesmo.
+  masto_not_posting_reply: Você não está postando replies.
+  masto_posting_reply_to_self: Você está postando replies pra você mesmo.
+  log_out: Fazer logout
   for_news_and_status: 'Para novidades e status:'
-  features: 'Funcionalidades'
-  status: 'Status'
-  twitter_content_warning: 'Aviso de conteúdo do Twitter'
-  twitter_content_warning_explanation: 'Qualquer texto adicionado aqui será usado como aviso de conteúdo para todos os status vindo do Twitter (exceto para aqueles que em que um aviso de conteúdo específico for detectado)'
-  twitter_content_warning_status: 'Todos os seus tweets estão sendo postados com o aviso de conteúdo: "%{cw}"'
-  twitter_original_visibility: 'Privacidade dos seus próprios tweets quando forem postados'
-  twitter_retweet_visibility: 'Privacidade dos retweets quando forem postados'
-  twitter_quote_visibility: 'Privacidade das citações quando forem postadas'
-  default_visibility: 'Usar a configuração de privacidade padrão do Mastodon'
+  features: Funcionalidades
+  status: Status
+  twitter_content_warning: Aviso de conteúdo do Twitter
+  twitter_content_warning_explanation: Qualquer texto adicionado aqui será usado como
+    aviso de conteúdo para todos os status vindo do Twitter (exceto para aqueles que
+    em que um aviso de conteúdo específico for detectado)
+  twitter_content_warning_status: 'Todos os seus tweets estão sendo postados com o
+    aviso de conteúdo: "%{cw}"'
+  twitter_original_visibility: Privacidade dos seus próprios tweets quando forem postados
+  twitter_retweet_visibility: Privacidade dos retweets quando forem postados
+  twitter_quote_visibility: Privacidade das citações quando forem postadas
+  default_visibility: Usar a configuração de privacidade padrão do Mastodon
   masto_privacy:
-    public: 'Público'
-    private: 'Privado'
-    unlisted: 'Não listado'
+    public: Público
+    private: Privado
+    unlisted: Não listado
   masto_privacy_for_status:
-    default: 'Privacidade padrão do Mastodon.'
-    public: 'Público.'
-    private: 'Privado.'
-    unlisted: 'Não listado.'
-  twitter_original_visibility_status: 'Você está postando seus próprios tweets com a privacidade: '
+    default: Privacidade padrão do Mastodon.
+    public: Público.
+    private: Privado.
+    unlisted: Não listado.
+  twitter_original_visibility_status: 'Você está postando seus próprios tweets com
+    a privacidade: '
   twitter_retweet_visibility_status: 'Você está postando retweets com a privacidade: '
   twitter_quote_visibility_status: 'Você está postando citações com a privacidade: '
   masto_login:
-      please: 'Conecte o seu Mastodon'
-      identifier: 'Identificador'
-      login: 'Entrar'
-      invalid_identifier: 'Identificador inválido. Use o seu usuário no formato usuário@instância, como crossposter@masto.donte.com.br'
-  follow_us_on_the_fediverse: 'Siga-nos no fediverso!'
-  from_twitter: 'Do Twitter para o Mastodon'
-  from_mastodon: 'Do Mastodon para o Twitter'
-  crossposting_overview: 'Visão geral das opções'
+    please: Conecte o seu Mastodon
+    identifier: Identificador
+    login: Entrar
+    invalid_identifier: Identificador inválido. Use o seu usuário no formato usuário@instância,
+      como crossposter@masto.donte.com.br
+  follow_us_on_the_fediverse: Siga-nos no fediverso!
+  from_twitter: Do Twitter para o Mastodon
+  from_mastodon: Do Mastodon para o Twitter
+  crossposting_overview: Visão geral das opções
   users:
     show:
-      advanced_from_mastodon_options: 'Opções avançadas para postar do Mastodon para o Twitter'
-      advanced_from_twitter_options: 'Opções avançadas para postar do Twitter para o Mastodon'
+      advanced_from_mastodon_options: Opções avançadas para postar do Mastodon para
+        o Twitter
+      advanced_from_twitter_options: Opções avançadas para postar do Twitter para
+        o Mastodon
