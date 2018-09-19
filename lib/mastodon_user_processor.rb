@@ -128,6 +128,8 @@ class MastodonUserProcessor
     name = application['name'] || ''
     return true unless website['https://crossposter.masto.donte.com.br'].nil? &&
       name["Mastodon Twitter Crossposter"].nil? &&
+      website[Rails.configuration.x.domain].nil? &&
+      name[Rails.configuration.x.application_name].nil? &&
       website['https://moa.party'].nil? &&
       Status.where(masto_id: toot.id, mastodon_client: user.mastodon.mastodon_client_id).count == 0
     false

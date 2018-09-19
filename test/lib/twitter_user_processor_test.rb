@@ -1056,6 +1056,16 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     assert_equal expected_status.attributes.except(*ignored_attributes), Status.last.attributes.except(*ignored_attributes)
   end
 
+  test 'posted by crossposter - custom link' do
+    user = create(:user_with_mastodon_and_twitter)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/923201403337826304.json?tweet_mode=extended').to_return(web_fixture('twitter_used_crossposter2.json'))
+    t = user.twitter_client.status(923201403337826304, tweet_mode: 'extended')
+    t.expects(:source).at_least_once.returns(Rails.configuration.x.domain)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    assert twitter_user_processor.posted_by_crossposter
+  end
   test 'posted by crossposter - new app link' do
     user = create(:user_with_mastodon_and_twitter)
 
