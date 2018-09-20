@@ -135,6 +135,28 @@ Yet more of the same spoiler)
 
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
+  test 'detect cw: "Contém: " format with space' do
+    text = %q(Contém: spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
+  test 'detect cw: "Contains: " format with space' do
+    text = %q(Contains: spoiler
+
+Here's my spoiler!
+Yet more of the same spoiler)
+    cw = 'spoiler'
+    filtered_text = %q(Here's my spoiler!
+Yet more of the same spoiler)
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
   test 'ignore "cw:" on the second line' do
     text = %q(Wut!
 CW: spoiler

@@ -192,6 +192,16 @@ CN: content warning
 my tweet
 ```
 
+```
+Contains: content warning
+my tweet
+```
+
+```
+Contém: content warning
+my tweet
+```
+
 All of these posts will be posted in Mastodon with the same content: `my tweet` and will have a content warning of `content warning`. The crossposter attempts to remove any extra spaces between the `CW:` (or equivalent) tag.
 
 This also works for quote-retweets. That is, if you are retweeting and you want to add a content warning to the tweet, you can just quote-retweet writing `CW: content warning`.
