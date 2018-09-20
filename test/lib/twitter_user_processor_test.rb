@@ -362,6 +362,45 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_quote
   end
 
+  test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots with link in quote with autodetected cw' do
+    masto_user = 'beterraba'
+    masto_domain = 'comidas.social'
+    authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
+    authorization_twitter = build(:authorization_twitter)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options['quote_post_as_old_rt_with_link'], twitter_quote_visibility: nil)
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1042806820212011008.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_quote_bigger_than_500_chars_with_cw.json'))
+    stub_request(:get, 'http://pbs.twimg.com/media/DkFZEoVXgAQs0tJ.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+    stub_request(:put, "#{user.mastodon_client.base_url}/api/v1/media/273")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(1042806820212011008, tweet_mode: 'extended', include_ext_alt_text: true)
+    medias = [273]
+    spoiler_text = 'Gatinhos!'
+
+    sensitive = false
+    text = "RT @CamisetasCats@twitter.com Vocês já conhecem a nossa Campanha Cats?\nQue tal ajudar adquirindo uma dessas lindas camisetas?\nE tem a opção de envio a 10,00! Confiram lá!\nhttp://bit.ly/campanhacats\n#InternationalCatDay\n\n🐦🔗: https://twitter.com/CamisetasCats/status/1027200357460570113"
+
+    masto_status = mock()
+    quote_masto_id = 919819281111
+    masto_status.expects(:id).returns(quote_masto_id).once
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, sensitive: true, spoiler_text: spoiler_text, headers: {"Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}"}).returns(masto_status)
+
+    text = "Esse é um tweet bem grande que vai ser quebrado em dois quando for pego pelo crosspost. A ideia é que não vai pegar o CN no RT.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad mi"
+    medias = []
+
+    masto_status = mock()
+    masto_id = 919819281112
+    masto_status.expects(:id).returns(masto_id).twice
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, sensitive: true, spoiler_text: spoiler_text, in_reply_to_id: quote_masto_id, headers: {"Idempotency-Key" => "#{masto_user}-#{t.id}"}).returns(masto_status)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.process_quote
+  end
+
   test 'process_quote - quote as old style RT: quote bigger than 500 chars get split in two toots with link in quote' do
     masto_user = 'beterraba'
     masto_domain = 'comidas.social'
