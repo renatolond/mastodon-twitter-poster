@@ -279,18 +279,10 @@ class MastodonUserProcessor
     end
   end
 
-  TWITTER_TOO_LONG_ERROR_CODE = 186
-  TWITTER_OLD_MAX_CHARS = 140
-
   def tweet(content, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
     raise 'Contains @' if content.gsub(toot.url, '').gsub(/https:\/\/[^\s\/]+\/[@＠][^\s\/]+\/[0-9]+/, '').gsub('@ ', '').gsub(/[@＠]\Z/, '').match?(/(?:^|[^A-Za-z0-9])[@＠]/)
-    begin
-      status = user.twitter_client.update(content, opts)
-    rescue Twitter::Error::Forbidden => ex
-      raise ex unless ex.code == TWITTER_TOO_LONG_ERROR_CODE
-      status = user.twitter_client.update(TootTransformer.new(TWITTER_OLD_MAX_CHARS).transform(content, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain), opts)
-    end
+    status = user.twitter_client.update(content, opts)
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
     MastodonUserProcessor::stats.increment('toot.posted_to_twitter')
     MastodonUserProcessor::stats.timing('toot.average_time_to_post', ((Time.now-DateTime.strptime(toot.created_at, '%FT%T.%L%z'))*1000).round(5))
