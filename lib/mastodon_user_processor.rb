@@ -56,6 +56,8 @@ class MastodonUserProcessor
     opts
   end
 
+  TWITTER_CANNOT_PERFORM_WRITE_ACTION = 261
+
   def self.get_last_toots_for_user(user)
     return unless user.mastodon && user.twitter
 
@@ -86,9 +88,14 @@ class MastodonUserProcessor
           raise TootError.new(ex)
         end
       rescue Twitter::Error::Forbidden => ex
-        Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
-        stats.increment("twitter.bad_auth")
-        raise TootError.new(ex)
+        if ex.code == TWITTER_CANNOT_PERFORM_WRITE_ACTIONS
+           Rails.logger.error { "Forbidden to write to twitter while processing #{user.mastodon.uid} while processing toot #{t.id}." }
+           stats.increment("twitter.write_action_forbidden")
+        else
+           Rails.logger.error { "Bad authentication for user #{user.mastodon.uid} while processing toot #{t.id}. #{ex.to_json}." }
+           stats.increment("twitter.bad_auth")
+           raise TootError.new(ex)
+        end
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("toot.processing_error")
@@ -290,6 +297,8 @@ class MastodonUserProcessor
     Rails.logger.warn { "Duplicated tweet when crossposting #{user.mastodon.uid}, toot #{toot.id}. -- #{status.id} -- Skipping" }
   end
 
+  TWITTER_DURATION_TOO_SHORT = 324
+
   def treat_media_attachments(medias)
     media_ids = []
     opts = {}
@@ -321,6 +330,12 @@ class MastodonUserProcessor
         end
 
         media_ids << upload_media(media, file, file_type)
+      rescue Twitter::Error::BadRequest => ex
+        if ex.code == TWITTER_DURATION_TOO_SHORT
+          next
+        else
+          raise ex
+        end
       ensure
         file.close
         file.unlink
