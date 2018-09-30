@@ -58,16 +58,19 @@ class TootTransformer
   end
 
   def transform_rec(text, toot_url, max_length)
-    text_without_usernames = text.gsub(ELE_MASTODON_USERNAME_REGEX, '')
-    https_count, https_length = TootTransformer::count_regex(text_without_usernames, HTTPS_REGEX)
-    mod_text = text_without_usernames.gsub(HTTPS_REGEX, '')
-    http_count, http_length = TootTransformer::count_regex(mod_text, HTTP_REGEX)
-    final_length = (text.length - http_length - https_length) + http_count*TootTransformer::twitter_short_url_length + https_count*TootTransformer::twitter_short_url_length_https
+    final_length = self.class.twitter_length(text)
     if final_length <= max_length
       return text
     else
-      transform_rec(text.truncate(text.length - [TootTransformer::twitter_short_url_length, TootTransformer::twitter_short_url_length_https].max, separator: /[ \n]/, omission: TootTransformer::suffix+toot_url), toot_url, max_length)
+      truncated_text = text.truncate(text.length - [TootTransformer::twitter_short_url_length, TootTransformer::twitter_short_url_length_https].max,
+                                  separator: /[ \n]/,
+                                  omission: TootTransformer::suffix+toot_url)
+      transform_rec(truncated_text, toot_url, max_length)
     end
+  end
+
+  def self.twitter_length(text)
+    Twitter::TwitterText::Validation.parse_tweet(text)[:weighted_length]
   end
 
   def self.twitter_short_url_length=(length)

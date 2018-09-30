@@ -145,6 +145,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
+    idn-ruby (0.1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -301,6 +302,9 @@ GEM
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    twitter-text (2.1.0)
+      idn-ruby
+      unf (~> 0.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.5)
@@ -373,6 +377,7 @@ DEPENDENCIES
   timecop
   turbolinks
   twitter!
+  twitter-text
   tzinfo-data
   uglifier
   web-console

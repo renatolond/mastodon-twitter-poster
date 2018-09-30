@@ -74,10 +74,28 @@ class TootTransformerTest < ActiveSupport::TestCase
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
   end
 
+  test 'Transform text with emojis and make sure is below the limit' do
+    text = %Q(🇬🇧 Hey, y'all! I fixed an issue with the auto-detected CW and quotes that need to be split in two toots. The CW should be around both toots now. Thanks to @mention for reporting!\n\n🇧🇷 Oi, povo! Consertei um problema com as CW detectadas automaticamente e quotes que precisam ser dividas em dois toots. O CW deve aparecer nos dois toots agora.).freeze
+    expected_text = %Q(🇬🇧 Hey, y'all! I fixed an issue with the auto-detected CW and quotes that need to be split in two toots. The CW should be around both toots now. Thanks to 🐘mention@masto.donte.com.br for reporting!\n\n🇧🇷 Oi, povo! Consertei um… https://masto.donte.com.br/@renatolond/1111111).freeze
+
+    assert_equal expected_text, TootTransformer.new(280).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
+  end
+
   test 'Remove all possible mentions for Twitter' do
     text = 'Hey @renatolond! Hey @renatolond@twitter.com! Hey @RenatoLond@masto.donte.com.br! Hey @foca.alada @FoCa @foca-alada @foca_alada @x @xx @xxx @- @_ @. ＠bozo ＠nervoso＠masto.donte.com.br @user1@mastodon.social @_bar_baz @_bar_baz@twitter.com @user1@mastodon.technology /@testuser /@testuser@twitter.com ,@test a`@bogus usuario@email.com @🐾@instance.com and others. Can you see this?'.freeze
     expected_text = 'Hey 🐘renatolond@masto.donte.com.br! Hey renatolond! Hey 🐘RenatoLond@masto.donte.com.br! Hey 🐘foca.alada@masto.donte.com.br 🐘FoCa@masto.donte.com.br 🐘foca@masto.donte.com.br-alada 🐘foca_alada@masto.donte.com.br 🐘x@masto.donte.com.br 🐘xx@masto.donte.com.br 🐘xxx@masto.donte.com.br @- 🐘_@masto.donte.com.br @. 🐘bozo@masto.donte.com.br 🐘nervoso@masto.donte.com.br 🐘user1@mastodon.social 🐘_bar_baz@masto.donte.com.br _bar_baz 🐘user1@mastodon.technology /🐘testuser@masto.donte.com.br /testuser ,🐘test@masto.donte.com.br a`🐘bogus@masto.donte.com.br usuario@email.com @🐾🐘instance.com@masto.donte.com.br and others. Can you see this?'
 
     assert_equal expected_text, TootTransformer.new(1000).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br', 'masto.donte.com.br')
+  end
+
+  test 'twitter length' do
+    text = %Q(🇬🇧 Hey, y'all! I fixed an issue with the auto-detected CW and quotes that need to be split in two toots. The CW should be around both toots now. Thanks to @mention for reporting!\n\n🇧🇷 Oi, povo! Consertei um problema com as CW detectadas automaticamente e quotes que precisam se).freeze
+
+    assert_equal 280, TootTransformer.twitter_length(text)
+  end
+  test 'twitter length emojis' do
+    text = %Q(😃👨‍👩‍👧‍👦).freeze
+
+    assert_equal 13, TootTransformer.twitter_length(text)
   end
 end
