@@ -56,7 +56,7 @@ class MastodonUserProcessor
     opts
   end
 
-  TWITTER_CANNOT_PERFORM_WRITE_ACTION = 261
+  TWITTER_CANNOT_PERFORM_WRITE_ACTIONS = 261
 
   def self.get_last_toots_for_user(user)
     return unless user.mastodon && user.twitter
