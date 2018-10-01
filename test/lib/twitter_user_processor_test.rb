@@ -682,6 +682,29 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_normal_tweet
   end
 
+  test 'process_normal_tweet - tweet with image and cw gets behind cw' do
+    user = create(:user_with_mastodon_and_twitter, quote_options: User.quote_options['quote_post_as_old_rt'])
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1046801852556349440.json?tweet_mode=extended&include_ext_alt_text=true').to_return(web_fixture('twitter_image_only_with_cw.json'))
+
+    stub_request(:get, 'http://pbs.twimg.com/media/Dob8utxXsAIohhJ.jpg')
+      .to_return(:status => 200, :body => lambda { |request| File.new(Rails.root + 'test/webfixtures/DLJzhYFXcAArwlV.jpg') })
+
+
+    stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
+      .to_return(web_fixture('mastodon_image_post.json'))
+
+    t = user.twitter_client.status(1046801852556349440, tweet_mode: 'extended', include_ext_alt_text: true)
+    text = '🖼️'
+    sensitive = true
+    cw = 'teste!'
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:toot).with(text, [273], sensitive, true, cw).times(1).returns(nil)
+    twitter_user_processor.process_normal_tweet
+  end
+
+
   test 'process normal tweet - with twitter cw' do
     user = create(:user_with_mastodon_and_twitter, twitter_content_warning: 'Twitter stuff')
     text = 'Tweet'
