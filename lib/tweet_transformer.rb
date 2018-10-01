@@ -15,14 +15,14 @@ class TweetTransformer
 
   def self.detect_cw(text)
     common_format = /(Cont[ée]m:|Contains:|CN:?|Spoiler:?|[CT]W:?|TW\s*[\/,]\s*CW[:,]?|CW\s*[\/,]\s*TW[:,]?)/i
-    format = /\A#{common_format}\s+(?<cw>[^\n\r]+)[\n\r]+(?<text>.*)/im
+    format = /\A#{common_format}\s+(?<cw>[^\n\r]+)(?:[\n\r]+|\z)(?<text>.*)/im
     rt_format = /\A#{common_format}\s+(?<cw>.+) (?<text>https:\/\/twitter\.com.*)/im
-
-    m = format.match(text)
-    return [m[:text], m[:cw]] if m
 
     m = rt_format.match(text)
     return ["RT: #{m[:text]}", m[:cw]] if m
+
+    m = format.match(text)
+    return [m[:text], m[:cw]] if m
 
     return [text, nil]
   end

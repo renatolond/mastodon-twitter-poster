@@ -169,4 +169,12 @@ Here's my spoiler!"
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
 
+  test 'Detect cw: Cw on image-only posts' do
+    text = %q(Contains: Some naughty image)
+
+    filtered_text = ''
+    cw = 'Some naughty image'
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
 end
