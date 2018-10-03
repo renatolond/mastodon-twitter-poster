@@ -1,27 +1,27 @@
 cs:
   crossposter_explanation: ''
-  login_to_get_started: ''
-  service_ran_by: ''
-  source_code_and_issues: ''
-  twitter_logged_in: ''
-  mastodon_logged_in: ''
-  home: ''
-  accounts: ''
-  connections: ''
-  manage_your_accounts: ''
-  disconnect: ''
-  options: ''
-  masto_boost_do_not_post: ''
-  masto_boost_post_as_link: ''
-  masto_reply_do_not_post: ''
-  masto_reply_post_self: ''
-  masto_mention_do_not_post: ''
-  masto_sync_status_true: ''
-  masto_sync_status_false: ''
-  masto_should_post_unlisted_true: ''
-  masto_should_post_unlisted_false: ''
-  masto_should_post_private_true: ''
-  masto_should_post_private_false: ''
+  login_to_get_started: Začněte přihlášením přes Twitter a Mastodon
+  service_ran_by: Tuto službu provozuje
+  source_code_and_issues: Zdrojový kód a chyby
+  twitter_logged_in: Twitter je přihlášen
+  mastodon_logged_in: Mastodon je přihlášen
+  home: Domů
+  accounts: Účty
+  connections: Spojení
+  manage_your_accounts: Spravovat vaše připojené účty
+  disconnect: Odpojit
+  options: Možnosti
+  masto_boost_do_not_post: Neodesílat na Twitter boosty
+  masto_boost_post_as_link: 'Odesílat na Twitter boosty jako odkazy (Boostnuto: https://mastodon.social/@renatolond/15082784)'
+  masto_reply_do_not_post: Neodesílat na Twitter odpovědi
+  masto_reply_post_self: Odesílat na Twitter odpovědi na mé vlastní tooty (vlákna)
+  masto_mention_do_not_post: Neodesílat na Twitter zmínky
+  masto_sync_status_true: ZAP
+  masto_sync_status_false: VYP
+  masto_should_post_unlisted_true: ZAP
+  masto_should_post_unlisted_false: VYP
+  masto_should_post_private_true: ZAP
+  masto_should_post_private_false: VYP
   synchronization_options: ''
   masto_synchronization_status: ''
   post_unlisted_toots: ''
@@ -94,7 +94,7 @@ cs:
     identifier: ''
     login: ''
     invalid_identifier: ''
-  follow_us_on_the_fediverse: ''
+  follow_us_on_the_fediverse: Sledujte nás na fediverse!
   from_twitter: ''
   from_mastodon: ''
   crossposting_overview: ''
