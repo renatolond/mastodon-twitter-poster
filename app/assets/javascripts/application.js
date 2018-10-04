@@ -37,4 +37,13 @@ document.addEventListener("turbolinks:load", function() {
       });
     });
   }
+
+  $('#add_another_masto_word').click(function(e) {
+    e.preventDefault();
+    $('<input name="user[masto_word_list][]" value="" placeholder="#tw" class="input" type="text" id="user_masto_word_list">').insertBefore('#word_list_help');
+  });
+  $('#add_another_twitter_word').click(function(e) {
+    e.preventDefault();
+    $('<input name="user[twitter_word_list][]" value="" placeholder="#tw" class="input" type="text" id="user_twitter_word_list">').insertBefore('#word_list_help');
+  });
 })

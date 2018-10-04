@@ -30,6 +30,11 @@ class User < ApplicationRecord
     quote_post_as_old_rt_with_link: 'QUOTE_POST_AS_OLD_RT_WITH_LINK'
   }
 
+  block_or_allow = {
+    block_with_words: 'BLOCK_WITH_WORDS',
+    allow_with_words: 'ALLOW_WITH_WORDS'
+  }.freeze
+
   masto_visibility = {
     public: 'MASTO_PUBLIC',
     unlisted: 'MASTO_UNLISTED',
@@ -38,12 +43,22 @@ class User < ApplicationRecord
   enum twitter_original_visibility: masto_visibility, _prefix: true
   enum twitter_retweet_visibility: masto_visibility, _prefix: true
   enum twitter_quote_visibility: masto_visibility, _prefix: true
+  enum masto_block_or_allow_list: block_or_allow, _prefix: true
+  enum twitter_block_or_allow_list: block_or_allow, _prefix: true
 
   before_validation :strip_whitespace
+  before_validation :remove_empty_words_from_wordlist
 
   def strip_whitespace
     self.twitter_content_warning = self.twitter_content_warning.strip if self.twitter_content_warning.respond_to?(:strip)
     self.twitter_content_warning = nil if self.twitter_content_warning.blank?
+    self.masto_block_or_allow_list = nil if self.masto_block_or_allow_list.blank?
+    self.twitter_block_or_allow_list = nil if self.twitter_block_or_allow_list.blank?
+  end
+
+  def remove_empty_words_from_wordlist
+    self.masto_word_list.reject! &:blank?
+    self.twitter_word_list.reject! &:blank?
   end
 
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
@@ -100,19 +115,19 @@ class User < ApplicationRecord
   end
 
   def twitter_using_blocklist
-    twitter_block_or_allow_list == 'BLOCK_WITH_WORDS'
+    twitter_block_or_allow_list_block_with_words?
   end
 
   def twitter_using_allowlist
-    twitter_block_or_allow_list == 'ALLOW_WITH_WORDS'
+    twitter_block_or_allow_list_allow_with_words?
   end
 
   def masto_using_blocklist
-    masto_block_or_allow_list == 'BLOCK_WITH_WORDS'
+    masto_block_or_allow_list_block_with_words?
   end
 
   def masto_using_allowlist
-    masto_block_or_allow_list == 'ALLOW_WITH_WORDS'
+    masto_block_or_allow_list_allow_with_words?
   end
 
   def self.do_not_allow_users

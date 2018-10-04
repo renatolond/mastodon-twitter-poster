@@ -56,6 +56,37 @@
     </div>
     <p class="help"><%= t :masto_mention_options_explanation %></p>
   </div>
+
+  <div class="field">
+    <label class="label"><%= t '.masto_block_or_allow_list' %></label>
+    <div class="control">
+      <%= f.label :masto_block_or_allow_list, value: '', class: 'radio' do %>
+      <%= f.radio_button :masto_block_or_allow_list, '' %>
+      <%= t '.disabled'.to_sym %>
+      <% end %>
+
+      <% User.masto_block_or_allow_lists.keys.each do |option| %>
+      <%= f.label :masto_block_or_allow_list, value: option, class: 'radio' do %>
+      <%= f.radio_button :masto_block_or_allow_list, option %>
+      <%= t option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+    <p class="help"><%= t '.masto_block_or_allow_list_explanation' %></p>
+  </div>
+
+  <div class="field">
+    <%= f.label :masto_word_list, t('.masto_word_list'), class: 'label' %>
+    <div class="control">
+      <% f.object.masto_word_list.each do |word| %>
+        <%= f.text_field :masto_word_list, name: 'user[masto_word_list][]', value: word, placeholder: '#tw', class: 'input' %>
+      <% end %>
+    </div>
+    <p class="help" id='word_list_help'><%= t '.masto_word_list_explanation' %></p>
+
+    <a class="button is-info" id='add_another_masto_word'><%= t('.add_another_word')%></a>
+  </div>
+
   <%= f.submit class: 'button is-primary' %>
   <% end %>
 </div>
