@@ -79,6 +79,62 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.process_toot
   end
 
+  test 'process toot - allow list: does not contain words' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['chocolate'], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_bad_word.json'))
+    t = user.mastodon_client.status(98894252337740537)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - allow list: contain words' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['chocolate'], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_good_word.json'))
+    t = user.mastodon_client.status(98894252337740537)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).once
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - block list: contain words' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['broccoli'], masto_block_or_allow_list: 'BLOCK_WITH_WORDS')
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_bad_word.json'))
+    t = user.mastodon_client.status(98894252337740537)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).never
+    mastodon_user_processor.process_toot
+  end
+
+  test 'process toot - block list: does not contain words' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['broccoli'], masto_block_or_allow_list: 'BLOCK_WITH_WORDS')
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/98894252337740537').to_return(web_fixture('mastodon_good_word.json'))
+    t = user.mastodon_client.status(98894252337740537)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:process_boost).never
+    mastodon_user_processor.expects(:process_reply).never
+    mastodon_user_processor.expects(:process_mention).never
+    mastodon_user_processor.expects(:process_normal_toot).once
+    mastodon_user_processor.process_toot
+  end
+
   test 'process toot - posted by the crossposter' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'mastodon.xyz')
 

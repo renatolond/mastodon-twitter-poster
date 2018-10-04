@@ -209,6 +209,67 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     twitter_user_processor.process_tweet
   end
 
+  test 'process tweet - allow list: does not contain words' do
+    user = create(:user_with_mastodon_and_twitter, twitter_word_list: ['chocolate'], twitter_block_or_allow_list: 'ALLOW_WITH_WORDS')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1031970110242803712.json').to_return(web_fixture('twitter_bad_word.json'))
+
+    t = user.twitter_client.status(1031970110242803712)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).once.returns(false)
+    twitter_user_processor.expects(:process_normal_tweet).never
+    twitter_user_processor.expects(:process_reply).never
+    twitter_user_processor.expects(:process_retweet).never
+    twitter_user_processor.expects(:process_quote).never
+    twitter_user_processor.process_tweet
+  end
+  test 'process tweet - allow list: contain words' do
+    user = create(:user_with_mastodon_and_twitter, twitter_word_list: ['chocolate'], twitter_block_or_allow_list: 'ALLOW_WITH_WORDS')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1031970144627646466.json').to_return(web_fixture('twitter_good_word.json'))
+
+    t = user.twitter_client.status(1031970144627646466)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).once.returns(false)
+    twitter_user_processor.expects(:process_normal_tweet).once
+    twitter_user_processor.expects(:process_reply).never
+    twitter_user_processor.expects(:process_retweet).never
+    twitter_user_processor.expects(:process_quote).never
+    twitter_user_processor.process_tweet
+  end
+  test 'process tweet - block list: contain words' do
+    user = create(:user_with_mastodon_and_twitter, twitter_word_list: ['broccoli'], twitter_block_or_allow_list: 'BLOCK_WITH_WORDS')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1031970110242803712.json').to_return(web_fixture('twitter_bad_word.json'))
+
+    t = user.twitter_client.status(1031970110242803712)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).once.returns(false)
+    twitter_user_processor.expects(:process_normal_tweet).never
+    twitter_user_processor.expects(:process_reply).never
+    twitter_user_processor.expects(:process_retweet).never
+    twitter_user_processor.expects(:process_quote).never
+    twitter_user_processor.process_tweet
+  end
+  test 'process tweet - block list: does not contain words' do
+    user = create(:user_with_mastodon_and_twitter, twitter_word_list: ['broccoli'], twitter_block_or_allow_list: 'BLOCK_WITH_WORDS')
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/show/1031970144627646466.json').to_return(web_fixture('twitter_good_word.json'))
+
+    t = user.twitter_client.status(1031970144627646466)
+
+    twitter_user_processor = TwitterUserProcessor.new(t, user)
+    twitter_user_processor.expects(:posted_by_crossposter).once.returns(false)
+    twitter_user_processor.expects(:process_normal_tweet).once
+    twitter_user_processor.expects(:process_reply).never
+    twitter_user_processor.expects(:process_retweet).never
+    twitter_user_processor.expects(:process_quote).never
+    twitter_user_processor.process_tweet
+  end
+
   test 'process tweet - ignore tweet posted by the crossposter' do
     user = create(:user_with_mastodon_and_twitter)
 

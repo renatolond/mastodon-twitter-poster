@@ -103,6 +103,10 @@ class TwitterUserProcessor
     @replied_status_id
   end
 
+  def text_filter
+    @text_filter ||= TextFilter.new(@user)
+  end
+
   def posted_by_crossposter
     return true unless tweet.source['https://crossposter.masto.donte.com.br'].nil? &&
     tweet.source['https://github.com/renatolond/mastodon-twitter-poster'].nil? &&
@@ -116,6 +120,12 @@ class TwitterUserProcessor
     if(posted_by_crossposter)
       Rails.logger.debug('Ignoring tweet, was posted by the crossposter')
       self.class.stats.increment('tweet.posted_by_crossposter.skipped')
+      return
+    end
+
+    if text_filter.should_filter_coming_from_twitter?(tweet.full_text)
+      Rails.logger.debug('Ignoring tweet, does not obey word list')
+      self.class.stats.increment('tweet.word_list.skipped')
       return
     end
 

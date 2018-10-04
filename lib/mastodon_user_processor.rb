@@ -129,6 +129,10 @@ class MastodonUserProcessor
     @replied_status
   end
 
+  def text_filter
+    @text_filter ||= TextFilter.new(@user)
+  end
+
   def posted_by_crossposter
     application = toot.application || {}
     website = application['website'] || ''
@@ -146,6 +150,12 @@ class MastodonUserProcessor
     if posted_by_crossposter
       Rails.logger.debug('Ignoring toot, was posted by the crossposter')
       MastodonUserProcessor::stats.increment('toot.posted_by_crossposter.skipped')
+      return
+    end
+
+    if text_filter.should_filter_coming_from_mastodon?(toot.text_content, toot.spoiler_text)
+      Rails.logger.debug('Ignoring toot, does not obey word list')
+      MastodonUserProcessor::stats.increment('toot.word_list.skipped')
       return
     end
 
