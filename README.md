@@ -17,6 +17,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there.
   - Possibility to add a content warning to all tweets being posted to Mastodon
   - Infer content warnings: if your tweet begins with a line containing "content warning" it will be posted behind a content warning on Mastodon. More information about which formats are supported can be seen below at [Experimental Content Warning recognition](#experimental-content-warning-recognition)
+  - Blocklists or Allowlists: Only crosspost tweets containing one word from a list or do not crosspost tweets that contain at least one word from a list
 
 * Post from Mastodon to Twitter
   - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
@@ -24,6 +25,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - You can choose between posting boosts or not.
   - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
   - No other replies will be posted. There's no risk of filling your twitter timeline with replies to people that are not there.
+  - Blocklists or Allowlists: Only crosspost toots containing one word from a list or do not crosspost tweets that contain at least one word from a list
 
 The crossposter will never follow anyone or post anything but the content you selected to be crossposted.
 

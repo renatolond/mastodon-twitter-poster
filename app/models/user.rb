@@ -48,6 +48,7 @@ class User < ApplicationRecord
 
   before_validation :strip_whitespace
   before_validation :remove_empty_words_from_wordlist
+  before_validation :limit_words_in_wordlist
 
   def strip_whitespace
     self.twitter_content_warning = twitter_content_warning.strip if twitter_content_warning.respond_to?(:strip)
@@ -59,6 +60,11 @@ class User < ApplicationRecord
   def remove_empty_words_from_wordlist
     masto_word_list.reject! &:blank?
     twitter_word_list.reject! &:blank?
+  end
+
+  def limit_words_in_wordlist
+    masto_word_list = masto_word_list[0..15] if masto_word_list.present?
+    twitter_word_list = twitter_word_list[0..15] if twitter_word_list.present?
   end
 
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]
