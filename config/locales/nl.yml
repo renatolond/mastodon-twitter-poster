@@ -123,3 +123,19 @@ nl:
         op Twitter
       advanced_from_twitter_options: Geavanceerde opties voor het plaatsen van Twitter-berichten
         op Mastodon
+    advanced_mastodon:
+      add_another_word: Woord toevoegen
+      disabled: Uitgeschakeld
+      masto_block_or_allow_list: Negeer berichten of plaats alleen berichten die bepaalde
+        woorden bevatten
+      masto_block_or_allow_list_explanation: Deze optie stelt je in staat om plaatsing
+        op beide diensten te negeren of alleen te plaatsen als berichten de woorden
+        hieronder bevatten
+      masto_word_list: Lijst met woorden of uitdrukkingen van berichten afkomstig
+        van Mastodon
+  allow_with_words: Alleen berichten plaatsen op beide diensten die de volgende woorden
+    bevatten
+  block_with_words: Geen berichten op beide diensten plaatsen die de volgende volgende
+    woorden bevatten
+  masto_word_list_explanation: Masto-woordenlijstuitleg
+  twitter_word_list: Twitter-woordenlijst
