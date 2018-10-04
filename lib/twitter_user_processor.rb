@@ -192,6 +192,10 @@ class TwitterUserProcessor
       return
     end
 
+    process_self_reply
+  end
+
+  def process_self_reply
     replied_status = Status.find_by(mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
     if replied_status.nil?
       Rails.logger.debug('Ignoring twitter reply to self because we haven\'t crossposted the original')

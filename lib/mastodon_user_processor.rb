@@ -280,10 +280,9 @@ class MastodonUserProcessor
     if toot.is_public? ||
         (toot.is_unlisted? && user.masto_should_post_unlisted?) ||
         (toot.is_private? && user.masto_should_post_private?)
-      true
-    else
-      false
+      return true
     end
+    false
   end
 
   def tweet(content, opts = {})
