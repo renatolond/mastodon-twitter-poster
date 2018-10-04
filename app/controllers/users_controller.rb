@@ -47,7 +47,7 @@ class UsersController < ApplicationController
               :twitter_original_visibility, :twitter_retweet_visibility,
               :twitter_quote_visibility, :twitter_block_or_allow_list,
               :masto_block_or_allow_list, masto_word_list: [],
-              twitter_word_list: [])
+                                          twitter_word_list: [])
   end
 
   private

@@ -50,15 +50,15 @@ class User < ApplicationRecord
   before_validation :remove_empty_words_from_wordlist
 
   def strip_whitespace
-    self.twitter_content_warning = self.twitter_content_warning.strip if self.twitter_content_warning.respond_to?(:strip)
-    self.twitter_content_warning = nil if self.twitter_content_warning.blank?
-    self.masto_block_or_allow_list = nil if self.masto_block_or_allow_list.blank?
-    self.twitter_block_or_allow_list = nil if self.twitter_block_or_allow_list.blank?
+    self.twitter_content_warning = twitter_content_warning.strip if twitter_content_warning.respond_to?(:strip)
+    self.twitter_content_warning = nil if twitter_content_warning.blank?
+    self.masto_block_or_allow_list = nil if masto_block_or_allow_list.blank?
+    self.twitter_block_or_allow_list = nil if twitter_block_or_allow_list.blank?
   end
 
   def remove_empty_words_from_wordlist
-    self.masto_word_list.reject! &:blank?
-    self.twitter_word_list.reject! &:blank?
+    masto_word_list.reject! &:blank?
+    twitter_word_list.reject! &:blank?
   end
 
   devise :omniauthable, omniauth_providers: [:twitter, :mastodon]

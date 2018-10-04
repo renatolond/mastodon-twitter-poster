@@ -3,21 +3,21 @@
 require 'test_helper'
 class TextFilterTest < ActiveSupport::TestCase
   test 'should_filter_coming_from_mastodon? - allow list: does not contain words' do
-    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['chocolate', 'caramel'], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: %w[chocolate caramel], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
 
     text_filter = TextFilter.new(user)
     assert text_filter.should_filter_coming_from_mastodon?('Oh, this is a bad word: broccoli!', '')
   end
 
   test 'should_filter_coming_from_mastodon? - allow list: spoiler contain words' do
-    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['chocolate', 'caramel'], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: %w[chocolate caramel], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
 
     text_filter = TextFilter.new(user)
     refute text_filter.should_filter_coming_from_mastodon?('Oh, this is a bad word: broccoli!', 'chocolate')
   end
 
   test 'should_filter_coming_from_mastodon? - allow list: text contain words' do
-    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: ['chocolate', 'caramel'], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br', masto_word_list: %w[chocolate caramel], masto_block_or_allow_list: 'ALLOW_WITH_WORDS')
 
     text_filter = TextFilter.new(user)
     refute text_filter.should_filter_coming_from_mastodon?('Oh, this is a good word: chocolate!', '')
