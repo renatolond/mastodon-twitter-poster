@@ -117,3 +117,30 @@ nb_NO:
       advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
         Twitter
       advanced_from_twitter_options: Avanserte valg for posting fra Twitter til Mastodon
+    advanced_mastodon:
+      add_another_word: Legg til et nytt ord
+      disabled: Avskrudd
+      masto_block_or_allow_list: Se bort fra poster som inneholder gitte ord eller
+        kun tillater poster som inneholder gitte ord
+      masto_block_or_allow_list_explanation: Dette valget lar deg velge og se bort
+        fra kryssposting av poster som inneholder ordene definert nedenfor, eller
+        kun kryssposte poster som inneholder ordene definert nedenfor
+      masto_word_list: Liste over ord eller uttrykk for poster som kommer fra Mastodon
+      masto_word_list_explanation: Denne listen over ord vil brukt hvis du har skrudd
+        på valget ovenfor. Ingen delvis jamføring gjøres, hvis du skriver "fulg" ovenfor,
+        vil ikke "fuglekasse" tatt med i betraktning.
+    advanced_twitter:
+      add_another_word: Legg til et annet ord
+      disabled: Avskrudd
+      twitter_block_or_allow_list: Ignorer poster som inneholder gitte ord, eller
+        kun tillat poster som inneholder gitte ord
+      twitter_block_or_allow_list_explanation: Ikke krysspost poster som inneholder
+        ord definert nedenfor, eller for å kun kryssposte poster som inneholder ord
+        definert nedenfor
+      twitter_word_list_explanation: Liste over ord som tas med i betraktning hvis
+        valget ovenfor er påskrudd. Ingen delvis jamføring gjøres, hvis du skriver
+        "fulg" ovenfor, vil ikke "fuglekasse" tatt med i betraktning.
+  allow_with_words: Kun krysspost poster som inneholder følgende ord
+  block_with_words: Ikke krysspost poster som inneholder følgende ord
+  masto_word_list_explanation: Mastodon-ordlisteforklaring
+  twitter_word_list: Twitter-ordliste
