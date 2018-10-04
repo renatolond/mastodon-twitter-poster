@@ -111,8 +111,10 @@ class User < ApplicationRecord
     end
   end
 
+  BLOCKED_UIDS = ['example@bad.bad.server']
+
   def self.from_omniauth(auth, current_user)
-    authorization = get_authorization(auth.provider, auth.uid.to_s)
+    authorization = get_authorization(auth.provider, auth.uid.to_s) unless BLOCKED_UIDS.include? auth.uid.to_s
     return authorization if authorization.nil?
 
     user = current_user || authorization.user || User.new
