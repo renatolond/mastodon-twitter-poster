@@ -1,5 +1,7 @@
 cs:
-  crossposter_explanation: ''
+  crossposter_explanation: Tato služba vám umožňuje připojit si účet na Mastodonu
+    a na Twitteru a přeposílat příspěvky mezi nimi. Můžete si vybrat několik možností,
+    napříklat pokud chcete posílat boosty, neuvedené tooty nebo odpovědi.
   login_to_get_started: Začněte přihlášením přes Twitter a Mastodon
   service_ran_by: Tuto službu provozuje
   source_code_and_issues: Zdrojový kód a chyby
@@ -23,27 +25,29 @@ cs:
   masto_should_post_private_true: ZAP
   masto_should_post_private_false: VYP
   synchronization_options: ''
-  masto_synchronization_status: ''
+  masto_synchronization_status: Posílat moje tooty na Twitter
   post_unlisted_toots: ''
   post_private_toots: ''
-  boost_options: ''
-  masto_reply_options: ''
-  masto_reply_options_explanation: ''
-  masto_mention_options: ''
-  masto_mention_options_explanation: ''
+  boost_options: 'Možnosti pro boostnutí:'
+  masto_reply_options: 'Možnosti odpovědí:'
+  masto_reply_options_explanation: Tohle je, když kliknete v rozhraní Mastodonu tlačítko
+    odpovědi. Je to přímá odpověď na jiný toot.
+  masto_mention_options: 'Možnosti pro zmínky:'
+  masto_mention_options_explanation: Tato služba považuje zmínku za toot, který není
+    odpovědí, ale který začíná znmínkou jiného uživatele.
   twitter_synchronization_status: ''
-  twitter_sync_status_true: ''
-  twitter_sync_status_false: ''
-  no_sync_right_now: ''
+  twitter_sync_status_true: ZAP
+  twitter_sync_status_false: VYP
+  no_sync_right_now: Aktuálně nikam *neposíláte*.
   toots_posted_to_twitter: ''
   tweets_posted_to_mastodon: ''
-  masto_posting_unlisted: ''
-  masto_not_posting_unlisted: ''
-  masto_posting_private: ''
-  masto_not_posting_private: ''
-  masto_not_posting_boost: ''
-  masto_posting_boost_as_link: ''
-  change_this_on_options: ''
+  masto_posting_unlisted: Posíláte neuvedené tooty.
+  masto_not_posting_unlisted: Neposíláte neuvedené tooty.
+  masto_posting_private: Posíláte soukromé tooty.
+  masto_not_posting_private: Neposíláte soukromé tooty.
+  masto_not_posting_boost: Neposíláte boostnuté tooty.
+  masto_posting_boost_as_link: Posíláte boostnuté tooty jako příspěvky.
+  change_this_on_options: Tato nastavení můžete změnit navštívením %{options}.
   retweet_options: ''
   retweet_do_not_post: ''
   retweet_post_as_old_rt: ''
@@ -64,11 +68,11 @@ cs:
   twitter_posting_quote_old_style_with_link: ''
   twitter_not_posting_reply: ''
   twitter_posting_reply_to_self: ''
-  masto_not_posting_reply: ''
-  masto_posting_reply_to_self: ''
-  log_out: ''
-  for_news_and_status: ''
-  features: ''
+  masto_not_posting_reply: Neposíláte odpovědi.
+  masto_posting_reply_to_self: Posíláte odpovědi na vlastní tooty.
+  log_out: Odhlásit
+  for_news_and_status: 'Pro zprávy a stav:'
+  features: Vlastnosti
   status: ''
   twitter_content_warning: ''
   twitter_content_warning_explanation: ''
@@ -76,29 +80,35 @@ cs:
   twitter_original_visibility: ''
   twitter_retweet_visibility: ''
   twitter_quote_visibility: ''
-  default_visibility: ''
+  default_visibility: Použít výchozí viditelnost Mastodonu
   masto_privacy:
-    public: ''
-    private: ''
-    unlisted: ''
+    public: Veřejné
+    private: Soukromé
+    unlisted: Neuvedené
   masto_privacy_for_status:
-    default: ''
-    public: ''
-    private: ''
-    unlisted: ''
+    default: Výchozí soukromí Mastodonu.
+    public: Veřejné.
+    private: Soukromé.
+    unlisted: Neuvedené.
   twitter_original_visibility_status: ''
   twitter_retweet_visibility_status: ''
   twitter_quote_visibility_status: ''
   masto_login:
-    please: ''
-    identifier: ''
-    login: ''
-    invalid_identifier: ''
+    please: Připojte svůj Mastodon
+    identifier: Identifikátor
+    login: Přihlásit
+    invalid_identifier: Neplatný identifikátor. Musíte použít formát uživatel@instance,
+      například crossposter@masto.donte.com.br
   follow_us_on_the_fediverse: Sledujte nás na fediverse!
-  from_twitter: ''
-  from_mastodon: ''
-  crossposting_overview: ''
+  from_twitter: Z Twitteru na Mastodon
+  from_mastodon: Z Mastodonu na Twitter
+  crossposting_overview: Přehled možností
   users:
     show:
       advanced_from_mastodon_options: ''
       advanced_from_twitter_options: ''
+    advanced_twitter:
+      add_another_word: Přidat další slovo
+      disabled: Zakázáno
+  allow_with_words: Přeposílat pouze příspěvky obsahující následující slova
+  block_with_words: Nepřeposílat příspěvky obsahující následující slova
