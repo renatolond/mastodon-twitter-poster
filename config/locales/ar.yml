@@ -40,7 +40,7 @@ ar:
   no_sync_right_now: ''
   toots_posted_to_twitter: حاليًا يجري نشر تبويقاتك على تويتر.
   tweets_posted_to_mastodon: حاليًا يجري نشر تغريداتك على ماستدون.
-  masto_posting_unlisted: ''
+  masto_posting_unlisted: عند نشر تبويقات غير مدرجة للعامة.
   masto_not_posting_unlisted: ''
   masto_posting_private: ''
   masto_not_posting_private: ''
@@ -80,7 +80,7 @@ ar:
     على الشكل التالي: "%{cw}"'
   twitter_original_visibility: خصوصية تغريداتك الأصلية عند مبادلة النشر
   twitter_retweet_visibility: خصوصية التغريدات المعاد تغريدها عند مبادلة النشر
-  twitter_quote_visibility: ''
+  twitter_quote_visibility: خصوصية الإقتباسات عند النشر التبادلي
   default_visibility: استخدام طريقة العرض الإفتراضية لماستدون
   masto_privacy:
     public: للعامة
@@ -101,3 +101,11 @@ ar:
     invalid_identifier: معرّف الحساب غير صالح. يجب عليك إدخال المُعرِّف على شكل user@instance  مثل
       crossposter@masto.donte.com.br
   follow_us_on_the_fediverse: تابِعنا على الشبكة الموحَّدة في الفيديفرس!
+  allow_with_words: النشر التبادلي فقط للمنشورات التي تحتوي على الكلمات التالية
+  block_with_words: حظر النشر التبادلي للمنشورات التي تحتوي على الكلمات التالية
+  from_mastodon: مِن ماستدون إلى تويتر
+  from_twitter: مِن تويتر إلى ماستدون
+  twitter_word_list: قائمة كلمات تويتر
+  users:
+    advanced_mastodon:
+      add_another_word: إضافة كلمة أخرى
