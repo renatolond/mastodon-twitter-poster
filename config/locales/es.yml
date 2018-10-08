@@ -48,7 +48,7 @@ es:
   masto_not_posting_private: No está publicando toots privados.
   masto_not_posting_boost: No está publicando retoots.
   masto_posting_boost_as_link: Está publicando retoots como enlaces.
-  change_this_on_options: Puede cambiar esta configuración yendo a %{opciones}.
+  change_this_on_options: Puede cambiar esta configuración yendo a %{options}.
   retweet_options: Opciones de Retweets
   retweet_do_not_post: No publicar Retweets en Mastodon
   retweet_post_as_old_rt: 'Publicar Retweets en Mastodon siguiendo el viejo estilo
