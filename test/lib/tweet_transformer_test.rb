@@ -177,4 +177,13 @@ Here's my spoiler!"
 
     assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
   end
+
+  test 'Detect cw: twitter link on another line should not use rt format' do
+    text = "Cw: spoiler\n\nSome text and a link to twitter https://twitter.com/gifsdegatinhos/status/967054283299610625"
+
+    filtered_text = "Some text and a link to twitter https://twitter.com/gifsdegatinhos/status/967054283299610625"
+    cw = 'spoiler'
+
+    assert_equal [filtered_text, cw], TweetTransformer::detect_cw(text)
+  end
 end
