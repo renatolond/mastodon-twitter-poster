@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  domain: my-domain.com
-  client_id: a-very-secret-id
-  client_secret: a-very-secret-secret
-
-two:
-  domain: your-domain.com
-  client_id: another-very-secret-id
-  client_secret: another-very-secret-secret
+#one:
+#  domain: my-domain.com
+#  client_id: a-very-secret-id
+#  client_secret: a-very-secret-secret
+#
+#two:
+#  domain: your-domain.com
+#  client_id: another-very-secret-id
+#  client_secret: another-very-secret-secret

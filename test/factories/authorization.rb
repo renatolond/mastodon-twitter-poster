@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :authorization, aliases: [:authorization_twitter] do
     provider { :twitter }
-    uid { 123456 }
+    sequence(:uid)
     user
     token { 'a-beautiful-token-here' }
     secret { 'another-beautiful-secret-here' }
