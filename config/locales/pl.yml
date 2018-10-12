@@ -26,9 +26,9 @@ pl:
   masto_should_post_private_true: TAK
   masto_should_post_private_false: NIE'
   synchronization_options: Opcje synchronizacji
-  masto_synchronization_status: 'Publikuj moje tooty na Twitterze:'
-  post_unlisted_toots: 'Publikować niewidoczne tooty?:'
-  post_private_toots: 'Publikować prywatne tooty?:'
+  masto_synchronization_status: Publikuj moje tooty na Twitterze
+  post_unlisted_toots: Publikować niewidoczne tooty?
+  post_private_toots: Publikować prywatne tooty?
   boost_options: 'Opcje podbić:'
   masto_reply_options: 'Opcje odpowiedzi:'
   masto_reply_options_explanation: Dotyczy sytuacji, gdy klikasz na przycisk odpowiedzi
@@ -36,7 +36,7 @@ pl:
   masto_mention_options: 'Opcje wspomnień:'
   masto_mention_options_explanation: Ta usługa uznaje za wspomnienie wpis, który nie
     jest odpowiedzią, a zaczyna się wspomnieniem innego użytkownika.
-  twitter_synchronization_status: 'Publikuj moje tweety na Mastodonie:'
+  twitter_synchronization_status: Publikuj moje tweety na Mastodonie
   twitter_sync_status_true: TAK
   twitter_sync_status_false: NIE
   no_sync_right_now: Obecnie nie publikujesz *niczego*.
@@ -124,3 +124,4 @@ pl:
         do Twittera
       advanced_from_twitter_options: Zaawansowane opcje wysyłania postów z Twittera
         do Mastodona
+  crossposting_overview: Przegląd opcji
