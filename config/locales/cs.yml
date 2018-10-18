@@ -26,8 +26,8 @@ cs:
   masto_should_post_private_false: VYP
   synchronization_options: ''
   masto_synchronization_status: Posílat moje tooty na Twitter
-  post_unlisted_toots: ''
-  post_private_toots: ''
+  post_unlisted_toots: Posílat neuvedené tooty?
+  post_private_toots: Posílat soukromé tooty?
   boost_options: 'Možnosti pro boostnutí:'
   masto_reply_options: 'Možnosti odpovědí:'
   masto_reply_options_explanation: Tohle je, když kliknete v rozhraní Mastodonu tlačítko
@@ -52,8 +52,8 @@ cs:
   retweet_do_not_post: ''
   retweet_post_as_old_rt: ''
   retweet_post_as_old_rt_with_link: ''
-  quote_options: ''
-  quote_do_not_post: ''
+  quote_options: Možnosti citací
+  quote_do_not_post: Neposílat na Mastodon citace
   quote_post_as_old_rt: ''
   quote_post_as_old_rt_with_link: ''
   twitter_reply_do_not_post: ''
