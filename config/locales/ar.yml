@@ -25,27 +25,27 @@ ar:
   masto_should_post_private_true: مُفَعَّل
   masto_should_post_private_false: مُوَقّف
   synchronization_options: خيارات المُزامَنة
-  masto_synchronization_status: 'عند نشر التبويقات على تويتر:'
-  post_unlisted_toots: 'نشر التبويقات غير المُدرَجة؟:'
-  post_private_toots: 'نشر التبويقات الخاصة؟:'
+  masto_synchronization_status: أنشر تبويقاتي على تويتر
+  post_unlisted_toots: أتريد نشر التبويقات غير المُدرَجة؟
+  post_private_toots: أتريد نشر التبويقات الخاصة؟
   boost_options: 'خيارات الترقية:'
   masto_reply_options: 'خيارات الردود:'
   masto_reply_options_explanation: هذا إذا ما قمت بالضغط على زر الرد على واجهة ماستدون
     للتفاعل.هو الرد المباشر على تبويق آخَر.
   masto_mention_options: 'خيارات ذِكر الحسابات:'
   masto_mention_options_explanation: ''
-  twitter_synchronization_status: 'نشر تغريداتي على ماستدون:'
+  twitter_synchronization_status: أنشر تغريداتي على ماستدون
   twitter_sync_status_true: مُفَعّل
   twitter_sync_status_false: مُوَقّف
-  no_sync_right_now: ''
+  no_sync_right_now: حاليا، إنك *لا* تنشر في أي مكان.
   toots_posted_to_twitter: حاليًا يجري نشر تبويقاتك على تويتر.
   tweets_posted_to_mastodon: حاليًا يجري نشر تغريداتك على ماستدون.
   masto_posting_unlisted: عند نشر تبويقات غير مدرجة للعامة.
-  masto_not_posting_unlisted: ''
-  masto_posting_private: ''
-  masto_not_posting_private: ''
+  masto_not_posting_unlisted: أنت لا تنشر التبويقات غير المدرجة.
+  masto_posting_private: أنت تنشر التبويقات الخاصة.
+  masto_not_posting_private: أنت لا تنشر التبويقات الخاصة.
   masto_not_posting_boost: ''
-  masto_posting_boost_as_link: ''
+  masto_posting_boost_as_link: أنت تنشر التبويقات التي تم ترقيتها على شكل روابط.
   change_this_on_options: يمكنك تغيير هذه الإعدادات باللجوء إلى %{options}.
   retweet_options: خيارات إعادة التغريد
   retweet_do_not_post: لا تقم بنشر إعادات التغريد على ماستدون
@@ -60,15 +60,15 @@ ar:
   twitter_reply_options: 'خيارات الرد:'
   twitter_reply_options_explanation: هذا عند الضغط على زر الرد على واجهة تويتر.هو
     الرد المباشر على تغريدة أخرى.
-  twitter_not_posting_rt: ''
+  twitter_not_posting_rt: أنت لا تنشر التغريدات المعاد تغريدها.
   twitter_posting_rt_old_style: ''
   twitter_posting_rt_old_style_with_link: ''
-  twitter_not_posting_quote: ''
+  twitter_not_posting_quote: أنت لا تنشر الإقتباسات.
   twitter_posting_quote_old_style: ''
   twitter_posting_quote_old_style_with_link: ''
-  twitter_not_posting_reply: ''
+  twitter_not_posting_reply: أنت لا تنشر الردود.
   twitter_posting_reply_to_self: ''
-  masto_not_posting_reply: ''
+  masto_not_posting_reply: أنت لا تنشر الردود.
   masto_posting_reply_to_self: ''
   log_out: الخروج
   for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
@@ -109,3 +109,11 @@ ar:
   users:
     advanced_mastodon:
       add_another_word: إضافة كلمة أخرى
+      disabled: مُعطَّل
+    advanced_twitter:
+      add_another_word: إضافة كلمة أخرى
+      disabled: مُعطَّل
+    show:
+      advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
+      advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
+  crossposting_overview: معاينة الخيارات
