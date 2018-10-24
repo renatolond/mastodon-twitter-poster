@@ -48,14 +48,19 @@ cs:
   masto_not_posting_boost: Neposíláte boostnuté tooty.
   masto_posting_boost_as_link: Posíláte boostnuté tooty jako příspěvky.
   change_this_on_options: Tato nastavení můžete změnit navštívením %{options}.
-  retweet_options: ''
-  retweet_do_not_post: ''
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
+  retweet_options: Možnosti retweetů
+  retweet_do_not_post: Neposílat na Mastodon retweety
+  retweet_post_as_old_rt: 'Posílat na Mastodon retweety jako RT ve starém stylu (RT
+    @renatolonddev@twitter.com: Ahoj všichni!)'
+  retweet_post_as_old_rt_with_link: 'Posílat na Mastodon retweety jako RT ve starém
+    stylu s odkazy (RT @renatolonddev@twitter.com: Ahoj všichni! https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_options: Možnosti citací
   quote_do_not_post: Neposílat na Mastodon citace
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
+  quote_post_as_old_rt: 'Posílat na Mastodon citace jako RT ve starém stylu (Tento
+    nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!)'
+  quote_post_as_old_rt_with_link: 'Posílat na Mastodon citace jako RT ve starém stylu
+    s odkazy (Tento nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!
+    https://twitter.com/renatolonddev/status/904738384861700096)'
   twitter_reply_do_not_post: ''
   twitter_reply_post_self: ''
   twitter_reply_options: ''
@@ -73,7 +78,7 @@ cs:
   log_out: Odhlásit
   for_news_and_status: 'Pro zprávy a stav:'
   features: Vlastnosti
-  status: ''
+  status: Stav
   twitter_content_warning: ''
   twitter_content_warning_explanation: ''
   twitter_content_warning_status: ''
