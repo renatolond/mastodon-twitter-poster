@@ -64,7 +64,7 @@
     <footer class="footer">
       <div class="section has-text-centered">
         <p><%=t :service_ran_by%> <%=link_to("@#{Rails.configuration.x.admin_fedi_at}", Rails.configuration.x.admin_fedi_address) %><% unless Rails.configuration.x.admin_twitter.blank? %> / <%=link_to("@#{Rails.configuration.x.admin_twitter}", "https://twitter.com/#{Rails.configuration.x.admin_twitter}")%> <% end %>. <%=link_to(t(:source_code_and_issues), Rails.configuration.x.repo) %>.</br>
-        <%=t(:for_news_and_status)%> <%= link_to(Rails.configuration.x.announcement_account_address, class: 'button is-mastodon', target: '_blank') do %>
+        <%=t(:for_news_and_status)%> <%= link_to(Rails.configuration.x.announcement_account_address, class: 'button is-mastodon', target: '_blank', rel: 'me') do %>
         <span class="icon is-small"><i class="fa fa-mastodon" aria-hidden="true"></i></span> <span><%= t('follow_us_on_the_fediverse') %></span>
         <% end %></p>
       </div>
