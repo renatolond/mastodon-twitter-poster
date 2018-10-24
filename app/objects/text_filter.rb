@@ -13,6 +13,7 @@ class TextFilter
   end
 
   def should_filter_coming_from_twitter?(text)
+    text = HTMLEntities.new.decode text
     return true if (user.twitter_using_blocklist && content_on_twitter_word_list(text)) ||
                    (user.twitter_using_allowlist && !content_on_twitter_word_list(text))
 

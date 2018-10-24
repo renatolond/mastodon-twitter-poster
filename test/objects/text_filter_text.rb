@@ -64,6 +64,12 @@ class TextFilterTest < ActiveSupport::TestCase
     text_filter = TextFilter.new(user)
     refute text_filter.should_filter_coming_from_twitter?('Oh, this is a good word: chocolate!')
   end
+  test "should_filter_coming_from_twitter? - block list: contain characters that twitter might escape" do
+    user = create(:user_with_mastodon_and_twitter, twitter_word_list: ["<≠>"], twitter_block_or_allow_list: "BLOCK_WITH_WORDS")
+
+    text_filter = TextFilter.new(user)
+    assert text_filter.should_filter_coming_from_twitter?("Test &lt;≠&gt;")
+  end
   test 'should_filter_coming_from_twitter? - block list: contain words' do
     user = create(:user_with_mastodon_and_twitter, twitter_word_list: ['broccoli'], twitter_block_or_allow_list: 'BLOCK_WITH_WORDS')
 
