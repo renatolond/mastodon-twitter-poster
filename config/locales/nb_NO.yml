@@ -144,3 +144,7 @@ nb_NO:
   block_with_words: Ikke krysspost poster som inneholder følgende ord
   masto_word_list_explanation: Mastodon-ordlisteforklaring
   twitter_word_list: Twitter-ordliste
+  home:
+    sync_status:
+      mastodon_account_html: Tilknyttet Mastodon-konto er <code>@%{uid}</code>.
+      twitter_account_html: Tilknyttet Twitter-konto er <code>@%{handle}</code>.
