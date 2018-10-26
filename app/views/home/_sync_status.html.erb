@@ -1,3 +1,5 @@
+<p><%= t(".mastodon_account_html", uid: @uid) if @uid %></p>
+<p><%= t(".twitter_account_html", handle: @handle) if @handle %></p>
 <% unless current_user.posting_from_twitter? || current_user.posting_from_mastodon? %>
 <p><%= t :no_sync_right_now %></p>
 <% else %>

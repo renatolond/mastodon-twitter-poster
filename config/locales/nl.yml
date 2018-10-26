@@ -7,7 +7,7 @@ nl:
   source_code_and_issues: Broncode en problemen
   twitter_logged_in: Ingelogd met Twitter
   mastodon_logged_in: Ingelogd met Mastodon
-  home: Startpagina
+  layouts.application.home: Startpagina
   accounts: Accounts
   connections: Koppelingen
   manage_your_accounts: Beheer je gekoppelde accounts

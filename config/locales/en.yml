@@ -17,7 +17,7 @@ en:
   for_news_and_status: 'For news and status:'
   from_mastodon: From Mastodon to Twitter
   from_twitter: From Twitter to Mastodon
-  home: Home
+  layouts.application.home: Home
   log_out: Logout
   login_to_get_started: Login via Twitter and Mastodon to get started
   manage_your_accounts: Manage your connected accounts
@@ -147,3 +147,7 @@ en:
         Twitter
       advanced_from_twitter_options: Advanced options for posting from Twitter to
         Mastodon
+  home:
+    sync_status:
+      mastodon_account_html: "The Mastodon account connected is <code>@%{uid}</code>."
+      twitter_account_html: "The Twitter account connected is <code>@%{handle}</code>."

@@ -7,7 +7,7 @@ ar:
   source_code_and_issues: الشفرة المصدرية والعَقَبات
   twitter_logged_in: تم التسجيل عبر تويتر
   mastodon_logged_in: تم التسجيل عبر ماستدون
-  home: الرئيسية
+  layouts.application.home: الرئيسية
   accounts: الحسابات
   connections: الإرتباطات
   manage_your_accounts: إدارة حساباتك المتصلة

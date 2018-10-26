@@ -17,7 +17,7 @@ pt-BR:
   for_news_and_status: 'Para novidades e status:'
   from_mastodon: Do Mastodon para o Twitter
   from_twitter: Do Twitter para o Mastodon
-  home: Início
+  layouts.application.home: Início
   log_out: Fazer logout
   login_to_get_started: Faça login no Twitter e no Mastodon para começar
   manage_your_accounts: Gerencia suas contas conectadas
@@ -149,3 +149,7 @@ pt-BR:
         o Twitter
       advanced_from_twitter_options: Opções avançadas para postar do Twitter para
         o Mastodon
+  home:
+    sync_status:
+      mastodon_account_html: "A conta do Mastodon conectada é <code>@%{uid}</code>."
+      twitter_account_html: "A conta do Twitter conectada é <code>@%{handle}</code>."

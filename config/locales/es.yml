@@ -7,7 +7,7 @@ es:
   source_code_and_issues: Código fuente y problemas
   twitter_logged_in: Iniciada sesión en Twitter
   mastodon_logged_in: Iniciada sesión en Mastodon
-  home: Inicio
+  layouts.application.home: Inicio
   accounts: Cuentas
   connections: Conexiones
   manage_your_accounts: Gestione sus cuentas conectadas

@@ -136,6 +136,16 @@ class User < ApplicationRecord
     masto_block_or_allow_list_allow_with_words?
   end
 
+  def twitter_handle
+    Rails.cache.fetch("#{cache_key}/twitter_handle", expires_in: 30.minutes) do
+      begin
+        twitter_client.verify_credentials.screen_name if twitter
+      rescue
+        nil
+      end
+    end
+  end
+
   def self.do_not_allow_users
     ENV['DO_NOT_ALLOW_NEW_USERS']
   end
