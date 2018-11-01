@@ -24,23 +24,23 @@ cs:
   masto_should_post_unlisted_false: VYP
   masto_should_post_private_true: ZAP
   masto_should_post_private_false: VYP
-  synchronization_options: ''
+  synchronization_options: Možnosti synchronizace
   masto_synchronization_status: Posílat moje tooty na Twitter
   post_unlisted_toots: Posílat neuvedené tooty?
   post_private_toots: Posílat soukromé tooty?
-  boost_options: 'Možnosti pro boostnutí:'
+  boost_options: 'Možnosti pro boosty:'
   masto_reply_options: 'Možnosti odpovědí:'
   masto_reply_options_explanation: Tohle je, když kliknete v rozhraní Mastodonu tlačítko
     odpovědi. Je to přímá odpověď na jiný toot.
   masto_mention_options: 'Možnosti pro zmínky:'
   masto_mention_options_explanation: Tato služba považuje zmínku za toot, který není
     odpovědí, ale který začíná znmínkou jiného uživatele.
-  twitter_synchronization_status: ''
+  twitter_synchronization_status: Posílat moje tweety na Mastodon
   twitter_sync_status_true: ZAP
   twitter_sync_status_false: VYP
   no_sync_right_now: Aktuálně nikam *neposíláte*.
-  toots_posted_to_twitter: ''
-  tweets_posted_to_mastodon: ''
+  toots_posted_to_twitter: Vaše tooty se posílají na Twitter.
+  tweets_posted_to_mastodon: Vaše tweety se posílají na Mastodon.
   masto_posting_unlisted: Posíláte neuvedené tooty.
   masto_not_posting_unlisted: Neposíláte neuvedené tooty.
   masto_posting_private: Posíláte soukromé tooty.
@@ -61,30 +61,36 @@ cs:
   quote_post_as_old_rt_with_link: 'Posílat na Mastodon citace jako RT ve starém stylu
     s odkazy (Tento nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!
     https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: ''
-  twitter_reply_post_self: ''
-  twitter_reply_options: ''
-  twitter_reply_options_explanation: ''
-  twitter_not_posting_rt: ''
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
-  twitter_not_posting_quote: ''
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
-  twitter_not_posting_reply: ''
-  twitter_posting_reply_to_self: ''
+  twitter_reply_do_not_post: Neposílat na Mastodon odpovědi
+  twitter_reply_post_self: Posílat na Mastodon odpovědi na mé vlastní tweety (vlákna)
+  twitter_reply_options: 'Možnosti odpovědí:'
+  twitter_reply_options_explanation: Tohle je, když v rozhraní Twitteru kliknete na
+    tlačítko Odpovědět. Je to přímá odpověď na jiný tweet.
+  twitter_not_posting_rt: Neposíláte retweety.
+  twitter_posting_rt_old_style: Posíláte retweety jako RT ve starém stylu.
+  twitter_posting_rt_old_style_with_link: Posíláte retweety jako RT ve starém stylu
+    s odkazy.
+  twitter_not_posting_quote: Neposíláte citace.
+  twitter_posting_quote_old_style: Posíláte citace jako RT ve starém stylu.
+  twitter_posting_quote_old_style_with_link: Posíláte citace jako RT ve starém stylu
+    s odkazy.
+  twitter_not_posting_reply: Neposíláte odpovědi.
+  twitter_posting_reply_to_self: Posíláte odpovědi sami sobě.
   masto_not_posting_reply: Neposíláte odpovědi.
   masto_posting_reply_to_self: Posíláte odpovědi na vlastní tooty.
   log_out: Odhlásit
   for_news_and_status: 'Pro zprávy a stav:'
   features: Vlastnosti
   status: Stav
-  twitter_content_warning: ''
-  twitter_content_warning_explanation: ''
-  twitter_content_warning_status: ''
-  twitter_original_visibility: ''
-  twitter_retweet_visibility: ''
-  twitter_quote_visibility: ''
+  twitter_content_warning: Varování o obsahu na Twitteru
+  twitter_content_warning_explanation: Jakýkoliv text přidaný do tohoto pole bude
+    použit jako varování o obsahu pro každý toot přeposlaný z Twitteru (kromě tweetů,
+    ve kterých jsou detekovány specifická varování)
+  twitter_content_warning_status: 'Všechny vaše tweety jsou publikovány za varováním:
+    „%{cw}“'
+  twitter_original_visibility: Soukromí pro vaše původní tweety při přeposílání
+  twitter_retweet_visibility: Soukromí pro retweety při přeposlání
+  twitter_quote_visibility: Soukromí pro citace při přeposílání
   default_visibility: Použít výchozí viditelnost Mastodonu
   masto_privacy:
     public: Veřejné
@@ -95,9 +101,9 @@ cs:
     public: Veřejné.
     private: Soukromé.
     unlisted: Neuvedené.
-  twitter_original_visibility_status: ''
-  twitter_retweet_visibility_status: ''
-  twitter_quote_visibility_status: ''
+  twitter_original_visibility_status: 'Posíláte své vlastní tweety se soukromím: '
+  twitter_retweet_visibility_status: 'Posíláte retweety se soukromím: '
+  twitter_quote_visibility_status: 'Posíláte citace se soukromím: '
   masto_login:
     please: Připojte svůj Mastodon
     identifier: Identifikátor
@@ -115,5 +121,10 @@ cs:
     advanced_twitter:
       add_another_word: Přidat další slovo
       disabled: Zakázáno
+    advanced_mastodon:
+      add_another_word: Přidat další slovo
+      disabled: Zakázáno
   allow_with_words: Přeposílat pouze příspěvky obsahující následující slova
   block_with_words: Nepřeposílat příspěvky obsahující následující slova
+  masto_word_list_explanation: Vysvětlení seznamu slov Mastodonu
+  twitter_word_list: Seznam slov Twitteru
