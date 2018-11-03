@@ -13,7 +13,7 @@ class TootTransformer
 
   # Tries to detect anything that twitter would detect as a mention, even if it's not really accepted in mastodon
   MASTO_MENTION_REGEX = /(\s|^.?|[^\p{L}0-9_＠!@#$%&\/*]|\s[^\p{L}0-9_＠!@#$%&*])[@＠]([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))(?=[^A-Za-z0-9_@＠]|$)/
-  TWITTER_MENTION_REGEX = /[＠@]([a-zA-Z0-9_]+)[@＠]twitter.com/
+  TWITTER_MENTION_REGEX = /[＠@]([a-zA-Z0-9_]+)[@＠]twitter.com/i
 
   def twitter_max_length
     @twitter_max_length
