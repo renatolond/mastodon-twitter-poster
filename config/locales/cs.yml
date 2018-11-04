@@ -116,15 +116,36 @@ cs:
   crossposting_overview: Přehled možností
   users:
     show:
-      advanced_from_mastodon_options: ''
-      advanced_from_twitter_options: ''
+      advanced_from_mastodon_options: Pokročilé možnosti posílání z Mastodonu na Twitter
+      advanced_from_twitter_options: Pokročilé možnosti posílání z Twitteru na Mastodon
     advanced_twitter:
       add_another_word: Přidat další slovo
       disabled: Zakázáno
+      twitter_block_or_allow_list: Ignorovat příspěvky obsahující daná slova nebo
+        povolovat pouze příspěvky obsahující daná slova
+      twitter_block_or_allow_list_explanation: Tato možnost vám dovolí ignorovat přeposílání
+        příspěvků, které obsahují níže definovaná slova, nebo přeposílat pouze příspěvky,
+        které obsahují níže definovaná slova
+      twitter_word_list_explanation: Tento seznam slov bude použit, pokud povolíte
+        výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
+        „bird“, nebude se počítat „birdsite“.
     advanced_mastodon:
       add_another_word: Přidat další slovo
       disabled: Zakázáno
+      masto_block_or_allow_list: Ignorovat příspěvky obsahující daná slova nebo povolovat
+        pouze příspěvky obsahující daná slova
+      masto_block_or_allow_list_explanation: Tato možnost vám dovolí ignorovat přeposílání
+        příspěvků, které obsahují níže definovaná slova, nebo přeposílat pouze příspěvky,
+        které obsahují níže definovaná slova
+      masto_word_list: Seznam slov či výrazů pro příspěvky přicházející z Mastodonu
+      masto_word_list_explanation: Tento seznam slov bude použit, pokud povolíte výše
+        uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete „bird“,
+        nebude se počítat „birdsite“.
   allow_with_words: Přeposílat pouze příspěvky obsahující následující slova
   block_with_words: Nepřeposílat příspěvky obsahující následující slova
   masto_word_list_explanation: Vysvětlení seznamu slov Mastodonu
   twitter_word_list: Seznam slov Twitteru
+  home:
+    sync_status:
+      mastodon_account_html: Připojený účet Mastodon je <code>@%{uid}</code>.
+      twitter_account_html: Připojený účet Twitter je <code>@%{uid}</code>.
