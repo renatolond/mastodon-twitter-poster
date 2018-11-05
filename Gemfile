@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -37,7 +37,7 @@ gem 'foreman'
 gem 'dotenv-rails'
 gem 'ruby-filemagic'
 gem 'sidekiq'
-gem 'twitter-text'
+gem 'twitter-text', '< 3.0'
 
 group :development, :test do
   gem 'byebug'
