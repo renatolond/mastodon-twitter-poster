@@ -256,9 +256,13 @@ class MastodonUserProcessor
     end
   end
 
+  def should_add_image_count?
+    toot.sensitive? && toot.spoiler_text.blank? && toot.media_attachments.count > 0
+  end
+
   def post_toot
     tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain)
-    if toot.sensitive? && toot.spoiler_text.blank?
+    if should_add_image_count?
       self.force_toot_url = true
     end
 
@@ -279,7 +283,7 @@ class MastodonUserProcessor
   def toot_content_to_post
     if toot.sensitive? && toot.spoiler_text.present?
       "CW: #{toot.spoiler_text} … #{toot.url}"
-    elsif toot.sensitive? && toot.spoiler_text.blank?
+    elsif should_add_image_count?
       "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
     else
       toot.text_content

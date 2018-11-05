@@ -168,6 +168,25 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.process_normal_toot
   end
 
+  test 'process normal toot - toot marked as sensitive, without cw, with no images' do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br')
+    first_text = %Q(Oh, this is a good word: chocolate!)
+    text = %Q(Oh, this is a good word: chocolate!)
+
+    stub_request(:get, 'https://masto.donte.com.br/api/v1/statuses/100997798113744647').to_return(web_fixture('mastodon_sensible_with_no_images.json'))
+    t = user.mastodon_client.status(100997798113744647)
+
+    toot_transformer = mock()
+    TootTransformer.expects(:new).with(280).returns(toot_transformer)
+    toot_transformer.expects(:transform).with(first_text, t.url, 'https://masto.donte.com.br', 'masto.donte.com.br').returns(t.text_content)
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+    mastodon_user_processor.expects(:treat_media_attachments).never
+
+    mastodon_user_processor.process_normal_toot
+  end
+
   test 'process normal toot - image marked as sensitive, without cw' do
     user = create(:user_with_mastodon_and_twitter, masto_domain: 'masto.donte.com.br')
     first_text = %Q(Chilling on this sunny afternoon 😎\n\nPic cw: alcohol, food… 1 🖼️)
