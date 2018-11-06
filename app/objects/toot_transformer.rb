@@ -54,18 +54,18 @@ class TootTransformer
     text = replace_twitter_mentions(text, mastodon_domain_urn)
     text = text.gsub(TootTransformer::media_regex(mastodon_domain), '')
     text.tr!('*', '＊') # XXX temporary fix for asterisk problem
-    transform_rec(text, toot_url, twitter_max_length)
+    transform_rec(text, toot_url)
   end
 
-  def transform_rec(text, toot_url, max_length)
+  def transform_rec(text, toot_url)
     final_length = self.class.twitter_length(text)
-    if final_length <= max_length
+    if final_length <= twitter_max_length
       return text
     else
       truncated_text = text.truncate(text.length - [TootTransformer::twitter_short_url_length, TootTransformer::twitter_short_url_length_https].max,
                                   separator: /[ \n]/,
                                   omission: TootTransformer::suffix+toot_url)
-      transform_rec(truncated_text, toot_url, max_length)
+      transform_rec(truncated_text, toot_url)
     end
   end
 

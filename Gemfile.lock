@@ -304,7 +304,7 @@ GEM
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    twitter-text (2.1.0)
+    twitter-text (3.0.0)
       idn-ruby
       unf (~> 0.1.0)
     tzinfo (1.2.5)
@@ -379,7 +379,7 @@ DEPENDENCIES
   timecop
   turbolinks
   twitter!
-  twitter-text (< 3.0)
+  twitter-text
   tzinfo-data
   uglifier
   web-console

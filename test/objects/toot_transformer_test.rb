@@ -20,7 +20,7 @@ class TootTransformerTest < ActiveSupport::TestCase
   end
 
   test 'Transform a text with a username in it and it should be posted in full length' do
-    text = "Oh, apparently there's a talk going on in PGConf.eu by 🐘user1@mastodon.social on Mastodon :)\nHope there's a video of it later!".freeze
+    text = "Oh, apparently there's a talk going on in PGConf.eu by 🐘user1@mastodon.social on Mastodon :)\nHope there's a video of it later".freeze
     expected_text = text
 
     assert_equal expected_text, TootTransformer.new(140).transform(text, 'https://masto.donte.com.br/@renatolond/1111111', 'https://masto.donte.com.br/', 'masto.donte.com.br')
@@ -91,11 +91,11 @@ class TootTransformerTest < ActiveSupport::TestCase
   test 'twitter length' do
     text = %Q(🇬🇧 Hey, y'all! I fixed an issue with the auto-detected CW and quotes that need to be split in two toots. The CW should be around both toots now. Thanks to @mention for reporting!\n\n🇧🇷 Oi, povo! Consertei um problema com as CW detectadas automaticamente e quotes que precisam se).freeze
 
-    assert_equal 280, TootTransformer.twitter_length(text)
+    assert_equal 276, TootTransformer.twitter_length(text)
   end
   test 'twitter length emojis' do
     text = %Q(😃👨‍👩‍👧‍👦).freeze
 
-    assert_equal 13, TootTransformer.twitter_length(text)
+    assert_equal 4, TootTransformer.twitter_length(text)
   end
 end
