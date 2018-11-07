@@ -344,6 +344,9 @@ class MastodonUserProcessor
         end
 
         media_ids << upload_media(media, file, file_type)
+      rescue Twitter::Error::ClientError
+        self.force_toot_url = true
+        next
       rescue Twitter::Error::BadRequest => ex
         if ex.code == TWITTER_DURATION_TOO_SHORT
           next
