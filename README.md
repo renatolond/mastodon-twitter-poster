@@ -43,7 +43,7 @@ Rails 5.1
 
 ## Requirements
 
-Without extra configuration, a local postgres instance is needed. Node 6.11 is needed for statsd, can be installed using [nvm](https://github.com/creationix/nvm).
+Without extra configuration, a local postgres instance is needed. Node is needed for assets compilation, can be installed using [nvm](https://github.com/creationix/nvm).
 
 The poster uses the [ruby-filemagic gem](https://github.com/blackwinter/ruby-filemagic) for detecting the types of the files posted. Follow the instructions described in the README to install the needed library and headers.
 
@@ -68,7 +68,7 @@ yarn install --pure-lockfile
 
 A separate user is recommended.
 
-By default, the crossposter will use a statsd instance to send error and stats data to Librato. If you don't want that or want to setup something else, you need to change `statsd-config.js`
+If you want the crossposter to send data to a statsd instance, you need to configure the appropriate variables in the .env file. You can check the example for reference.
 
 Before starting for the first time, you need to generate the assets and setup the database:
 
@@ -77,18 +77,12 @@ bundle exec rake db:setup # sets up the database
 bundle exec rake assets:precompile # generates the assets
 ```
 
-If you are not going to use Statsd/Librato, you can remove the line
-```
-statsd: node node_modules/.bin/statsd statsd-config.js
-```
-from Procfile.worker
-
 An example nginx configuration can be found at `util/nginx.conf`. It assumes the crossposter is running at port 3000, in the directory `/home/crossposter/live` and the domain `crossposter.example.com` needs to be replaced by your own.
 
 An example of the configuration file is provided at `.env.example`. To generate `SECRET_KEY_BASE`, you need to run `bundle exec rake secret` and copy the resulting hash. You need to configure an app on Twitter with permission to read and write. The credentials that they give you need to be added to TWITTER_CLIENT_ID and TWITTER_CLIENT_SECRET. \\
 If you're not using Librato, you don't need to fill any of the Librato variables.
 
-To start the web app, the worker which will fetch tweets and toots in background and the statsd instance, you need to do:
+To start the web app, the worker which will fetch tweets and toots in background, you need to do:
 `bundle exec foreman start -e .env.production"`
 
 If you are using systemd, you can create a service with something like:
