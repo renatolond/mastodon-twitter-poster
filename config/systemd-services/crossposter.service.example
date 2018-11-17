@@ -6,6 +6,9 @@ After=network.target
 Type=simple
 User=crossposter
 WorkingDirectory=/home/crossposter/live
+Environment="RAILS_ENV=production"
+Environment="RAILS_LOG_TO_STDOUT=enabled"
+Environment="PORT=3001"
 ExecStart=/bin/bash -lc "bundle exec foreman start -e .env.production"
 TimeoutSec=15
 Restart=always

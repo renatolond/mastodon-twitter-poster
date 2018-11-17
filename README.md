@@ -89,13 +89,16 @@ If you are using systemd, you can create a service with something like:
 
 ```
 [Unit]
-Description=crossposter-service
+Description=mastodon-twitter-crossposter
 After=network.target
 
 [Service]
 Type=simple
 User=crossposter
 WorkingDirectory=/home/crossposter/live
+Environment="RAILS_ENV=production"
+Environment="RAILS_LOG_TO_STDOUT=enabled"
+Environment="PORT=3001"
 ExecStart=/bin/bash -lc "bundle exec foreman start -e .env.production"
 TimeoutSec=15
 Restart=always
@@ -109,7 +112,7 @@ And a second one like this:
 
 ```
 [Unit]
-Description=crossposter-sidekiq-service
+Description=mastodon-twitter-crossposter-sidekiq
 After=network.target
 
 [Service]
@@ -117,6 +120,7 @@ Type=simple
 User=crossposter
 WorkingDirectory=/home/crossposter/live
 Environment="RAILS_ENV=production"
+Environment="RAILS_LOG_TO_STDOUT=enabled"
 Environment="RAILS_MAX_THREADS=5"
 ExecStart=/bin/bash -lc "bundle exec sidekiq -c 5 -q default"
 TimeoutSec=15
