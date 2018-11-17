@@ -10,6 +10,7 @@ ar:
   layouts:
     application:
       home: الرئيسية
+      privacy_policy: سياسة الخصوصية
   accounts: الحسابات
   connections: الإرتباطات
   manage_your_accounts: إدارة حساباتك المتصلة
