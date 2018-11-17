@@ -1,2 +1,0 @@
-worker: bundle exec ruby script/daemon.rb run check_for_statuses.rb
-statsd: node node_modules/.bin/statsd statsd-config.js

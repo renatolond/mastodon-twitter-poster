@@ -1,7 +1,6 @@
 require 'mastodon_ext'
 require 'mastodon_user_processor'
 require 'twitter_user_processor'
-require 'stats'
 
 class ProcessUserJob < ApplicationJob
   queue_as :default

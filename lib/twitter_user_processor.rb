@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'stats'
 require 'tweet_transformer'
 
 class TwitterUserProcessor
