@@ -148,4 +148,4 @@ cs:
   home:
     sync_status:
       mastodon_account_html: Připojený účet Mastodon je <code>@%{uid}</code>.
-      twitter_account_html: Připojený účet Twitter je <code>@%{uid}</code>.
+      twitter_account_html: Připojený účet Twitter je <code>@%{handle}</code>.
