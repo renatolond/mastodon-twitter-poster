@@ -5,4 +5,6 @@ class HomeController < ApplicationController
       @handle = current_user.twitter_handle
     end
   end
+
+  def privacy; end
 end

@@ -7,7 +7,9 @@ pl:
   source_code_and_issues: Kod źródłowy i błędy
   twitter_logged_in: Zalogowano na Twitterze
   mastodon_logged_in: Zalogowano na Mastodonie
-  layouts.application.home: Strona główna
+  layouts:
+    application:
+      home: Strona główna
   accounts: Konta
   connections: Połączenia
   manage_your_accounts: Zarządzaj połączonymi kontami

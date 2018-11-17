@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     get 'mastodon_identifier'
   end
   root to: "home#index"
+  get "privacy", to: "home#privacy"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

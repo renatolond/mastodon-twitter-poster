@@ -7,7 +7,9 @@ cs:
   source_code_and_issues: Zdrojový kód a chyby
   twitter_logged_in: Twitter je přihlášen
   mastodon_logged_in: Mastodon je přihlášen
-  layouts.application.home: Domů
+  layouts:
+    application:
+      home: Domů
   accounts: Účty
   connections: Spojení
   manage_your_accounts: Spravovat vaše připojené účty

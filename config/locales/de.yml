@@ -8,7 +8,9 @@ de:
   source_code_and_issues: Quellcode und Issues
   twitter_logged_in: Mit Twitter angemeldet
   mastodon_logged_in: Mit Mastodon angemeldet
-  layouts.application.home: Start
+  layouts:
+    application:
+      home: Start
   accounts: Konten
   connections: Verbindungen
   manage_your_accounts: Verwalte deine verbundenen Konten

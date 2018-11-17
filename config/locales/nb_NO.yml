@@ -7,7 +7,9 @@ nb_NO:
   source_code_and_issues: Kildekode og feilsporer
   twitter_logged_in: Twitter innlogget
   mastodon_logged_in: Mastodon innlogget
-  layouts.application.home: Hjem
+  layouts:
+    application:
+      home: Hjem
   accounts: Kontoer
   connections: Tilkoblinger
   manage_your_accounts: Behandle dine tilkoblede kontoer
