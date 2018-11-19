@@ -10,6 +10,7 @@ cs:
   layouts:
     application:
       home: Domů
+      privacy_policy: Zásady soukromí
   accounts: Účty
   connections: Spojení
   manage_your_accounts: Spravovat vaše připojené účty
@@ -151,3 +152,19 @@ cs:
     sync_status:
       mastodon_account_html: Připojený účet Mastodon je <code>@%{uid}</code>.
       twitter_account_html: Připojený účet Twitter je <code>@%{handle}</code>.
+    privacy:
+      cookies: Používáme cookies?
+      disclose_info: Zveřejňujeme jakékoliv informace třetím stranám?
+      what_use: Na co používáme vaše informace?
+      which_information: Jaké informace sbíráme?
+      we_collect: Sbíráme vaše uživatelské jméno na Mastodonu a Twitter ID, dále tokeny
+        OAuth pro každou službu, což nám dovoluje provádět akce s vašimi účty.
+      we_also_collect: Sbíráme také ID příspěvků přeposílaných z obou stran po dobu
+        jednoho roku.
+      we_use_for: Tokeny OAuth a identifikátor používáme k připojení na vaše účty,
+        načtení příspěvků a posílání na druhou službu, podle vašeho nastavení.
+      we_also_use_for: ID příspěvků používáme ke korelaci příspěvků na Mastodonu a
+        Twitteru, což nám dovoluje přeposílat vlákna z jedné stránky na druhou.
+      we_use_cookies: Ano. Zatímco jste přihlášen/a, používáme cookie pro vytvoření
+        relace a abychom vás identifikovali s vašimi účty.
+      we_do_not_disclose_info: Ne.
