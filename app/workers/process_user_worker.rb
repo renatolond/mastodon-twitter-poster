@@ -2,8 +2,8 @@ require 'mastodon_ext'
 require 'mastodon_user_processor'
 require 'twitter_user_processor'
 
-class ProcessUserJob < ApplicationJob
-  queue_as :default
+class ProcessUserWorker
+  include Sidekiq::Worker
 
   def self.stats
     @@stats ||= Stats.new

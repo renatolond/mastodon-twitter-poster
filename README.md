@@ -82,8 +82,8 @@ An example nginx configuration can be found at `util/nginx.conf`. It assumes the
 An example of the configuration file is provided at `.env.example`. To generate `SECRET_KEY_BASE`, you need to run `bundle exec rake secret` and copy the resulting hash. You need to configure an app on Twitter with permission to read and write. The credentials that they give you need to be added to TWITTER_CLIENT_ID and TWITTER_CLIENT_SECRET. \\
 If you're not using Librato, you don't need to fill any of the Librato variables.
 
-To start the web app, the worker which will fetch tweets and toots in background, you need to do:
-`bundle exec foreman start -e .env.production"`
+To start the web app, you need to do:
+`bundle exec puma -C config/puma.rb"`
 
 If you are using systemd, you can create a service with something like:
 
@@ -99,7 +99,7 @@ WorkingDirectory=/home/crossposter/live
 Environment="RAILS_ENV=production"
 Environment="RAILS_LOG_TO_STDOUT=enabled"
 Environment="PORT=3001"
-ExecStart=/bin/bash -lc "bundle exec foreman start -e .env.production"
+ExecStart=/bin/bash -lc "bundle exec puma -C config/puma.rb"
 TimeoutSec=15
 Restart=always
 
@@ -157,7 +157,7 @@ You need to replace all values with actual values relevant to your server.
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
 
 ## Starting
-To start the project locally, you can do `foreman start` which will start both the webserver and the daemons. Or you can take a look at the procfile to start each of them separately (if you don't want the web interface to be accessible, for instance).
+To start the project locally, you can do `foreman start` which will start the webserver, or start it with `bundle exec rails s`. To start sidekiq, you need to start with `bundle exec sidekiq`. For production, you need sidekiq to process jobs (that is, to post accross the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
 
 ## Experimental Content Warning recognition
 When posting from Twitter to Mastodon the Crossposter tries to detect content warnings in the tweets and post them over to Mastodon. The detected CW takes precedence over the default twitter one if exists. Some formats are supported and more can be added in the future, but currently, this are the ones that will be recognized:
