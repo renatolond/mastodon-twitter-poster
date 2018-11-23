@@ -10,6 +10,7 @@ nb_NO:
   layouts:
     application:
       home: Hjem
+      privacy_policy: Personvernspraksis
   accounts: Kontoer
   connections: Tilkoblinger
   manage_your_accounts: Behandle dine tilkoblede kontoer
@@ -150,3 +151,8 @@ nb_NO:
     sync_status:
       mastodon_account_html: Tilknyttet Mastodon-konto er <code>@%{uid}</code>.
       twitter_account_html: Tilknyttet Twitter-konto er <code>@%{handle}</code>.
+    privacy:
+      cookies: Bruker vi kaker?
+      what_use: Hva bruker vi din info til?
+      which_information: Hvilken info samler vi inn?
+      we_do_not_disclose_info: Nei.
