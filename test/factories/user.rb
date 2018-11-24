@@ -12,14 +12,14 @@ FactoryBot.define do
     masto_fix_cross_mention { false }
     masto_should_post_unlisted { false }
     masto_should_post_private { false }
-    boost_options { 'masto_boost_do_not_post' }
-    masto_reply_options { 'masto_reply_do_not_post' }
-    masto_mention_options { 'masto_mention_do_not_post' }
-    retweet_options { 'retweet_do_not_post' }
-    twitter_reply_options { 'twitter_reply_do_not_post' }
+    boost_options { "masto_boost_do_not_post" }
+    masto_reply_options { "masto_reply_do_not_post" }
+    masto_mention_options { "masto_mention_do_not_post" }
+    retweet_options { "retweet_do_not_post" }
+    twitter_reply_options { "twitter_reply_do_not_post" }
     twitter_original_visibility { nil }
-    twitter_retweet_visibility { 'unlisted' }
-    twitter_quote_visibility { 'unlisted' }
+    twitter_retweet_visibility { "unlisted" }
+    twitter_quote_visibility { "unlisted" }
   end
 
   factory :user_with_mastodon_and_twitter, parent: :user do |user|

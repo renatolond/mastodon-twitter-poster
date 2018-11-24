@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class StatsTest < ActiveSupport::TestCase
   test "With statsd enabled, call increment calls statsd" do

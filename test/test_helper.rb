@@ -1,14 +1,14 @@
-if ENV['COVERAGE']
-  require 'simplecov'
+if ENV["COVERAGE"]
+  require "simplecov"
   SimpleCov.start
 
-  Dir[Rails.root.join('lib/*.rb')].each {|file| load file }
+  Dir[Rails.root.join("lib/*.rb")].each { |file| load file }
 end
 
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+require File.expand_path("../../config/environment", __FILE__)
+require "rails/test_help"
 
-Rails.application.eager_load! if ENV['COVERAGE']
+Rails.application.eager_load! if ENV["COVERAGE"]
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
@@ -19,10 +19,10 @@ class ActiveSupport::TestCase
 end
 
 def web_fixture(name)
-  File.new(File.join(File.expand_path('../webfixtures', __FILE__), name))
+  File.new(File.join(File.expand_path("../webfixtures", __FILE__), name))
 end
 
-require 'webmock/minitest'
+require "webmock/minitest"
 WebMock.disable_net_connect!
-require 'mocha/minitest'
-require 'sidekiq/testing'
+require "mocha/minitest"
+require "sidekiq/testing"

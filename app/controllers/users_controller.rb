@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     changes = current_user.previous_changes
     update_last_tweet_if_needed(changes)
     update_last_toot_if_needed(changes)
-    flash[:success] = 'Your changes were saved.'
+    flash[:success] = "Your changes were saved."
     redirect_to find_path
   rescue ActiveRecord::RecordInvalid => ex
     flash[:error] = ex.message
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def find_path
     url = Rails.application.routes.recognize_path(request.referrer)
     last_action = url[:action]
-    if ['show', 'advanced_mastodon', 'advanced_twitter'].include? last_action
+    if ["show", "advanced_mastodon", "advanced_twitter"].include? last_action
       { action: last_action }
     else
       user_path
@@ -52,15 +52,15 @@ class UsersController < ApplicationController
 
   private
 
-  def update_last_tweet_if_needed(changes)
-    if current_user.posting_from_twitter && current_user.twitter && changes.has_key?('posting_from_twitter')
-      current_user.save_last_tweet_id
+    def update_last_tweet_if_needed(changes)
+      if current_user.posting_from_twitter && current_user.twitter && changes.has_key?("posting_from_twitter")
+        current_user.save_last_tweet_id
+      end
     end
-  end
 
-  def update_last_toot_if_needed(changes)
-    if current_user.posting_from_mastodon && current_user.mastodon && changes.has_key?('posting_from_mastodon')
-      current_user.save_last_toot_id
+    def update_last_toot_if_needed(changes)
+      if current_user.posting_from_mastodon && current_user.mastodon && changes.has_key?("posting_from_mastodon")
+        current_user.save_last_toot_id
+      end
     end
-  end
 end

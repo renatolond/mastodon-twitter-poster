@@ -24,6 +24,6 @@ class TweetTransformer
     m = format.match(text)
     return [m[:text], m[:cw]] if m
 
-    return [text, nil]
+    [text, nil]
   end
 end

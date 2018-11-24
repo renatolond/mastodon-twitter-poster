@@ -15,12 +15,7 @@ class TootTransformer
   MASTO_MENTION_REGEX = /(\s|^.?|[^\p{L}0-9_＠!@#$%&\/*]|\s[^\p{L}0-9_＠!@#$%&*])[@＠]([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))(?=[^A-Za-z0-9_@＠]|$)/
   TWITTER_MENTION_REGEX = /[＠@]([a-zA-Z0-9_]+)[@＠]twitter.com/i
 
-  def twitter_max_length
-    @twitter_max_length
-  end
-  def twitter_max_length=(length)
-    @twitter_max_length = length
-  end
+  attr_accessor :twitter_max_length
 
   def initialize(twitter_max_length)
     self.twitter_max_length = twitter_max_length
@@ -36,7 +31,7 @@ class TootTransformer
     m2 = text.scan(IGNORE_CASE_HTTPS)
     text = text.dup
     (m + m2).each do |p|
-      downcase_p = p.gsub(/http/i, 'http').gsub(/https/i, 'https')
+      downcase_p = p.gsub(/http/i, "http").gsub(/https/i, "https")
       text.gsub!(p, downcase_p)
     end
     text
@@ -52,8 +47,8 @@ class TootTransformer
   def transform(text, toot_url, mastodon_domain, mastodon_domain_urn)
     text = self.class.replace_uppercase_links(text)
     text = replace_twitter_mentions(text, mastodon_domain_urn)
-    text = text.gsub(TootTransformer::media_regex(mastodon_domain), '')
-    text.tr!('*', '＊') # XXX temporary fix for asterisk problem
+    text = text.gsub(TootTransformer.media_regex(mastodon_domain), "")
+    text.tr!("*", "＊") # XXX temporary fix for asterisk problem
     transform_rec(text, toot_url)
   end
 
@@ -62,9 +57,9 @@ class TootTransformer
     if final_length <= twitter_max_length
       return text
     else
-      truncated_text = text.truncate(text.length - [TootTransformer::twitter_short_url_length, TootTransformer::twitter_short_url_length_https].max,
+      truncated_text = text.truncate(text.length - [TootTransformer.twitter_short_url_length, TootTransformer.twitter_short_url_length_https].max,
                                   separator: /[ \n]/,
-                                  omission: TootTransformer::suffix+toot_url)
+                                  omission: TootTransformer.suffix + toot_url)
       transform_rec(truncated_text, toot_url)
     end
   end
@@ -89,7 +84,7 @@ class TootTransformer
   end
 
   def self.suffix
-    @@suffix ||= '… '
+    @@suffix ||= "… "
   end
 
   def self.count_regex(text, regex)
