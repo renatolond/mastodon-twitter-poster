@@ -216,6 +216,8 @@ Even though this is an experimental feature, it cannot be disabled. The reason i
 
 Mastodon Twitter Crossposter is **100% free** and **open source**. We encourage and support an active, healthy community that accepts contributions from the public &ndash; including you!
 
+There's a high level description of the crossposter over at [development help](https://github.com/renatolond/mastodon-twitter-poster/wiki/Development-help). You can start there and ask questions as needed!
+
 ## License
 
 Copyright (C) 2017-2018 Renato Cerqueira & other crossposter contributors
