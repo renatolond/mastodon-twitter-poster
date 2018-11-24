@@ -45,7 +45,7 @@ class TwitterUserProcessor
 
     new_tweets = user.twitter_client.user_timeline(user_timeline_options(user).merge(tweet_mode: "extended", include_ext_alt_text: true))
     last_successful_tweet = nil
-    new_tweets.reverse.each do |t|
+    new_tweets.reverse_each do |t|
       begin
         TwitterUserProcessor.new(t, user).process_tweet
         last_successful_tweet = t
@@ -152,7 +152,7 @@ class TwitterUserProcessor
   end
 
   def quote_short_url
-    tweet.urls.find { |u| u.expanded_url.to_s.downcase == tweet.quoted_status_permalink.expanded.to_s.downcase }.url
+    tweet.urls.find { |u| u.expanded_url.to_s.casecmp(tweet.quoted_status_permalink.expanded.to_s).zero? }.url
   end
 
   def process_quote_as_old_rt

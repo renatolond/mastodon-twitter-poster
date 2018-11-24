@@ -62,7 +62,7 @@ class MastodonUserProcessor
 
     new_toots = user.mastodon_client.statuses(user.mastodon_id, opts)
     last_sucessful_toot = nil
-    new_toots.to_a.reverse.each do |t|
+    new_toots.to_a.reverse_each do |t|
       begin
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t

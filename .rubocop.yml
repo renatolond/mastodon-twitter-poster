@@ -214,3 +214,21 @@ Performance/RegexpMatch:
 
 Performance/UnfreezeString:
   Enabled: true
+
+Bundler/GemComment:
+  Enabled: true
+
+Bundler/DuplicatedGem:
+  Enabled: true
+
+Performance/RegexpMatch:
+  Enabled: true
+
+Performance/Casecmp:
+  Enabled: true
+
+Performance/ReverseEach:
+  Enabled: true
+
+Performance/InefficientHashSearch:
+  Enabled: true
