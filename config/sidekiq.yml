@@ -1,0 +1,8 @@
+---
+:schedule:
+  cleanup_scheduler:
+    cron: '<%= Random.rand(0..59) %> <%= Random.rand(0..2) %> * * *'
+    class: Scheduler::CleanupScheduler
+  check_for_statuses_scheduler:
+    cron: '* * * * *'
+    class: Scheduler::CheckForStatusesScheduler

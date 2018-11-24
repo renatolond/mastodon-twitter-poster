@@ -28,16 +28,24 @@ gem 'omniauth-twitter'
 gem 'omniauth-mastodon'
 gem 'nokogiri'
 gem 'htmlentities'
-gem 'daemons'
 gem 'webpacker'
+# Used to get medias from Twitter and Mastodon
 gem 'httparty'
 
 gem 'statsd-ruby'
 gem 'foreman'
 gem 'dotenv-rails'
 gem 'ruby-filemagic'
-gem 'sidekiq'
-gem 'twitter-text'
+
+# Used for background jobs
+gem "sidekiq"
+# Used to be able to schedule background jobs
+gem "sidekiq-scheduler"
+# Used to be able to avoid doubled sidekiq jobs
+gem "sidekiq-unique-jobs"
+
+# Used to validate text length before submitting to twitter
+gem "twitter-text"
 
 group :development, :test do
   gem 'byebug'

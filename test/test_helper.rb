@@ -25,3 +25,4 @@ end
 require 'webmock/minitest'
 WebMock.disable_net_connect!
 require 'mocha/minitest'
+require 'sidekiq/testing'

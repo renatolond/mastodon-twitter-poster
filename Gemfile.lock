@@ -96,7 +96,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    daemons (1.2.6)
     devise (4.5.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -114,6 +113,8 @@ GEM
       railties (>= 3.2, < 6.0)
     equalizer (0.0.11)
     erubi (1.7.1)
+    et-orbi (1.1.6)
+      tzinfo
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -127,6 +128,9 @@ GEM
     ffi (1.9.25)
     foreman (0.85.0)
       thor (~> 0.19.1)
+    fugit (1.1.6)
+      et-orbi (~> 1.1, >= 1.1.6)
+      raabro (~> 1.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashdiff (0.3.7)
@@ -209,6 +213,7 @@ GEM
       pry (~> 0.10)
     public_suffix (3.0.3)
     puma (3.12.0)
+    raabro (1.1.6)
     rack (2.0.6)
     rack-protection (2.0.4)
       rack
@@ -259,6 +264,8 @@ GEM
     ruby-filemagic (0.7.2)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
+    rufus-scheduler (3.5.2)
+      fugit (~> 1.1, >= 1.1.5)
     safe_yaml (1.0.4)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
@@ -278,6 +285,15 @@ GEM
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-scheduler (3.0.0)
+      redis (>= 3, < 5)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      tilt (>= 1.4.0)
+    sidekiq-unique-jobs (6.0.6)
+      concurrent-ruby (~> 1.0, >= 1.0.5)
+      sidekiq (>= 4.0, < 6.0)
+      thor (~> 0)
     simple_oauth (0.3.1)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -344,7 +360,6 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails
-  daemons
   devise
   devise-i18n
   dotenv-rails
@@ -372,6 +387,8 @@ DEPENDENCIES
   sass-rails
   selenium-webdriver
   sidekiq
+  sidekiq-scheduler
+  sidekiq-unique-jobs
   simplecov
   spring
   spring-watcher-listen
