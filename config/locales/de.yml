@@ -1,8 +1,9 @@
 de:
   crossposter_explanation: Dieser Dienst erlaubt es dir, dein Mastodon- mit deinem
-    Twitter-Konto zu verknüpfen und Posts auf beiden Plattformen zu teilen. Du kannst
-    dabei z.B. einstellen, ob Boosts/Retweets, nicht öffentlich gelistete Toots oder
-    Antworten geteilt werden sollen.
+    Twitter-Konto zu verknüpfen und Posts zwischen beiden Plattformen zu cross-posten,
+    also die Posts die du auf einem Dienst teilst auch auf dem Anderen zu teilen.
+    Du kannst dabei z.B. einstellen, ob Boosts/Retweets, nicht öffentlich gelistete
+    Toots oder Antworten geteilt werden sollen.
   login_to_get_started: Melde dich mit Twitter und Mastodon an, um loszulegen
   service_ran_by: Dieser Dienst wird betrieben von
   source_code_and_issues: Quellcode und Issues
@@ -11,6 +12,7 @@ de:
   layouts:
     application:
       home: Start
+      privacy_policy: Datenschutzerklärung
   accounts: Konten
   connections: Verbindungen
   manage_your_accounts: Verwalte deine verbundenen Konten
@@ -28,18 +30,18 @@ de:
   masto_should_post_private_true: AN
   masto_should_post_private_false: AUS
   synchronization_options: Synchronisierungsoptionen
-  masto_synchronization_status: 'Teile meine Toots auf Twitter:'
-  post_unlisted_toots: 'Nicht gelistete Toots teilen?:'
-  post_private_toots: 'Private Toots teilen?:'
+  masto_synchronization_status: Teile meine Toots auf Twitter
+  post_unlisted_toots: Nicht gelistete Toots teilen?
+  post_private_toots: Private Toots teilen?
   boost_options: 'Boost-Optionen:'
   masto_reply_options: 'Antwort-Optionen:'
-  masto_reply_options_explanation: Das ist, wenn du den Antwort-Button auf Mastodon
-    anklickst. Es ist eine direkte Antwort auf einen anderen Toot.
+  masto_reply_options_explanation: Immer, wenn du den Antwort-Button auf Mastodon
+    nutzt. Es ist eine direkte Antwort auf einen anderen Toot.
   masto_mention_options: 'Erwähnungs-Optionen:'
   masto_mention_options_explanation: Als „Erwähnungen“ werden hier Toots behandelt,
     welche zwar keine Antwort sind, jedoch mit der Erwähnung eines anderen Nutzers
     beginnen.
-  twitter_synchronization_status: 'Teile meine Tweets auf Mastodon:'
+  twitter_synchronization_status: Teile meine Tweets auf Mastodon
   twitter_sync_status_true: AN
   twitter_sync_status_false: AUS
   no_sync_right_now: Aktuell teilst du *nichts*.
@@ -60,7 +62,7 @@ de:
   retweet_post_as_old_rt_with_link: 'Teile Retweets im alten Stil mit Links („RT @renatolonddev@twitter.com:
     Hallo, Welt! https://twitter.com/renatolonddev/status/904738384861700096“)'
   quote_options: Zitat-Optionen
-  quote_do_not_post: Du teilst keine Zitate auf Mastodon
+  quote_do_not_post: Keine Zitate auf Mastodon teilen
   quote_post_as_old_rt: 'Teile Zitate auf Mastodon als RTs im alten Stil („Mir gefällt
     diese Idee. RT @renatolonddev@twitter.com: Hallo, Welt!“)'
   quote_post_as_old_rt_with_link: 'Teile Zitate auf Mastodon als RTs im alten Stil
@@ -115,3 +117,65 @@ de:
     invalid_identifier: Ungültiger Benutzername. Er muss das Format nutzer@instanz
       haben, wie z.B. „crossposter@masto.donte.com.br“
   follow_us_on_the_fediverse: Folge uns im Fediverse!
+  allow_with_words: Nur Posts cross-posten, die eins der folgenden Wörter enthalten
+  block_with_words: Keine Posts cross-posten, die eins der folgenden Wörter enthalten
+  crossposting_overview: Optionsübersicht
+  from_mastodon: Von Mastodon zu Twitter
+  from_twitter: Von Twitter zu Mastodon
+  masto_word_list_explanation: Masto word list explanation
+  twitter_word_list: Twitter-Wortliste
+  users:
+    advanced_mastodon:
+      add_another_word: Neues Wort hinzufügen
+      disabled: Deaktiviert
+      masto_block_or_allow_list: Posts ignorieren, die bestimmte Wörter enthalten,
+        oder ausschließlich Posts teilen, die bestimmte Wörter enthalten
+      masto_block_or_allow_list_explanation: Diese Einstellung deaktiviert das Cross-Posting
+        für Posts, die eins der unten gelisteten Worte enthalten, oder aktiviert das
+        Cross-Posting ausschließlich für Posts, die eins der unten gelisteten Worte
+        enthalten
+      masto_word_list: Liste an Worten oder Ausdrücken für Posts die von Mastodon
+        stammen
+      masto_word_list_explanation: Diese Wortliste wird genutzt wenn du die obige
+        Einstellung aktiviert hast. Nur ganze Wörter werden erkannt, wenn du "bird"
+        hinzufügst, wird "birdsite" nicht erkannt.
+    advanced_twitter:
+      add_another_word: Weiteres Wort hinzufügen
+      disabled: Deaktiviert
+      twitter_block_or_allow_list: Posts ignorieren, die bestimmte Wörter enthalten,
+        oder ausschließlich Posts teilen, die bestimmte Wörter enthalten
+      twitter_block_or_allow_list_explanation: Diese Einstellung deaktiviert das Cross-Posting
+        für Posts, die eins der unten gelisteten Worte enthalten, oder aktiviert das
+        Cross-Posting ausschließlich für Posts, die eins der unten gelisteten Worte
+        enthalten
+      twitter_word_list_explanation: Diese Wortliste wird genutzt wenn du die obige
+        Einstellung aktiviert hast. Nur ganze Wörter werden erkannt, wenn du "bird"
+        hinzufügst, wird "birdsite" nicht erkannt.
+    show:
+      advanced_from_mastodon_options: Erweiterte Einstellungen zum Cross-Posting von
+        Mastodon zu Twitter
+      advanced_from_twitter_options: Erweiterte Einstellungen zum Cross-Posting von
+        Twitter zu Mastodon
+  home:
+    sync_status:
+      mastodon_account_html: Der verknüpfte Mastodon-Account ist <code>@%{uid}</code>.
+      twitter_account_html: Der verknüpfte Twitter-Account ist <code>@%{handle}</code>.
+    privacy:
+      cookies: Nutzen wir Cookies?
+      disclose_info: Geben wir Auskünfte oder Daten an Dritte?
+      what_use: Wofür nutzen wir deine Daten?
+      which_information: Welche Daten speichern wir?
+      we_collect: Wir speichern deinen Mastodon-Benutzernamen, deine Twitter Account-ID,
+        sowie OAuth-Tokens für beide Dienste, die uns einen Teilzugriff auf deine
+        Accounts erlauben.
+      we_also_collect: Außerdem speichern wir die IDs von Posts, die über den Cross-Poster
+        auf beiden Seiten geteilt wurden, für bis zu ein Jahr.
+      we_use_for: Wir benutzen OAuth-Tokens und Identifier um uns mit deinen Accounts
+        verbinden, Posts lesen, und diese auf dem anderen Dienst teilen zu können,
+        abhängig von deinen Einstellungen.
+      we_also_use_for: Wir speichern die ID von Posts um eine Verbindung zwischen
+        Mastodon- und Twitter-Posts herstellen zu können, was uns erlaubt Threads
+        cross-posten zu können.
+      we_use_cookies: Ja. Solange du eingeloggt bist, nutzen wir ein Cookie für die
+        aktuelle Session um dich identifizieren zu können.
+      we_do_not_disclose_info: Nein.
