@@ -23,6 +23,12 @@ class TweetTransformerTest < ActiveSupport::TestCase
     assert_equal "@usera@twitter.com @userb@twitter.com @userc@twitter.com @userd@twitter.com hello!", TweetTransformer.replace_mentions(text)
   end
 
+  test "regression: username inside brackets seems to be ignored when crossposting" do
+    text = "Hello, (@usera) [@userb] {@userc} .＠userd !"
+
+    assert_equal "Hello, (@usera@twitter.com) [@userb@twitter.com] {@userc@twitter.com} .＠userd@twitter.com !", TweetTransformer.replace_mentions(text)
+  end
+
   test 'detect cw: "tw/cw:" format with no space' do
     text = "TW/CW: spoiler
 Here's my spoiler!"

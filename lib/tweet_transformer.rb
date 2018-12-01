@@ -9,7 +9,7 @@ class TweetTransformer
   end
 
   def self.replace_mentions(text)
-    twitter_mention_regex = /(\s|^.?)(@[A-Za-z0-9_]+)(?=[^A-Za-z0-9_@]|$)/
+    twitter_mention_regex = /(\s|^.?|[^A-Za-z0-9_!#\$%&*@＠])([@＠][A-Za-z0-9_]+)(?=[^A-Za-z0-9_@＠]|$)/
     text.gsub(twitter_mention_regex, '\1\2@twitter.com')
   end
 
