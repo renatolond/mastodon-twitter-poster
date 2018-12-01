@@ -1,10 +1,10 @@
 it:
-  accounts: ''
-  allow_with_words: ''
-  block_with_words: Non crosspostare se contiene le parole
+  accounts: Account
+  allow_with_words: Crossposta solo post che contengono le seguenti parole
+  block_with_words: Non crosspostare post che contengono le seguenti parole
   boost_options: 'Opzioni boost:'
   change_this_on_options: Puoi cambiare queste impostazioni andando su %{options}.
-  connections: ''
+  connections: Connessioni
   crossposter_explanation: ''
   crossposting_overview: ''
   default_visibility: Usa privacy post di default
@@ -79,7 +79,7 @@ it:
     Ciao mondo!)'
   retweet_post_as_old_rt_with_link: 'Posta i Retweet su Mastodon nel vecchio formato
     con link (RT @renatolonddev@twitter.com: Ciao mondo! https://twitter.com/renatolonddev/status/904738384861700096)'
-  service_ran_by: Servizio offerto da
+  service_ran_by: Questo servizio è offerto da
   source_code_and_issues: Sorgenti e richieste
   status: Stato
   synchronization_options: Opzioni sincronizzazione
