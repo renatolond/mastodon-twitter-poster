@@ -47,32 +47,38 @@ ar:
   masto_not_posting_unlisted: أنت لا تنشر التبويقات غير المدرجة.
   masto_posting_private: أنت تنشر التبويقات الخاصة.
   masto_not_posting_private: أنت لا تنشر التبويقات الخاصة.
-  masto_not_posting_boost: ''
+  masto_not_posting_boost: أنت لا تنشر التبويقات التي تم ترقيتها.
   masto_posting_boost_as_link: أنت تنشر التبويقات التي تم ترقيتها على شكل روابط.
   change_this_on_options: يمكنك تغيير هذه الإعدادات باللجوء إلى %{options}.
   retweet_options: خيارات إعادة التغريد
   retweet_do_not_post: لا تقم بنشر إعادات التغريد على ماستدون
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
+  retweet_post_as_old_rt: 'نشر إعادات التغريد على ماستدون بالأسلوب القديم (RT @renatolonddev@twitter.com:
+    Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'انشر إعادات التغريد على ماستدون بالأسلوب القديم
+    RT مرفوقة بالروابط (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   quote_options: خيارات الإقتباس
   quote_do_not_post: لا تقم بنشر الإقتباسات على ماستدون
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
+  quote_post_as_old_rt: 'انشر الإقتباسات على ماستدون بالأسلوب القديم RT (I like this
+    idea RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_post_as_old_rt_with_link: 'أنشر الإقتباسات على ماستدون بالأسلوب القديم مرفوقة
+    بالروابط (I like this idea RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   twitter_reply_do_not_post: لا تقم بنشر الردود على ماستدون
-  twitter_reply_post_self: ''
+  twitter_reply_post_self: أنشر الردود على تغريداتي الخاصة في ماستدون (على شكل محادثة)
   twitter_reply_options: 'خيارات الرد:'
   twitter_reply_options_explanation: هذا عند الضغط على زر الرد على واجهة تويتر.هو
     الرد المباشر على تغريدة أخرى.
   twitter_not_posting_rt: أنت لا تنشر التغريدات المعاد تغريدها.
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
+  twitter_posting_rt_old_style: أنت تنشر إعادات التغريد بالأسلوب القديم RT.
+  twitter_posting_rt_old_style_with_link: إنك تنشر إعادات التغريد بالأسلوب القديم
+    RT مرفوقة بالروابط.
   twitter_not_posting_quote: أنت لا تنشر الإقتباسات.
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
+  twitter_posting_quote_old_style: إنك تنشر الإقتباسات بالأسلوب القديم RT.
+  twitter_posting_quote_old_style_with_link: إنك تنشر الإقتباسات بالأسلوب القديم RT
+    بالروابط.
   twitter_not_posting_reply: أنت لا تنشر الردود.
-  twitter_posting_reply_to_self: ''
+  twitter_posting_reply_to_self: أنت تنشر الردود على منشوراتك.
   masto_not_posting_reply: أنت لا تنشر الردود.
-  masto_posting_reply_to_self: ''
+  masto_posting_reply_to_self: أنت لا تنشر الردود على منشوراتك.
   log_out: الخروج
   for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
   features: الميزات
@@ -94,9 +100,9 @@ ar:
     public: للعامة.
     private: خاص.
     unlisted: غير مُدرَج.
-  twitter_original_visibility_status: ''
-  twitter_retweet_visibility_status: ''
-  twitter_quote_visibility_status: ''
+  twitter_original_visibility_status: 'إنك تنشر تغريداتك بأسلوب الخصوصية التالي: '
+  twitter_retweet_visibility_status: 'إنك تنشر إعادات التغريد بأسلوب الخصوصية التالي: '
+  twitter_quote_visibility_status: 'إنك تنشر الإقتباسات بأسلوب الخصوصية التالي: '
   masto_login:
     please: ربط حساب ماستدون الخاص بك
     identifier: المُعرَّف
@@ -113,10 +119,27 @@ ar:
     advanced_mastodon:
       add_another_word: إضافة كلمة أخرى
       disabled: مُعطَّل
+      masto_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
+        بالمنشورات التي تحتوي على كلمات محددة فقط
+      masto_word_list: قائمة الكلمات أو العبارات المذكروة في المنشورات القادمة من
+        ماستدون
     advanced_twitter:
       add_another_word: إضافة كلمة أخرى
       disabled: مُعطَّل
+      twitter_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
+        بالمنشورات التي تحتوي على كلمات محددة فقط
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
   crossposting_overview: معاينة الخيارات
+  masto_word_list_explanation: قائمة ماستدون للكلمات المشروحة
+  home:
+    sync_status:
+      mastodon_account_html: حساب ماستدون الذي تم توصيله هو <code>@%{uid}</code>.
+      twitter_account_html: حساب تويتر الذي تم توصيله هو <code>@%{handle}</code>.
+    privacy:
+      cookies: هل نستخدم الكوكيز أو الكعكات؟
+      disclose_info: هل نكشف أية معلومات إلى أطراف خارجية؟
+      what_use: في ماذا نستخدم بياناتك؟
+      which_information: ما هي المعلومات التي نقوم بجمعها؟
+      we_do_not_disclose_info: لا.
