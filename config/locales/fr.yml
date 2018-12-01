@@ -1,11 +1,16 @@
 fr:
-  accounts: ''
-  allow_with_words: ''
-  block_with_words: ''
-  boost_options: ''
-  change_this_on_options: ''
-  connections: ''
-  crossposter_explanation: ''
+  accounts: Comptes
+  allow_with_words: Ne faire une publication croisée que pour les messages contenant
+    les mots suivant
+  block_with_words: Ne pas faire de publication croisée des messages contenant les
+    mots suivants
+  boost_options: 'Options des partages :'
+  change_this_on_options: Vous pouvez changer ces paramètres en allant dans %{options}.
+  connections: Connexions
+  crossposter_explanation: Ce service vous permet de connecter un compte Mastodon
+    et un compte Twitter et d'activer la publication croisée. Vous pouvez choisir
+    certaines options, par exemple si vous voulez envoyer des partages, des pouets
+    non listés ou des réponses.
   crossposting_overview: ''
   default_visibility: ''
   disconnect: ''
