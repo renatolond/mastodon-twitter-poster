@@ -1,121 +1,123 @@
+---
 pl:
+  accounts: Konta
+  boost_options: 'Opcje podbić:'
+  change_this_on_options: Możesz zmienić te opcje w %{options}.
+  connections: Połączenia
   crossposter_explanation: Ta usługa pozwala na połączenie konta na Mastodonie z kontem
     na Twitterze i włączenie przekazywania wpisów pomiędzy nimi. Możesz zmienić trochę
     opcji, np. to czy chcesz publikować podbicia, niewidoczne wpisy i odpowiedzi.
-  login_to_get_started: Zaloguj z użyciem Twittera i Mastodona aby rozpocząć
-  service_ran_by: Ta usługa jest uruchamiana przez
-  source_code_and_issues: Kod źródłowy i błędy
-  twitter_logged_in: Zalogowano na Twitterze
-  mastodon_logged_in: Zalogowano na Mastodonie
+  crossposting_overview: Przegląd opcji
+  default_visibility: Używaj domyślnej widoczności Mastodona
+  disconnect: Rozłącz
+  features: Funkcje
+  follow_us_on_the_fediverse: Śledź nas w Fediwersum!
+  for_news_and_status: 'Informacje o nowościach i stanie:'
+  from_mastodon: Z Mastodona do Twittera
+  from_twitter: Z Twittera do Mastodona
   layouts:
     application:
       home: Strona główna
-  accounts: Konta
-  connections: Połączenia
+  log_out: Wyloguj się
+  login_to_get_started: Zaloguj z użyciem Twittera i Mastodona aby rozpocząć
   manage_your_accounts: Zarządzaj połączonymi kontami
-  disconnect: Rozłącz
-  options: Opcje
   masto_boost_do_not_post: Nie publikuj podbić na Twitterze
   masto_boost_post_as_link: 'Publikuj podbicia na Twitterze jako odnośniki (Boosted:
     https://mastodon.social/@renatolond/15082784)'
-  masto_reply_do_not_post: Nie publikuj odpowiedzi na Twitterze
-  masto_reply_post_self: Publikuj odpowiedzi do własnych tootów (w wątkach)
+  masto_login:
+    identifier: Identyfikator
+    invalid_identifier: Nieprawidłowy identyfikator. Musisz używać formatu użytkownik@instancja,
+      np. crossposter@masto.donte.com.br
+    login: Zaloguj się
+    please: Połącz konto Mastodona
   masto_mention_do_not_post: Nie umieszczaj wspomnień na Twitterze
-  masto_sync_status_true: TAK
-  masto_sync_status_false: NIE
-  masto_should_post_unlisted_true: TAK
-  masto_should_post_unlisted_false: NIE
-  masto_should_post_private_true: TAK
-  masto_should_post_private_false: NIE'
-  synchronization_options: Opcje synchronizacji
-  masto_synchronization_status: Publikuj moje tooty na Twitterze
-  post_unlisted_toots: Publikować niewidoczne tooty?
-  post_private_toots: Publikować prywatne tooty?
-  boost_options: 'Opcje podbić:'
-  masto_reply_options: 'Opcje odpowiedzi:'
-  masto_reply_options_explanation: Dotyczy sytuacji, gdy klikasz na przycisk odpowiedzi
-    w interfejsie Mastodona, kiedy tworzysz bezpośrednią odpowiedź na inny wpis.
   masto_mention_options: 'Opcje wspomnień:'
   masto_mention_options_explanation: Ta usługa uznaje za wspomnienie wpis, który nie
     jest odpowiedzią, a zaczyna się wspomnieniem innego użytkownika.
-  twitter_synchronization_status: Publikuj moje tweety na Mastodonie
-  twitter_sync_status_true: TAK
-  twitter_sync_status_false: NIE
-  no_sync_right_now: Obecnie nie publikujesz *niczego*.
-  toots_posted_to_twitter: Twoje tooty będą publikowane na Twitterze.
-  tweets_posted_to_mastodon: Twoje tweety będą publikowane na Mastodonie.
-  masto_posting_unlisted: Publikujesz niewypisane tooty.
-  masto_not_posting_unlisted: Nie publikujesz niewypisanych tootów.
-  masto_posting_private: Publikujesz prywatne tooty.
-  masto_not_posting_private: Nie publikujesz prywatnych tootów.
   masto_not_posting_boost: Nie publikujesz podbić.
+  masto_not_posting_private: Nie publikujesz prywatnych tootów.
+  masto_not_posting_reply: Nie publikujesz odpowiedzi.
+  masto_not_posting_unlisted: Nie publikujesz niewypisanych tootów.
   masto_posting_boost_as_link: Publikujesz podbicia jako odnośniki.
-  change_this_on_options: Możesz zmienić te opcje w %{options}.
-  retweet_options: Opcje retweetów
-  retweet_do_not_post: Nie umieszczaj retweetów na Mastodonie
-  retweet_post_as_old_rt: 'Publikuj retweety na Mastodonie jako RT w starym stylu
-    (RT @renatolonddev@twitter.com: Witaj, świecie!)'
-  retweet_post_as_old_rt_with_link: 'Publikuj retweety na Mastodonie jako RT w starym
-    stylu wraz z odnośnikami (RT @renatolonddev@twitter.com: Witaj, świecie! https://twitter.com/renatolonddev/status/904738384861700096)'
-  quote_options: Ustawienia cytatów
+  masto_posting_private: Publikujesz prywatne tooty.
+  masto_posting_reply_to_self: Publikujesz odpowiedzi na własne wpisy.
+  masto_posting_unlisted: Publikujesz niewypisane tooty.
+  masto_privacy:
+    private: Prywatne
+    public: Publiczne
+    unlisted: Niewypisane
+  masto_privacy_for_status:
+    default: Domyślna prywatność Mastodona.
+    private: Prywatne.
+    public: Publiczne.
+    unlisted: Niewypisane.
+  masto_reply_do_not_post: Nie publikuj odpowiedzi na Twitterze
+  masto_reply_options: 'Opcje odpowiedzi:'
+  masto_reply_options_explanation: Dotyczy sytuacji, gdy klikasz na przycisk odpowiedzi
+    w interfejsie Mastodona, kiedy tworzysz bezpośrednią odpowiedź na inny wpis.
+  masto_reply_post_self: Publikuj odpowiedzi do własnych tootów (w wątkach)
+  masto_should_post_private_false: NIE'
+  masto_should_post_private_true: TAK
+  masto_should_post_unlisted_false: NIE
+  masto_should_post_unlisted_true: TAK
+  masto_sync_status_false: NIE
+  masto_sync_status_true: TAK
+  masto_synchronization_status: Publikuj moje tooty na Twitterze
+  mastodon_logged_in: Zalogowano na Mastodonie
+  no_sync_right_now: Obecnie nie publikujesz *niczego*.
+  options: Opcje
+  post_private_toots: Publikować prywatne tooty?
+  post_unlisted_toots: Publikować niewidoczne tooty?
   quote_do_not_post: Nie umieszczaj cytatów na Mastodonie
+  quote_options: Ustawienia cytatów
   quote_post_as_old_rt: 'Publikuj cytaty na Mastodonie jako RT w starym stylu (Dobry
     pomysł RT @renatolonddev@twitter.com: Witaj, świecie!)'
   quote_post_as_old_rt_with_link: 'Publikuj cytaty na Mastodonie jako RT w starym
     stylu wraz z odnośnikami (Dobry pomysł RT @renatolonddev@twitter.com: Witaj, świecie!
     https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: Nie umieszczaj odpowiedzi na Mastodonie
-  twitter_reply_post_self: Publikuj odpowiedzi do własnych tweetów (w wątkach)
-  twitter_reply_options: 'Opcje odpowiedzi:'
-  twitter_reply_options_explanation: Dotyczy sytuacji, gdy klikasz na przycisk odpowiedzi
-    w interfejsie Twittera, kiedy tworzysz bezpośrednią odpowiedź na inny wpis.
-  twitter_not_posting_rt: Nie publikujesz retweetów.
-  twitter_posting_rt_old_style: Publikujesz retweety jako RT w starym stylu.
-  twitter_posting_rt_old_style_with_link: Publikujesz retweety jako RT w starym stylu
-    wraz z odnośnikami.
-  twitter_not_posting_quote: Nie publikujesz cytatów.
-  twitter_posting_quote_old_style: Publikujesz cytaty jako RT w starym stylu.
-  twitter_posting_quote_old_style_with_link: Publikujesz cytaty jako RT w starym stylu
-    wraz z odnośnikami.
-  twitter_not_posting_reply: Nie publikujesz odpowiedzi.
-  twitter_posting_reply_to_self: Publikujesz odpowiedzi na własne wpisy.
-  masto_not_posting_reply: Nie publikujesz odpowiedzi.
-  masto_posting_reply_to_self: Publikujesz odpowiedzi na własne wpisy.
-  log_out: Wyloguj się
-  for_news_and_status: 'Informacje o nowościach i stanie:'
-  features: Funkcje
+  retweet_do_not_post: Nie umieszczaj retweetów na Mastodonie
+  retweet_options: Opcje retweetów
+  retweet_post_as_old_rt: 'Publikuj retweety na Mastodonie jako RT w starym stylu
+    (RT @renatolonddev@twitter.com: Witaj, świecie!)'
+  retweet_post_as_old_rt_with_link: 'Publikuj retweety na Mastodonie jako RT w starym
+    stylu wraz z odnośnikami (RT @renatolonddev@twitter.com: Witaj, świecie! https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: Ta usługa jest uruchamiana przez
+  source_code_and_issues: Kod źródłowy i błędy
   status: Stan
+  synchronization_options: Opcje synchronizacji
+  toots_posted_to_twitter: Twoje tooty będą publikowane na Twitterze.
+  tweets_posted_to_mastodon: Twoje tweety będą publikowane na Mastodonie.
   twitter_content_warning: Ostrzeżenie o zawartości z Twittera
   twitter_content_warning_explanation: Tekst wprowadzony w tym polu będzie używany
     jako tytuł ostrzeżenia o zawartości dla wszystkich wpisów crosspostowanych z Twittera
     (za wyjątkiem tych, które zawierają określone ostrzeżenia)
   twitter_content_warning_status: Wszystkie Twoje tweety będą publikowane z ostrzeżeniem
     o zawartości „%{cw}”
+  twitter_logged_in: Zalogowano na Twitterze
+  twitter_not_posting_quote: Nie publikujesz cytatów.
+  twitter_not_posting_reply: Nie publikujesz odpowiedzi.
+  twitter_not_posting_rt: Nie publikujesz retweetów.
   twitter_original_visibility: Prywatność crosspostowanych wpisów
-  twitter_retweet_visibility: Prywatność crosspostowanych retweetów
-  twitter_quote_visibility: Prywatność crosspostowanych cytatów
-  default_visibility: Używaj domyślnej widoczności Mastodona
-  masto_privacy:
-    public: Publiczne
-    private: Prywatne
-    unlisted: Niewypisane
-  masto_privacy_for_status:
-    default: Domyślna prywatność Mastodona.
-    public: Publiczne.
-    private: Prywatne.
-    unlisted: Niewypisane.
   twitter_original_visibility_status: 'Publikujesz wpisy z opcją prywatności: '
-  twitter_retweet_visibility_status: 'Publikujesz retweety z opcją prywatności:: '
+  twitter_posting_quote_old_style: Publikujesz cytaty jako RT w starym stylu.
+  twitter_posting_quote_old_style_with_link: Publikujesz cytaty jako RT w starym stylu
+    wraz z odnośnikami.
+  twitter_posting_reply_to_self: Publikujesz odpowiedzi na własne wpisy.
+  twitter_posting_rt_old_style: Publikujesz retweety jako RT w starym stylu.
+  twitter_posting_rt_old_style_with_link: Publikujesz retweety jako RT w starym stylu
+    wraz z odnośnikami.
+  twitter_quote_visibility: Prywatność crosspostowanych cytatów
   twitter_quote_visibility_status: 'Publikujesz cytaty z opcją prywatności: '
-  masto_login:
-    please: Połącz konto Mastodona
-    identifier: Identyfikator
-    login: Zaloguj się
-    invalid_identifier: Nieprawidłowy identyfikator. Musisz używać formatu użytkownik@instancja,
-      np. crossposter@masto.donte.com.br
-  follow_us_on_the_fediverse: Śledź nas w Fediwersum!
-  from_mastodon: Z Mastodona do Twittera
-  from_twitter: Z Twittera do Mastodona
+  twitter_reply_do_not_post: Nie umieszczaj odpowiedzi na Mastodonie
+  twitter_reply_options: 'Opcje odpowiedzi:'
+  twitter_reply_options_explanation: Dotyczy sytuacji, gdy klikasz na przycisk odpowiedzi
+    w interfejsie Twittera, kiedy tworzysz bezpośrednią odpowiedź na inny wpis.
+  twitter_reply_post_self: Publikuj odpowiedzi do własnych tweetów (w wątkach)
+  twitter_retweet_visibility: Prywatność crosspostowanych retweetów
+  twitter_retweet_visibility_status: 'Publikujesz retweety z opcją prywatności:: '
+  twitter_sync_status_false: NIE
+  twitter_sync_status_true: TAK
+  twitter_synchronization_status: Publikuj moje tweety na Mastodonie
   users:
     advanced_mastodon:
       add_another_word: Dodaj kolejne słowo
@@ -126,4 +128,3 @@ pl:
         do Twittera
       advanced_from_twitter_options: Zaawansowane opcje wysyłania postów z Twittera
         do Mastodona
-  crossposting_overview: Przegląd opcji

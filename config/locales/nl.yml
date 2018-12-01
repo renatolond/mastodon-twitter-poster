@@ -1,130 +1,132 @@
+---
 nl:
+  accounts: Accounts
+  allow_with_words: Alleen berichten plaatsen op beide diensten die de volgende woorden
+    bevatten
+  block_with_words: Geen berichten op beide diensten plaatsen die de volgende volgende
+    woorden bevatten
+  boost_options: 'Boostopties:'
+  change_this_on_options: Je kunt deze instellingen wijzigen door naar de %{options}
+    te gaan.
+  connections: Koppelingen
   crossposter_explanation: Deze dienst stelt je in staat om een Mastodon-account te
     koppelen aan een Twitter-account om zo berichten te kunnen plaatsen op beide diensten.
     Je kunt verschillende opties kiezen, zoals het plaatsen van boots of antwoorden.
-  login_to_get_started: Log in met Twitter en Mastodon om te beginnen
-  service_ran_by: Deze dienst wordt gerund door
-  source_code_and_issues: Broncode en problemen
-  twitter_logged_in: Ingelogd met Twitter
-  mastodon_logged_in: Ingelogd met Mastodon
+  crossposting_overview: Optiesoverzicht
+  default_visibility: Mastodon's standaard zichtbaarheid gebruiken
+  disconnect: Ontkoppelen
+  features: Functies
+  follow_us_on_the_fediverse: Volg ons op het fediversum!
+  for_news_and_status: 'Voor nieuws en de status:'
+  from_mastodon: Van Mastodon naar Twitter
+  from_twitter: Van Twitter naar Mastodon
   layouts:
     application:
       home: Startpagina
-  accounts: Accounts
-  connections: Koppelingen
+  log_out: Uitloggen
+  login_to_get_started: Log in met Twitter en Mastodon om te beginnen
   manage_your_accounts: Beheer je gekoppelde accounts
-  disconnect: Ontkoppelen
-  options: Opties
   masto_boost_do_not_post: Boosts niet op Twitter plaatsen
   masto_boost_post_as_link: 'Boosts op Twitter plaatsen als links (Boosted: https://mastodon.social/@renatolond/15082784)'
-  masto_reply_do_not_post: Antwoorden niet op Twitter plaatsen
-  masto_reply_post_self: Antwoorden op mijn eigen toots op Twitter plaatsen (gesprekken)
+  masto_login:
+    identifier: Identificatie
+    invalid_identifier: Ongeldige identificatie. Je moet de opmaak gebruiker@instantie
+      gebruiken, bijv. crossposter@masto.donte.com.br
+    login: Inloggen
+    please: Mastodon koppelen
   masto_mention_do_not_post: Vermeldingen niet op Twitter plaatsen
-  masto_sync_status_true: AAN
-  masto_sync_status_false: UIT
-  masto_should_post_unlisted_true: AAN
-  masto_should_post_unlisted_false: UIT
-  masto_should_post_private_true: AAN
-  masto_should_post_private_false: UIT
-  synchronization_options: Synchronisatie-opties
-  masto_synchronization_status: Mijn toots op Twitter plaatsen
-  post_unlisted_toots: Niet-vermelde toots plaatsen?
-  post_private_toots: Privétoots plaatsen?
-  boost_options: 'Boostopties:'
-  masto_reply_options: 'Antwoordopties:'
-  masto_reply_options_explanation: Dit is als je in Mastodon op de knop antwoorden
-    klikt. Het is een direct antwoord op een andere toot.
   masto_mention_options: 'Vermeldingsopties:'
   masto_mention_options_explanation: Deze dienst beschouwt een vermelding als een
     toot zonder antwoorden, maar die begint met een vermelding van een andere gebruiker.
-  twitter_synchronization_status: Mijn tweets op Mastodon plaatsen
-  twitter_sync_status_true: AAN
-  twitter_sync_status_false: UIT
-  no_sync_right_now: Momenteel plaats je *nergens* berichten.
-  toots_posted_to_twitter: Je toots worden geplaatst op Twitter.
-  tweets_posted_to_mastodon: Je tweets worden geplaatst op Mastodon.
-  masto_posting_unlisted: Je plaatst geen niet-vermelde toots.
-  masto_not_posting_unlisted: Je plaatst niet-vermelde toots.
-  masto_posting_private: Je plaatst privétoots.
-  masto_not_posting_private: Je plaatst geen privétoots.
   masto_not_posting_boost: Je plaatst geen gebooste toots.
+  masto_not_posting_private: Je plaatst geen privétoots.
+  masto_not_posting_reply: Je plaatst geen antwoorden.
+  masto_not_posting_unlisted: Je plaatst niet-vermelde toots.
   masto_posting_boost_as_link: Je plaatst gebooste toots als links.
-  change_this_on_options: Je kunt deze instellingen wijzigen door naar de %{options}
-    te gaan.
-  retweet_options: Retweetopties
-  retweet_do_not_post: Retweets niet plaatsen op Mastodon
-  retweet_post_as_old_rt: 'Retweets plaatsen op Mastodon als RT''s in oude stijl (RT
-    renatolonddev@twitter.com: Hello, world!)'
-  retweet_post_as_old_rt_with_link: 'Retweets plaatsen op Mastodon als RT''s in oude
-    stijl  met links (RT renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  quote_options: Citaatopties
+  masto_posting_private: Je plaatst privétoots.
+  masto_posting_reply_to_self: Je plaatst antwoorden aan jezelf.
+  masto_posting_unlisted: Je plaatst geen niet-vermelde toots.
+  masto_privacy:
+    private: Privé
+    public: Openbaar
+    unlisted: Niet-vermeld
+  masto_privacy_for_status:
+    default: Mastodon's standaard privacy.
+    private: Privé.
+    public: Openbaar.
+    unlisted: Niet-vermeld.
+  masto_reply_do_not_post: Antwoorden niet op Twitter plaatsen
+  masto_reply_options: 'Antwoordopties:'
+  masto_reply_options_explanation: Dit is als je in Mastodon op de knop antwoorden
+    klikt. Het is een direct antwoord op een andere toot.
+  masto_reply_post_self: Antwoorden op mijn eigen toots op Twitter plaatsen (gesprekken)
+  masto_should_post_private_false: UIT
+  masto_should_post_private_true: AAN
+  masto_should_post_unlisted_false: UIT
+  masto_should_post_unlisted_true: AAN
+  masto_sync_status_false: UIT
+  masto_sync_status_true: AAN
+  masto_synchronization_status: Mijn toots op Twitter plaatsen
+  masto_word_list_explanation: Masto-woordenlijstuitleg
+  mastodon_logged_in: Ingelogd met Mastodon
+  no_sync_right_now: Momenteel plaats je *nergens* berichten.
+  options: Opties
+  post_private_toots: Privétoots plaatsen?
+  post_unlisted_toots: Niet-vermelde toots plaatsen?
   quote_do_not_post: Citaten niet plaatsen op Mastodon
+  quote_options: Citaatopties
   quote_post_as_old_rt: 'Citaten plaatsen op Mastodon als RT''s in oude stijl (Ik
     vind dit idee gaaf RT @renatolonddev@twitter.com: Hello, world!)'
   quote_post_as_old_rt_with_link: 'Citaten plaatsen op Mastodon als RT''s in oude
     stijl (Ik vind dit idee gaaf RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: Antwoorden niet plaatsen op Mastodon
-  twitter_reply_post_self: Antwoorden op mijn eigen tweets plaatsen op Mastodon (gesprekken)
-  twitter_reply_options: 'Antwoordopties:'
-  twitter_reply_options_explanation: Dit is als je klikt op de knop antwoorden op
-    Twitter. Het is een direct antwoord op een andere tweet.
-  twitter_not_posting_rt: Je plaatst geen retweets.
-  twitter_posting_rt_old_style: Je plaatst retweets als RT's in oude stijl.
-  twitter_posting_rt_old_style_with_link: Je plaatst retweets als RT's in oude stijl
-    met links.
-  twitter_not_posting_quote: Je plaatst geen citaten.
-  twitter_posting_quote_old_style: Je plaatst citaten als RT's in oude stijl.
-  twitter_posting_quote_old_style_with_link: Je plaatst citaten als RT's in oude stijl
-    met links.
-  twitter_not_posting_reply: Je plaatst geen antwoorden.
-  twitter_posting_reply_to_self: Je plaatst antwoorden aan jezelf.
-  masto_not_posting_reply: Je plaatst geen antwoorden.
-  masto_posting_reply_to_self: Je plaatst antwoorden aan jezelf.
-  log_out: Uitloggen
-  for_news_and_status: 'Voor nieuws en de status:'
-  features: Functies
+  retweet_do_not_post: Retweets niet plaatsen op Mastodon
+  retweet_options: Retweetopties
+  retweet_post_as_old_rt: 'Retweets plaatsen op Mastodon als RT''s in oude stijl (RT
+    renatolonddev@twitter.com: Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'Retweets plaatsen op Mastodon als RT''s in oude
+    stijl  met links (RT renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: Deze dienst wordt gerund door
+  source_code_and_issues: Broncode en problemen
   status: Status
+  synchronization_options: Synchronisatie-opties
+  toots_posted_to_twitter: Je toots worden geplaatst op Twitter.
+  tweets_posted_to_mastodon: Je tweets worden geplaatst op Mastodon.
   twitter_content_warning: Twitter-inhoudswaarschuwing
   twitter_content_warning_explanation: Elke tekst die je toevoegt aan dit vak wordt
     gebruikt als inhoudswaarschuwing voor elke toot die je plaatst vanaf Twitter (behalve
     voor tweets met specifieke inhoudswaarschuwingen)
   twitter_content_warning_status: 'Al je tweets worden geplaatst met een inhoudswaarschuwing:
     "%{cw}"'
+  twitter_logged_in: Ingelogd met Twitter
+  twitter_not_posting_quote: Je plaatst geen citaten.
+  twitter_not_posting_reply: Je plaatst geen antwoorden.
+  twitter_not_posting_rt: Je plaatst geen retweets.
   twitter_original_visibility: Je oorspronkelijke tweets afschermen bij plaatsen op
     Mastodon
-  twitter_retweet_visibility: Je oorspronkelijke retweets afschermen bij plaatsen
-    op Mastodon
+  twitter_original_visibility_status: 'Je plaatst je eigen tweets met het privacyniveau: '
+  twitter_posting_quote_old_style: Je plaatst citaten als RT's in oude stijl.
+  twitter_posting_quote_old_style_with_link: Je plaatst citaten als RT's in oude stijl
+    met links.
+  twitter_posting_reply_to_self: Je plaatst antwoorden aan jezelf.
+  twitter_posting_rt_old_style: Je plaatst retweets als RT's in oude stijl.
+  twitter_posting_rt_old_style_with_link: Je plaatst retweets als RT's in oude stijl
+    met links.
   twitter_quote_visibility: Je oorspronkelijke citaten afschermen bij plaatsen op
     Mastodon
-  default_visibility: Mastodon's standaard zichtbaarheid gebruiken
-  masto_privacy:
-    public: Openbaar
-    private: Privé
-    unlisted: Niet-vermeld
-  masto_privacy_for_status:
-    default: Mastodon's standaard privacy.
-    public: Openbaar.
-    private: Privé.
-    unlisted: Niet-vermeld.
-  twitter_original_visibility_status: 'Je plaatst je eigen tweets met het privacyniveau: '
-  twitter_retweet_visibility_status: 'Je plaatst je eigen retweets met het privacyniveau: '
   twitter_quote_visibility_status: 'Je plaatst je eigen citaten met het privacyniveau: '
-  masto_login:
-    please: Mastodon koppelen
-    identifier: Identificatie
-    login: Inloggen
-    invalid_identifier: Ongeldige identificatie. Je moet de opmaak gebruiker@instantie
-      gebruiken, bijv. crossposter@masto.donte.com.br
-  follow_us_on_the_fediverse: Volg ons op het fediversum!
-  from_twitter: Van Twitter naar Mastodon
-  from_mastodon: Van Mastodon naar Twitter
-  crossposting_overview: Optiesoverzicht
+  twitter_reply_do_not_post: Antwoorden niet plaatsen op Mastodon
+  twitter_reply_options: 'Antwoordopties:'
+  twitter_reply_options_explanation: Dit is als je klikt op de knop antwoorden op
+    Twitter. Het is een direct antwoord op een andere tweet.
+  twitter_reply_post_self: Antwoorden op mijn eigen tweets plaatsen op Mastodon (gesprekken)
+  twitter_retweet_visibility: Je oorspronkelijke retweets afschermen bij plaatsen
+    op Mastodon
+  twitter_retweet_visibility_status: 'Je plaatst je eigen retweets met het privacyniveau: '
+  twitter_sync_status_false: UIT
+  twitter_sync_status_true: AAN
+  twitter_synchronization_status: Mijn tweets op Mastodon plaatsen
+  twitter_word_list: Twitter-woordenlijst
   users:
-    show:
-      advanced_from_mastodon_options: Geavanceerde opties voor het plaatsen van Mastodon-berichten
-        op Twitter
-      advanced_from_twitter_options: Geavanceerde opties voor het plaatsen van Twitter-berichten
-        op Mastodon
     advanced_mastodon:
       add_another_word: Woord toevoegen
       disabled: Uitgeschakeld
@@ -135,9 +137,8 @@ nl:
         hieronder bevatten
       masto_word_list: Lijst met woorden of uitdrukkingen van berichten afkomstig
         van Mastodon
-  allow_with_words: Alleen berichten plaatsen op beide diensten die de volgende woorden
-    bevatten
-  block_with_words: Geen berichten op beide diensten plaatsen die de volgende volgende
-    woorden bevatten
-  masto_word_list_explanation: Masto-woordenlijstuitleg
-  twitter_word_list: Twitter-woordenlijst
+    show:
+      advanced_from_mastodon_options: Geavanceerde opties voor het plaatsen van Mastodon-berichten
+        op Twitter
+      advanced_from_twitter_options: Geavanceerde opties voor het plaatsen van Twitter-berichten
+        op Mastodon

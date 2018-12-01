@@ -1,128 +1,152 @@
+---
 de:
+  accounts: Konten
+  allow_with_words: Nur Posts cross-posten, die eins der folgenden Wörter enthalten
+  block_with_words: Keine Posts cross-posten, die eins der folgenden Wörter enthalten
+  boost_options: 'Boost-Optionen:'
+  change_this_on_options: Du kannst diese Einstellungen ändern, indem du %{options}
+    besuchst.
+  connections: Verbindungen
   crossposter_explanation: Dieser Dienst erlaubt es dir, dein Mastodon- mit deinem
     Twitter-Konto zu verknüpfen und Posts zwischen beiden Plattformen zu cross-posten,
     also die Posts die du auf einem Dienst teilst auch auf dem Anderen zu teilen.
     Du kannst dabei z.B. einstellen, ob Boosts/Retweets, nicht öffentlich gelistete
     Toots oder Antworten geteilt werden sollen.
-  login_to_get_started: Melde dich mit Twitter und Mastodon an, um loszulegen
-  service_ran_by: Dieser Dienst wird betrieben von
-  source_code_and_issues: Quellcode und Issues
-  twitter_logged_in: Mit Twitter angemeldet
-  mastodon_logged_in: Mit Mastodon angemeldet
+  crossposting_overview: Optionsübersicht
+  default_visibility: Deine Standard-Sichtbarkeit aus Mastodon verwenden
+  disconnect: Verbindung trennen
+  features: Funktionen
+  follow_us_on_the_fediverse: Folge uns im Fediverse!
+  for_news_and_status: 'Für Neuigkeiten und den aktuellen Dienststatus:'
+  from_mastodon: Von Mastodon zu Twitter
+  from_twitter: Von Twitter zu Mastodon
+  home:
+    privacy:
+      cookies: Nutzen wir Cookies?
+      disclose_info: Geben wir Auskünfte oder Daten an Dritte?
+      we_also_collect: Außerdem speichern wir die IDs von Posts, die über den Cross-Poster
+        auf beiden Seiten geteilt wurden, für bis zu ein Jahr.
+      we_also_use_for: Wir speichern die ID von Posts um eine Verbindung zwischen
+        Mastodon- und Twitter-Posts herstellen zu können, was uns erlaubt Threads
+        cross-posten zu können.
+      we_collect: Wir speichern deinen Mastodon-Benutzernamen, deine Twitter Account-ID,
+        sowie OAuth-Tokens für beide Dienste, die uns einen Teilzugriff auf deine
+        Accounts erlauben.
+      we_do_not_disclose_info: Nein.
+      we_use_cookies: Ja. Solange du eingeloggt bist, nutzen wir ein Cookie für die
+        aktuelle Session um dich identifizieren zu können.
+      we_use_for: Wir benutzen OAuth-Tokens und Identifier um uns mit deinen Accounts
+        verbinden, Posts lesen, und diese auf dem anderen Dienst teilen zu können,
+        abhängig von deinen Einstellungen.
+      what_use: Wofür nutzen wir deine Daten?
+      which_information: Welche Daten speichern wir?
+    sync_status:
+      mastodon_account_html: Der verknüpfte Mastodon-Account ist <code>@%{uid}</code>.
+      twitter_account_html: Der verknüpfte Twitter-Account ist <code>@%{handle}</code>.
   layouts:
     application:
       home: Start
       privacy_policy: Datenschutzerklärung
-  accounts: Konten
-  connections: Verbindungen
+  log_out: Abmelden
+  login_to_get_started: Melde dich mit Twitter und Mastodon an, um loszulegen
   manage_your_accounts: Verwalte deine verbundenen Konten
-  disconnect: Verbindung trennen
-  options: Optionen
   masto_boost_do_not_post: Boosts nicht auf Twitter teilen
   masto_boost_post_as_link: 'Teile Boosts auf Twitter als Links („Boosted: https://mastodon.social/@renatolond/15082784“)'
-  masto_reply_do_not_post: Antworten nicht auf Twitter teilen
-  masto_reply_post_self: Teile Antworten auf meine eigenen Toots auf Twitter (Threads)
+  masto_login:
+    identifier: Benutzername
+    invalid_identifier: Ungültiger Benutzername. Er muss das Format nutzer@instanz
+      haben, wie z.B. „crossposter@masto.donte.com.br“
+    login: Anmelden
+    please: Verbinde dein Mastodon-Konto
   masto_mention_do_not_post: Teile keine Erwähnungen auf Twitter
-  masto_sync_status_true: AN
-  masto_sync_status_false: AUS
-  masto_should_post_unlisted_true: AN
-  masto_should_post_unlisted_false: AUS
-  masto_should_post_private_true: AN
-  masto_should_post_private_false: AUS
-  synchronization_options: Synchronisierungsoptionen
-  masto_synchronization_status: Teile meine Toots auf Twitter
-  post_unlisted_toots: Nicht gelistete Toots teilen?
-  post_private_toots: Private Toots teilen?
-  boost_options: 'Boost-Optionen:'
-  masto_reply_options: 'Antwort-Optionen:'
-  masto_reply_options_explanation: Immer, wenn du den Antwort-Button auf Mastodon
-    nutzt. Es ist eine direkte Antwort auf einen anderen Toot.
   masto_mention_options: 'Erwähnungs-Optionen:'
   masto_mention_options_explanation: Als „Erwähnungen“ werden hier Toots behandelt,
     welche zwar keine Antwort sind, jedoch mit der Erwähnung eines anderen Nutzers
     beginnen.
-  twitter_synchronization_status: Teile meine Tweets auf Mastodon
-  twitter_sync_status_true: AN
-  twitter_sync_status_false: AUS
-  no_sync_right_now: Aktuell teilst du *nichts*.
-  toots_posted_to_twitter: Deine Toots werden auf Twitter geteilt.
-  tweets_posted_to_mastodon: Deine Tweets werden auf Mastodon geteilt.
-  masto_posting_unlisted: Du teilst nicht gelistete Toots.
-  masto_not_posting_unlisted: Du teilst keine nicht gelisteten Toots.
-  masto_posting_private: Du teilst private Toots.
-  masto_not_posting_private: Du teilst keine privaten Toots.
   masto_not_posting_boost: Du teilst keine Boosts.
+  masto_not_posting_private: Du teilst keine privaten Toots.
+  masto_not_posting_reply: Du teilst keine Antworten.
+  masto_not_posting_unlisted: Du teilst keine nicht gelisteten Toots.
   masto_posting_boost_as_link: Du teilst Boosts als Links.
-  change_this_on_options: Du kannst diese Einstellungen ändern, indem du %{options}
-    besuchst.
-  retweet_options: Retweet-Optionen
-  retweet_do_not_post: Teile keine Retweets auf Mastodon
-  retweet_post_as_old_rt: 'Teile Retweets auf Mastodon im alten Stil („RT @renatolonddev@twitter.com:
-    Hallo, Welt!“)'
-  retweet_post_as_old_rt_with_link: 'Teile Retweets im alten Stil mit Links („RT @renatolonddev@twitter.com:
-    Hallo, Welt! https://twitter.com/renatolonddev/status/904738384861700096“)'
-  quote_options: Zitat-Optionen
+  masto_posting_private: Du teilst private Toots.
+  masto_posting_reply_to_self: Du teilst Antworten an dich selbst.
+  masto_posting_unlisted: Du teilst nicht gelistete Toots.
+  masto_privacy:
+    private: Privat
+    public: Öffentlich
+    unlisted: Nicht gelistet
+  masto_privacy_for_status:
+    default: Mastodon Standard-Sichtbarkeit.
+    private: Privat.
+    public: Öffentlich.
+    unlisted: Nicht gelistet.
+  masto_reply_do_not_post: Antworten nicht auf Twitter teilen
+  masto_reply_options: 'Antwort-Optionen:'
+  masto_reply_options_explanation: Immer, wenn du den Antwort-Button auf Mastodon
+    nutzt. Es ist eine direkte Antwort auf einen anderen Toot.
+  masto_reply_post_self: Teile Antworten auf meine eigenen Toots auf Twitter (Threads)
+  masto_should_post_private_false: AUS
+  masto_should_post_private_true: AN
+  masto_should_post_unlisted_false: AUS
+  masto_should_post_unlisted_true: AN
+  masto_sync_status_false: AUS
+  masto_sync_status_true: AN
+  masto_synchronization_status: Teile meine Toots auf Twitter
+  masto_word_list_explanation: Masto word list explanation
+  mastodon_logged_in: Mit Mastodon angemeldet
+  no_sync_right_now: Aktuell teilst du *nichts*.
+  options: Optionen
+  post_private_toots: Private Toots teilen?
+  post_unlisted_toots: Nicht gelistete Toots teilen?
   quote_do_not_post: Keine Zitate auf Mastodon teilen
+  quote_options: Zitat-Optionen
   quote_post_as_old_rt: 'Teile Zitate auf Mastodon als RTs im alten Stil („Mir gefällt
     diese Idee. RT @renatolonddev@twitter.com: Hallo, Welt!“)'
   quote_post_as_old_rt_with_link: 'Teile Zitate auf Mastodon als RTs im alten Stil
     mit Links („Mir gefällt diese Idee. RT @renatolonddev@twitter.com: Hallo, Welt!
     https://twitter.com/renatolonddev/status/904738384861700096“)'
-  twitter_reply_do_not_post: Teile keine Antworten auf Mastodon
-  twitter_reply_post_self: Teile Antworten auf meine eigenen Tweets auf Mastodon (Threads)
-  twitter_reply_options: 'Antwort-Optionen:'
-  twitter_reply_options_explanation: Das ist, wenn du den Antwort-Button auf Twitter
-    anklickst. Es ist die direkte Antwort auf einen anderen Tweet.
-  twitter_not_posting_rt: Du teilst keine Retweets.
-  twitter_posting_rt_old_style: Du teilst Retweets im alten Stil.
-  twitter_posting_rt_old_style_with_link: Du teilst Retweets im alten Stil mit Links.
-  twitter_not_posting_quote: Du teilst keine Zitate.
-  twitter_posting_quote_old_style: Du teilst Zitate als RTs im alten Stil.
-  twitter_posting_quote_old_style_with_link: Du teilst Zitate als RTs im alten Stil
-    mit Links.
-  twitter_not_posting_reply: Du teilst keine Antworten.
-  twitter_posting_reply_to_self: Du teilst Antworten an dich selbst.
-  masto_not_posting_reply: Du teilst keine Antworten.
-  masto_posting_reply_to_self: Du teilst Antworten an dich selbst.
-  log_out: Abmelden
-  for_news_and_status: 'Für Neuigkeiten und den aktuellen Dienststatus:'
-  features: Funktionen
+  retweet_do_not_post: Teile keine Retweets auf Mastodon
+  retweet_options: Retweet-Optionen
+  retweet_post_as_old_rt: 'Teile Retweets auf Mastodon im alten Stil („RT @renatolonddev@twitter.com:
+    Hallo, Welt!“)'
+  retweet_post_as_old_rt_with_link: 'Teile Retweets im alten Stil mit Links („RT @renatolonddev@twitter.com:
+    Hallo, Welt! https://twitter.com/renatolonddev/status/904738384861700096“)'
+  service_ran_by: Dieser Dienst wird betrieben von
+  source_code_and_issues: Quellcode und Issues
   status: Status
+  synchronization_options: Synchronisierungsoptionen
+  toots_posted_to_twitter: Deine Toots werden auf Twitter geteilt.
+  tweets_posted_to_mastodon: Deine Tweets werden auf Mastodon geteilt.
   twitter_content_warning: Twitter Inhaltswarnung
   twitter_content_warning_explanation: Dieser Text wird als Inhaltswarnung für alle
     auf Mastodon geteilten Tweets verwendet (ausgenommen, es wird eine spezielle Inhaltswarnung
     erkannt)
   twitter_content_warning_status: 'All deine Tweets werden gepostet hinter der Inhaltswarnung:
     „%{cw}“'
+  twitter_logged_in: Mit Twitter angemeldet
+  twitter_not_posting_quote: Du teilst keine Zitate.
+  twitter_not_posting_reply: Du teilst keine Antworten.
+  twitter_not_posting_rt: Du teilst keine Retweets.
   twitter_original_visibility: Sichtbarkeit deiner auf Mastodon geteilten Tweets
-  twitter_retweet_visibility: Sichtbarkeit deiner auf Mastodon geteilten Retweets
-  twitter_quote_visibility: Sichtbarkeit deiner auf Mastodon geteilten Zitate
-  default_visibility: Deine Standard-Sichtbarkeit aus Mastodon verwenden
-  masto_privacy:
-    public: Öffentlich
-    private: Privat
-    unlisted: Nicht gelistet
-  masto_privacy_for_status:
-    default: Mastodon Standard-Sichtbarkeit.
-    public: Öffentlich.
-    private: Privat.
-    unlisted: Nicht gelistet.
   twitter_original_visibility_status: 'Du teilst deine eigenen Tweets mit der Sichtbarkeit: '
-  twitter_retweet_visibility_status: 'Du teilst Retweets mit der Sichtbarkeit: '
+  twitter_posting_quote_old_style: Du teilst Zitate als RTs im alten Stil.
+  twitter_posting_quote_old_style_with_link: Du teilst Zitate als RTs im alten Stil
+    mit Links.
+  twitter_posting_reply_to_self: Du teilst Antworten an dich selbst.
+  twitter_posting_rt_old_style: Du teilst Retweets im alten Stil.
+  twitter_posting_rt_old_style_with_link: Du teilst Retweets im alten Stil mit Links.
+  twitter_quote_visibility: Sichtbarkeit deiner auf Mastodon geteilten Zitate
   twitter_quote_visibility_status: 'Du teilst Zitate mit der Sichtbarkeit: '
-  masto_login:
-    please: Verbinde dein Mastodon-Konto
-    identifier: Benutzername
-    login: Anmelden
-    invalid_identifier: Ungültiger Benutzername. Er muss das Format nutzer@instanz
-      haben, wie z.B. „crossposter@masto.donte.com.br“
-  follow_us_on_the_fediverse: Folge uns im Fediverse!
-  allow_with_words: Nur Posts cross-posten, die eins der folgenden Wörter enthalten
-  block_with_words: Keine Posts cross-posten, die eins der folgenden Wörter enthalten
-  crossposting_overview: Optionsübersicht
-  from_mastodon: Von Mastodon zu Twitter
-  from_twitter: Von Twitter zu Mastodon
-  masto_word_list_explanation: Masto word list explanation
+  twitter_reply_do_not_post: Teile keine Antworten auf Mastodon
+  twitter_reply_options: 'Antwort-Optionen:'
+  twitter_reply_options_explanation: Das ist, wenn du den Antwort-Button auf Twitter
+    anklickst. Es ist die direkte Antwort auf einen anderen Tweet.
+  twitter_reply_post_self: Teile Antworten auf meine eigenen Tweets auf Mastodon (Threads)
+  twitter_retweet_visibility: Sichtbarkeit deiner auf Mastodon geteilten Retweets
+  twitter_retweet_visibility_status: 'Du teilst Retweets mit der Sichtbarkeit: '
+  twitter_sync_status_false: AUS
+  twitter_sync_status_true: AN
+  twitter_synchronization_status: Teile meine Tweets auf Mastodon
   twitter_word_list: Twitter-Wortliste
   users:
     advanced_mastodon:
@@ -156,26 +180,3 @@ de:
         Mastodon zu Twitter
       advanced_from_twitter_options: Erweiterte Einstellungen zum Cross-Posting von
         Twitter zu Mastodon
-  home:
-    sync_status:
-      mastodon_account_html: Der verknüpfte Mastodon-Account ist <code>@%{uid}</code>.
-      twitter_account_html: Der verknüpfte Twitter-Account ist <code>@%{handle}</code>.
-    privacy:
-      cookies: Nutzen wir Cookies?
-      disclose_info: Geben wir Auskünfte oder Daten an Dritte?
-      what_use: Wofür nutzen wir deine Daten?
-      which_information: Welche Daten speichern wir?
-      we_collect: Wir speichern deinen Mastodon-Benutzernamen, deine Twitter Account-ID,
-        sowie OAuth-Tokens für beide Dienste, die uns einen Teilzugriff auf deine
-        Accounts erlauben.
-      we_also_collect: Außerdem speichern wir die IDs von Posts, die über den Cross-Poster
-        auf beiden Seiten geteilt wurden, für bis zu ein Jahr.
-      we_use_for: Wir benutzen OAuth-Tokens und Identifier um uns mit deinen Accounts
-        verbinden, Posts lesen, und diese auf dem anderen Dienst teilen zu können,
-        abhängig von deinen Einstellungen.
-      we_also_use_for: Wir speichern die ID von Posts um eine Verbindung zwischen
-        Mastodon- und Twitter-Posts herstellen zu können, was uns erlaubt Threads
-        cross-posten zu können.
-      we_use_cookies: Ja. Solange du eingeloggt bist, nutzen wir ein Cookie für die
-        aktuelle Session um dich identifizieren zu können.
-      we_do_not_disclose_info: Nein.

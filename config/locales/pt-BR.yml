@@ -17,6 +17,29 @@ pt-BR:
   for_news_and_status: 'Para novidades e status:'
   from_mastodon: Do Mastodon para o Twitter
   from_twitter: Do Twitter para o Mastodon
+  home:
+    privacy:
+      cookies: Nós usamos cookies?
+      disclose_info: Nós compartilhamos informações com terceiros?
+      we_also_collect: Nós também coletamos o id de posts feitos com a ferramenta
+        tanto no Twitter quanto no Mastodon, por até um ano.
+      we_also_use_for: Nós usamos os ids dos posts para podemos relacionar posts do
+        Twitter e do Mastodon, o que nos permite fazer o crosspost de threads de um
+        site ao outro.
+      we_collect: Nós coletamos seu nome de usuário no Mastodon e seu id no Twitter,
+        bem como tokens OAauth para cada serviço, o que nos permite tomar ações com
+        as suas contas.
+      we_do_not_disclose_info: Não.
+      we_use_cookies: Sim. Enquanto você estiver conectado nós criamos uma sessão
+        e usamos cookies para relacionar a sua sessão às suas contas.
+      we_use_for: Nós usamos os tokens OAuth e identificador para conectar à suas
+        contas, recuperar seus posts e postar ao outro serviço, de acordo com as suas
+        configurações.
+      what_use: Para que nós usamos as suas informações?
+      which_information: Que informações nós coletamos?
+    sync_status:
+      mastodon_account_html: A conta do Mastodon conectada é <code>@%{uid}</code>.
+      twitter_account_html: A conta do Twitter conectada é <code>@%{handle}</code>.
   layouts:
     application:
       home: Início
@@ -152,18 +175,3 @@ pt-BR:
         o Twitter
       advanced_from_twitter_options: Opções avançadas para postar do Twitter para
         o Mastodon
-  home:
-    sync_status:
-      mastodon_account_html: "A conta do Mastodon conectada é <code>@%{uid}</code>."
-      twitter_account_html: "A conta do Twitter conectada é <code>@%{handle}</code>."
-    privacy:
-      cookies: Nós usamos cookies?
-      disclose_info: Nós compartilhamos informações com terceiros?
-      what_use: Para que nós usamos as suas informações?
-      which_information: Que informações nós coletamos?
-      we_collect: Nós coletamos seu nome de usuário no Mastodon e seu id no Twitter, bem como tokens OAauth para cada serviço, o que nos permite tomar ações com as suas contas.
-      we_also_collect: Nós também coletamos o id de posts feitos com a ferramenta tanto no Twitter quanto no Mastodon, por até um ano.
-      we_use_for: Nós usamos os tokens OAuth e identificador para conectar à suas contas, recuperar seus posts e postar ao outro serviço, de acordo com as suas configurações.
-      we_also_use_for: Nós usamos os ids dos posts para podemos relacionar posts do Twitter e do Mastodon, o que nos permite fazer o crosspost de threads de um site ao outro.
-      we_use_cookies: Sim. Enquanto você estiver conectado nós criamos uma sessão e usamos cookies para relacionar a sua sessão às suas contas.
-      we_do_not_disclose_info: Não.

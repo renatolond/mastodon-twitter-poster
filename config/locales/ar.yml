@@ -1,119 +1,132 @@
+---
 ar:
+  accounts: الحسابات
+  allow_with_words: النشر التبادلي فقط للمنشورات التي تحتوي على الكلمات التالية
+  block_with_words: حظر النشر التبادلي للمنشورات التي تحتوي على الكلمات التالية
+  boost_options: 'خيارات الترقية:'
+  change_this_on_options: يمكنك تغيير هذه الإعدادات باللجوء إلى %{options}.
+  connections: الإرتباطات
   crossposter_explanation: هذه الخدمة تتيح لك ربط حساب ماستدون الخاص بك وحسابك على
     تويتر قصد النشر فيما بينهما.يمكنك اختيار بعض الخيارات، مثل إذا ما كنت ترغب في
     نشر الترقيات أو التبويقات غير المدرَجة أو ردودك.
-  login_to_get_started: تسجيل الدخول عبر تويتر وماستدون للشروع في العمل
-  service_ran_by: هذه الخدمة يُديرها
-  source_code_and_issues: الشفرة المصدرية والعَقَبات
-  twitter_logged_in: تم التسجيل عبر تويتر
-  mastodon_logged_in: تم التسجيل عبر ماستدون
+  crossposting_overview: معاينة الخيارات
+  default_visibility: استخدام طريقة العرض الإفتراضية لماستدون
+  disconnect: قطع الاتصال
+  features: الميزات
+  follow_us_on_the_fediverse: تابِعنا على الشبكة الموحَّدة في الفيديفرس!
+  for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
+  from_mastodon: مِن ماستدون إلى تويتر
+  from_twitter: مِن تويتر إلى ماستدون
+  home:
+    privacy:
+      cookies: هل نستخدم الكوكيز أو الكعكات؟
+      disclose_info: هل نكشف أية معلومات إلى أطراف خارجية؟
+      we_do_not_disclose_info: لا.
+      what_use: في ماذا نستخدم بياناتك؟
+      which_information: ما هي المعلومات التي نقوم بجمعها؟
+    sync_status:
+      mastodon_account_html: حساب ماستدون الذي تم توصيله هو <code>@%{uid}</code>.
+      twitter_account_html: حساب تويتر الذي تم توصيله هو <code>@%{handle}</code>.
   layouts:
     application:
       home: الرئيسية
       privacy_policy: سياسة الخصوصية
-  accounts: الحسابات
-  connections: الإرتباطات
+  log_out: الخروج
+  login_to_get_started: تسجيل الدخول عبر تويتر وماستدون للشروع في العمل
   manage_your_accounts: إدارة حساباتك المتصلة
-  disconnect: قطع الاتصال
-  options: الخيارات
   masto_boost_do_not_post: لا تنشر الترقيات إلى تويتر
   masto_boost_post_as_link: 'نشر الترقيات على تويتر كروابط (تم ترقية: https://mastodon.social/@renatolond/15082784)'
-  masto_reply_do_not_post: لا تنشر الردود على تويتر
-  masto_reply_post_self: نشر الردود على تبويقاتي في تويتر (على شكل خيط محادثة)
+  masto_login:
+    identifier: المُعرَّف
+    invalid_identifier: معرّف الحساب غير صالح. يجب عليك إدخال المُعرِّف على شكل user@instance  مثل
+      crossposter@masto.donte.com.br
+    login: تسجيل الدخول
+    please: ربط حساب ماستدون الخاص بك
   masto_mention_do_not_post: لا تنشر الإشارات على تويتر
-  masto_sync_status_true: مُفعّل
-  masto_sync_status_false: مُوَقّف
-  masto_should_post_unlisted_true: مُفَعَّل
-  masto_should_post_unlisted_false: مُوَقّف
-  masto_should_post_private_true: مُفَعَّل
-  masto_should_post_private_false: مُوَقّف
-  synchronization_options: خيارات المُزامَنة
-  masto_synchronization_status: أنشر تبويقاتي على تويتر
-  post_unlisted_toots: أتريد نشر التبويقات غير المُدرَجة؟
-  post_private_toots: أتريد نشر التبويقات الخاصة؟
-  boost_options: 'خيارات الترقية:'
+  masto_mention_options: 'خيارات ذِكر الحسابات:'
+  masto_mention_options_explanation: ''
+  masto_not_posting_boost: أنت لا تنشر التبويقات التي تم ترقيتها.
+  masto_not_posting_private: أنت لا تنشر التبويقات الخاصة.
+  masto_not_posting_reply: أنت لا تنشر الردود.
+  masto_not_posting_unlisted: أنت لا تنشر التبويقات غير المدرجة.
+  masto_posting_boost_as_link: أنت تنشر التبويقات التي تم ترقيتها على شكل روابط.
+  masto_posting_private: أنت تنشر التبويقات الخاصة.
+  masto_posting_reply_to_self: أنت لا تنشر الردود على منشوراتك.
+  masto_posting_unlisted: عند نشر تبويقات غير مدرجة للعامة.
+  masto_privacy:
+    private: خاص
+    public: للعامة
+    unlisted: غير مُدرَج
+  masto_privacy_for_status:
+    default: الخصوصية الإفتراضية لماستدون.
+    private: خاص.
+    public: للعامة.
+    unlisted: غير مُدرَج.
+  masto_reply_do_not_post: لا تنشر الردود على تويتر
   masto_reply_options: 'خيارات الردود:'
   masto_reply_options_explanation: هذا إذا ما قمت بالضغط على زر الرد على واجهة ماستدون
     للتفاعل.هو الرد المباشر على تبويق آخَر.
-  masto_mention_options: 'خيارات ذِكر الحسابات:'
-  masto_mention_options_explanation: ''
-  twitter_synchronization_status: أنشر تغريداتي على ماستدون
-  twitter_sync_status_true: مُفَعّل
-  twitter_sync_status_false: مُوَقّف
+  masto_reply_post_self: نشر الردود على تبويقاتي في تويتر (على شكل خيط محادثة)
+  masto_should_post_private_false: مُوَقّف
+  masto_should_post_private_true: مُفَعَّل
+  masto_should_post_unlisted_false: مُوَقّف
+  masto_should_post_unlisted_true: مُفَعَّل
+  masto_sync_status_false: مُوَقّف
+  masto_sync_status_true: مُفعّل
+  masto_synchronization_status: أنشر تبويقاتي على تويتر
+  masto_word_list_explanation: قائمة ماستدون للكلمات المشروحة
+  mastodon_logged_in: تم التسجيل عبر ماستدون
   no_sync_right_now: حاليا، إنك *لا* تنشر في أي مكان.
-  toots_posted_to_twitter: حاليًا يجري نشر تبويقاتك على تويتر.
-  tweets_posted_to_mastodon: حاليًا يجري نشر تغريداتك على ماستدون.
-  masto_posting_unlisted: عند نشر تبويقات غير مدرجة للعامة.
-  masto_not_posting_unlisted: أنت لا تنشر التبويقات غير المدرجة.
-  masto_posting_private: أنت تنشر التبويقات الخاصة.
-  masto_not_posting_private: أنت لا تنشر التبويقات الخاصة.
-  masto_not_posting_boost: أنت لا تنشر التبويقات التي تم ترقيتها.
-  masto_posting_boost_as_link: أنت تنشر التبويقات التي تم ترقيتها على شكل روابط.
-  change_this_on_options: يمكنك تغيير هذه الإعدادات باللجوء إلى %{options}.
-  retweet_options: خيارات إعادة التغريد
-  retweet_do_not_post: لا تقم بنشر إعادات التغريد على ماستدون
-  retweet_post_as_old_rt: 'نشر إعادات التغريد على ماستدون بالأسلوب القديم (RT @renatolonddev@twitter.com:
-    Hello, world!)'
-  retweet_post_as_old_rt_with_link: 'انشر إعادات التغريد على ماستدون بالأسلوب القديم
-    RT مرفوقة بالروابط (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  quote_options: خيارات الإقتباس
+  options: الخيارات
+  post_private_toots: أتريد نشر التبويقات الخاصة؟
+  post_unlisted_toots: أتريد نشر التبويقات غير المُدرَجة؟
   quote_do_not_post: لا تقم بنشر الإقتباسات على ماستدون
+  quote_options: خيارات الإقتباس
   quote_post_as_old_rt: 'انشر الإقتباسات على ماستدون بالأسلوب القديم RT (I like this
     idea RT @renatolonddev@twitter.com: Hello, world!)'
   quote_post_as_old_rt_with_link: 'أنشر الإقتباسات على ماستدون بالأسلوب القديم مرفوقة
     بالروابط (I like this idea RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: لا تقم بنشر الردود على ماستدون
-  twitter_reply_post_self: أنشر الردود على تغريداتي الخاصة في ماستدون (على شكل محادثة)
-  twitter_reply_options: 'خيارات الرد:'
-  twitter_reply_options_explanation: هذا عند الضغط على زر الرد على واجهة تويتر.هو
-    الرد المباشر على تغريدة أخرى.
-  twitter_not_posting_rt: أنت لا تنشر التغريدات المعاد تغريدها.
-  twitter_posting_rt_old_style: أنت تنشر إعادات التغريد بالأسلوب القديم RT.
-  twitter_posting_rt_old_style_with_link: إنك تنشر إعادات التغريد بالأسلوب القديم
-    RT مرفوقة بالروابط.
-  twitter_not_posting_quote: أنت لا تنشر الإقتباسات.
-  twitter_posting_quote_old_style: إنك تنشر الإقتباسات بالأسلوب القديم RT.
-  twitter_posting_quote_old_style_with_link: إنك تنشر الإقتباسات بالأسلوب القديم RT
-    بالروابط.
-  twitter_not_posting_reply: أنت لا تنشر الردود.
-  twitter_posting_reply_to_self: أنت تنشر الردود على منشوراتك.
-  masto_not_posting_reply: أنت لا تنشر الردود.
-  masto_posting_reply_to_self: أنت لا تنشر الردود على منشوراتك.
-  log_out: الخروج
-  for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
-  features: الميزات
+  retweet_do_not_post: لا تقم بنشر إعادات التغريد على ماستدون
+  retweet_options: خيارات إعادة التغريد
+  retweet_post_as_old_rt: 'نشر إعادات التغريد على ماستدون بالأسلوب القديم (RT @renatolonddev@twitter.com:
+    Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'انشر إعادات التغريد على ماستدون بالأسلوب القديم
+    RT مرفوقة بالروابط (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: هذه الخدمة يُديرها
+  source_code_and_issues: الشفرة المصدرية والعَقَبات
   status: الحالة
+  synchronization_options: خيارات المُزامَنة
+  toots_posted_to_twitter: حاليًا يجري نشر تبويقاتك على تويتر.
+  tweets_posted_to_mastodon: حاليًا يجري نشر تغريداتك على ماستدون.
   twitter_content_warning: التحذير عن المحتوى لتويتر
   twitter_content_warning_explanation: ''
   twitter_content_warning_status: 'سوف يتم نشر كافة تغريداتك وراء تحذير عن المحتوى
     على الشكل التالي: "%{cw}"'
+  twitter_logged_in: تم التسجيل عبر تويتر
+  twitter_not_posting_quote: أنت لا تنشر الإقتباسات.
+  twitter_not_posting_reply: أنت لا تنشر الردود.
+  twitter_not_posting_rt: أنت لا تنشر التغريدات المعاد تغريدها.
   twitter_original_visibility: خصوصية تغريداتك الأصلية عند مبادلة النشر
-  twitter_retweet_visibility: خصوصية التغريدات المعاد تغريدها عند مبادلة النشر
-  twitter_quote_visibility: خصوصية الإقتباسات عند النشر التبادلي
-  default_visibility: استخدام طريقة العرض الإفتراضية لماستدون
-  masto_privacy:
-    public: للعامة
-    private: خاص
-    unlisted: غير مُدرَج
-  masto_privacy_for_status:
-    default: الخصوصية الإفتراضية لماستدون.
-    public: للعامة.
-    private: خاص.
-    unlisted: غير مُدرَج.
   twitter_original_visibility_status: 'إنك تنشر تغريداتك بأسلوب الخصوصية التالي: '
-  twitter_retweet_visibility_status: 'إنك تنشر إعادات التغريد بأسلوب الخصوصية التالي: '
+  twitter_posting_quote_old_style: إنك تنشر الإقتباسات بالأسلوب القديم RT.
+  twitter_posting_quote_old_style_with_link: إنك تنشر الإقتباسات بالأسلوب القديم RT
+    بالروابط.
+  twitter_posting_reply_to_self: أنت تنشر الردود على منشوراتك.
+  twitter_posting_rt_old_style: أنت تنشر إعادات التغريد بالأسلوب القديم RT.
+  twitter_posting_rt_old_style_with_link: إنك تنشر إعادات التغريد بالأسلوب القديم
+    RT مرفوقة بالروابط.
+  twitter_quote_visibility: خصوصية الإقتباسات عند النشر التبادلي
   twitter_quote_visibility_status: 'إنك تنشر الإقتباسات بأسلوب الخصوصية التالي: '
-  masto_login:
-    please: ربط حساب ماستدون الخاص بك
-    identifier: المُعرَّف
-    login: تسجيل الدخول
-    invalid_identifier: معرّف الحساب غير صالح. يجب عليك إدخال المُعرِّف على شكل user@instance  مثل
-      crossposter@masto.donte.com.br
-  follow_us_on_the_fediverse: تابِعنا على الشبكة الموحَّدة في الفيديفرس!
-  allow_with_words: النشر التبادلي فقط للمنشورات التي تحتوي على الكلمات التالية
-  block_with_words: حظر النشر التبادلي للمنشورات التي تحتوي على الكلمات التالية
-  from_mastodon: مِن ماستدون إلى تويتر
-  from_twitter: مِن تويتر إلى ماستدون
+  twitter_reply_do_not_post: لا تقم بنشر الردود على ماستدون
+  twitter_reply_options: 'خيارات الرد:'
+  twitter_reply_options_explanation: هذا عند الضغط على زر الرد على واجهة تويتر.هو
+    الرد المباشر على تغريدة أخرى.
+  twitter_reply_post_self: أنشر الردود على تغريداتي الخاصة في ماستدون (على شكل محادثة)
+  twitter_retweet_visibility: خصوصية التغريدات المعاد تغريدها عند مبادلة النشر
+  twitter_retweet_visibility_status: 'إنك تنشر إعادات التغريد بأسلوب الخصوصية التالي: '
+  twitter_sync_status_false: مُوَقّف
+  twitter_sync_status_true: مُفَعّل
+  twitter_synchronization_status: أنشر تغريداتي على ماستدون
   twitter_word_list: قائمة كلمات تويتر
   users:
     advanced_mastodon:
@@ -131,15 +144,3 @@ ar:
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
-  crossposting_overview: معاينة الخيارات
-  masto_word_list_explanation: قائمة ماستدون للكلمات المشروحة
-  home:
-    sync_status:
-      mastodon_account_html: حساب ماستدون الذي تم توصيله هو <code>@%{uid}</code>.
-      twitter_account_html: حساب تويتر الذي تم توصيله هو <code>@%{handle}</code>.
-    privacy:
-      cookies: هل نستخدم الكوكيز أو الكعكات؟
-      disclose_info: هل نكشف أية معلومات إلى أطراف خارجية؟
-      what_use: في ماذا نستخدم بياناتك؟
-      which_information: ما هي المعلومات التي نقوم بجمعها؟
-      we_do_not_disclose_info: لا.

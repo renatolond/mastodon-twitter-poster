@@ -1,3 +1,4 @@
+---
 fr:
   accounts: Comptes
   allow_with_words: Ne faire une publication croisée que pour les messages contenant
@@ -19,6 +20,21 @@ fr:
   for_news_and_status: ''
   from_mastodon: ''
   from_twitter: ''
+  home:
+    privacy:
+      cookies: ''
+      disclose_info: ''
+      we_also_collect: ''
+      we_also_use_for: ''
+      we_collect: ''
+      we_do_not_disclose_info: ''
+      we_use_cookies: ''
+      we_use_for: ''
+      what_use: ''
+      which_information: ''
+    sync_status:
+      mastodon_account_html: The Mastodon account connected is <code>@%{uid}</code>.
+      twitter_account_html: The Twitter account connected is <code>@%{handle}</code>.
   layouts:
     application:
       home: ''
@@ -128,18 +144,3 @@ fr:
     show:
       advanced_from_mastodon_options: ''
       advanced_from_twitter_options: ''
-  home:
-    sync_status:
-      mastodon_account_html: "The Mastodon account connected is <code>@%{uid}</code>."
-      twitter_account_html: "The Twitter account connected is <code>@%{handle}</code>."
-    privacy:
-      cookies: ''
-      disclose_info: ''
-      what_use: ''
-      which_information: ''
-      we_collect: ''
-      we_also_collect: ''
-      we_use_for: ''
-      we_also_use_for: ''
-      we_use_cookies: ''
-      we_do_not_disclose_info: ''

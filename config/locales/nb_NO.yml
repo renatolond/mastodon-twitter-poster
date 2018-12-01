@@ -1,125 +1,135 @@
+---
 nb_NO:
+  accounts: Kontoer
+  allow_with_words: Kun krysspost poster som inneholder følgende ord
+  block_with_words: Ikke krysspost poster som inneholder følgende ord
+  boost_options: 'Framhevingsvalg:'
+  change_this_on_options: Du kan endre disse innstillingene ved å gå til %{options}.
+  connections: Tilkoblinger
   crossposter_explanation: Denne tjenesten tillater deg å koble til en Mastodon-konto
     til en Twitter-konto og skru på kryssposting dem imellom. Du kan velge noen valg,
     som hvorvidt du ønsker å poste framhevinger, ulistete tut-er, eller svar.
-  login_to_get_started: Logg inn via Twitter og Mastodon for å komme igang
-  service_ran_by: Denne tjenesten leveres av
-  source_code_and_issues: Kildekode og feilsporer
-  twitter_logged_in: Twitter innlogget
-  mastodon_logged_in: Mastodon innlogget
+  crossposting_overview: Valgoversikt
+  default_visibility: Bruk forvalgt Mastodon-synlighet
+  disconnect: Koble fra
+  features: Funksjoner
+  follow_us_on_the_fediverse: Følg oss på Fediverse.
+  for_news_and_status: 'For nyheter og status:'
+  from_mastodon: Fra Mastodon til Twitter
+  from_twitter: Fra Twitter til Mastodon
+  home:
+    privacy:
+      cookies: Bruker vi kaker?
+      we_do_not_disclose_info: Nei.
+      what_use: Hva bruker vi din info til?
+      which_information: Hvilken info samler vi inn?
+    sync_status:
+      mastodon_account_html: Tilknyttet Mastodon-konto er <code>@%{uid}</code>.
+      twitter_account_html: Tilknyttet Twitter-konto er <code>@%{handle}</code>.
   layouts:
     application:
       home: Hjem
       privacy_policy: Personvernspraksis
-  accounts: Kontoer
-  connections: Tilkoblinger
+  log_out: Logg ut
+  login_to_get_started: Logg inn via Twitter og Mastodon for å komme igang
   manage_your_accounts: Behandle dine tilkoblede kontoer
-  disconnect: Koble fra
-  options: Valg
   masto_boost_do_not_post: Ikke post framhevinger på Twitter
   masto_boost_post_as_link: 'Post framhevinger på Twitter som lenker (Framhevet: https://mastodon.social/@renatolond/15082784)'
-  masto_reply_do_not_post: Ikke post svar på Twitter
-  masto_reply_post_self: Post svar til egne tut-inger på Twitter (tråder)
+  masto_login:
+    identifier: Brukernavn
+    invalid_identifier: Ugyldig brukernavn. Du må bruke formatet bruker@instans, som
+      krossposter@masto.donte.com.br
+    login: Logg inn
+    please: Koble til din Mastodon-konto
   masto_mention_do_not_post: Ikke påst nevninger på Twitter
-  masto_sync_status_true: PÅ
-  masto_sync_status_false: AV
-  masto_should_post_unlisted_true: PÅ
-  masto_should_post_unlisted_false: AV
-  masto_should_post_private_true: PÅ
-  masto_should_post_private_false: AV
-  synchronization_options: Synkroniseringsvalg
-  masto_synchronization_status: Post mine tut-er på Twitter
-  post_unlisted_toots: Post ulistede tut-er?
-  post_private_toots: Post private tut-er?
-  boost_options: 'Framhevingsvalg:'
-  masto_reply_options: 'Svaringsvalg:'
-  masto_reply_options_explanation: Dette er når du klikker "Svar"-knappen i Mastodons
-    grensesnitt. Det er et direkte svar på en annen tut.
   masto_mention_options: 'Nevningsvalg:'
   masto_mention_options_explanation: Denne tjenesten beandler nevnelse som en tut
     som ikke er et svar, men noe som begynner med en nevnelse av en annen bruker.
-  twitter_synchronization_status: Post mine tut-inger til Mastodon
-  twitter_sync_status_true: PÅ
-  twitter_sync_status_false: AV
-  no_sync_right_now: Akkurat poster du ingensteds hen.
-  toots_posted_to_twitter: Dine tut-er postes til Twitter.
-  tweets_posted_to_mastodon: Dine tvitringer postes til Mastodon.
-  masto_posting_unlisted: Du poster ulistede tut-inger.
-  masto_not_posting_unlisted: Du poster ikke ulistede tut-inger.
-  masto_posting_private: Du poster private tut-inger.
-  masto_not_posting_private: Du poster ikke private tut-inger.
   masto_not_posting_boost: Du poster ikke framhevede tut-inger.
+  masto_not_posting_private: Du poster ikke private tut-inger.
+  masto_not_posting_reply: Du poster ikke svar.
+  masto_not_posting_unlisted: Du poster ikke ulistede tut-inger.
   masto_posting_boost_as_link: Du poster ikke framhevede tut-inger som lenker.
-  change_this_on_options: Du kan endre disse innstillingene ved å gå til %{options}.
-  retweet_options: Omtvitringsvalg
-  retweet_do_not_post: Ikke post omtvitringer på Mastodon
-  retweet_post_as_old_rt: 'Post omtvitringer på Mastodon i gammel stil (OT @renatolonddev@twitter.com:
-    Hei, verden!)'
-  retweet_post_as_old_rt_with_link: 'Post omtvitringer på Mastodon i gammel stil med
-    lenker (OT @renatolonddev@twitter.com: Hei, verden! https://twitter.com/renatolonddev/status/904738384861700096)'
-  quote_options: Sitatvalg
+  masto_posting_private: Du poster private tut-inger.
+  masto_posting_reply_to_self: Du poster svar til deg selv.
+  masto_posting_unlisted: Du poster ulistede tut-inger.
+  masto_privacy:
+    private: Privat
+    public: Offentlig
+    unlisted: Ulistet
+  masto_privacy_for_status:
+    default: Forvalgt Mastodon-personvern.
+    private: Privat.
+    public: Offentlig.
+    unlisted: Ulistet.
+  masto_reply_do_not_post: Ikke post svar på Twitter
+  masto_reply_options: 'Svaringsvalg:'
+  masto_reply_options_explanation: Dette er når du klikker "Svar"-knappen i Mastodons
+    grensesnitt. Det er et direkte svar på en annen tut.
+  masto_reply_post_self: Post svar til egne tut-inger på Twitter (tråder)
+  masto_should_post_private_false: AV
+  masto_should_post_private_true: PÅ
+  masto_should_post_unlisted_false: AV
+  masto_should_post_unlisted_true: PÅ
+  masto_sync_status_false: AV
+  masto_sync_status_true: PÅ
+  masto_synchronization_status: Post mine tut-er på Twitter
+  masto_word_list_explanation: Mastodon-ordlisteforklaring
+  mastodon_logged_in: Mastodon innlogget
+  no_sync_right_now: Akkurat poster du ingensteds hen.
+  options: Valg
+  post_private_toots: Post private tut-er?
+  post_unlisted_toots: Post ulistede tut-er?
   quote_do_not_post: Ikke post sitater på Mastodon
+  quote_options: Sitatvalg
   quote_post_as_old_rt: 'Post sitater på Mastodon i gammel stil (Jeg liker denne idéen
     OT @renatolonddev@twitter.com: Hei, verden!)'
   quote_post_as_old_rt_with_link: 'Post sitater på Mastodon i gammel stil med lenker
     (Jeg liker denne idéen OT @renatolonddev@twitter.com: Hei, verden! https://twitter.com/renatolonddev/status/904738384861700096)'
-  twitter_reply_do_not_post: Ikke post svar på Mastodon
-  twitter_reply_post_self: Post svar til mine egne twitringer på Mastodon (tråder)
-  twitter_reply_options: 'Svaringsvalg:'
-  twitter_reply_options_explanation: Dette er når du klikker "Svar"-knappen i Twitters
-    grensesnitt. Det er et direkte svar på en annen tvitring.
-  twitter_not_posting_rt: Du poster ikke omtvitringer.
-  twitter_posting_rt_old_style: Du poster omtvitringer i gammel stil.
-  twitter_posting_rt_old_style_with_link: Du poster omtvitringer i gammel stil med
-    lenker.
-  twitter_not_posting_quote: Du poster ikke sitater.
-  twitter_posting_quote_old_style: Du poster sitater i gammel stil.
-  twitter_posting_quote_old_style_with_link: Du poster sitater i gammel stil med lenker.
-  twitter_not_posting_reply: Du poster ikke svar.
-  twitter_posting_reply_to_self: Du poster svar til deg selv.
-  masto_not_posting_reply: Du poster ikke svar.
-  masto_posting_reply_to_self: Du poster svar til deg selv.
-  log_out: Logg ut
-  for_news_and_status: 'For nyheter og status:'
-  features: Funksjoner
+  retweet_do_not_post: Ikke post omtvitringer på Mastodon
+  retweet_options: Omtvitringsvalg
+  retweet_post_as_old_rt: 'Post omtvitringer på Mastodon i gammel stil (OT @renatolonddev@twitter.com:
+    Hei, verden!)'
+  retweet_post_as_old_rt_with_link: 'Post omtvitringer på Mastodon i gammel stil med
+    lenker (OT @renatolonddev@twitter.com: Hei, verden! https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: Denne tjenesten leveres av
+  source_code_and_issues: Kildekode og feilsporer
   status: Status
+  synchronization_options: Synkroniseringsvalg
+  toots_posted_to_twitter: Dine tut-er postes til Twitter.
+  tweets_posted_to_mastodon: Dine tvitringer postes til Mastodon.
   twitter_content_warning: Twitter-innholdsadvarsel
   twitter_content_warning_explanation: Enhver tekst lagt til i denne boksen vil bli
     brukt som innholdsvarsel for enhver tut krysspostet fra Twitter (unntatt for twitringer
     som blir oppdaget å inneholde spesielle innholdsadvarsler)
   twitter_content_warning_status: 'Alle dine tvitringer postes bak innholdsadvarslen:
     "%{cw}"'
+  twitter_logged_in: Twitter innlogget
+  twitter_not_posting_quote: Du poster ikke sitater.
+  twitter_not_posting_reply: Du poster ikke svar.
+  twitter_not_posting_rt: Du poster ikke omtvitringer.
   twitter_original_visibility: Personvern for dine opprinnelige tvitringer når krysspostet
-  twitter_retweet_visibility: Personvern for omtvitringer når krysspostet
-  twitter_quote_visibility: Personvern for sitater når krysspostet
-  default_visibility: Bruk forvalgt Mastodon-synlighet
-  masto_privacy:
-    public: Offentlig
-    private: Privat
-    unlisted: Ulistet
-  masto_privacy_for_status:
-    default: Forvalgt Mastodon-personvern.
-    public: Offentlig.
-    private: Privat.
-    unlisted: Ulistet.
   twitter_original_visibility_status: 'Du poster dine egne tvitringer med personvernet: '
-  twitter_retweet_visibility_status: 'Du poster dine omtvitringer med personvernet: '
+  twitter_posting_quote_old_style: Du poster sitater i gammel stil.
+  twitter_posting_quote_old_style_with_link: Du poster sitater i gammel stil med lenker.
+  twitter_posting_reply_to_self: Du poster svar til deg selv.
+  twitter_posting_rt_old_style: Du poster omtvitringer i gammel stil.
+  twitter_posting_rt_old_style_with_link: Du poster omtvitringer i gammel stil med
+    lenker.
+  twitter_quote_visibility: Personvern for sitater når krysspostet
   twitter_quote_visibility_status: 'Du poster sitater med personvernet: '
-  masto_login:
-    please: Koble til din Mastodon-konto
-    identifier: Brukernavn
-    login: Logg inn
-    invalid_identifier: Ugyldig brukernavn. Du må bruke formatet bruker@instans, som
-      krossposter@masto.donte.com.br
-  follow_us_on_the_fediverse: Følg oss på Fediverse.
-  from_twitter: Fra Twitter til Mastodon
-  from_mastodon: Fra Mastodon til Twitter
-  crossposting_overview: Valgoversikt
+  twitter_reply_do_not_post: Ikke post svar på Mastodon
+  twitter_reply_options: 'Svaringsvalg:'
+  twitter_reply_options_explanation: Dette er når du klikker "Svar"-knappen i Twitters
+    grensesnitt. Det er et direkte svar på en annen tvitring.
+  twitter_reply_post_self: Post svar til mine egne twitringer på Mastodon (tråder)
+  twitter_retweet_visibility: Personvern for omtvitringer når krysspostet
+  twitter_retweet_visibility_status: 'Du poster dine omtvitringer med personvernet: '
+  twitter_sync_status_false: AV
+  twitter_sync_status_true: PÅ
+  twitter_synchronization_status: Post mine tut-inger til Mastodon
+  twitter_word_list: Twitter-ordliste
   users:
-    show:
-      advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
-        Twitter
-      advanced_from_twitter_options: Avanserte valg for posting fra Twitter til Mastodon
     advanced_mastodon:
       add_another_word: Legg til et nytt ord
       disabled: Avskrudd
@@ -143,16 +153,7 @@ nb_NO:
       twitter_word_list_explanation: Liste over ord som tas med i betraktning hvis
         valget ovenfor er påskrudd. Ingen delvis jamføring gjøres, hvis du skriver
         "fulg" ovenfor, vil ikke "fuglekasse" tatt med i betraktning.
-  allow_with_words: Kun krysspost poster som inneholder følgende ord
-  block_with_words: Ikke krysspost poster som inneholder følgende ord
-  masto_word_list_explanation: Mastodon-ordlisteforklaring
-  twitter_word_list: Twitter-ordliste
-  home:
-    sync_status:
-      mastodon_account_html: Tilknyttet Mastodon-konto er <code>@%{uid}</code>.
-      twitter_account_html: Tilknyttet Twitter-konto er <code>@%{handle}</code>.
-    privacy:
-      cookies: Bruker vi kaker?
-      what_use: Hva bruker vi din info til?
-      which_information: Hvilken info samler vi inn?
-      we_do_not_disclose_info: Nei.
+    show:
+      advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
+        Twitter
+      advanced_from_twitter_options: Avanserte valg for posting fra Twitter til Mastodon
