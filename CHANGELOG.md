@@ -1,3 +1,5 @@
+[2018-12-01] - Added bulma-rtl, `yarn install --pure-lockfile` and `rails assets:precompile` needed after upgrade.
+
 [2018-11-23] - Removed daemons. Recommended services changed, take a look on new recommendation.
 
 *Action is needed!* For this release, you need to upgrade the code, install the needed dependencies, restart the service and then run the following from a rails console session (can be accessed by using `RAILS_ENV=production bundle exec rails console` from your server) :

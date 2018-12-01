@@ -4,7 +4,11 @@
     <title><%= Rails.configuration.x.application_name %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% if locale_direction == :rtl %>
+      <%= stylesheet_link_tag    'application-rtl', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% else %>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <% end %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://cdn.jsdelivr.net/npm/fork-awesome@1.0.11/css/fork-awesome.min.css" rel="stylesheet" integrity="sha384-uuYw9QCBRSK1iU8peX/dvpGqv5uv83afJrv7ZBTX8tG7dB+HR6JUDl20dBl30UZO" crossorigin="anonymous">
   </head>
