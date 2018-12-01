@@ -86,7 +86,8 @@ fr:
   tweets_posted_to_mastodon: ''
   twitter_content_warning: ''
   twitter_content_warning_explanation: ''
-  twitter_content_warning_status: ''
+  twitter_content_warning_status: 'All of your tweets are being posted behind the
+    CW: "%{cw}"'
   twitter_logged_in: ''
   twitter_not_posting_quote: ''
   twitter_not_posting_reply: ''
@@ -129,8 +130,8 @@ fr:
       advanced_from_twitter_options: ''
   home:
     sync_status:
-      mastodon_account_html: ''
-      twitter_account_html: ''
+      mastodon_account_html: "The Mastodon account connected is <code>@%{uid}</code>."
+      twitter_account_html: "The Twitter account connected is <code>@%{handle}</code>."
     privacy:
       cookies: ''
       disclose_info: ''

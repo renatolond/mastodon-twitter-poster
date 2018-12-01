@@ -130,8 +130,8 @@ it:
       advanced_from_twitter_options: ''
   home:
     sync_status:
-      mastodon_account_html: ''
-      twitter_account_html: ''
+      mastodon_account_html: "The Mastodon account connected is <code>@%{uid}</code>."
+      twitter_account_html: "The Twitter account connected is <code>@%{handle}</code>."
     privacy:
       cookies: ''
       disclose_info: ''
