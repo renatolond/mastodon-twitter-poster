@@ -292,7 +292,7 @@ class MastodonUserProcessor
 
   def tweet(content, opts = {})
     Rails.logger.debug { "Posting to twitter: #{content}" }
-    raise "Contains @" if content.gsub(toot.url, "").gsub(/https:\/\/[^\s\/]+\/[@＠][^\s\/]+(?:\/|\w)/, "").gsub("@ ", "").gsub(/[@＠]\Z/, "").match?(/(?:^|[^A-Za-z0-9])[@＠]/)
+    return if content.gsub(toot.url, "").gsub(/https:\/\/[^\s\/]+\/[@＠][^\s\/]+(?:\/|\w)/, "").gsub("@ ", "").gsub(/[@＠]\Z/, "").match?(/(?:^|[^A-Za-z0-9])[@＠]/)
     status = user.twitter_client.update(content, opts)
     Status.create(mastodon_client: user.mastodon.mastodon_client, masto_id: toot.id, tweet_id: status.id)
     MastodonUserProcessor.stats.increment("toot.posted_to_twitter")
