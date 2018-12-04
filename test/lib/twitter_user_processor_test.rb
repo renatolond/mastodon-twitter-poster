@@ -756,7 +756,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(web_fixture("mastodon_image_post.json"))
 
     t = user.twitter_client.status(1046801852556349440, tweet_mode: "extended", include_ext_alt_text: true)
-    text = "🖼️"
+    text = ""
     sensitive = true
     cw = "teste!"
 
@@ -988,7 +988,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     t = user.twitter_client.status(914920718705594369, tweet_mode: "extended")
 
-    text = "🖼️"
+    text = ""
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [273], false, true, nil)

@@ -222,7 +222,6 @@ class TwitterUserProcessor
     text, @cw = TweetTransformer.detect_cw(text)
     text = find_media(media, text)
     text = self.class.html_entities.decode(text)
-    text = "🖼️" if text.empty?
     @cw = nil if @cw.blank?
     [text, @cw]
   end
