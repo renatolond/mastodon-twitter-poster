@@ -12,135 +12,166 @@ fr:
     et un compte Twitter et d'activer la publication croisée. Vous pouvez choisir
     certaines options, par exemple si vous voulez envoyer des partages, des pouets
     non listés ou des réponses.
-  crossposting_overview: ''
-  default_visibility: ''
-  disconnect: ''
-  features: ''
-  follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
-  from_mastodon: ''
-  from_twitter: ''
+  crossposting_overview: Options overview
+  default_visibility: Use Mastodon default visibility
+  disconnect: Disconnect
+  features: Features
+  follow_us_on_the_fediverse: Follow us on the fediverse!
+  for_news_and_status: 'For news and status:'
+  from_mastodon: From Mastodon to Twitter
+  from_twitter: From Twitter to Mastodon
   home:
     privacy:
-      cookies: ''
-      disclose_info: ''
-      we_also_collect: ''
-      we_also_use_for: ''
-      we_collect: ''
-      we_do_not_disclose_info: ''
-      we_use_cookies: ''
-      we_use_for: ''
-      what_use: ''
-      which_information: ''
+      cookies: Do we use cookies?
+      disclose_info: Do we disclose any information to outside parties?
+      we_also_collect: We also collect the id of the posts made from the crossposter
+        on both sites, for as long as one year.
+      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
+        and Twitter posts, which allows us to crosspost threads from one site to the
+        other.
+      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
+        tokens for each service, which allows us to take actions with your accounts.
+      we_do_not_disclose_info: No.
+      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
+        and identify you to your accounts.
+      we_use_for: We use the OAuth tokens and identifier to be able to connect to
+        your accounts, retrieve posts and post to the other service, according to
+        your configuration.
+      what_use: What do we use your information for?
+      which_information: What information we collect?
     sync_status:
       mastodon_account_html: The Mastodon account connected is <code>@%{uid}</code>.
       twitter_account_html: The Twitter account connected is <code>@%{handle}</code>.
   layouts:
     application:
-      home: ''
-      privacy_policy: ''
-  log_out: ''
-  login_to_get_started: ''
-  manage_your_accounts: ''
-  masto_boost_do_not_post: ''
-  masto_boost_post_as_link: ''
+      home: Home
+      privacy_policy: Privacy policy
+  log_out: Logout
+  login_to_get_started: Login via Twitter and Mastodon to get started
+  manage_your_accounts: Manage your connected accounts
+  masto_boost_do_not_post: Do not post boosts on twitter
+  masto_boost_post_as_link: 'Post boosts on twitter as links (Boosted: https://mastodon.social/@renatolond/15082784)'
   masto_login:
-    identifier: ''
-    invalid_identifier: ''
-    login: ''
-    please: ''
-  masto_mention_do_not_post: ''
-  masto_mention_options: ''
-  masto_mention_options_explanation: ''
-  masto_not_posting_boost: ''
-  masto_not_posting_private: ''
-  masto_not_posting_reply: ''
-  masto_not_posting_unlisted: ''
-  masto_posting_boost_as_link: ''
-  masto_posting_private: ''
-  masto_posting_reply_to_self: ''
-  masto_posting_unlisted: ''
+    identifier: Identifier
+    invalid_identifier: Invalid identifier. You need to use the format user@instance,
+      like crossposter@masto.donte.com.br
+    login: Login
+    please: Connect your Mastodon
+  masto_mention_do_not_post: Do not post mentions on twitter
+  masto_mention_options: 'Mention options:'
+  masto_mention_options_explanation: This service considers mention as a toot that's
+    not a reply, but that begins with a mention to another user.
+  masto_not_posting_boost: You're not posting boosted toots.
+  masto_not_posting_private: You're not posting private toots.
+  masto_not_posting_reply: You're not posting replies.
+  masto_not_posting_unlisted: You're not posting unlisted toots.
+  masto_posting_boost_as_link: You're posting boosted toots as links.
+  masto_posting_private: You're posting private toots.
+  masto_posting_reply_to_self: You're posting replies to yourself.
+  masto_posting_unlisted: You're posting unlisted toots.
   masto_privacy:
-    private: ''
-    public: ''
-    unlisted: ''
+    private: Private
+    public: Public
+    unlisted: Unlisted
   masto_privacy_for_status:
-    default: ''
-    private: ''
-    public: ''
-    unlisted: ''
-  masto_reply_do_not_post: ''
-  masto_reply_options: ''
-  masto_reply_options_explanation: ''
-  masto_reply_post_self: ''
-  masto_should_post_private_false: ''
-  masto_should_post_private_true: ''
-  masto_should_post_unlisted_false: ''
-  masto_should_post_unlisted_true: ''
-  masto_sync_status_false: ''
-  masto_sync_status_true: ''
-  masto_synchronization_status: ''
-  masto_word_list_explanation: ''
-  mastodon_logged_in: ''
-  no_sync_right_now: ''
-  options: ''
-  post_private_toots: ''
-  post_unlisted_toots: ''
-  quote_do_not_post: ''
-  quote_options: ''
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
-  retweet_do_not_post: ''
-  retweet_options: ''
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
-  service_ran_by: ''
-  source_code_and_issues: ''
-  status: ''
-  synchronization_options: ''
-  toots_posted_to_twitter: ''
-  tweets_posted_to_mastodon: ''
-  twitter_content_warning: ''
-  twitter_content_warning_explanation: ''
+    default: Mastodon default privacy.
+    private: Private.
+    public: Public.
+    unlisted: Unlisted.
+  masto_reply_do_not_post: Do not post replies on twitter
+  masto_reply_options: 'Reply options:'
+  masto_reply_options_explanation: This is when you click the reply button on Mastodon's
+    interface. It's a direct reply to another toot.
+  masto_reply_post_self: Post replies to my own toots on twitter (threads)
+  masto_should_post_private_false: 'OFF'
+  masto_should_post_private_true: 'ON'
+  masto_should_post_unlisted_false: 'OFF'
+  masto_should_post_unlisted_true: 'ON'
+  masto_sync_status_false: 'OFF'
+  masto_sync_status_true: 'ON'
+  masto_synchronization_status: Post my toots on twitter
+  masto_word_list_explanation: Masto word list explanation
+  mastodon_logged_in: Mastodon logged in
+  no_sync_right_now: Currently, you're *not* posting anywhere.
+  options: Options
+  post_private_toots: Post private toots?
+  post_unlisted_toots: Post unlisted toots?
+  quote_do_not_post: Do not post quotes on Mastodon
+  quote_options: Quote options
+  quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea
+    RT @renatolonddev@twitter.com: Hello, world!)'
+  quote_post_as_old_rt_with_link: 'Post quotes on Mastodon as old-style RTs with links
+    (I like this idea RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_do_not_post: Do not post Retweets on Mastodon
+  retweet_options: Retweets options
+  retweet_post_as_old_rt: 'Post Retweets on Mastodon as old-style RTs (RT @renatolonddev@twitter.com:
+    Hello, world!)'
+  retweet_post_as_old_rt_with_link: 'Post Retweets on Mastodon as old-style RTs with
+    links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: This service is ran by
+  source_code_and_issues: Source code and issues
+  status: Status
+  synchronization_options: Synchronization options
+  toots_posted_to_twitter: Your toots are being posted to Twitter.
+  tweets_posted_to_mastodon: Your tweets are being posted to Mastodon.
+  twitter_content_warning: Twitter content warning
+  twitter_content_warning_explanation: Any text added to this box will be used as
+    content warning for every toot crossposted from twitter (except for tweets in
+    which specific CWs are detected)
   twitter_content_warning_status: 'All of your tweets are being posted behind the
     CW: "%{cw}"'
-  twitter_logged_in: ''
-  twitter_not_posting_quote: ''
-  twitter_not_posting_reply: ''
-  twitter_not_posting_rt: ''
-  twitter_original_visibility: ''
-  twitter_original_visibility_status: ''
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
-  twitter_posting_reply_to_self: ''
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
-  twitter_quote_visibility: ''
-  twitter_quote_visibility_status: ''
-  twitter_reply_do_not_post: ''
-  twitter_reply_options: ''
-  twitter_reply_options_explanation: ''
-  twitter_reply_post_self: ''
-  twitter_retweet_visibility: ''
-  twitter_retweet_visibility_status: ''
-  twitter_sync_status_false: ''
-  twitter_sync_status_true: ''
-  twitter_synchronization_status: ''
-  twitter_word_list: ''
+  twitter_logged_in: Twitter logged in
+  twitter_not_posting_quote: You're not posting quotes.
+  twitter_not_posting_reply: You're not posting replies.
+  twitter_not_posting_rt: You're not posting retweets.
+  twitter_original_visibility: Privacy for your original tweets when crossposted
+  twitter_original_visibility_status: 'Your posting your own tweets with the privacy: '
+  twitter_posting_quote_old_style: You're posting quotes as old-style RTs.
+  twitter_posting_quote_old_style_with_link: You're posting quotes as old-style RTs
+    with links.
+  twitter_posting_reply_to_self: You're posting replies to yourself.
+  twitter_posting_rt_old_style: You're posting retweets like old-style RTs.
+  twitter_posting_rt_old_style_with_link: You're posting retweets like old-style RTs
+    with links.
+  twitter_quote_visibility: Privacy for quotes when crossposted
+  twitter_quote_visibility_status: 'Your posting quotes with the privacy: '
+  twitter_reply_do_not_post: Do not post replies on Mastodon
+  twitter_reply_options: 'Reply options:'
+  twitter_reply_options_explanation: This is when you click the reply button on Twitter's
+    interface. It's a direct reply to another tweet.
+  twitter_reply_post_self: Post replies to my own tweets on Mastodon (threads)
+  twitter_retweet_visibility: Privacy for retweets when crossposted
+  twitter_retweet_visibility_status: 'Your posting retweets with the privacy: '
+  twitter_sync_status_false: 'OFF'
+  twitter_sync_status_true: 'ON'
+  twitter_synchronization_status: Post my tweets on Mastodon
+  twitter_word_list: Twitter word list
   users:
     advanced_mastodon:
-      add_another_word: ''
-      disabled: ''
-      masto_block_or_allow_list: ''
-      masto_block_or_allow_list_explanation: ''
-      masto_word_list: ''
-      masto_word_list_explanation: ''
+      add_another_word: Add another word
+      disabled: Disabled
+      masto_block_or_allow_list: Ignore posts containing certain words or only allow
+        posts containing certain words
+      masto_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
+      masto_word_list: List of words or expressions for posts coming from Mastodon
+      masto_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     advanced_twitter:
-      add_another_word: ''
-      disabled: ''
-      twitter_block_or_allow_list: ''
-      twitter_block_or_allow_list_explanation: ''
-      twitter_word_list_explanation: ''
+      add_another_word: Add another word
+      disabled: Disabled
+      twitter_block_or_allow_list: Ignore posts containing certain words or only allow
+        posts containing certain words
+      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
+      twitter_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     show:
-      advanced_from_mastodon_options: ''
-      advanced_from_twitter_options: ''
+      advanced_from_mastodon_options: Advanced options for posting from Mastodon to
+        Twitter
+      advanced_from_twitter_options: Advanced options for posting from Twitter to
+        Mastodon

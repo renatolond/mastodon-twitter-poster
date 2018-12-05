@@ -56,7 +56,8 @@ ar:
     please: ربط حساب ماستدون الخاص بك
   masto_mention_do_not_post: لا تنشر الإشارات على تويتر
   masto_mention_options: 'خيارات ذِكر الحسابات:'
-  masto_mention_options_explanation: ''
+  masto_mention_options_explanation: This service considers mention as a toot that's
+    not a reply, but that begins with a mention to another user.
   masto_not_posting_boost: أنت لا تنشر التبويقات التي تم ترقيتها.
   masto_not_posting_private: أنت لا تنشر التبويقات الخاصة.
   masto_not_posting_reply: أنت لا تنشر الردود.
@@ -111,7 +112,9 @@ ar:
   toots_posted_to_twitter: حاليًا يجري نشر تبويقاتك على تويتر.
   tweets_posted_to_mastodon: حاليًا يجري نشر تغريداتك على ماستدون.
   twitter_content_warning: التحذير عن المحتوى لتويتر
-  twitter_content_warning_explanation: ''
+  twitter_content_warning_explanation: Any text added to this box will be used as
+    content warning for every toot crossposted from twitter (except for tweets in
+    which specific CWs are detected)
   twitter_content_warning_status: 'سوف يتم نشر كافة تغريداتك وراء تحذير عن المحتوى
     على الشكل التالي: "%{cw}"'
   twitter_logged_in: تم التسجيل عبر تويتر
