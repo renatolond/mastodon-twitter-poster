@@ -1,6 +1,8 @@
 ---
 pl:
   accounts: Konta
+  allow_with_words: Only crosspost posts containing the following words
+  block_with_words: Do not crosspost posts containing the following words
   boost_options: 'Opcje podbić:'
   change_this_on_options: Możesz zmienić te opcje w %{options}.
   connections: Połączenia
@@ -15,9 +17,32 @@ pl:
   for_news_and_status: 'Informacje o nowościach i stanie:'
   from_mastodon: Z Mastodona do Twittera
   from_twitter: Z Twittera do Mastodona
+  home:
+    privacy:
+      cookies: Do we use cookies?
+      disclose_info: Do we disclose any information to outside parties?
+      we_also_collect: We also collect the id of the posts made from the crossposter
+        on both sites, for as long as one year.
+      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
+        and Twitter posts, which allows us to crosspost threads from one site to the
+        other.
+      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
+        tokens for each service, which allows us to take actions with your accounts.
+      we_do_not_disclose_info: No.
+      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
+        and identify you to your accounts.
+      we_use_for: We use the OAuth tokens and identifier to be able to connect to
+        your accounts, retrieve posts and post to the other service, according to
+        your configuration.
+      what_use: What do we use your information for?
+      which_information: What information we collect?
+    sync_status:
+      mastodon_account_html: The Mastodon account connected is <code>@%{uid}</code>.
+      twitter_account_html: The Twitter account connected is <code>@%{handle}</code>.
   layouts:
     application:
       home: Strona główna
+      privacy_policy: Privacy policy
   log_out: Wyloguj się
   login_to_get_started: Zaloguj z użyciem Twittera i Mastodona aby rozpocząć
   manage_your_accounts: Zarządzaj połączonymi kontami
@@ -63,6 +88,7 @@ pl:
   masto_sync_status_false: NIE
   masto_sync_status_true: TAK
   masto_synchronization_status: Publikuj moje tooty na Twitterze
+  masto_word_list_explanation: Masto word list explanation
   mastodon_logged_in: Zalogowano na Mastodonie
   no_sync_right_now: Obecnie nie publikujesz *niczego*.
   options: Opcje
@@ -118,11 +144,31 @@ pl:
   twitter_sync_status_false: NIE
   twitter_sync_status_true: TAK
   twitter_synchronization_status: Publikuj moje tweety na Mastodonie
+  twitter_word_list: Twitter word list
   users:
     advanced_mastodon:
       add_another_word: Dodaj kolejne słowo
+      disabled: Disabled
+      masto_block_or_allow_list: Ignore posts containing certain words or only allow
+        posts containing certain words
+      masto_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
+      masto_word_list: List of words or expressions for posts coming from Mastodon
+      masto_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     advanced_twitter:
       add_another_word: Dodaj kolejne słowo
+      disabled: Disabled
+      twitter_block_or_allow_list: Ignore posts containing certain words or only allow
+        posts containing certain words
+      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
+      twitter_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     show:
       advanced_from_mastodon_options: Zaawansowane opcje wysyłania postów z Mastodona
         do Twittera

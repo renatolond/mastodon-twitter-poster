@@ -20,7 +20,20 @@ nb_NO:
   home:
     privacy:
       cookies: Bruker vi kaker?
+      disclose_info: Do we disclose any information to outside parties?
+      we_also_collect: We also collect the id of the posts made from the crossposter
+        on both sites, for as long as one year.
+      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
+        and Twitter posts, which allows us to crosspost threads from one site to the
+        other.
+      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
+        tokens for each service, which allows us to take actions with your accounts.
       we_do_not_disclose_info: Nei.
+      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
+        and identify you to your accounts.
+      we_use_for: We use the OAuth tokens and identifier to be able to connect to
+        your accounts, retrieve posts and post to the other service, according to
+        your configuration.
       what_use: Hva bruker vi din info til?
       which_information: Hvilken info samler vi inn?
     sync_status:

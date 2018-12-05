@@ -21,7 +21,19 @@ ar:
     privacy:
       cookies: هل نستخدم الكوكيز أو الكعكات؟
       disclose_info: هل نكشف أية معلومات إلى أطراف خارجية؟
+      we_also_collect: We also collect the id of the posts made from the crossposter
+        on both sites, for as long as one year.
+      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
+        and Twitter posts, which allows us to crosspost threads from one site to the
+        other.
+      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
+        tokens for each service, which allows us to take actions with your accounts.
       we_do_not_disclose_info: لا.
+      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
+        and identify you to your accounts.
+      we_use_for: We use the OAuth tokens and identifier to be able to connect to
+        your accounts, retrieve posts and post to the other service, according to
+        your configuration.
       what_use: في ماذا نستخدم بياناتك؟
       which_information: ما هي المعلومات التي نقوم بجمعها؟
     sync_status:
@@ -134,13 +146,25 @@ ar:
       disabled: مُعطَّل
       masto_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
         بالمنشورات التي تحتوي على كلمات محددة فقط
+      masto_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
       masto_word_list: قائمة الكلمات أو العبارات المذكروة في المنشورات القادمة من
         ماستدون
+      masto_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     advanced_twitter:
       add_another_word: إضافة كلمة أخرى
       disabled: مُعطَّل
       twitter_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
         بالمنشورات التي تحتوي على كلمات محددة فقط
+      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
+        crossposting of posts that contain the words defined below or to only crosspost
+        posts that contain the words defined below
+      twitter_word_list_explanation: This list of words will be used if you enabled
+        the option above. No partial match is done, that is, if you write "bird" above,
+        "birdsite" will not be considered.
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
