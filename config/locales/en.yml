@@ -121,7 +121,7 @@ en:
   twitter_not_posting_reply: You're not posting replies.
   twitter_not_posting_rt: You're not posting retweets.
   twitter_original_visibility: Privacy for your original tweets when crossposted
-  twitter_original_visibility_status: 'Your posting your own tweets with the privacy: '
+  twitter_original_visibility_status: "You're posting your own tweets with the privacy: "
   twitter_posting_quote_old_style: You're posting quotes as old-style RTs.
   twitter_posting_quote_old_style_with_link: You're posting quotes as old-style RTs
     with links.
@@ -130,14 +130,14 @@ en:
   twitter_posting_rt_old_style_with_link: You're posting retweets like old-style RTs
     with links.
   twitter_quote_visibility: Privacy for quotes when crossposted
-  twitter_quote_visibility_status: 'Your posting quotes with the privacy: '
+  twitter_quote_visibility_status: "You're posting quotes with the privacy: "
   twitter_reply_do_not_post: Do not post replies on Mastodon
   twitter_reply_options: 'Reply options:'
   twitter_reply_options_explanation: This is when you click the reply button on Twitter's
     interface. It's a direct reply to another tweet.
   twitter_reply_post_self: Post replies to my own tweets on Mastodon (threads)
   twitter_retweet_visibility: Privacy for retweets when crossposted
-  twitter_retweet_visibility_status: 'Your posting retweets with the privacy: '
+  twitter_retweet_visibility_status: "You're posting retweets with the privacy: "
   twitter_sync_status_false: 'OFF'
   twitter_sync_status_true: 'ON'
   twitter_synchronization_status: Post my tweets on Mastodon
