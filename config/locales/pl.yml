@@ -88,7 +88,6 @@ pl:
   masto_sync_status_false: NIE
   masto_sync_status_true: TAK
   masto_synchronization_status: Publikuj moje tooty na Twitterze
-  masto_word_list_explanation: Masto word list explanation
   mastodon_logged_in: Zalogowano na Mastodonie
   no_sync_right_now: Obecnie nie publikujesz *niczego*.
   options: Opcje

@@ -88,7 +88,6 @@ es:
   masto_sync_status_false: APAGADO
   masto_sync_status_true: ENCENDIDO
   masto_synchronization_status: Publicar mis toots en twitter
-  masto_word_list_explanation: Masto word list explanation
   mastodon_logged_in: Iniciada sesión en Mastodon
   no_sync_right_now: Actualmente, *no* está publicando en ningún sitio.
   options: Opciones

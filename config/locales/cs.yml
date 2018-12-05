@@ -85,7 +85,6 @@ cs:
   masto_sync_status_false: VYP
   masto_sync_status_true: ZAP
   masto_synchronization_status: Posílat moje tooty na Twitter
-  masto_word_list_explanation: Vysvětlení seznamu slov Mastodonu
   mastodon_logged_in: Mastodon je přihlášen
   no_sync_right_now: Aktuálně nikam *neposíláte*.
   options: Možnosti

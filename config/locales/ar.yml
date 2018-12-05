@@ -87,7 +87,6 @@ ar:
   masto_sync_status_false: مُوَقّف
   masto_sync_status_true: مُفعّل
   masto_synchronization_status: أنشر تبويقاتي على تويتر
-  masto_word_list_explanation: قائمة ماستدون للكلمات المشروحة
   mastodon_logged_in: تم التسجيل عبر ماستدون
   no_sync_right_now: حاليا، إنك *لا* تنشر في أي مكان.
   options: الخيارات

@@ -87,7 +87,6 @@ en:
   masto_sync_status_false: 'OFF'
   masto_sync_status_true: 'ON'
   masto_synchronization_status: Post my toots on twitter
-  masto_word_list_explanation: Masto word list explanation
   mastodon_logged_in: Mastodon logged in
   no_sync_right_now: Currently, you're *not* posting anywhere.
   options: Options

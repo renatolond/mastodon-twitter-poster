@@ -88,7 +88,6 @@ pt:
   masto_sync_status_false: Não
   masto_sync_status_true: Sim
   masto_synchronization_status: Postar toots para o twitter
-  masto_word_list_explanation: Masto word list explanation
   mastodon_logged_in: Mastodon conectado
   no_sync_right_now: No momento, você *não* está postando em lugar algum.
   options: Opções

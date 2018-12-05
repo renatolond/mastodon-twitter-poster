@@ -87,7 +87,6 @@ it:
   masto_sync_status_false: 'No'
   masto_sync_status_true: Sì
   masto_synchronization_status: Twitta i miei toots
-  masto_word_list_explanation: Elenco parole chiave
   mastodon_logged_in: Mastodon connesso
   no_sync_right_now: Attualmente non stai postando da nessuna parte.
   options: Opzioni

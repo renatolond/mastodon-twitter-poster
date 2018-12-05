@@ -90,7 +90,6 @@ nl:
   masto_sync_status_false: UIT
   masto_sync_status_true: AAN
   masto_synchronization_status: Mijn toots op Twitter plaatsen
-  masto_word_list_explanation: Masto-woordenlijstuitleg
   mastodon_logged_in: Ingelogd met Mastodon
   no_sync_right_now: Momenteel plaats je *nergens* berichten.
   options: Opties

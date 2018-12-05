@@ -87,7 +87,6 @@ nb_NO:
   masto_sync_status_false: AV
   masto_sync_status_true: PÅ
   masto_synchronization_status: Post mine tut-er på Twitter
-  masto_word_list_explanation: Mastodon-ordlisteforklaring
   mastodon_logged_in: Mastodon innlogget
   no_sync_right_now: Akkurat poster du ingensteds hen.
   options: Valg
