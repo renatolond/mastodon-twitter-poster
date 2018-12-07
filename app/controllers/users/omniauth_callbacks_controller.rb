@@ -11,6 +11,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def after_sign_in_path_for(resource)
+    if resource.mastodon && resource.twitter &&
+        !(resource.posting_from_twitter? || resource.posting_from_mastodon?)
+      user_path
+    else
+      super
+    end
+  end
+
   alias twitter  all
   alias mastodon all
 
