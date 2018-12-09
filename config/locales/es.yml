@@ -1,4 +1,3 @@
----
 es:
   accounts: Cuentas
   allow_with_words: Only crosspost posts containing the following words
@@ -13,7 +12,7 @@ es:
   default_visibility: Usar visibilidad por defecto de Mastodon
   disconnect: Desconectar
   features: Características
-  follow_us_on_the_fediverse: "¡Síguenos en el fediverso!"
+  follow_us_on_the_fediverse: ¡Síguenos en el fediverso!
   for_news_and_status: 'Noticias y estado del servicio:'
   from_mastodon: Desde Mastodon a Twitter
   from_twitter: Desde Twitter a Mastodon
@@ -91,8 +90,8 @@ es:
   mastodon_logged_in: Iniciada sesión en Mastodon
   no_sync_right_now: Actualmente, *no* está publicando en ningún sitio.
   options: Opciones
-  post_private_toots: "¿Publicar toots privados?"
-  post_unlisted_toots: "¿Publicar toots sin federar?"
+  post_private_toots: ¿Publicar toots privados?
+  post_unlisted_toots: ¿Publicar toots sin federar?
   quote_do_not_post: No publicar citas en Mastodon
   quote_options: Opciones de citas
   quote_post_as_old_rt: 'Publicar citas en Mastodon siguiendo el viejo estilo de RT
