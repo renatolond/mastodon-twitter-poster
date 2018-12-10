@@ -83,7 +83,7 @@ fr:
   masto_reply_do_not_post: Ne pas poster les réponses sur Twitter
   masto_reply_options: 'Options de réponse :'
   masto_reply_options_explanation: Ceci c’est lorsque vous cliquez sur le bouton de
-    réponse sur l’interface de Mastodon. C’est une réponse directe à un autre toot.
+    réponse sur l’interface de Mastodon. C’est une réponse directe à un autre pouet.
   masto_reply_post_self: Publier les réponses à mes propres pouets sur Twitter (fils
     de discussion)
   masto_should_post_private_false: Désactivé
