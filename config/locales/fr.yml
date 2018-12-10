@@ -94,22 +94,24 @@ fr:
   masto_sync_status_true: Activé
   masto_synchronization_status: Publier mes pouets sur Twitter
   mastodon_logged_in: Mastodon connecté
-  no_sync_right_now: Currently, you're *not* posting anywhere.
+  no_sync_right_now: Actuellement, vous *ne postez* de nul part.
   options: Options
   post_private_toots: Publier les pouets privés ?
   post_unlisted_toots: Publier les pouets non-listés ?
   quote_do_not_post: Ne pas poster les citations sur Mastodon
   quote_options: Paramétrage des citations
-  quote_post_as_old_rt: 'Post quotes on Mastodon as old-style RTs (I like this idea
-    RT @renatolonddev@twitter.com: Hello, world!)'
-  quote_post_as_old_rt_with_link: 'Post quotes on Mastodon as old-style RTs with links
-    (I like this idea RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_post_as_old_rt: 'Poster les citations sur Mastodon en tant que RTs à l’ancienne
+    (j’aime cette idée RT @renatolonddev@twitter.com : Hello, world !)'
+  quote_post_as_old_rt_with_link: 'Poster les citations sur Mastodon comme RTs à l’ancienne
+    avec des liens (j’aime bien cette idée RT @renatolonddev@twitter.com : Bonjour,
+    le monde ! https://twitter.com/renatolonddev/status/904738384861700096)'
   retweet_do_not_post: Ne pas poster les Retweets sur Mastodon
   retweet_options: Paramétrage des Retweets
-  retweet_post_as_old_rt: 'Post Retweets on Mastodon as old-style RTs (RT @renatolonddev@twitter.com:
-    Hello, world!)'
-  retweet_post_as_old_rt_with_link: 'Post Retweets on Mastodon as old-style RTs with
-    links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_post_as_old_rt: 'Poster les Retweets sur Mastodon en tant que RTs à l’ancienne
+    (RT @renatolonddev@twitter.com : Hello, world !)'
+  retweet_post_as_old_rt_with_link: 'Poster les Retweets sur Mastodon en tant que
+    RTs à l’ancienne avec des liens (RT @renatolonddev@twitter.com : Bonjour, le monde
+    ! https://twitter.com/renatolonddev/status/904738384861700096)'
   service_ran_by: Ce service est géré par
   source_code_and_issues: Code source et bugs
   status: Statut
@@ -120,8 +122,7 @@ fr:
   twitter_content_warning_explanation: Any text added to this box will be used as
     content warning for every toot crossposted from twitter (except for tweets in
     which specific CWs are detected)
-  twitter_content_warning_status: 'All of your tweets are being posted behind the
-    CW: "%{cw}"'
+  twitter_content_warning_status: 'Tous vos tweets sont publiés derrière un CW : "%{cw}"'
   twitter_logged_in: Twitter connecté
   twitter_not_posting_quote: Vous ne postez pas de citations.
   twitter_not_posting_reply: Vous ne postez pas de réponses.
