@@ -20,7 +20,7 @@ en:
     privacy:
       cookies: Do we use cookies?
       disclose_info: Do we disclose any information to outside parties?
-      we_also_collect: We also collect the ID of the posts made from the crossposter
+      we_also_collect: We also collect the IDs of the posts made from the crossposter
         on both sites, for as long as one year.
       we_also_use_for: We use the IDs of posts to correlate Mastodon and Twitter posts,
         which allows us to crosspost threads from one site to the other.
