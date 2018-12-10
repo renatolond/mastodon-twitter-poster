@@ -22,8 +22,8 @@ en:
       disclose_info: Do we disclose any information to outside parties?
       we_also_collect: We also collect the ID of the posts made from the crossposter
         on both sites, for as long as one year.
-      we_also_use_for: The ID of posts is used to correlate Mastodon and Twitter posts,
-        allows crossposting threads from one site to the other.
+      we_also_use_for: We use the IDs of posts to correlate Mastodon and Twitter posts,
+        which allows us to crosspost threads from one site to the other.
       we_collect: We collect your Mastodon username and Twitter ID, as well as OAuth
         tokens for each service. This allows actions to be carried out on your accounts.
       we_do_not_disclose_info: No.
