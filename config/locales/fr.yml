@@ -172,11 +172,11 @@ fr:
     advanced_twitter:
       add_another_word: Ajouter un autre mot
       disabled: Désactivé
-      twitter_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
+      twitter_block_or_allow_list: Ignorer les publications contenant certains mots
+        ou n’autoriser que les publications contenant certains mots
+      twitter_block_or_allow_list_explanation: Cette option vous permet de choisir
+        d’ignorer la publication croisée des messages qui contiennent les mots définis
+        ci-dessous ou de ne publier que les messages contenant les mots définis ci-dessous
       twitter_word_list_explanation: This list of words will be used if you enabled
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
