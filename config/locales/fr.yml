@@ -132,10 +132,10 @@ fr:
   twitter_original_visibility_status: 'Actuellement, vous publiez vos propres tweets
     avec la confidentialité : '
   twitter_posting_quote_old_style: Vous publiez les citations en tant que RTs à l'ancienne.
-  twitter_posting_quote_old_style_with_link: You're posting quotes as old-style RTs
-    with links.
-  twitter_posting_reply_to_self: You're posting replies to yourself.
-  twitter_posting_rt_old_style: You're posting retweets like old-style RTs.
+  twitter_posting_quote_old_style_with_link: Vous publiez les citations en tant que
+    RTs à l’ancienne avec des liens.
+  twitter_posting_reply_to_self: Vous publiez les réponses à vos tweets.
+  twitter_posting_rt_old_style: Vous publiez les retweets en tant que RTs à l’ancienne.
   twitter_posting_rt_old_style_with_link: You're posting retweets like old-style RTs
     with links.
   twitter_quote_visibility: Confidentialité des citations lors de la publication croisée
@@ -143,12 +143,14 @@ fr:
     le niveau de confidentialité : '
   twitter_reply_do_not_post: Ne pas publier les réponses sur Mastodon
   twitter_reply_options: 'Options de réponse :'
-  twitter_reply_options_explanation: This is when you click the reply button on Twitter's
-    interface. It's a direct reply to another tweet.
-  twitter_reply_post_self: Post replies to my own tweets on Mastodon (threads)
+  twitter_reply_options_explanation: Ceci c’est lorsque vous cliquez sur le bouton
+    de réponse sur l’interface de Twitter. C’est une réponse directe à un autre tweet.
+  twitter_reply_post_self: Publier les réponses à mes propres tweets sur Mastodon
+    (fils de discussion)
   twitter_retweet_visibility: Confidentialité pour les retweets lors de la publication
     croisée
-  twitter_retweet_visibility_status: 'You''re posting retweets with the privacy: '
+  twitter_retweet_visibility_status: 'Vous postez les retweets avec le mode de confidentialité
+    : '
   twitter_sync_status_false: 'OFF'
   twitter_sync_status_true: 'ON'
   twitter_synchronization_status: Publier mes tweets sur Mastodon
@@ -157,11 +159,11 @@ fr:
     advanced_mastodon:
       add_another_word: Ajouter un autre mot
       disabled: Désactivé
-      masto_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      masto_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
+      masto_block_or_allow_list: Ignorer les publications contenant certains mots
+        ou n’autoriser que les publications contenant certains mots
+      masto_block_or_allow_list_explanation: Cette option vous permet de choisir d’ignorer
+        la publication croisée des messages qui contiennent les mots définis ci-dessous
+        ou de ne publier que les messages contenant les mots définis ci-dessous
       masto_word_list: Liste des mots ou expressions contenu·e·s dans les pouets provenant
         de Mastodon
       masto_word_list_explanation: This list of words will be used if you enabled
