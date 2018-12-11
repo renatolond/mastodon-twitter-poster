@@ -14,8 +14,8 @@ pt-BR:
   disconnect: Desconectar
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Desculpe, essa instância só aceita contas em %{domains}.
+      blocked_domain: Desculpe, %{domain} está bloqueado nessa instância.
   features: Funcionalidades
   follow_us_on_the_fediverse: Siga-nos no fediverso!
   for_news_and_status: 'Para novidades e status:'
