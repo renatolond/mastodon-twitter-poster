@@ -152,6 +152,14 @@ end
 
 You need to replace all values with actual values relevant to your server.
 
+## Blocked or allowed domains
+
+You can add `ALLOWED_DOMAIN=your.domain.com` to .env.production to only allow users from your instance to access the crossposter. This variable can only contain one domain at a time.
+
+At the same time, you can add `BLOCKED_DOMAINS=evil.corp,bad.instance` to .env.production to block users from those instances to access the crossposter. They need to be separated by commas, spaces are optional.
+
+You should only enable one at each time.
+
 ## Tests
 
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)

@@ -1,3 +1,5 @@
+[2018-12-11] - Added BLOCKED_DOMAINS variable, more information on README.
+
 [2018-12-01] - Added bulma-rtl, `yarn install --pure-lockfile` and `rails assets:precompile` needed after upgrade.
 
 [2018-11-23] - Removed daemons. Recommended services changed, take a look on new recommendation.
