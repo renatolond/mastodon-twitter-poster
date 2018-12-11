@@ -12,6 +12,10 @@ en:
   crossposting_overview: Options overview
   default_visibility: Use Mastodon default visibility
   disconnect: Disconnect
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Features
   follow_us_on_the_fediverse: Follow us on the fediverse!
   for_news_and_status: 'For news and status:'

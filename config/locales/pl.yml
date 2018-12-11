@@ -12,6 +12,10 @@ pl:
   crossposting_overview: Przegląd opcji
   default_visibility: Używaj domyślnej widoczności Mastodona
   disconnect: Rozłącz
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Funkcje
   follow_us_on_the_fediverse: Śledź nas w Fediwersum!
   for_news_and_status: 'Informacje o nowościach i stanie:'

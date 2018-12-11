@@ -15,6 +15,10 @@ fr:
   crossposting_overview: Aperçu des options
   default_visibility: Utiliser la visibilité par défaut de Mastodon
   disconnect: Déconnecter
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Fonctionnalités
   follow_us_on_the_fediverse: Suivez-nous sur le Fédiverse !
   for_news_and_status: 'Pour les nouveautés :'

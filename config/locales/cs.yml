@@ -12,6 +12,10 @@ cs:
   crossposting_overview: Přehled možností
   default_visibility: Použít výchozí viditelnost Mastodonu
   disconnect: Odpojit
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Vlastnosti
   follow_us_on_the_fediverse: Sledujte nás na fediverse!
   for_news_and_status: 'Pro zprávy a stav:'

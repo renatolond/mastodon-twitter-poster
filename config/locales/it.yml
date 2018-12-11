@@ -12,6 +12,10 @@ it:
   crossposting_overview: Options overview
   default_visibility: Usa privacy post di default
   disconnect: Disconnetti
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Funzionalità
   follow_us_on_the_fediverse: Seguici nel fediverso!
   for_news_and_status: 'Per news e stati:'

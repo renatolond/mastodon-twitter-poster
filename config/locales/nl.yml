@@ -15,6 +15,10 @@ nl:
   crossposting_overview: Optiesoverzicht
   default_visibility: Mastodon's standaard zichtbaarheid gebruiken
   disconnect: Ontkoppelen
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Functies
   follow_us_on_the_fediverse: Volg ons op het fediversum!
   for_news_and_status: 'Voor nieuws en de status:'

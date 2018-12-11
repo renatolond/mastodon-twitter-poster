@@ -12,6 +12,10 @@ nb_NO:
   crossposting_overview: Valgoversikt
   default_visibility: Bruk forvalgt Mastodon-synlighet
   disconnect: Koble fra
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Funksjoner
   follow_us_on_the_fediverse: Følg oss på Fediverse.
   for_news_and_status: 'For nyheter og status:'
