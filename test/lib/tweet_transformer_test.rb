@@ -29,6 +29,12 @@ class TweetTransformerTest < ActiveSupport::TestCase
     assert_equal "Hello, (@usera@twitter.com) [@userb@twitter.com] {@userc@twitter.com} .＠userd@twitter.com !", TweetTransformer.replace_mentions(text)
   end
 
+  test "regression: username in links should not be converted" do
+    text = "Check this out! https://masto.donte.com.br/@crossposter/101193766261571076 !"
+
+    assert_equal "Check this out! https://masto.donte.com.br/@crossposter/101193766261571076 !", TweetTransformer.replace_mentions(text)
+  end
+
   test 'detect cw: "tw/cw:" format with no space' do
     text = "TW/CW: spoiler
 Here's my spoiler!"
