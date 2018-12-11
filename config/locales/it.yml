@@ -1,3 +1,4 @@
+---
 it:
   accounts: Account
   allow_with_words: Crossposta solo post che contengono le seguenti parole
@@ -164,6 +165,8 @@ it:
       twitter_word_list_explanation: This list of words will be used if you enabled
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
+    mastodon_identifier:
+      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
     show:
       advanced_from_mastodon_options: Opzioni avanzate per postare da Mastodon a Twitter
       advanced_from_twitter_options: Opzioni avanzate per postare da Twitter a Mastodon

@@ -165,6 +165,8 @@ cs:
       twitter_word_list_explanation: Tento seznam slov bude použit, pokud povolíte
         výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
         „bird“, nebude se počítat „birdsite“.
+    mastodon_identifier:
+      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
     show:
       advanced_from_mastodon_options: Pokročilé možnosti posílání z Mastodonu na Twitter
       advanced_from_twitter_options: Pokročilé možnosti posílání z Twitteru na Mastodon

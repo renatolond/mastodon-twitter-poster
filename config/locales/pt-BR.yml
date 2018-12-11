@@ -1,3 +1,4 @@
+---
 pt-BR:
   accounts: Contas
   allow_with_words: Somente fazer crosspost de posts contendo as palavras a seguir
@@ -168,6 +169,8 @@ pt-BR:
       twitter_word_list_explanation: Essa lista de palavras será usada caso a opção
         acima esteja ligada. Combinações parciais não serão consideradas, isto é,
         se você adicionar "nata" como uma das palavras, "natação" não será considerada.
+    mastodon_identifier:
+      identifier_placeholder: Seu nome de usuário na sua instância, no formato sua.arroba@sua.instancia
     show:
       advanced_from_mastodon_options: Opções avançadas para postar do Mastodon para
         o Twitter

@@ -1,3 +1,4 @@
+---
 ar:
   accounts: الحسابات
   allow_with_words: النشر التبادلي فقط للمنشورات التي تحتوي على الكلمات التالية
@@ -166,6 +167,8 @@ ar:
       twitter_word_list_explanation: This list of words will be used if you enabled
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
+    mastodon_identifier:
+      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون

@@ -1,3 +1,4 @@
+---
 nb_NO:
   accounts: Kontoer
   allow_with_words: Kun krysspost poster som inneholder følgende ord
@@ -163,6 +164,8 @@ nb_NO:
       twitter_word_list_explanation: Liste over ord som tas med i betraktning hvis
         valget ovenfor er påskrudd. Ingen delvis jamføring gjøres, hvis du skriver
         "fulg" ovenfor, vil ikke "fuglekasse" tatt med i betraktning.
+    mastodon_identifier:
+      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
     show:
       advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
         Twitter
