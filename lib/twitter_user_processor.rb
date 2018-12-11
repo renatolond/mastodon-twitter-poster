@@ -200,10 +200,7 @@ class TwitterUserProcessor
         self.class.stats.increment("tweet.reply_to_self.skipped")
         return
       end
-      @type = :original
-      text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
-      save_status = true
-      toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+      process_normal_tweet
     end
   end
 
@@ -227,10 +224,19 @@ class TwitterUserProcessor
   end
 
   def process_normal_tweet
+    return if mention_only_tweet?
     @type = :original if @type.blank?
     text, cw = convert_twitter_text(tweet.full_text.dup, tweet.urls, tweet.media)
     save_status = true
     toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
+  end
+
+  def mention_only_tweet?
+    text = tweet.full_text.dup
+    tweet.user_mentions.reverse_each do |mention|
+      text.slice!(mention.indices[0], mention.indices[1] - mention.indices[0])
+    end
+    text.strip.empty?
   end
 
   class UnknownMediaException < StandardError
