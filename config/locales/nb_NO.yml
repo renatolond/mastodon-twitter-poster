@@ -20,7 +20,7 @@ nb_NO:
     privacy:
       cookies: Bruker vi kaker?
       disclose_info: Frigis noe av informasjonen til utenforstående?
-      we_also_collect: Vi samler også inn ID tilhørende postene gjort med kryssposteren
+      we_also_collect: Vi samler også inn ID-er fra tilhørende postene gjort med kryssposteren
         på begge sider, så lenge som ett år.
       we_also_use_for: Posters ID brukes for å jamføre Mastodon- og Twitter-poster,
         noe som tillater kryssposting av tråder fra en siden til en annen.
