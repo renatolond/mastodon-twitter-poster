@@ -733,10 +733,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:full_text).returns(text)
+    tweet.expects(:full_text).twice.returns(text)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
     tweet.expects(:urls).returns([])
+    tweet.expects(:user_mentions).returns([])
 
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status, cw).times(1).returns(nil)
@@ -777,10 +778,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:full_text).returns(text)
+    tweet.expects(:full_text).twice.returns(text)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
     tweet.expects(:urls).returns([])
+    tweet.expects(:user_mentions).returns([])
 
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.expects(:toot).with(text, medias, possibly_sensitive, save_status, cw).times(1).returns(nil)
@@ -798,10 +800,11 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     TweetTransformer.expects(:replace_links).times(1).returns(text)
     tweet = mock()
-    tweet.expects(:full_text).returns(text)
+    tweet.expects(:full_text).twice.returns(text)
     tweet.expects(:possibly_sensitive?).returns(possibly_sensitive)
     tweet.expects(:media).returns([])
     tweet.expects(:urls).returns([])
+    tweet.expects(:user_mentions).returns([])
 
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.expects(:find_media).times(1).returns(text)
@@ -1456,5 +1459,27 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     tweet.expects(:created_at).never
     twitter_user_processor = TwitterUserProcessor.new(tweet, user)
     twitter_user_processor.toot(text, medias, possibly_sensitive, save_status, cw)
+  end
+  test "tweet only containing replies should be skipped" do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options["twitter_reply_post_self"])
+
+    stub_request(:get, "https://api.twitter.com/1.1/statuses/show/1072524451311423489.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_only_mentions.json"))
+
+    tweet = user.twitter_client.status(1072524451311423489, tweet_mode: "extended", include_ext_alt_text: true)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_normal_tweet
+  end
+  test "reply to self only containing replies should be skipped" do
+    user = create(:user_with_mastodon_and_twitter, twitter_reply_options: User.twitter_reply_options["twitter_reply_post_self"])
+
+    stub_request(:get, "https://api.twitter.com/1.1/statuses/show/1072524451311423489.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_only_mentions.json"))
+
+    tweet = user.twitter_client.status(1072524451311423489, tweet_mode: "extended", include_ext_alt_text: true)
+    status = create(:status, mastodon_client: user.mastodon.mastodon_client, tweet_id: tweet.in_reply_to_status_id)
+    twitter_user_processor = TwitterUserProcessor.new(tweet, user)
+    twitter_user_processor.expects(:mastodon_status_exist?).with(status.masto_id).returns(true)
+    twitter_user_processor.expects(:toot).never
+    twitter_user_processor.process_reply
   end
 end
