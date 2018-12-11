@@ -7,9 +7,9 @@ module OmniAuth
         username, domain = identifier.split("@")
 
         if blocked_domains.present? && blocked_domains.include?(domain)
-          fail!(:forbidden_domain, CallbackError.new("forbidden_domain", "Sorry, #{domain} is blocked in this instance."))
-        elsif allowed_domain.present? && allowed_domain != domain
-          fail!(:forbidden_domain, CallbackError.new("forbidden_domain", "Sorry, only %s Mastodon Accounts are allowed." % allowed_domain))
+          fail!(:forbidden_domain, CallbackError.new("forbidden_domain", I18n.t("errors.oauth.blocked_domain", domain: domain)))
+        elsif allowed_domains.present? && !allowed_domains.include?(domain)
+          fail!(:forbidden_domain, CallbackError.new("forbidden_domain", I18n.t("errors.oauth.allowed_domains", domains: allowed_domains.join(", "))))
         else
           super
         end
@@ -19,8 +19,9 @@ module OmniAuth
         @blocked_domains ||= ENV["BLOCKED_DOMAINS"]&.split(/\s*,\s*/)
       end
 
-      def allowed_domain
-        ENV["ALLOWED_DOMAIN"]
+      # accept ALLOWED_DOMAIN for legacy reasons
+      def allowed_domains
+        @allowed_domains ||= (ENV["ALLOWED_DOMAIN"] || ENV["ALLOWED_DOMAINS"])&.split(/\s*,\s*/)
       end
     end
   end

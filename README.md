@@ -154,7 +154,7 @@ You need to replace all values with actual values relevant to your server.
 
 ## Blocked or allowed domains
 
-You can add `ALLOWED_DOMAIN=your.domain.com` to .env.production to only allow users from your instance to access the crossposter. This variable can only contain one domain at a time.
+You can add `ALLOWED_DOMAINS=your.domain.com` to .env.production to only allow users from your instance to access the crossposter. This variable can contain multiple instances separated by comma.
 
 At the same time, you can add `BLOCKED_DOMAINS=evil.corp,bad.instance` to .env.production to block users from those instances to access the crossposter. They need to be separated by commas, spaces are optional.
 

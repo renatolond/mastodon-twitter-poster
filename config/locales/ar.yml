@@ -12,6 +12,10 @@ ar:
   crossposting_overview: معاينة الخيارات
   default_visibility: استخدام طريقة العرض الإفتراضية لماستدون
   disconnect: قطع الاتصال
+  errors:
+    oauth:
+      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
+      blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: الميزات
   follow_us_on_the_fediverse: تابِعنا على الشبكة الموحَّدة في الفيديفرس!
   for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
