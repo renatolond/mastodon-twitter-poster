@@ -1,4 +1,3 @@
----
 fr:
   accounts: Comptes
   allow_with_words: Ne faire une publication croisée que pour les publications contenant
@@ -17,8 +16,8 @@ fr:
   disconnect: Déconnecter
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Désolé, cette instance n’accepte que les comptes de %{domains}.
+      blocked_domain: Désolé, %{domain} est bloqué sur la présente instance.
   features: Fonctionnalités
   follow_us_on_the_fediverse: Suivez-nous sur le Fédiverse !
   for_news_and_status: 'Pour les nouveautés :'
@@ -30,18 +29,18 @@ fr:
       disclose_info: Est-ce que nous divulguons des informations à des tiers ?
       we_also_collect: Nous collectons également les ID des messages publiés via le
         crossposter sur les deux sites, pour une durée pouvant aller jusqu’à un an.
-      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
-        and Twitter posts, which allows us to crosspost threads from one site to the
-        other.
-      we_collect: Votre nom d’utilisateur Mastodon et votre identifiant Twitter sont
-        collectés, ainsi que les jetons OAuth pour chaque service. Ceci permet d’effectuer
-        des actions sur vos comptes.
+      we_also_use_for: Nous utilisons les ID des messages pour corréler les messages
+        Mastodon et Twitter, ce qui nous permet d’effectuer une publication croisée
+        des discussions d’un site vers l’autre.
+      we_collect: Nous recueillons votre nom d’utilisateur Mastodon et votre identifiant
+        Twitter ainsi que les jetons OAuth pour chaque service. Ceci permet d’effectuer
+        des actions via vos comptes.
       we_do_not_disclose_info: Non.
       we_use_cookies: Oui. Lorsque vous êtes connectés, nous utilisons un cookie pour
         créer une session et vous identifier sur vos comptes.
-      we_use_for: We use the OAuth tokens and identifier to be able to connect to
-        your accounts, retrieve posts and post to the other service, according to
-        your configuration.
+      we_use_for: Nous utilisons les jetons OAuth et les identificateurs pour pouvoir
+        nous connecter à vos comptes, récupérer les messages et les envoyer à l’autre
+        service, en fonction de votre configuration.
       what_use: Comment utilisons-nous vos informations ?
       which_information: Quelles données recueillons-nous ?
     sync_status:
@@ -65,8 +64,9 @@ fr:
     please: Connectez votre Mastodon
   masto_mention_do_not_post: Ne pas poster les mentions sur Twitter
   masto_mention_options: 'Paramètres des mentions :'
-  masto_mention_options_explanation: This service considers mention as a toot that's
-    not a reply, but that begins with a mention to another user.
+  masto_mention_options_explanation: Ce service considère comme « mentions » les pouets
+    qui commencent directement par une mention d’un·e utilisateur·rice et non pas
+    les réponses avec mentions.
   masto_not_posting_boost: Vous ne publiez pas les pouets boostés.
   masto_not_posting_private: Vous ne publiez pas les pouets privés.
   masto_not_posting_reply: Vous ne publiez pas les réponses.
@@ -124,9 +124,10 @@ fr:
   toots_posted_to_twitter: Vos pouets sont actuellement publiés sur Twitter.
   tweets_posted_to_mastodon: Vos tweets sont actuellement publiés sur Mastodon.
   twitter_content_warning: Avertissement de contenu Twitter
-  twitter_content_warning_explanation: Any text added to this box will be used as
-    content warning for every toot crossposted from twitter (except for tweets in
-    which specific CWs are detected)
+  twitter_content_warning_explanation: Tout texte ajouté au champs suivant sera utilisé
+    comme un avertissement concernant le contenu dans chaque pouet en publication
+    croisée depuis Twitter (à l’exception des tweets dans lesquels des CWs spécifiques
+    sont détectés)
   twitter_content_warning_status: 'Tous vos tweets sont publiés derrière un CW : "%{cw}"'
   twitter_logged_in: Twitter connecté
   twitter_not_posting_quote: Vous ne postez pas de citations.
@@ -141,8 +142,8 @@ fr:
     RTs à l’ancienne avec des liens.
   twitter_posting_reply_to_self: Vous publiez les réponses à vos tweets.
   twitter_posting_rt_old_style: Vous publiez les retweets en tant que RTs à l’ancienne.
-  twitter_posting_rt_old_style_with_link: You're posting retweets like old-style RTs
-    with links.
+  twitter_posting_rt_old_style_with_link: Vous publiez les retweets comme des RTs
+    à l’ancienne avec des liens.
   twitter_quote_visibility: Confidentialité des citations lors de la publication croisée
   twitter_quote_visibility_status: 'Actuellement, vous publiez les citations avec
     le niveau de confidentialité : '
@@ -171,9 +172,9 @@ fr:
         ou de ne publier que les messages contenant les mots définis ci-dessous
       masto_word_list: Liste des mots ou expressions contenu·e·s dans les pouets provenant
         de Mastodon
-      masto_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      masto_word_list_explanation: Cette liste de mots sera utilisée si vous avez
+        activé l’option ci-dessus. Aucune correspondance partielle n’est faite, c’est-à-dire
+        que si vous écrivez "bird" ci-dessus, "birdsite" ne sera pas pris en compte.
     advanced_twitter:
       add_another_word: Ajouter un autre mot
       disabled: Désactivé
@@ -182,11 +183,12 @@ fr:
       twitter_block_or_allow_list_explanation: Cette option vous permet de choisir
         d’ignorer la publication croisée des messages qui contiennent les mots définis
         ci-dessous ou de ne publier que les messages contenant les mots définis ci-dessous
-      twitter_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      twitter_word_list_explanation: Cette liste de mots sera utilisée si vous avez
+        activé l’option ci-dessus. Aucune correspondance partielle n’est faite, c-est-à-dire
+        que si vous écrivez « bird » ci-dessus, « birdsite » ne sera pas pris en compte.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: Votre nom d’utilisateur·rice chez votre instance, selon
+        le format suivant vous.chez@votre.instance
     show:
       advanced_from_mastodon_options: Options avancées pour la publication de Mastodon
         vers Twitter
