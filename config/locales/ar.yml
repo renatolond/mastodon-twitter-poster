@@ -1,4 +1,3 @@
----
 ar:
   accounts: الحسابات
   allow_with_words: النشر التبادلي فقط للمنشورات التي تحتوي على الكلمات التالية
@@ -14,8 +13,8 @@ ar:
   disconnect: قطع الاتصال
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: المعذرة، إنّ مثيل الخادوم هذا لا يقبل إلاّ حسابات %{domains}.
+      blocked_domain: المعذرة، إنّ النطاق %{domain} محظور على مثيل الخادوم هذا.
   features: الميزات
   follow_us_on_the_fediverse: تابِعنا على الشبكة الموحَّدة في الفيديفرس!
   for_news_and_status: 'إطّلِع على المستجدّات والمنشورات:'
@@ -172,7 +171,8 @@ ar:
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: اسم المستخدم الخاص بك على عنوان مثيل خادومك ، على النحو
+        التالي your.at@your.instance
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
