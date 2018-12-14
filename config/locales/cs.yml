@@ -1,4 +1,3 @@
----
 cs:
   accounts: Účty
   allow_with_words: Přeposílat pouze příspěvky obsahující následující slova
@@ -14,8 +13,8 @@ cs:
   disconnect: Odpojit
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Omlouváme se, tato instance přijímá pouze účty z domén %{domains}.
+      blocked_domain: Omlouváme se, doména %{domain} je na této instanci zablokována.
   features: Vlastnosti
   follow_us_on_the_fediverse: Sledujte nás na fediverse!
   for_news_and_status: 'Pro zprávy a stav:'
@@ -30,7 +29,7 @@ cs:
       we_also_use_for: ID příspěvků používáme ke korelaci příspěvků na Mastodonu a
         Twitteru, což nám dovoluje přeposílat vlákna z jedné stránky na druhou.
       we_collect: Sbíráme vaše uživatelské jméno na Mastodonu a Twitter ID, dále tokeny
-        OAuth pro každou službu, což nám dovoluje provádět akce s vašimi účty.
+        OAuth pro každou službu. To dovoluje, aby byly prováděny akce na vašich účtech.
       we_do_not_disclose_info: Ne.
       we_use_cookies: Ano. Zatímco jste přihlášen/a, používáme cookie pro vytvoření
         relace a abychom vás identifikovali s vašimi účty.
@@ -59,7 +58,7 @@ cs:
   masto_mention_do_not_post: Neodesílat na Twitter zmínky
   masto_mention_options: 'Možnosti pro zmínky:'
   masto_mention_options_explanation: Tato služba považuje zmínku za toot, který není
-    odpovědí, ale který začíná znmínkou jiného uživatele.
+    odpovědí, ale který začíná zmínkou jiného uživatele.
   masto_not_posting_boost: Neposíláte boostnuté tooty.
   masto_not_posting_private: Neposíláte soukromé tooty.
   masto_not_posting_reply: Neposíláte odpovědi.
@@ -170,7 +169,8 @@ cs:
         výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
         „bird“, nebude se počítat „birdsite“.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: Vaše uživatelské jméno na vaší instanci, ve formátu
+        vas.ucet@vase.instance
     show:
       advanced_from_mastodon_options: Pokročilé možnosti posílání z Mastodonu na Twitter
       advanced_from_twitter_options: Pokročilé možnosti posílání z Twitteru na Mastodon
