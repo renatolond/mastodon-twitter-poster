@@ -308,7 +308,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture("mastodon_image_post.json"))
     t = user.twitter_client.status(926428711141986309, tweet_mode: "extended")
-    text = "Quote with pic\nRT @renatolonddev@twitter.com Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there lives one blind text. Separated they live in Bookmarksgrove right at the drops of the Semantics, a large language ocean. A small river named Jujen flows by their place and supplies(280)"
+    text = "Quote with pic\n\nRT @renatolonddev@twitter.com\n\nFar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there lives one blind text. Separated they live in Bookmarksgrove right at the drops of the Semantics, a large language ocean. A small river named Jujen flows by their place and supplies(280)"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [273], false, true, nil).times(1).returns(nil)
@@ -321,7 +321,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended").to_return(web_fixture("twitter_quote.json"))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: "extended")
-    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!"
+    text = "What about a quote?\n\nRT @renatolonddev@twitter.com\n\nHello, world!"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -334,7 +334,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended").to_return(web_fixture("twitter_quote.json"))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: "extended")
-    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!"
+    text = "What about a quote?\n\nRT @renatolonddev@twitter.com\n\nHello, world!"
 
     cw = "Twitter stuff"
     sensitive = true
@@ -356,7 +356,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
       .to_return(web_fixture("mastodon_image_post.json"))
 
     t = user.twitter_client.status(967415134170894341, tweet_mode: "extended")
-    text = "RT @gifsdegatinhos@twitter.com ninguem toca na minha patinha"
+    text = "RT @gifsdegatinhos@twitter.com\n\nninguem toca na minha patinha"
     sensitive = true
     cw = "gatinho!"
 
@@ -371,7 +371,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_with_link_in_quote.json"))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: "extended", include_ext_alt_text: true)
-    text = "I'll put a link to pudim in this quote http://pudim.com.br/\nRT @RenatoLondDev@twitter.com test\n\n🐦🔗: https://twitter.com/RenatoLondDev/status/1012728220343525377"
+    text = "I'll put a link to pudim in this quote http://pudim.com.br/\n\nRT @RenatoLondDev@twitter.com\n\ntest\n\n🐦🔗: https://twitter.com/RenatoLondDev/status/1012728220343525377"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -384,7 +384,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/926388565587779584.json?tweet_mode=extended").to_return(web_fixture("twitter_quote.json"))
 
     t = user.twitter_client.status(926388565587779584, tweet_mode: "extended")
-    text = "What about a quote?\nRT @renatolonddev@twitter.com Hello, world!\n\n🐦🔗: https://twitter.com/renatolonddev/status/895751593924210690"
+    text = "What about a quote?\n\nRT @renatolonddev@twitter.com\n\nHello, world!\n\n🐦🔗: https://twitter.com/renatolonddev/status/895751593924210690"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -401,7 +401,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     sensitive = false
     save_status = true
     cw = nil
-    text = "Hey, about that link, let me test a quote!\nRT @renatolonddev@twitter.com A link to http://masto.donte.com.br. You see, I really want this link to become a twitter one :)"
+    text = "Hey, about that link, let me test a quote!\n\nRT @renatolonddev@twitter.com\n\nA link to http://masto.donte.com.br. You see, I really want this link to become a twitter one :)"
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status, cw).once
     twitter_user_processor.process_quote
@@ -417,7 +417,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     sensitive = false
     save_status = true
     cw = nil
-    text = "Maybe I have to quote this one, then?\nRT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288"
+    text = "Maybe I have to quote this one, then?\n\nRT @renatolonddev@twitter.com\n\nHey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288"
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status, cw).once
     twitter_user_processor.process_quote
@@ -443,7 +443,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     spoiler_text = "Gatinhos!"
 
     sensitive = false
-    text = "RT @CamisetasCats@twitter.com Vocês já conhecem a nossa Campanha Cats?\nQue tal ajudar adquirindo uma dessas lindas camisetas?\nE tem a opção de envio a 10,00! Confiram lá!\nhttp://bit.ly/campanhacats\n#InternationalCatDay\n\n🐦🔗: https://twitter.com/CamisetasCats/status/1027200357460570113"
+    text = "RT @CamisetasCats@twitter.com\n\nVocês já conhecem a nossa Campanha Cats?\nQue tal ajudar adquirindo uma dessas lindas camisetas?\nE tem a opção de envio a 10,00! Confiram lá!\nhttp://bit.ly/campanhacats\n#InternationalCatDay\n\n🐦🔗: https://twitter.com/CamisetasCats/status/1027200357460570113"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -487,7 +487,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [273, 273, 273, 273]
 
     sensitive = false
-    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
+    text = "RT @renatolonddev@twitter.com\n\nAnother attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -531,7 +531,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [273, 273, 273, 273]
 
     sensitive = true
-    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
+    text = "RT @renatolonddev@twitter.com\n\nAnother attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media.\n\n🐦🔗: https://twitter.com/renatolonddev/status/936747599071207425"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -563,7 +563,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = []
 
     sensitive = true
-    text = "RT @renatolonddev@twitter.com Hey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288\n\n🐦🔗: https://twitter.com/renatolonddev/status/936731134456745984"
+    text = "RT @renatolonddev@twitter.com\n\nHey, about that link, let me test a quote! https://twitter.com/renatolonddev/status/936731074301964288\n\n🐦🔗: https://twitter.com/renatolonddev/status/936731134456745984"
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -606,7 +606,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     medias = [273, 273, 273, 273]
 
     sensitive = false
-    text = "RT @renatolonddev@twitter.com Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
+    text = "RT @renatolonddev@twitter.com\n\nAnother attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
 
     masto_status = mock()
     quote_masto_id = 919819281111
@@ -643,7 +643,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended").to_return(web_fixture("twitter_retweet.json"))
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: "extended")
-    text = "RT @renatolonddev@twitter.com: test\n\n🐦🔗: https://twitter.com/renatolonddev/status/896020223169581056"
+    text = "RT @renatolonddev@twitter.com\n\ntest\n\n🐦🔗: https://twitter.com/renatolonddev/status/896020223169581056"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -656,7 +656,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/904738384861700096.json?tweet_mode=extended").to_return(web_fixture("twitter_retweet.json"))
 
     t = user.twitter_client.status(904738384861700096, tweet_mode: "extended")
-    text = "RT @renatolonddev@twitter.com: test"
+    text = "RT @renatolonddev@twitter.com\n\ntest"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [], false, true, nil).times(1).returns(nil)
@@ -685,7 +685,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     sensitive = false
     save_status = true
     cw = nil
-    text = "RT @renatolonddev@twitter.com: Another attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
+    text = "RT @renatolonddev@twitter.com\n\nAnother attempt, this time a very large tweet, with a lot of words and I'll only include the image at the end.\nThis way, we should go beyond the standard limit and somehow it will not show the link.\nAt least, that's what I'm hoping it's the issue. RTs of long tweets with media."
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, medias, sensitive, save_status, cw).once
     twitter_user_processor.process_retweet
@@ -702,7 +702,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/media")
       .to_return(web_fixture("mastodon_image_post.json"))
     t = user.twitter_client.status(926428678573187072, tweet_mode: "extended")
-    text = "RT @renatolonddev@twitter.com:"
+    text = "RT @renatolonddev@twitter.com"
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.expects(:toot).with(text, [273], false, true, nil).times(1).returns(nil)
