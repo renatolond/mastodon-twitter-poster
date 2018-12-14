@@ -15,6 +15,8 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - Quotes bigger than 500 characters are automatically split in two toots, one replying to the other.
   - Your own threads can also be crossposted!
   - No other replies will be posted. There's no risk of filling your Mastodon timeline with replies to people that are not there.
+  - Images and videos are crossposted to Mastodon. The best quality that fits in Mastodon will be crossposted!
+  - Image and any other media descriptions from Twitter are completely crossposted to Mastodon
   - Possibility to add a content warning to all tweets being posted to Mastodon
   - Infer content warnings: if your tweet begins with a line containing "content warning" it will be posted behind a content warning on Mastodon. More information about which formats are supported can be seen below at [Experimental Content Warning recognition](#experimental-content-warning-recognition)
   - Blocklists or Allowlists: Only crosspost tweets containing one word from a list or do not crosspost tweets that contain at least one word from a list
@@ -22,6 +24,10 @@ If you just want to use it, there's one running at https://crossposter.masto.don
 * Post from Mastodon to Twitter
   - Any toot bigger than 280 characters will be posted with a link to the original toot. (Be careful, if you post your private toots, your followers might not be able to see the original post!)
   - Mind your privacy: you can choose which privacy levels you want to crosspost. Only posting public toots, for instance.
+  - Images and videos will be crossposted over to Twitter
+  - Images and video descriptions from Mastodon will be crossposted to Twitter, in medias where Twitter support descriptions
+  - If your post has a content warning, only the content warning will be crossposted to Twitter, together with a link back to the original post
+  - If your image is marked as sensitive, the rest of the toot will be crossposted, together with a hint that there's images attached and a link to the original post.
   - You can choose between posting boosts or not.
   - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
   - No other replies will be posted. There's no risk of filling your twitter timeline with replies to people that are not there.
