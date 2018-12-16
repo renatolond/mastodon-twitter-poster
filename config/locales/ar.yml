@@ -47,7 +47,7 @@ ar:
       home: الرئيسية
       privacy_policy: سياسة الخصوصية
   log_out: الخروج
-  login_to_get_started: تسجيل الدخول عبر تويتر وماستدون للشروع في العمل
+  login_to_get_started: قم بتسجيل الدخول عبر تويتر وماستدون للمواصلة
   manage_your_accounts: إدارة حساباتك المتصلة
   masto_boost_do_not_post: لا تنشر الترقيات إلى تويتر
   masto_boost_post_as_link: 'نشر الترقيات على تويتر كروابط (تم ترقية: https://mastodon.social/@renatolond/15082784)'
@@ -151,9 +151,9 @@ ar:
       disabled: مُعطَّل
       masto_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
         بالمنشورات التي تحتوي على كلمات محددة فقط
-      masto_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
+      masto_block_or_allow_list_explanation: يتيح لك هذا الخيار سواء تجاهل النشر التبادلي
+        للرسائل التي تحتوي على الكلمات المحددة أدناه أو السماح بالنشر التبادلي للرسائل
+        التي تحتوي على الكلمات التي تم اختيارها أدناه فقط
       masto_word_list: قائمة الكلمات أو العبارات المذكروة في المنشورات القادمة من
         ماستدون
       masto_word_list_explanation: This list of words will be used if you enabled
@@ -167,9 +167,9 @@ ar:
       twitter_block_or_allow_list_explanation: This option lets you choose to ignore
         crossposting of posts that contain the words defined below or to only crosspost
         posts that contain the words defined below
-      twitter_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      twitter_word_list_explanation: سوف تُستخدَم قائمة الكلمات إذا مكّنت الخيار أعلاه.
+        لا تطابق جزئي للكلمات، فإذا كتبتم "عصفور" أعلاه لن يتم الأخذ بعين الاعتبار
+        كلمة "موقع_العصفور".
     mastodon_identifier:
       identifier_placeholder: اسم المستخدم الخاص بك على عنوان مثيل خادومك ، على النحو
         التالي your.at@your.instance
