@@ -2,7 +2,7 @@ fr:
   accounts: Comptes
   allow_with_words: Ne faire une publication croisée que pour les publications contenant
     les mots suivants
-  block_with_words: Ne pas faire de publication croisée des publications contenant
+  block_with_words: Ne pas effectuer de publication croisée des publications contenant
     les mots suivants
   boost_options: 'Options des partages (boosts) :'
   change_this_on_options: Vous pouvez changer ces paramètres en allant dans %{options}.
@@ -167,9 +167,9 @@ fr:
       disabled: Désactivé
       masto_block_or_allow_list: Ignorer les publications contenant certains mots
         ou n’autoriser que les publications contenant certains mots
-      masto_block_or_allow_list_explanation: Cette option vous permet de choisir d’ignorer
-        la publication croisée des messages qui contiennent les mots définis ci-dessous
-        ou de ne publier que les messages contenant les mots définis ci-dessous
+      masto_block_or_allow_list_explanation: Cette option vous permet de choisir soit
+        d’ignorer la publication croisée des messages qui contiennent les mots définis
+        ci-dessous ou de ne publier que les messages contenant les mots définis ci-dessous
       masto_word_list: Liste des mots ou expressions contenu·e·s dans les pouets provenant
         de Mastodon
       masto_word_list_explanation: Cette liste de mots sera utilisée si vous avez
@@ -181,8 +181,9 @@ fr:
       twitter_block_or_allow_list: Ignorer les publications contenant certains mots
         ou n’autoriser que les publications contenant certains mots
       twitter_block_or_allow_list_explanation: Cette option vous permet de choisir
-        d’ignorer la publication croisée des messages qui contiennent les mots définis
-        ci-dessous ou de ne publier que les messages contenant les mots définis ci-dessous
+        soit d’ignorer la publication croisée des messages qui contiennent les mots
+        définis ci-dessous ou de ne publier que les messages contenant les mots définis
+        ci-dessous
       twitter_word_list_explanation: Cette liste de mots sera utilisée si vous avez
         activé l’option ci-dessus. Aucune correspondance partielle n’est faite, c-est-à-dire
         que si vous écrivez « bird » ci-dessus, « birdsite » ne sera pas pris en compte.
