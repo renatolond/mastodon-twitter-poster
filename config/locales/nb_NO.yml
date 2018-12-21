@@ -1,4 +1,3 @@
----
 nb_NO:
   accounts: Kontoer
   allow_with_words: Kun krysspost poster som inneholder følgende ord
@@ -17,7 +16,7 @@ nb_NO:
       allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
       blocked_domain: Sorry, %{domain} is blocked in this instance.
   features: Funksjoner
-  follow_us_on_the_fediverse: Følg oss på Fediverse.
+  follow_us_on_the_fediverse: Følg oss på fediverset.
   for_news_and_status: 'For nyheter og status:'
   from_mastodon: Fra Mastodon til Twitter
   from_twitter: Fra Twitter til Mastodon
@@ -29,7 +28,7 @@ nb_NO:
         på begge sider, så lenge som ett år.
       we_also_use_for: Posters ID brukes for å jamføre Mastodon- og Twitter-poster,
         noe som tillater kryssposting av tråder fra en siden til en annen.
-      we_collect: Ditt Mastodon-brukernavn og Twitter-ID samles inn, sågar også OAuth-symboler
+      we_collect: Mastodon-brukernavn og Twitter-ID innhentes, sågar også OAuth-symboler
         for hver tjeneste, noe som tillater at handlinger utføres på kontoene dine.
       we_do_not_disclose_info: Nei.
       we_use_cookies: Ja. Mens du er innlogget bruker vi en kake for å opprette en
@@ -60,7 +59,7 @@ nb_NO:
   masto_mention_do_not_post: Ikke påst nevninger på Twitter
   masto_mention_options: 'Nevningsvalg:'
   masto_mention_options_explanation: Tjenesten anser nevnelser som tut-er som ikke
-    er et svar, men i steden et som betynner med en nevnelse til en annen bruker.
+    er et svar, men i steden et som begynner med en nevnelse til en annen bruker.
   masto_not_posting_boost: Du poster ikke framhevede tut-inger.
   masto_not_posting_private: Du poster ikke private tut-inger.
   masto_not_posting_reply: Du poster ikke svar.
