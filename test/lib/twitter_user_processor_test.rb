@@ -1344,7 +1344,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/statuses").
   with(body: { "status" => "Oh yeah!" },
-       headers: { "Accept" => "*/*", "Authorization" => "Bearer another-beautiful-token-here", "Connection" => "close", "Content-Length" => "18", "Content-Type" => "application/x-www-form-urlencoded", "Host" => user.mastodon_client.base_url["https://".length..-1], "User-Agent" => "MastodonRubyGem/1.1.0", "Idempotency-Key" => "#{masto_user}-#{tweet_id}" }).
+       headers: { "Accept" => "*/*", "Authorization" => "Bearer another-beautiful-token-here", "Connection" => "close", "Content-Type" => "application/x-www-form-urlencoded", "Host" => user.mastodon_client.base_url["https://".length..-1], "User-Agent" => "MastodonRubyGem/1.2.0", "Idempotency-Key" => "#{masto_user}-#{tweet_id}" }).
       to_return(web_fixture("mastodon_status_post.json"))
 
     tweet = mock()
