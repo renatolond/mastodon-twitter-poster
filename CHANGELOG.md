@@ -1,3 +1,5 @@
+[2019-01-09] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+
 [2018-12-11] - Added BLOCKED_DOMAINS variable, more information on README.
 
 [2018-12-01] - Added bulma-rtl, `yarn install --pure-lockfile` and `rails assets:precompile` needed after upgrade.

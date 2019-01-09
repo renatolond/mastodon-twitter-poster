@@ -20,7 +20,7 @@ gem "coffee-rails"
 gem "turbolinks"
 gem "jbuilder"
 
-gem "mastodon-api", require: "mastodon", github: "renatolond/mastodon-api", branch: "accept_headers_and_update_image_description"
+gem "mastodon-api", require: "mastodon", github: "tootsuite/mastodon-api", branch: "master"
 gem "twitter", github: "renatolond/twitter", branch: "different_uploads"
 gem "devise"
 gem "devise-i18n" # translations for devise forms
