@@ -156,9 +156,9 @@ ar:
         التي تحتوي على الكلمات التي تم اختيارها أدناه فقط
       masto_word_list: قائمة الكلمات أو العبارات المذكروة في المنشورات القادمة من
         ماستدون
-      masto_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      masto_word_list_explanation: سوف تُستخدَم قائمة الكلمات إذا مكّنت الخيار أعلاه.
+        لا تطابُق جزئي للكلمات، فإذا كتبتم "عصفور" أعلاه لن يتم الأخذ بعين الاعتبار
+        كلمة "موقع_العصفور".
     advanced_twitter:
       add_another_word: إضافة كلمة أخرى
       disabled: مُعطَّل
