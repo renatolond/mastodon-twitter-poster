@@ -1,4 +1,3 @@
----
 it:
   accounts: Account
   allow_with_words: Crossposta solo post che contengono le seguenti parole
@@ -6,16 +5,17 @@ it:
   boost_options: 'Opzioni boost:'
   change_this_on_options: Puoi cambiare queste impostazioni andando su %{options}.
   connections: Connessioni
-  crossposter_explanation: This service allows you to connect a Mastodon account and
-    a Twitter account and enable cross-posting between them. You can choose some options,
-    such as if you want to post boosts, unlisted toots or replies.
-  crossposting_overview: Options overview
+  crossposter_explanation: Questo servizio ti permette di connettere un account Mastodon
+    ad un account Twitter ed abilitare il cross-posting tra questi. Puoi scegliere
+    alcune opzioni, per esempio se vuoi o meno pubblicare boost, post non elencati
+    o risposte.
+  crossposting_overview: Panoramica delle opzioni
   default_visibility: Usa privacy post di default
   disconnect: Disconnetti
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Scusa, questa istanza accetta solo account da %{domains}.
+      blocked_domain: Scusa, %{domain} è bloccato in questa istanza.
   features: Funzionalità
   follow_us_on_the_fediverse: Seguici nel fediverso!
   for_news_and_status: 'Per news e stati:'
@@ -25,19 +25,18 @@ it:
     privacy:
       cookies: Utilizziamo cookies?
       disclose_info: Divulghiamo qualsiasi informazione a terze parti?
-      we_also_collect: We also collect the id of the posts made from the crossposter
-        on both sites, for as long as one year.
-      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
-        and Twitter posts, which allows us to crosspost threads from one site to the
-        other.
-      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
-        tokens for each service, which allows us to take actions with your accounts.
+      we_also_collect: Conserviamo anche gli ID dei post creati dal crossposter su
+        entrambi i siti, per un anno.
+      we_also_use_for: Utilizziamo gli ID dei post per correlare i post di Mastodon
+        e Twitter, per permetterci di crosspostare conversazioni da un sito all'altro.
+      we_collect: Conserviamo il tuo nome utente Mastodon e l'ID Twitter, così come
+        i token OAuth per entrambi i servizi. Questo permette di agire sui tuoi account.
       we_do_not_disclose_info: No.
-      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
-        and identify you to your accounts.
-      we_use_for: We use the OAuth tokens and identifier to be able to connect to
-        your accounts, retrieve posts and post to the other service, according to
-        your configuration.
+      we_use_cookies: Si. Mentre sei loggato utilizziamo un cookie per creare la sessione
+        ed identificarti nei tuoi account.
+      we_use_for: Utilizziamo token OAuth e identificativi per poter connetterci ai
+        tuoi  account, recuperare post e postare all'altro servizio, in accordo con
+        la tua configurazione.
       what_use: Per cosa utilizziamo le tue informazioni?
       which_information: Che informazioni raccogliamo?
     sync_status:
@@ -50,18 +49,19 @@ it:
   log_out: Esci
   login_to_get_started: Accedi con Twitter e Mastodon per iniziare
   manage_your_accounts: Gestisci account connessi
-  masto_boost_do_not_post: Non twittare i boost
-  masto_boost_post_as_link: 'Twitta i boost come collegamento (Boosted: https://mastodon.social/@renatolond/15082784)'
+  masto_boost_do_not_post: Non twittare i boost su Twitter
+  masto_boost_post_as_link: 'Twitta i boost su Twitter come collegamenti (Boosted:
+    https://mastodon.social/@renatolond/15082784)'
   masto_login:
     identifier: Identificativo
     invalid_identifier: 'Nome utente non valido. Usa il formato utente@istanza (es:
       crossposter@masto.donte.com.br )'
     login: Accedi
     please: Connettiti con Mastodon
-  masto_mention_do_not_post: Non twittare le menzioni
+  masto_mention_do_not_post: Non twittare le menzioni su Twitter
   masto_mention_options: 'Opzioni menzioni:'
   masto_mention_options_explanation: Il servizio considera come menzione un toot che
-    inizia con un nome utente, ma non è una risposta.
+    non è una risposta, ma invece uno che inizia con una menzione di un altro utente.
   masto_not_posting_boost: Non stai twittando i toots boostati.
   masto_not_posting_private: Non stai twittando i toots privati.
   masto_not_posting_reply: Non stai twittando le risposte.
@@ -81,9 +81,9 @@ it:
     unlisted: Non elencato.
   masto_reply_do_not_post: Non twittare le risposte
   masto_reply_options: 'Opzioni risposta:'
-  masto_reply_options_explanation: This is when you click the reply button on Mastodon's
-    interface. It's a direct reply to another toot.
-  masto_reply_post_self: Twitta le risposte ai miei stessi toots (thread)
+  masto_reply_options_explanation: Questo è quando clicchi il pulsante di risposta
+    sull'interfaccia di Mastodon, ed è una risposta diretta ad un altro toot.
+  masto_reply_post_self: Twitta le risposte ai miei stessi toot su Twitter (conversazioni)
   masto_should_post_private_false: 'No'
   masto_should_post_private_true: Sì
   masto_should_post_unlisted_false: 'No'
@@ -115,9 +115,9 @@ it:
   toots_posted_to_twitter: Stai twittando i tuoi toots.
   tweets_posted_to_mastodon: Stai postando i tuoi tweet su Mastodon.
   twitter_content_warning: Avviso Twitter contenuti sensibili
-  twitter_content_warning_explanation: Any text added to this box will be used as
-    content warning for every toot crossposted from twitter (except for tweets in
-    which specific CWs are detected)
+  twitter_content_warning_explanation: Qualsiasi testo aggiunto in questo campo verrà
+    usato come avviso di contenuto sensibile per ogni toot crosspostato da twitter
+    (ad esclusione dei tweet nei quali sono identificati specifici CW)
   twitter_content_warning_status: 'Tutti i tuoi tweet sono postati con CW: "%{cw}"'
   twitter_logged_in: Twitter connesso
   twitter_not_posting_quote: Non stai postando citazioni.
@@ -125,20 +125,20 @@ it:
   twitter_not_posting_rt: Non stai postando retweets.
   twitter_original_visibility: Privacy dei tuoi tweets originali quando crosspostati
   twitter_original_visibility_status: 'Stai postando i tuoi tweets con la privacy: '
-  twitter_posting_quote_old_style: You're posting quotes as old-style RTs.
-  twitter_posting_quote_old_style_with_link: You're posting quotes as old-style RTs
-    with links.
+  twitter_posting_quote_old_style: Stai postando citazioni come RT vecchio stile.
+  twitter_posting_quote_old_style_with_link: Stai postando citazioni come RT vecchio
+    stile con collegamenti.
   twitter_posting_reply_to_self: Stai postando le risposte a te stesso.
-  twitter_posting_rt_old_style: You're posting retweets like old-style RTs.
-  twitter_posting_rt_old_style_with_link: You're posting retweets like old-style RTs
-    with links.
-  twitter_quote_visibility: Privacy for quotes when crossposted
-  twitter_quote_visibility_status: 'You''re posting quotes with the privacy: '
-  twitter_reply_do_not_post: Do not post replies on Mastodon
+  twitter_posting_rt_old_style: Stai postando retweet come RT vecchio stile.
+  twitter_posting_rt_old_style_with_link: Stai postando retweet come RT vecchio stile
+    con collegamenti.
+  twitter_quote_visibility: Privacy per citazioni quando sono crosspostate
+  twitter_quote_visibility_status: 'Stai postando citazioni con la privacy: '
+  twitter_reply_do_not_post: Non postare risposte su Mastodon
   twitter_reply_options: 'Opzioni di risposta:'
-  twitter_reply_options_explanation: This is when you click the reply button on Twitter's
-    interface. It's a direct reply to another tweet.
-  twitter_reply_post_self: Post replies to my own tweets on Mastodon (threads)
+  twitter_reply_options_explanation: Questo è quando clicchi il pulsante di risposta
+    nell'interfaccia di Twitter, ed è una risposta diretta ad un altro tweet.
+  twitter_reply_post_self: Posta risposte ai miei tweet su Mastodon (conversazioni)
   twitter_retweet_visibility: Privacy per i retweets quando crosspostati
   twitter_retweet_visibility_status: 'Stai postando retweets con privacy: '
   twitter_sync_status_false: 'OFF'
@@ -149,28 +149,28 @@ it:
     advanced_mastodon:
       add_another_word: Aggiungi un'altra parola
       disabled: Disabilitato
-      masto_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      masto_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
-      masto_word_list: List of words or expressions for posts coming from Mastodon
-      masto_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      masto_block_or_allow_list: Ignora post contenenti certe parole o consenti solo
+        post contenenti certe parole
+      masto_block_or_allow_list_explanation: Questa opzione ti permette di scegliere
+        di ignorare il crosspost di post che contengono parole definite qui sotto
+        o di crosspostare solo post che contengono le parole definite sotto
+      masto_word_list: Liste di parole o frasi per post provenienti da Mastodon
+      masto_word_list_explanation: Questa lista di parole sarà utilizzata se hai abilitato
+        l'opzione qui sopra. Non sarà effettuata una corrispondenza parziale, cioè,
+        se scrivi qui sopra "bird", "birdsite" non sarà considerato.
     advanced_twitter:
       add_another_word: Aggiungi un'altra parola
       disabled: Disabilitato
-      twitter_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
-      twitter_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      twitter_block_or_allow_list: Ignora post contenenti certe parole o consenti
+        solo post contenenti certe parole
+      twitter_block_or_allow_list_explanation: Questa opzione ti permette di scegliere
+        di ignorare il crossposting di post che contengono le parole definite qui
+        sotto o di crosspostare solo post che contengono le parole definite sotto
+      twitter_word_list_explanation: Questa lista di parole sarà utilizzata se hai
+        abilitato l'opzione qui sopra. Non sarà effettuata una corrispondenza parziale,
+        cioè, se scrivi qui sopra "bird", "birdsite" non sarà considerato.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: Il tuo nome utente alla tua istanza, nel formato tuo.nome@tua.istanza
     show:
       advanced_from_mastodon_options: Opzioni avanzate per postare da Mastodon a Twitter
       advanced_from_twitter_options: Opzioni avanzate per postare da Twitter a Mastodon
