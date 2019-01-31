@@ -1,7 +1,9 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -205,7 +207,7 @@ CREATE TABLE public.schema_migrations (
 CREATE TABLE public.statuses (
     id bigint NOT NULL,
     mastodon_client_id bigint NOT NULL,
-    masto_id bigint NOT NULL,
+    masto_id character varying NOT NULL,
     tweet_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -452,6 +454,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180503105007'),
 ('20180503110516'),
 ('20180701100749'),
-('20180821172252');
+('20180821172252'),
+('20190131082017');
 
 

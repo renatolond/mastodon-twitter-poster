@@ -1,3 +1,5 @@
+[2019-01-31] - Fix issue with pleroma status id which is a string. `rails db:migrate` needed after upgrade.
+
 [2019-01-09] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
 
 [2018-12-11] - Added BLOCKED_DOMAINS variable, more information on README.

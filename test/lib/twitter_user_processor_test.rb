@@ -1159,7 +1159,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     text = "Oh yeah!"
     tweet_id = 9929292
-    masto_id = 98392839283
+    masto_id = "9bc8392839283"
     medias = [123]
     possibly_sensitive = false
     save_status = true
