@@ -1,3 +1,5 @@
+[2019-02-02] - Add admin status to users table. Instructions on how to make a user an admin are available in the README file. `rails db:migrate` needed after upgrade.
+
 [2019-01-31] - Fix issue with pleroma status id which is a string. `rails db:migrate` needed after upgrade.
 
 [2019-01-09] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
