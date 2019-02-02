@@ -166,6 +166,20 @@ At the same time, you can add `BLOCKED_DOMAINS=evil.corp,bad.instance` to .env.p
 
 You should only enable one at each time.
 
+## Admin tasks
+
+If you are an admin, you might want to make yourself an admin, which allows you to take a look on the status of the sidekiq queues (and solve possible issues that happen regarding users crossposting). To do so, you can run:
+
+```
+FEDIVERSE_USERNAME=your_user@your.domain.com RAILS_ENV=production bundle exec rake crossposter:make_admin
+```
+
+If you want a user to no longer be an admin of your crossposter, you can make so by running
+
+```
+FEDIVERSE_USERNAME=your_user@your.domain.com RAILS_ENV=production bundle exec rake crossposter:revoke_admin
+```
+
 ## Tests
 
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
