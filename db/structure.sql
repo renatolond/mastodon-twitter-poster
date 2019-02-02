@@ -264,7 +264,8 @@ CREATE TABLE public.users (
     twitter_word_list character varying[] DEFAULT '{}'::character varying[],
     twitter_block_or_allow_list public.block_or_allow,
     masto_word_list character varying[] DEFAULT '{}'::character varying[],
-    masto_block_or_allow_list public.block_or_allow
+    masto_block_or_allow_list public.block_or_allow,
+    admin boolean DEFAULT false NOT NULL
 );
 
 
@@ -455,6 +456,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180503110516'),
 ('20180701100749'),
 ('20180821172252'),
-('20190131082017');
+('20190131082017'),
+('20190202145018');
 
 
