@@ -22,6 +22,29 @@ FactoryBot.define do
     twitter_quote_visibility { "unlisted" }
   end
 
+  factory :user_with_twitter, parent: :user do |user|
+    after(:build) do |user, evaluator|
+      user.authorizations << build(:authorization_twitter, user: user)
+    end
+
+    after(:create) do |user|
+      user.authorizations.each { |authorization| authorization.save! }
+    end
+  end
+
+  factory :user_with_mastodon, parent: :user do |user|
+    transient do
+      masto_domain { Faker::Internet.domain_name }
+    end
+    after(:build) do |user, evaluator|
+      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
+    end
+
+    after(:create) do |user|
+      user.authorizations.each { |authorization| authorization.save! }
+    end
+  end
+
   factory :user_with_mastodon_and_twitter, parent: :user do |user|
     transient do
       masto_domain { Faker::Internet.domain_name }
