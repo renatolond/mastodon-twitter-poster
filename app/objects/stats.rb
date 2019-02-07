@@ -20,6 +20,10 @@ class Stats
   end
 
   def time(name, &blk)
-    @statsd&.time(name, &blk)
+    if @statsd
+      @statsd.time(name, &blk)
+    else
+      blk.call
+    end
   end
 end
