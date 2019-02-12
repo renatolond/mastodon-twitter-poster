@@ -1,4 +1,3 @@
----
 de:
   accounts: Konten
   allow_with_words: Nur Posts cross-posten, die eins der folgenden Wörter enthalten
@@ -17,8 +16,8 @@ de:
   disconnect: Verbindung trennen
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Diese Instanz akzeptiert nur Accounts von %{domains}.
+      blocked_domain: '%{domain} wurde auf dieser Instanz blockiert.'
   features: Funktionen
   follow_us_on_the_fediverse: Folge uns im Fediverse!
   for_news_and_status: 'Für Neuigkeiten und den aktuellen Dienststatus:'
@@ -179,7 +178,8 @@ de:
         Einstellung aktiviert hast. Nur ganze Wörter werden erkannt, wenn du "bird"
         hinzufügst, wird "birdsite" nicht erkannt.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: Deinen vollständigen Nutzernamen, im folgenden Format
+        your.at@your.instance
     show:
       advanced_from_mastodon_options: Erweiterte Einstellungen zum Cross-Posting von
         Mastodon zu Twitter
