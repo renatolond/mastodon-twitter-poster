@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "Save last toot id in a user that already has last_toot" do
     user = create(:user_with_mastodon_and_twitter, last_toot: 2001)
-    expected_mastodon_status_id = 2002
+    expected_mastodon_status_id = "2002"
     mastodon_id = 123
 
     mastodon_client = mock()
@@ -124,7 +124,7 @@ class UserTest < ActiveSupport::TestCase
   test "Save last toot id in a profile with statuses" do
     user = create(:user_with_mastodon_and_twitter, last_toot: nil)
     mastodon_id = 123
-    expected_mastodon_status_id = 2002
+    expected_mastodon_status_id = "2002"
 
     mastodon_client = mock()
     user.expects(:mastodon_client).returns(mastodon_client)
@@ -210,7 +210,7 @@ class UserTest < ActiveSupport::TestCase
     credentials.expects(:secret).returns(authorization.secret)
 
     mastodon_id = 123
-    expected_mastodon_status_id = 2
+    expected_mastodon_status_id = "2"
     mastodon_client = mock()
     user.expects(:mastodon_client).returns(mastodon_client)
     user.expects(:mastodon_id).returns(mastodon_id)

@@ -241,7 +241,7 @@ CREATE TABLE public.users (
     id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    last_toot bigint,
+    last_toot character varying,
     last_tweet bigint,
     twitter_last_check timestamp without time zone DEFAULT now(),
     mastodon_last_check timestamp without time zone DEFAULT now(),
@@ -457,6 +457,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180701100749'),
 ('20180821172252'),
 ('20190131082017'),
-('20190202145018');
+('20190202145018'),
+('20190226132236');
 
 

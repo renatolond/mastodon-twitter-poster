@@ -1,3 +1,5 @@
+[2019-02-26] - Fix an overseen issue with pleroma status id which is a string. `rails db:migrate` needed after upgrade.
+
 [2019-02-21] - Add option to use twitter.activitypub.actor or similar to mention twitter people
 
 [2019-02-02] - Add admin status to users table. Instructions on how to make a user an admin are available in the README file. `rails db:migrate` needed after upgrade.
