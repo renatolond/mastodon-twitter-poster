@@ -67,6 +67,10 @@ class TwitterUserProcessor
           stats.increment("tweet.http_error")
           raise TweetError.new(ex)
         end
+      rescue Mastodon::Error::UnprocessableEntity => ex
+        Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. (#{user.mastodon.mastodon_client.domain}) -- #{ex} -- Bailing out" }
+        stats.increment("tweet.processing_error")
+        raise TweetError.new(ex)
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")

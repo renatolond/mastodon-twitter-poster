@@ -93,6 +93,10 @@ class MastodonUserProcessor
           stats.increment("twitter.bad_auth")
           raise TootError.new(ex)
         end
+      rescue Twitter::Error::BadRequest => ex
+        Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} (#{ex.code}) -- Bailing out" }
+        stats.increment("toot.processing_error")
+        raise TootError.new(ex)
       rescue => ex
         Rails.logger.error { "Could not process user #{user.mastodon.uid}, toot #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("toot.processing_error")
