@@ -49,7 +49,7 @@ class TwitterUserProcessor
       begin
         TwitterUserProcessor.new(t, user).process_tweet
         last_successful_tweet = t
-      rescue HTTP::ConnectionError => ex
+      rescue HTTP::ConnectionError, Oj::ParseError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment("domain.offline")
         raise TweetError.new(ex)

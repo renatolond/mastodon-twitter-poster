@@ -17,7 +17,7 @@ class MastodonUserProcessor
 
   def self.process_user(user)
     get_last_toots_for_user(user) if user.posting_from_mastodon
-  rescue HTTP::ConnectionError => ex
+  rescue HTTP::ConnectionError, Oj::ParseError => ex
     Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
     stats.increment("domain.offline")
     raise ex
@@ -66,7 +66,7 @@ class MastodonUserProcessor
       begin
         MastodonUserProcessor.new(t, user).process_toot
         last_sucessful_toot = t
-      rescue HTTP::ConnectionError => ex
+      rescue HTTP::ConnectionError, Oj::ParseError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment("domain.offline")
         raise TootError.new(ex)
