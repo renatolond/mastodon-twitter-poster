@@ -3,7 +3,7 @@
 class UnauthorizedUserWorker
   include Sidekiq::Worker
 
-  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked"]
+  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked", "Il token di accesso è stato disabilitato", "The access token is invalid"]
 
   def perform(id)
     @user = User.find(id)
@@ -25,6 +25,8 @@ class UnauthorizedUserWorker
           if ex.code == 89
             @user.twitter.destroy
             stop_crossposting
+          else
+            raise ex
           end
         end
       end
@@ -39,6 +41,8 @@ class UnauthorizedUserWorker
           if REVOKED_MESSAGES.include? ex.message
             @user.mastodon.destroy
             stop_crossposting
+          else
+            raise ex
           end
         end
       end
