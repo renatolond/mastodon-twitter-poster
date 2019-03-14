@@ -5,14 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "rails", "~> 5.1.6.2"
+# The web framework
+gem "rails", "~> 5.2.2"
 gem "rails-i18n"
 gem "pg"
 gem "puma"
 gem "sass-rails"
 gem "uglifier"
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# Improve app boot time
+gem "bootsnap", ">= 1.1.0", require: false
 
 gem "coffee-rails"
 gem "turbolinks"
