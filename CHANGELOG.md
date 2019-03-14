@@ -1,3 +1,5 @@
+[2019-03-14] - Upgrade rails. `bundle install` needed after upgrade.
+
 [2019-03-14] - Update ruby to 2.6.1. The crossposter still works on 2.5.x, so if you don't want to upgrade, you can change the version on `.ruby-version`.
 
 [2019-03-14] - Update rails. `bundle install` needed after upgrade.
