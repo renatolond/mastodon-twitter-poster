@@ -5,13 +5,15 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# The web framework
 gem "rails", "~> 5.2.2"
 gem "rails-i18n"
 gem "pg"
 gem "puma"
 gem "sass-rails"
 gem "uglifier"
-gem "bootsnap", ">= 1.1.0", require: false # Improve app boot time
+# Improve app boot time
+gem "bootsnap", ">= 1.1.0", require: false
 
 gem "coffee-rails"
 gem "turbolinks"
