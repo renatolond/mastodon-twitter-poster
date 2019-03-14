@@ -1,3 +1,5 @@
+[2019-03-14] - Update rails. `bundle install` needed after upgrade.
+
 [2019-02-26] - Fix an overseen issue with pleroma status id which is a string. `rails db:migrate` needed after upgrade.
 
 [2019-02-21] - Add option to use twitter.activitypub.actor or similar to mention twitter people
