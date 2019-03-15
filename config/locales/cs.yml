@@ -16,7 +16,7 @@ cs:
       allowed_domains: Omlouváme se, tato instance přijímá pouze účty z domén %{domains}.
       blocked_domain: Omlouváme se, doména %{domain} je na této instanci zablokována.
   features: Vlastnosti
-  follow_us_on_the_fediverse: Sledujte nás na fediverse!
+  follow_us_on_the_fediverse: Sledujte nás na fedivesmíru!
   for_news_and_status: 'Pro zprávy a stav:'
   from_mastodon: Z Mastodonu na Twitter
   from_twitter: Z Twitteru na Mastodon
