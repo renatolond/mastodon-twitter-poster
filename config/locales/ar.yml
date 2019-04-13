@@ -164,9 +164,9 @@ ar:
       disabled: مُعطَّل
       twitter_block_or_allow_list: تجاهل المنشورات التي تحتوي على كلمات معينة أو اسمح
         بالمنشورات التي تحتوي على كلمات محددة فقط
-      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
+      twitter_block_or_allow_list_explanation: يتيح لك هذا الخيار سواء تجاهل النشر
+        التبادلي للرسائل التي تحتوي على الكلمات المحددة أدناه أو السماح بالنشر التبادلي
+        للرسائل التي تحتوي على الكلمات التي تم اختيارها أدناه فقط
       twitter_word_list_explanation: سوف تُستخدَم قائمة الكلمات إذا مكّنت الخيار أعلاه.
         لا تطابق جزئي للكلمات، فإذا كتبتم "عصفور" أعلاه لن يتم الأخذ بعين الاعتبار
         كلمة "موقع_العصفور".
