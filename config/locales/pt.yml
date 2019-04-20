@@ -1,8 +1,7 @@
----
 pt:
   accounts: Contas
-  allow_with_words: Only crosspost posts containing the following words
-  block_with_words: Do not crosspost posts containing the following words
+  allow_with_words: Somente fazer crosspost de posts contendo as palavras a seguir
+  block_with_words: Não fazer crosspost de posts contendo as palavras a seguir
   boost_options: 'Opções de toots compartilhados:'
   change_this_on_options: Você pode mudar essas configurações nas %{options}.
   connections: Conexões
@@ -14,8 +13,8 @@ pt:
   disconnect: Desconectar
   errors:
     oauth:
-      allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
-      blocked_domain: Sorry, %{domain} is blocked in this instance.
+      allowed_domains: Desculpe, esta instância só aceita contas de %{domains}.
+      blocked_domain: Desculpe, %{domain} está bloqueado neste caso.
   features: Funcionalidades
   follow_us_on_the_fediverse: Siga-nos no fediverso!
   for_news_and_status: 'Para novidades e status:'
@@ -23,35 +22,36 @@ pt:
   from_twitter: Do Twitter para o Mastodon
   home:
     privacy:
-      cookies: Do we use cookies?
-      disclose_info: Do we disclose any information to outside parties?
-      we_also_collect: We also collect the id of the posts made from the crossposter
-        on both sites, for as long as one year.
-      we_also_use_for: We use the id of the posts to be able to correlate Mastodon
-        and Twitter posts, which allows us to crosspost threads from one site to the
-        other.
-      we_collect: We collect your Mastodon username and Twitter id, as well as OAuth
-        tokens for each service, which allows us to take actions with your accounts.
+      cookies: Nós usamos cookies?
+      disclose_info: Nós compartilhamos informações com terceiros?
+      we_also_collect: Nós também coletamos os IDs de posts feitos com a ferramenta
+        tanto no Twitter quanto no Mastodon, por até um ano.
+      we_also_use_for: Nós usamos os IDs dos posts para podemos relacionar posts do
+        Twitter e do Mastodon, o que nos permite fazer o crosspost de threads de um
+        site ao outro.
+      we_collect: Nós coletamos seu nome de usuário no Mastodon e seu id no Twitter,
+        bem como tokens OAauth para cada serviço. Isso permite que ações sejam realizadas
+        nas suas contas.
       we_do_not_disclose_info: No.
-      we_use_cookies: Yes. While you're logged in we use a cookie to create a session
-        and identify you to your accounts.
-      we_use_for: We use the OAuth tokens and identifier to be able to connect to
-        your accounts, retrieve posts and post to the other service, according to
-        your configuration.
-      what_use: What do we use your information for?
-      which_information: What information we collect?
+      we_use_cookies: Sim. Enquanto você estiver conectado nós criamos uma sessão
+        e usamos cookies para relacionar a sua sessão às suas contas.
+      we_use_for: Nós usamos os tokens OAuth e identificador para conectar à suas
+        contas, recuperar seus posts e postar ao outro serviço, de acordo com as suas
+        configurações.
+      what_use: Para que nós usamos as suas informações?
+      which_information: Que informações nós coletamos?
     sync_status:
-      mastodon_account_html: The Mastodon account connected is <code>@%{uid}</code>.
-      twitter_account_html: The Twitter account connected is <code>@%{handle}</code>.
+      mastodon_account_html: A conta do Mastodon conectada é <code>@%{uid}</code>.
+      twitter_account_html: A conta do Twitter conectada é <code>@%{handle}</code>.
   layouts:
     application:
       home: Início
-      privacy_policy: Privacy policy
+      privacy_policy: Política de privacidade
   log_out: Fazer logout
   login_to_get_started: Faça login no Twitter e no Mastodon para começar
   manage_your_accounts: Gerencia suas contas conectadas
-  masto_boost_do_not_post: Não postar toots compartilhados no twitter
-  masto_boost_post_as_link: 'Postar toots compartilhados no twitter como links (Boosted:
+  masto_boost_do_not_post: Não postar toots compartilhados no Twitter
+  masto_boost_post_as_link: 'Postar toots compartilhados no Twitter como links (Boosted:
     https://mastodon.social/@renatolond/15082784)'
   masto_login:
     identifier: Identificador
@@ -59,10 +59,10 @@ pt:
       como crossposter@masto.donte.com.br
     login: Entrar
     please: Conecte o seu Mastodon
-  masto_mention_do_not_post: Não postar menções no twitter
+  masto_mention_do_not_post: Não postar menções no Twitter
   masto_mention_options: 'Opções das menções:'
   masto_mention_options_explanation: Esse serviço considera uma menção um toot que
-    não é uma resposta, mas que começa com uma menção a outro usuário.
+    não é uma resposta, mas um que comece com uma menção a outro usuário.
   masto_not_posting_boost: Você não está postando toots compartilhados.
   masto_not_posting_private: Você não está postando toots privados.
   masto_not_posting_reply: Você não está postando replies.
@@ -84,7 +84,7 @@ pt:
   masto_reply_options: 'Opções das respostas:'
   masto_reply_options_explanation: Isso acontece quando você clica no botão de responder
     na interface do Mastodon. É uma resposta direta a outro toot.
-  masto_reply_post_self: Postar respostas aos meus próprios toots no twitter (threads)
+  masto_reply_post_self: Postar respostas aos meus próprios toots no Twitter (threads)
   masto_should_post_private_false: Não
   masto_should_post_private_true: Sim
   masto_should_post_unlisted_false: Não
@@ -150,30 +150,30 @@ pt:
   twitter_word_list: Twitter word list
   users:
     advanced_mastodon:
-      add_another_word: Add another word
-      disabled: Disabled
-      masto_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      masto_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
-      masto_word_list: List of words or expressions for posts coming from Mastodon
-      masto_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      add_another_word: Adicionar outra palavra
+      disabled: Desabilitado
+      masto_block_or_allow_list: Ignorar posts contendo certas palavras ou permitir
+        somente posts que contenham certas palavras
+      masto_block_or_allow_list_explanation: Essa opção permite que você escolha ignorar
+        o crosspost de posts que contenham as palavras a seguir ou permitir somente
+        posts que contenham estas palavras
+      masto_word_list: Lista de palavras ou expressões para posts vindos do Mastodon
+      masto_word_list_explanation: Essa lista de palavras será usada caso a opção
+        acima esteja ligada. Combinações parciais não serão consideradas, isto é,
+        se você adicionar "nata" como uma das palavras, "natação" não será considerada.
     advanced_twitter:
-      add_another_word: Add another word
-      disabled: Disabled
-      twitter_block_or_allow_list: Ignore posts containing certain words or only allow
-        posts containing certain words
-      twitter_block_or_allow_list_explanation: This option lets you choose to ignore
-        crossposting of posts that contain the words defined below or to only crosspost
-        posts that contain the words defined below
-      twitter_word_list_explanation: This list of words will be used if you enabled
-        the option above. No partial match is done, that is, if you write "bird" above,
-        "birdsite" will not be considered.
+      add_another_word: Adicionar outra palavra
+      disabled: Desabilitado
+      twitter_block_or_allow_list: Ignorar posts contendo certas palavras ou permitir
+        somente posts que contenham certas palavras
+      twitter_block_or_allow_list_explanation: Essa opção permite que você escolha
+        ignorar o crosspost de posts que contenham as palavras a seguir ou permitir
+        somente posts que contenham estas palavras
+      twitter_word_list_explanation: Essa lista de palavras será usada caso a opção
+        acima esteja ligada. Combinações parciais não serão consideradas, isto é,
+        se você adicionar "nata" como uma das palavras, "natação" não será considerada.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: Seu nome de usuário na sua instância, no formato seu.at@sua.instância
     show:
       advanced_from_mastodon_options: Opções avançadas para postar do Mastodon para
         o Twitter
