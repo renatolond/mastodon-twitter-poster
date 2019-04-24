@@ -265,6 +265,11 @@ class TwitterUserProcessor
     @medias = []
     media_type = nil
     tweet_medias.each do |media|
+      if media_type == "video"
+        text = text.gsub(media.url, media.expanded_url.to_s).strip
+        @cw = cw.gsub(media.url, media.expanded_url.to_s).strip
+        next
+      end
       media_type = media.type if media_type.nil?
       if media_type != media.type
         text = text.gsub(media.url, media.expanded_url.to_s).strip
