@@ -29,9 +29,9 @@ de:
       disclose_info: Geben wir Auskünfte oder Daten an Dritte?
       we_also_collect: Außerdem speichern wir die IDs von Posts, die über den Cross-Poster
         auf beiden Seiten geteilt wurden, für bis zu ein Jahr.
-      we_also_use_for: Wir speichern die ID von Posts um eine Verbindung zwischen
-        Mastodon- und Twitter-Posts herstellen zu können, was uns erlaubt Threads
-        cross-posten zu können.
+      we_also_use_for: Wir speichern die IDs von Posts um eine Verbindung zwischen
+        Mastodon- und Twitter-Posts herzustellen, was uns erlaubt Threads cross-posten
+        zu können.
       we_collect: Wir speichern deinen Mastodon-Benutzernamen, deine Twitter Account-ID,
         sowie OAuth-Tokens für beide Dienste, die uns einen Teilzugriff auf deine
         Accounts erlauben.
