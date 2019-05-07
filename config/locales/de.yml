@@ -32,9 +32,9 @@ de:
       we_also_use_for: Wir speichern die IDs von Posts um eine Verbindung zwischen
         Mastodon- und Twitter-Posts herzustellen, was uns erlaubt Threads cross-posten
         zu können.
-      we_collect: Wir speichern deinen Mastodon-Benutzernamen, deine Twitter Account-ID,
-        sowie OAuth-Tokens für beide Dienste, die uns einen Teilzugriff auf deine
-        Accounts erlauben.
+      we_collect: Wir sammeln Deinen Mastodon-Benutzernamen und Deinen Twitter-ID
+        sowie OAuth-Token für jeden Dienst. Auf diese Weise können Aktionen auf Deinen
+        Konten durchgeführt werden.
       we_do_not_disclose_info: Nein.
       we_use_cookies: Ja. Solange du eingeloggt bist, nutzen wir ein Cookie für die
         aktuelle Session um dich identifizieren zu können.
@@ -51,7 +51,7 @@ de:
       home: Start
       privacy_policy: Datenschutzerklärung
   log_out: Abmelden
-  login_to_get_started: Melde dich mit Twitter und Mastodon an, um loszulegen
+  login_to_get_started: Melde dich über Twitter und Mastodon an, um loszulegen
   manage_your_accounts: Verwalte deine verbundenen Konten
   masto_boost_do_not_post: Boosts nicht auf Twitter teilen
   masto_boost_post_as_link: 'Teile Boosts auf Twitter als Links („Boosted: https://mastodon.social/@renatolond/15082784“)'
@@ -64,8 +64,8 @@ de:
   masto_mention_do_not_post: Teile keine Erwähnungen auf Twitter
   masto_mention_options: 'Erwähnungs-Optionen:'
   masto_mention_options_explanation: Als „Erwähnungen“ werden hier Toots behandelt,
-    welche zwar keine Antwort sind, jedoch mit der Erwähnung eines anderen Nutzers
-    beginnen.
+    welche zwar keine Antwort sind, sondern mit einer Erwähnung gegenüber einem anderen
+    Benutzer beginnt.
   masto_not_posting_boost: Du teilst keine Boosts.
   masto_not_posting_private: Du teilst keine privaten Toots.
   masto_not_posting_reply: Du teilst keine Antworten.
