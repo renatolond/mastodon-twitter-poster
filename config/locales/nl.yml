@@ -1,4 +1,3 @@
----
 nl:
   accounts: Accounts
   allow_with_words: Alleen berichten plaatsen op beide diensten die de volgende woorden
@@ -27,7 +26,7 @@ nl:
   home:
     privacy:
       cookies: Do we use cookies?
-      disclose_info: Do we disclose any information to outside parties?
+      disclose_info: Geven we informatie aan derden?
       we_also_collect: We also collect the id of the posts made from the crossposter
         on both sites, for as long as one year.
       we_also_use_for: We use the id of the posts to be able to correlate Mastodon
@@ -101,16 +100,16 @@ nl:
   post_unlisted_toots: Niet-vermelde toots plaatsen?
   quote_do_not_post: Citaten niet plaatsen op Mastodon
   quote_options: Citaatopties
-  quote_post_as_old_rt: 'Citaten plaatsen op Mastodon als RT''s in oude stijl (Ik
-    vind dit idee gaaf RT @renatolonddev@twitter.com: Hello, world!)'
-  quote_post_as_old_rt_with_link: 'Citaten plaatsen op Mastodon als RT''s in oude
-    stijl (Ik vind dit idee gaaf RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_post_as_old_rt: "Citaten plaatsen op Mastodon als RT's in oude stijl (Ik vind\
+    \ dit idee gaaf RT @renatolonddev@twitter.com: Hello, world!)"
+  quote_post_as_old_rt_with_link: "Citaten plaatsen op Mastodon als RT's in oude stijl\
+    \ (Ik vind dit idee gaaf RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)"
   retweet_do_not_post: Retweets niet plaatsen op Mastodon
   retweet_options: Retweetopties
-  retweet_post_as_old_rt: 'Retweets plaatsen op Mastodon als RT''s in oude stijl (RT
-    renatolonddev@twitter.com: Hello, world!)'
-  retweet_post_as_old_rt_with_link: 'Retweets plaatsen op Mastodon als RT''s in oude
-    stijl  met links (RT renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_post_as_old_rt: "Retweets plaatsen op Mastodon als RT's in oude stijl (RT\
+    \ renatolonddev@twitter.com: Hello, world!)"
+  retweet_post_as_old_rt_with_link: "Retweets plaatsen op Mastodon als RT's in oude\
+    \ stijl  met links (RT renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)"
   service_ran_by: Deze dienst wordt gerund door
   source_code_and_issues: Broncode en problemen
   status: Status
