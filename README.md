@@ -198,6 +198,10 @@ Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a po
 ## Starting
 To start the project locally, you can do `foreman start` which will start the webserver, or start it with `bundle exec rails s`. To start sidekiq, you need to start with `bundle exec sidekiq`. For production, you need sidekiq to process jobs (that is, to post accross the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
 
+## Troubleshooting
+
+If your server crashes and the crossposter is not correctly turned off, it might happen that jobs get into a state in which they are not able to recover by themselves. The symptom in this case is that no posts get crossposted and if you navigate to https://<your crossposter>/sidekiq, no jobs get ever added to the queue. If you get to that case, and there's a digest in the "unique digests" tab even without a corresponding job over at the "busy" tab, you can remove the unique digest and the job that inserts the status should start running again.
+
 ## Experimental Content Warning recognition
 When posting from Twitter to Mastodon the Crossposter tries to detect content warnings in the tweets and post them over to Mastodon. The detected CW takes precedence over the default twitter one if exists. Some formats are supported and more can be added in the future, but currently, this are the ones that will be recognized:
 
