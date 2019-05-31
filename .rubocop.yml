@@ -221,9 +221,6 @@ Bundler/GemComment:
 Bundler/DuplicatedGem:
   Enabled: true
 
-Performance/RegexpMatch:
-  Enabled: true
-
 Performance/Casecmp:
   Enabled: true
 
