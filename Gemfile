@@ -24,7 +24,8 @@ gem "twitter", github: "renatolond/twitter", branch: "different_uploads"
 gem "devise"
 gem "devise-i18n" # translations for devise forms
 gem "omniauth-twitter"
-gem "omniauth-mastodon"
+gem "omniauth-mastodon", github: "renatolond/omniauth-mastodon"
+gem "omniauth-rails_csrf_protection" # mitigate CVE-2015-9284
 gem "nokogiri"
 gem "htmlentities"
 gem "webpacker"
