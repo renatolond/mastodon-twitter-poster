@@ -1,144 +1,151 @@
 zh_Hant:
-  accounts: ''
-  allow_with_words: ''
-  block_with_words: ''
-  boost_options: ''
-  change_this_on_options: ''
-  connections: ''
-  crossposter_explanation: ''
-  crossposting_overview: ''
-  default_visibility: ''
-  disconnect: ''
+  accounts: 帳號
+  allow_with_words: 僅轉貼包含以下字詞的貼文
+  block_with_words: 不要轉貼包含以下字詞的貼文
+  boost_options: 轉嘟選項：
+  change_this_on_options: 您可以到 %{options} 來變更這些選項。
+  connections: 連線
+  crossposter_explanation: 此服務讓您可以將 Mastodon 與 Twitter 帳號相連並啟用兩者間的轉貼功能。您可以選擇一些選項，像是如果您想要張貼轉嘟、不想列出某些嘟人或回覆等。
+  crossposting_overview: 選項概覽
+  default_visibility: 使用 Mastodon 的預設能見度
+  disconnect: 取消連線
   errors:
     oauth:
-      allowed_domains: ''
-      blocked_domain: ''
-  features: ''
-  follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
-  from_mastodon: ''
-  from_twitter: ''
+      allowed_domains: 抱歉，此站臺僅接受來自 %{domains} 的帳號。
+      blocked_domain: 抱歉，%{domain} 被此站臺封鎖。
+  features: 功能
+  follow_us_on_the_fediverse: 在 fediverse 上追蹤我們！
+  for_news_and_status: 新聞與狀態：
+  from_mastodon: 從 Mastodon 到 Twitter
+  from_twitter: 從 Twitter 到 Mastodon
   home:
     privacy:
-      cookies: ''
-      disclose_info: ''
-      we_also_collect: ''
-      we_also_use_for: ''
-      we_collect: ''
-      we_do_not_disclose_info: ''
-      we_use_cookies: ''
-      we_use_for: ''
-      what_use: ''
-      which_information: ''
+      cookies: 我們會使用 cookies 嗎？
+      disclose_info: 我們會揭露任何訊息給其他人嗎？
+      we_also_collect: 我們也會蒐集在兩個網站上的轉貼貼文者 ID，長達一年。
+      we_also_use_for: 我們使用貼文的 ID 來將 Mastodon 與 Twitter 的貼文關聯起來，讓我們可以從一個網站轉貼討論串到另一個。
+      we_collect: 我們會蒐集您的 Mastodon 使用者名稱與 Twitter ID，同時也包含了每個服務的 OAuth 代符。這樣才能對您的帳號執行操作。
+      we_do_not_disclose_info: 否。
+      we_use_cookies: 是的，當您登入時，我們會使用 cookie 來建立工作階段並識別您的帳號。
+      we_use_for: 我們根據您的設定使用 OAuth 代符與識別符來連線到您的帳號，擷取貼文並轉貼到其他服務。
+      what_use: 我們將您的資訊用在哪些地方？
+      which_information: 我們蒐集了哪些資訊？
     sync_status:
-      mastodon_account_html: ''
-      twitter_account_html: ''
+      mastodon_account_html: Mastodon 帳號已連線至 <code>@%{uid}</code>。
+      twitter_account_html: Twitter 帳號已連線至 <code>@%{handle}</code>。
   layouts:
     application:
-      home: ''
-      privacy_policy: ''
-  log_out: ''
-  login_to_get_started: ''
-  manage_your_accounts: ''
-  masto_boost_do_not_post: ''
-  masto_boost_post_as_link: ''
+      home: 家
+      privacy_policy: 隱私權政策
+  log_out: 登出
+  login_to_get_started: 透過 Twitter 與 Mastodon 登入以開始
+  manage_your_accounts: 管理您已連線的帳號
+  masto_boost_do_not_post: 不要在 Twitter 上張貼轉嘟
+  masto_boost_post_as_link: 在 Twiiter 上將轉嘟張貼為連結（已轉嘟：https://mastodon.social/@renatolond/15082784）
   masto_login:
-    identifier: ''
-    invalid_identifier: ''
-    login: ''
-    please: ''
-  masto_mention_do_not_post: ''
-  masto_mention_options: ''
-  masto_mention_options_explanation: ''
-  masto_not_posting_boost: ''
-  masto_not_posting_private: ''
-  masto_not_posting_reply: ''
-  masto_not_posting_unlisted: ''
-  masto_posting_boost_as_link: ''
-  masto_posting_private: ''
-  masto_posting_reply_to_self: ''
-  masto_posting_unlisted: ''
+    identifier: 識別符
+    invalid_identifier: 無效的識別符。您必須使用 user@instance 的格式，如 crossposter@masto.donte.com.br
+    login: 登入
+    please: 連線到您的 Mastodon
+  masto_mention_do_not_post: 不要在 Twitter 上張貼提及
+  masto_mention_options: 提及選項：
+  masto_mention_options_explanation: 此服務會將提及視為嘟文而非回覆，除了以提及其他使用者開頭的以外。
+  masto_not_posting_boost: 您不會張貼已轉嘟的嘟文。
+  masto_not_posting_private: 您不會張貼私密的嘟文。
+  masto_not_posting_reply: 您不會張貼回覆。
+  masto_not_posting_unlisted: 您不會張貼未列出的嘟文。
+  masto_posting_boost_as_link: 您會將轉嘟的嘟文作為連結張貼。
+  masto_posting_private: 您會張貼私密的嘟文。
+  masto_posting_reply_to_self: 您會張貼對您自己的回覆。
+  masto_posting_unlisted: 您會張貼未列出的嘟文。
   masto_privacy:
-    private: ''
-    public: ''
-    unlisted: ''
+    private: 私密
+    public: 公開
+    unlisted: 未列出
   masto_privacy_for_status:
-    default: ''
-    private: ''
-    public: ''
-    unlisted: ''
-  masto_reply_do_not_post: ''
-  masto_reply_options: ''
-  masto_reply_options_explanation: ''
-  masto_reply_post_self: ''
-  masto_should_post_private_false: ''
-  masto_should_post_private_true: ''
-  masto_should_post_unlisted_false: ''
-  masto_should_post_unlisted_true: ''
-  masto_sync_status_false: ''
-  masto_sync_status_true: ''
-  masto_synchronization_status: ''
-  mastodon_logged_in: ''
-  no_sync_right_now: ''
-  options: ''
-  post_private_toots: ''
-  post_unlisted_toots: ''
-  quote_do_not_post: ''
-  quote_options: ''
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
-  retweet_do_not_post: ''
-  retweet_options: ''
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
-  service_ran_by: ''
-  source_code_and_issues: ''
-  status: ''
-  synchronization_options: ''
-  toots_posted_to_twitter: ''
-  tweets_posted_to_mastodon: ''
-  twitter_content_warning: ''
-  twitter_content_warning_explanation: ''
-  twitter_content_warning_status: ''
-  twitter_logged_in: ''
-  twitter_not_posting_quote: ''
-  twitter_not_posting_reply: ''
-  twitter_not_posting_rt: ''
-  twitter_original_visibility: ''
-  twitter_original_visibility_status: ''
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
-  twitter_posting_reply_to_self: ''
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
-  twitter_quote_visibility: ''
-  twitter_quote_visibility_status: ''
-  twitter_reply_do_not_post: ''
-  twitter_reply_options: ''
-  twitter_reply_options_explanation: ''
-  twitter_reply_post_self: ''
-  twitter_retweet_visibility: ''
-  twitter_retweet_visibility_status: ''
-  twitter_sync_status_false: ''
-  twitter_sync_status_true: ''
-  twitter_synchronization_status: ''
-  twitter_word_list: ''
+    default: Mastodon 預設隱私。
+    private: 私密。
+    public: 公開。
+    unlisted: 未列出。
+  masto_reply_do_not_post: 不要在 Twitter 上張貼回覆
+  masto_reply_options: 回覆選項：
+  masto_reply_options_explanation: 這是當您點擊 Mastodon 介面上的回覆按鈕。其為其他嘟文的直接回覆。
+  masto_reply_post_self: 在 Twitter 上（討論串）張貼我自己的嘟文
+  masto_should_post_private_false: 關
+  masto_should_post_private_true: 開
+  masto_should_post_unlisted_false: 關
+  masto_should_post_unlisted_true: 開
+  masto_sync_status_false: 關
+  masto_sync_status_true: 開
+  masto_synchronization_status: 在 Twitter 上張貼我的嘟文
+  mastodon_logged_in: Mastodon 已登入
+  no_sync_right_now: 目前您 *沒有* 在任何地方貼文。
+  options: 選項
+  post_private_toots: 張貼私密貼文？
+  post_unlisted_toots: 張貼未列出的貼文？
+  quote_do_not_post: 不要在 Mastodon 上張貼引文
+  quote_options: 引用選項
+  quote_post_as_old_rt: '在 Mastodon 上以舊式轉推的型式張貼引文（我喜歡這個點子 RT @renatolonddev@twitter.com:
+    你好，世界！）'
+  quote_post_as_old_rt_with_link: '在 Mastodon 上以帶有連結的舊式轉推的型式張貼引文（我喜歡這個點子 RT @renatolonddev@twitter.com:
+    你好，世界！ https://twitter.com/renatolonddev/status/904738384861700096）'
+  retweet_do_not_post: 不要在 Mastodon 上張貼轉推
+  retweet_options: 轉推選項
+  retweet_post_as_old_rt: '在 Mastodon 上以舊式的轉推型式張貼轉推（RT @renatolonddev@twitter.com:
+    你好，世界！）'
+  retweet_post_as_old_rt_with_link: '在 Mastodon 上以帶有連結的舊式轉推的型式張貼轉推（RT @renatolonddev@twitter.com:
+    你好，世界！ https://twitter.com/renatolonddev/status/904738384861700096）'
+  service_ran_by: 此服務維護由
+  source_code_and_issues: 原始碼與議題
+  status: 狀態
+  synchronization_options: 同步選項
+  toots_posted_to_twitter: 您的嘟文已張貼至 Twitter。
+  tweets_posted_to_mastodon: 您的推文已張貼至 Mastodon。
+  twitter_content_warning: Twitter 內容警告
+  twitter_content_warning_explanation: 任何被加入到此框中的文字都將會被用做每個從 Twitter 轉貼而來的嘟文的內容警告（除了偵測到特定
+    CW 的推文以外）
+  twitter_content_warning_status: 您所有的推文都已在內容警告後張貼：「%{cw}」
+  twitter_logged_in: 已登入 Twitter
+  twitter_not_posting_quote: 您不會張貼引文。
+  twitter_not_posting_reply: 您不會張貼回覆。
+  twitter_not_posting_rt: 您不會張貼轉推。
+  twitter_original_visibility: 轉貼時保留您原始推文的隱私設定
+  twitter_original_visibility_status: '您會使用這種隱私設定來張貼您自己的推文： '
+  twitter_posting_quote_old_style: 您會使用舊式轉推來張貼引文。
+  twitter_posting_quote_old_style_with_link: 您會使用帶有連結的舊式轉推來張貼引文。
+  twitter_posting_reply_to_self: 您會張貼對您自己的回覆。
+  twitter_posting_rt_old_style: 您會以舊式轉推的型式張貼轉推。
+  twitter_posting_rt_old_style_with_link: 您會以帶有連結的舊式轉推的型式張貼轉推。
+  twitter_quote_visibility: 轉貼時保留引文的隱私設定
+  twitter_quote_visibility_status: '您會使用這種隱私設定來張貼引文： '
+  twitter_reply_do_not_post: 不要在 Mastodon 上張貼回覆
+  twitter_reply_options: 回覆選項：
+  twitter_reply_options_explanation: 這是當您在 Twitter 的介面上點擊回覆按鈕時的狀況。它會直接回覆到其他推文。
+  twitter_reply_post_self: 在 Mastodon 上張貼您自己推文的回覆（討論串）
+  twitter_retweet_visibility: 轉貼時保留轉推的隱私設定
+  twitter_retweet_visibility_status: '您會使用這種隱私設定來張貼轉推： '
+  twitter_sync_status_false: 關
+  twitter_sync_status_true: 開
+  twitter_synchronization_status: 在 Mastodon 上張貼我的推文
+  twitter_word_list: Twitter 字詞清單
   users:
     advanced_mastodon:
-      add_another_word: ''
-      disabled: ''
-      masto_block_or_allow_list: ''
-      masto_block_or_allow_list_explanation: ''
-      masto_word_list: ''
-      masto_word_list_explanation: ''
+      add_another_word: 新增其他字詞
+      disabled: 已停用
+      masto_block_or_allow_list: 忽略包含特定文字的貼文，或僅允許保含特定文字的貼文
+      masto_block_or_allow_list_explanation: 此選項讓您可以忽略包含以下字詞的貼文，或僅轉貼包含以下字詞的貼文
+      masto_word_list: 來自 Mastodon 的字詞或正規表達式清單
+      masto_word_list_explanation: 如果您啟用上面的選項，將會使用此字詞清單。不會有部份符合的情況發生，亦及您如果在上面寫的是 "bird"，那麼
+        "birdsite" 就不會被認為是一樣的東西。
     advanced_twitter:
-      add_another_word: ''
-      disabled: ''
-      twitter_block_or_allow_list: ''
-      twitter_block_or_allow_list_explanation: ''
-      twitter_word_list_explanation: ''
+      add_another_word: 新增其他字詞
+      disabled: 已停用
+      twitter_block_or_allow_list: 忽略包含特定字詞的貼文或僅允許包含特定字詞的貼文
+      twitter_block_or_allow_list_explanation: 此選項讓您可以忽略包含以下字詞的貼文，或僅轉貼包含以下字詞的貼文
+      twitter_word_list_explanation: 如果您啟用上面的選項，將會使用此字詞清單。不會有部份符合的情況發生，亦及您如果在上面寫的是
+        "bird"，那麼 "birdsite" 就不會被認為是一樣的東西。
     mastodon_identifier:
-      identifier_placeholder: ''
+      identifier_placeholder: 您的使用者者名稱之於您的站臺，格式為 your.at@your.instance
     show:
-      advanced_from_mastodon_options: ''
-      advanced_from_twitter_options: ''
+      advanced_from_mastodon_options: 從 Mastodon 到 Twitter 貼文的進階選項
+      advanced_from_twitter_options: 從 Twitter 到 Mastodon 貼文的進階選項
