@@ -1,72 +1,84 @@
 id:
-  accounts: ''
-  allow_with_words: ''
-  block_with_words: ''
-  boost_options: ''
-  change_this_on_options: ''
-  connections: ''
-  crossposter_explanation: ''
+  accounts: Akun
+  allow_with_words: Hanya postingan crosspost yang berisi kata-kata berikut
+  block_with_words: Jangan membuat postingan crosspost dengan kata-kata berikut
+  boost_options: 'Opsi Boost:'
+  change_this_on_options: Anda bisa mengubah pengaturan ini dengan pergi ke %{options}.
+  connections: Koneksi
+  crossposter_explanation: Layanan ini membuat Anda bisa menghubungkan akun Mastodon
+    dan akun Twitter dan menyalakan cross-posting diantara keduanya. Anda bisa memilih
+    beberapa opsi, seperti jika Anda ingin memposting boost, toot tidak terdaftar
+    atau balasan.
   crossposting_overview: ''
-  default_visibility: ''
-  disconnect: ''
+  default_visibility: Gunakan penglihatan bawaan Mastodon
+  disconnect: Putuskan
   errors:
     oauth:
-      allowed_domains: ''
-      blocked_domain: ''
-  features: ''
-  follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
-  from_mastodon: ''
-  from_twitter: ''
+      allowed_domains: Maaf, instance ini hanya menerima akun dari %{domains}.
+      blocked_domain: Maaf, %{domain} di blok di instance ini.
+  features: Fitur
+  follow_us_on_the_fediverse: Ikuti kami di fediverse!
+  for_news_and_status: 'Untuk berita dan status:'
+  from_mastodon: Dari Mastodon ke Twitter
+  from_twitter: Dari Twitter ke Mastodon
   home:
     privacy:
-      cookies: ''
-      disclose_info: ''
-      we_also_collect: ''
-      we_also_use_for: ''
-      we_collect: ''
-      we_do_not_disclose_info: ''
-      we_use_cookies: ''
-      we_use_for: ''
-      what_use: ''
-      which_information: ''
+      cookies: Apakah kami menggunakan cookie?
+      disclose_info: Apakah kami mengungkapkan informasi kepada pihak luar?
+      we_also_collect: Kami juga mengumpulkan ID pos yang dibuat dari crossposter
+        di kedua situs, selama satu tahun.
+      we_also_use_for: Kami menggunakan ID postingan untuk mengkorelasikan postingan
+        Mastodon dan Twitter, yang memungkinkan kami untuk melakukan crosspost postingan
+        dari satu situs ke situs lainnya.
+      we_collect: Kami mengumpulkan nama pengguna Mastodon Anda dan ID Twitter, serta
+        token OAuth untuk setiap layanan. Ini memungkinkan tindakan dilakukan pada
+        akun Anda.
+      we_do_not_disclose_info: Tidak.
+      we_use_cookies: Ya. Ketika Anda masuk kami menggunakan cookie untuk membuat
+        sesi dan mengidentifikasi Anda ke akun Anda.
+      we_use_for: Kami menggunakan token dan pengidentifikasi OAuth untuk dapat terhubung
+        ke akun Anda, mengambil postingan dan memposting ke layanan lain, sesuai dengan
+        konfigurasi Anda.
+      what_use: Untuk apa kami menggunakan informasi Anda?
+      which_information: Infomasi apa saja yang kami kumpulkan?
     sync_status:
-      mastodon_account_html: ''
-      twitter_account_html: ''
+      mastodon_account_html: Akun Mastodon yang tersambung <code>@%{uid}</code>.
+      twitter_account_html: Akun Twitter yang tersambung <code>@%{handle}</code>.
   layouts:
     application:
-      home: ''
-      privacy_policy: ''
-  log_out: ''
-  login_to_get_started: ''
-  manage_your_accounts: ''
-  masto_boost_do_not_post: ''
-  masto_boost_post_as_link: ''
+      home: Halaman Depan
+      privacy_policy: Kebijakan Privasi
+  log_out: Keluar
+  login_to_get_started: Masuk melalui Twitter dan Mastodon untuk memulai
+  manage_your_accounts: Kelola akun Anda yang tersambung
+  masto_boost_do_not_post: Jangan posting boost ke Twitter
+  masto_boost_post_as_link: 'Posting boost ke Twitter sebagai link (Diboost: https://mastodon.social/@renatolond/15082784)'
   masto_login:
-    identifier: ''
-    invalid_identifier: ''
-    login: ''
-    please: ''
-  masto_mention_do_not_post: ''
-  masto_mention_options: ''
+    identifier: Pengidentifikasi
+    invalid_identifier: Pengidentifikasi tidak valid. Anda harus menggunakan format
+      pengguna@instance, contohnya crossposter@masto.donte.com.br
+    login: Masuk
+    please: Hubungkan Mastodon Anda
+  masto_mention_do_not_post: Jangan posting mention ke Twitter
+  masto_mention_options: 'Opsi mention:'
   masto_mention_options_explanation: ''
-  masto_not_posting_boost: ''
-  masto_not_posting_private: ''
-  masto_not_posting_reply: ''
-  masto_not_posting_unlisted: ''
-  masto_posting_boost_as_link: ''
-  masto_posting_private: ''
-  masto_posting_reply_to_self: ''
-  masto_posting_unlisted: ''
+  masto_not_posting_boost: Anda tidak memposting toot yang di boost.
+  masto_not_posting_private: Anda tidak memposting toot pribadi.
+  masto_not_posting_reply: Anda tidak memposting balasan.
+  masto_not_posting_unlisted: Anda tidak memposting toot yang tidak terdaftar.
+  masto_posting_boost_as_link: Anda memposting toot yang di boost sebagai link.
+  masto_posting_private: Anda memposting toot pribadi.
+  masto_posting_reply_to_self: Anda memposting balasan pada diri sendiri.
+  masto_posting_unlisted: Anda memposting toot yang tidak terdaftar.
   masto_privacy:
-    private: ''
-    public: ''
-    unlisted: ''
+    private: Pribadi
+    public: Publik
+    unlisted: Tidak terdaftar
   masto_privacy_for_status:
-    default: ''
-    private: ''
-    public: ''
-    unlisted: ''
+    default: Privasi bawaan Mastodon.
+    private: Pribadi.
+    public: Publik.
+    unlisted: Tidak terdaftar.
   masto_reply_do_not_post: ''
   masto_reply_options: ''
   masto_reply_options_explanation: ''
