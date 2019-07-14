@@ -12,7 +12,9 @@ module OmniAuth
             fail!(:forbidden_domain, CallbackError.new("forbidden_domain", I18n.t("errors.oauth.blocked_domain", domain: domain)))
             return
           end
-        elsif allowed_domains.present? && !allowed_domains.include?(domain)
+        end
+
+        if allowed_domains.present? && !allowed_domains.include?(domain)
           fail!(:forbidden_domain, CallbackError.new("forbidden_domain", I18n.t("errors.oauth.allowed_domains", domains: allowed_domains.join(", "))))
           return
         end
@@ -21,7 +23,7 @@ module OmniAuth
       end
 
       def blocked_domains
-        @blocked_domains ||= ENV["BLOCKED_DOMAINS"]&.split(/\s*,\s*/)
+        @blocked_domains ||= (ENV["BLOCKED_DOMAINS"]&.split(/\s*,\s*/) | ["gab.com", "gab.ai", "kiwifarms.cc", "kiwifarms.is", "kiwifarms.net"])
       end
 
       # accept ALLOWED_DOMAIN for legacy reasons
