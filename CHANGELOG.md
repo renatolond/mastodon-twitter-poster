@@ -1,3 +1,5 @@
+[2019-07-14] - Blocking domains also blocks subdomains. Gab and kiwifarms are now always blocked.
+
 [2019-05-31] - Upgrade ruby to 2.6.3. Also upgrade some gems. `bundle install` needed after upgrade.
 
 [2019-03-14] - Upgrade rails. `bundle install` needed after upgrade.
