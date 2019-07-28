@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # The web framework
-gem "rails", "~> 5.2.2"
+gem "rails", "~> 5.2.3"
 gem "rails-i18n"
 gem "pg"
 gem "puma"
