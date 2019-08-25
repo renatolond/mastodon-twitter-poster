@@ -23,7 +23,7 @@ module OmniAuth
       end
 
       def blocked_domains
-        @blocked_domains ||= (ENV["BLOCKED_DOMAINS"]&.split(/\s*,\s*/) | ["gab.com", "gab.ai", "kiwifarms.cc", "kiwifarms.is", "kiwifarms.net"])
+        @blocked_domains ||= ((ENV["BLOCKED_DOMAINS"]&.split(/\s*,\s*/) || []) | ["gab.com", "gab.ai", "kiwifarms.cc", "kiwifarms.is", "kiwifarms.net"])
       end
 
       # accept ALLOWED_DOMAIN for legacy reasons

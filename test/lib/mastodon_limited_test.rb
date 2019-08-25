@@ -59,4 +59,10 @@ class MastodonLimitedTest < ActiveSupport::TestCase
     OmniAuth::Strategies::Mastodon.any_instance.expects(:fail!).once
     mastodon_limited.start_oauth
   end
+
+  test "blocked domains" do
+    ENV.expects(:[]).at_least_once.returns(nil)
+    mastodon_limited = OmniAuth::Strategies::MastodonLimited.new("foo")
+    assert_equal ["gab.com", "gab.ai", "kiwifarms.cc", "kiwifarms.is", "kiwifarms.net"], mastodon_limited.blocked_domains
+  end
 end
