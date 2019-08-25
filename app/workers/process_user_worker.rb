@@ -15,7 +15,7 @@ class ProcessUserWorker
     self.class.stats.time("mastodon.processing_time") { MastodonUserProcessor.process_user(u) } if u.posting_from_mastodon
     u.locked = false
     u.save
-  rescue Twitter::Error::Unauthorized, Mastodon::Error::Unauthorized
+  rescue Twitter::Error::Unauthorized, Mastodon::Error::Unauthorized, Mastodon::Error::Forbidden
     UnauthorizedUserWorker.perform_async(id)
   end
 end

@@ -3,7 +3,8 @@
 class UnauthorizedUserWorker
   include Sidekiq::Worker
 
-  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked", "Il token di accesso è stato disabilitato", "The access token is invalid", "アクセストークンは取り消されています", "Le jeton d’accès a été révoqué", "Der Zugriffs-Token wurde widerrufen", "access token 已被取消"]
+  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked", "Il token di accesso è stato disabilitato", "The access token is invalid", "アクセストークンは取り消されています", "Le jeton d’accès a été révoqué", "Der Zugriffs-Token wurde widerrufen", "access token 已被取消"].freeze
+  INVALID_CREDENTIALS_MESSAGES = ["Invalid credentials."].freeze
 
   def perform(id)
     @user = User.find(id)
@@ -36,12 +37,22 @@ class UnauthorizedUserWorker
       if @user.mastodon
         begin
           @user.mastodon_client.verify_credentials
+        rescue Mastodon::Error::Forbidden => ex
+          # XXX same as below, there should be a code or machine-readable error field
+          if INVALID_CREDENTIALS_MESSAGES.include? ex.message
+            @user.mastodon.destroy
+            stop_crossposting
+          else
+            # If it's a temporary error, we re-raise to avoid giving control back to posting worker
+            raise ex
+          end
         rescue Mastodon::Error::Unauthorized => ex
           # XXX look into this. There should be a code or machine-readable error field
           if REVOKED_MESSAGES.include? ex.message
             @user.mastodon.destroy
             stop_crossposting
           else
+            # If it's a temporary error, we re-raise to avoid giving control back to posting worker
             raise ex
           end
         end
