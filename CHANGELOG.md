@@ -1,3 +1,5 @@
+[2019-11-03] - Upgrade gems. `bundle install` needed after upgrade.
+
 [2019-08-09] - Upgrade gems. `bundle install` needed after upgrade.
 
 [2019-08-01] - Upgrade gems. `bundle install` needed after upgrade.
