@@ -1,4 +1,4 @@
-[2019-11-03] - Upgrade gems. `bundle install` needed after upgrade.
+[2019-11-03] - Update ruby to 2.6.5. The crossposter still works on 2.5.x or 2.6.x, so if you don't want to upgrade, you can change the version on `.ruby-version`. Also upgrade gems. `bundle install` needed after upgrade.
 
 [2019-08-09] - Upgrade gems. `bundle install` needed after upgrade.
 

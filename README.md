@@ -43,9 +43,9 @@ The crossposter is made with multiple users in mind. For that reason, it can be 
 
 ## Ruby on Rails
 
-Ruby 2.5.1
+Ruby 2.6.5
 
-Rails 5.1
+Rails 5.2
 
 ## Requirements
 
