@@ -24,7 +24,7 @@
     "path-complete-extname": "^0.1.0",
     "postcss-loader": "^2.0.6",
     "postcss-smart-import": "^0.7.5",
-    "precss": "^2.0.0",
+    "precss": "^4.0.0",
     "rails-erb-loader": "^5.1.0",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
