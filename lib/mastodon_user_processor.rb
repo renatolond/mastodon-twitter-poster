@@ -150,6 +150,12 @@ class MastodonUserProcessor
       return
     end
 
+    if toot.text_content.gsub(/[[:space:]]+/, "").empty? && toot.spoiler_text.gsub(/[[:space:]]+/, "").empty?
+      Rails.logger.debug("Ignoring toot, was empty")
+      MastodonUserProcessor.stats.increment("toot.empty.skipped")
+      return
+    end
+
     if toot.is_direct?
       Rails.logger.debug("Ignoring direct toot. We do not treat them")
       MastodonUserProcessor.stats.increment("toot.direct.skipped")
