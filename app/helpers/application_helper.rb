@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def mastodon?
-    user_signed_in? && !current_user.mastodon.nil?
+    user_signed_in? && !current_user.mastodon.nil? && !current_user.mastodon.token.nil?
   end
 
   def locale_direction
