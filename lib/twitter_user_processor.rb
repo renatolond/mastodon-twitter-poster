@@ -40,6 +40,7 @@ class TwitterUserProcessor
     opts
   end
 
+  TWITTER_MEDIA_ISSUE = 324
   def self.get_last_tweets_for_user(user)
     return unless user.mastodon && user.twitter
 
@@ -71,6 +72,13 @@ class TwitterUserProcessor
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. (#{user.mastodon.mastodon_client.domain}) -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")
         raise TweetError.new(ex)
+      rescue Twitter::Error::BadRequest => ex
+        if ex.code == TWITTER_MEDIA_ISSUE
+          Rails.logger.info { "Skipping tweet #{t.id}, from user #{user.twitter.uid}. Twitter says there's a media issue." }
+          stats.increment('tweet.switter.skipped')
+        else
+          raise TweetError.new(ex)
+        end
       rescue StandardError => ex
         Rails.logger.error { "Could not process user #{user.twitter.uid}, tweet #{t.id}. -- #{ex} -- Bailing out" }
         stats.increment("tweet.processing_error")
