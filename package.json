@@ -2,7 +2,7 @@
   "name": "mastodon_twitter_poster",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^4.0.7",
+    "@rails/webpacker": "^4.2.0",
     "bulma-rtl": "^0.7.1",
     "bulma-switch": "^2.0.0",
     "jquery": "^3.2.1"
