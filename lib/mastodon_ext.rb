@@ -1,5 +1,9 @@
 module Mastodon
   class Status
+    MASTODON_REGEX = /(?<domain>[^\/]+)\/@(?<username>.+)/
+    PLEROMA_REGEX = /(?<domain>[^\/]+)\/users\/(?<username>.+)/
+    OTHER_REGEX = /(?<domain>[^\/]+)\/(?<username>.+)/
+    MENTION_REGEX = /(<a href="https:\/\/(?<mention>[^"]+)" .*class=\"u-url mention\">@<span>[^>]+<\/span><\/a>)/
     def is_reblog?
       begin
         _ = reblog
@@ -49,12 +53,17 @@ module Mastodon
     def self.html_entities
       @@html_entities ||= HTMLEntities.new
     end
-    def self.mention_regex
-      @@mention_regex ||= /<a href="https:\/\/([^\/]+)\/@([^"]+)" class=\"u-url mention\">@<span>[^>]+<\/span><\/a>/
-    end
     def text_content
       return @text_content if @text_content
-      @text_content = Loofah.fragment(content.gsub(self.class.mention_regex, '@\2@\1')).scrub!(Status.scrubber).to_s
+      temp_content = content.dup
+      while mention_m = temp_content.match(MENTION_REGEX)
+        username_m = mention_m[:mention].match(MASTODON_REGEX) ||
+          mention_m[:mention].match(PLEROMA_REGEX) ||
+          mention_m[:mention].match(OTHER_REGEX)
+
+        temp_content.gsub!(mention_m[0], "@#{username_m[:username]}@#{username_m[:domain]}")
+      end
+      @text_content = Loofah.fragment(temp_content).scrub!(Status.scrubber).to_s
       @text_content.gsub!("<br>", "\n")
       @text_content.gsub!("</p><p>", "\n\n")
       @text_content.gsub!(/(^<p>|<\/p>$)/, "")
