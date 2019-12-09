@@ -2,12 +2,12 @@ cs:
   accounts: Účty
   allow_with_words: Přeposílat pouze příspěvky obsahující následující slova
   block_with_words: Nepřeposílat příspěvky obsahující následující slova
-  boost_options: 'Možnosti pro boosty:'
-  change_this_on_options: Tato nastavení můžete změnit navštívením %{options}.
-  connections: Spojení
-  crossposter_explanation: Tato služba vám umožňuje připojit si účet na Mastodonu
-    a na Twitteru a přeposílat příspěvky mezi nimi. Můžete si vybrat několik možností,
-    napříklat pokud chcete posílat boosty, neuvedené tooty nebo odpovědi.
+  boost_options: Přeposílání boostů
+  change_this_on_options: Tato nastavení můžete změnit na stránce %{options}.
+  connections: Připojené účty
+  crossposter_explanation: Tato služba umožňuje propojit vaše účty na Mastodonu a Twitteru
+    a automaticky mezi nimi přeposílat vaše příspěvky. Můžete si také vybrat, zda se mají
+    přeposílat také boosty/retweety nebo dokonce odpovědi.
   crossposting_overview: Přehled možností
   default_visibility: Použít výchozí viditelnost Mastodonu
   disconnect: Odpojit
@@ -24,18 +24,18 @@ cs:
     privacy:
       cookies: Používáme cookies?
       disclose_info: Zveřejňujeme jakékoliv informace třetím stranám?
-      we_also_collect: Sbíráme také ID příspěvků přeposílaných z obou stran po dobu
-        jednoho roku.
-      we_also_use_for: ID příspěvků používáme ke korelaci příspěvků na Mastodonu a
-        Twitteru, což nám dovoluje přeposílat vlákna z jedné stránky na druhou.
-      we_collect: Sbíráme vaše uživatelské jméno na Mastodonu a Twitter ID, dále tokeny
-        OAuth pro každou službu. To dovoluje, aby byly prováděny akce na vašich účtech.
+      we_also_collect: Po dobu jednoho roku ukládáme také ID přeposlaných příspěvků
+        z obou sítí.
+      we_also_use_for: ID příspěvků používáme k jejich korelaci na Mastodonu a
+        Twitteru, abychom mohli přeposílat vlákna z jedné služby na druhou.
+      we_collect: Sbíráme vaše uživatelské jméno na Mastodonu a Twitter ID, a dále OAuth
+        tokeny pro obě služby. To nám umožňuje provádět akce na vašich účtech.
       we_do_not_disclose_info: Ne.
-      we_use_cookies: Ano. Zatímco jste přihlášen/a, používáme cookie pro vytvoření
+      we_use_cookies: Ano. Zatímco jste přihlášeni, používáme cookies pro vytvoření
         relace a abychom vás identifikovali s vašimi účty.
-      we_use_for: Tokeny OAuth a identifikátor používáme k připojení na vaše účty,
-        načtení příspěvků a posílání na druhou službu, podle vašeho nastavení.
-      what_use: Na co používáme vaše informace?
+      we_use_for: OAuth tokeny a identifikátory uživatelů používáme k připojení na vaše účty,
+        načtení příspěvků a jejich přeposílání na druhou službu, v souladu s vaším nastavením.
+      what_use: Na co vaše informace používáme?
       which_information: Jaké informace sbíráme?
     sync_status:
       mastodon_account_html: Připojený účet Mastodon je <code>@%{uid}</code>.
@@ -43,134 +43,127 @@ cs:
   layouts:
     application:
       home: Domů
-      privacy_policy: Zásady soukromí
+      privacy_policy: Soukromí
   log_out: Odhlásit
   login_to_get_started: Začněte přihlášením přes Twitter a Mastodon
-  manage_your_accounts: Spravovat vaše připojené účty
-  masto_boost_do_not_post: Neodesílat na Twitter boosty
-  masto_boost_post_as_link: 'Odesílat na Twitter boosty jako odkazy (Boostnuto: https://mastodon.social/@renatolond/15082784)'
+  manage_your_accounts: Správa vašich připojených účtů
+  masto_boost_do_not_post: Boosty nepřeposílat
+  masto_boost_post_as_link: 'Boosty přeposílat jako odkazy (Boostnuto: https://mastodon.social/@renatolond/15082784)'
   masto_login:
     identifier: Identifikátor
-    invalid_identifier: Neplatný identifikátor. Musíte použít formát uživatel@instance,
-      například crossposter@masto.donte.com.br
+    invalid_identifier: Neplatný identifikátor. Použijte identifikátor ve formátu
+      uživatel@instance, např. „crossposter@masto.donte.com.br“
     login: Přihlásit
     please: Připojte svůj Mastodon
-  masto_mention_do_not_post: Neodesílat na Twitter zmínky
-  masto_mention_options: 'Možnosti pro zmínky:'
-  masto_mention_options_explanation: Tato služba považuje zmínku za toot, který není
-    odpovědí, ale který začíná zmínkou jiného uživatele.
-  masto_not_posting_boost: Neposíláte boostnuté tooty.
-  masto_not_posting_private: Neposíláte soukromé tooty.
-  masto_not_posting_reply: Neposíláte odpovědi.
-  masto_not_posting_unlisted: Neposíláte neuvedené tooty.
-  masto_posting_boost_as_link: Posíláte boostnuté tooty jako příspěvky.
-  masto_posting_private: Posíláte soukromé tooty.
-  masto_posting_reply_to_self: Posíláte odpovědi na vlastní tooty.
-  masto_posting_unlisted: Posíláte neuvedené tooty.
+  masto_mention_do_not_post: Zmínky nepřeposílat
+  masto_mention_options: Přeposílání zmínek
+  masto_mention_options_explanation: Tato služba považuje za zmínku takový toot, který není
+    sice není odpovědí, ale začíná zmínkou jiného uživatele.
+  masto_not_posting_boost: Boostnuté tooty se nepřeposílají.
+  masto_not_posting_private: Tooty pouze pro sledující se nepřeposílají.
+  masto_not_posting_reply: Odpovědi se nepřeposílají.
+  masto_not_posting_unlisted: Neuvedené tooty se nepřeposílají.
+  masto_posting_boost_as_link: Boostnuté tooty se přeposílají jako příspěvky.
+  masto_posting_private: Soukromé tooty se přeposílají.
+  masto_posting_reply_to_self: Odpovědi na vlastní tooty se přeposílají.
+  masto_posting_unlisted: Neuvedené tooty se přeposílají.
   masto_privacy:
-    private: Soukromé
+    private: Pouze pro sledující
     public: Veřejné
     unlisted: Neuvedené
   masto_privacy_for_status:
-    default: Výchozí soukromí Mastodonu.
-    private: Soukromé.
-    public: Veřejné.
-    unlisted: Neuvedené.
-  masto_reply_do_not_post: Neodesílat na Twitter odpovědi
-  masto_reply_options: 'Možnosti odpovědí:'
-  masto_reply_options_explanation: Tohle je, když kliknete v rozhraní Mastodonu tlačítko
-    odpovědi. Je to přímá odpověď na jiný toot.
-  masto_reply_post_self: Odesílat na Twitter odpovědi na mé vlastní tooty (vlákna)
+    default: Výchozí viditelnost Mastodonu
+    private: Pouze pro sledující
+    public: Veřejné
+    unlisted: Neuvedené
+  masto_reply_do_not_post: Odpovědi nepřeposílat
+  masto_reply_options: Přeposílání odpovědí
+  masto_reply_options_explanation: Odpovědí je, pokud v rozhraní Mastodonu klepnete
+    na tlačítko „Odpovědět“. Je to přímá odpověď na jiný toot.
+  masto_reply_post_self: Přeposílat odpovědi na vlastní tooty (vlákna)
   masto_should_post_private_false: VYP
   masto_should_post_private_true: ZAP
   masto_should_post_unlisted_false: VYP
   masto_should_post_unlisted_true: ZAP
   masto_sync_status_false: VYP
   masto_sync_status_true: ZAP
-  masto_synchronization_status: Posílat moje tooty na Twitter
+  masto_synchronization_status: Přeposílat moje tooty
   mastodon_logged_in: Mastodon je přihlášen
-  no_sync_right_now: Aktuálně nikam *neposíláte*.
+  no_sync_right_now: Aktuálně se nic *nepřeposílá*.
   options: Možnosti
-  post_private_toots: Posílat soukromé tooty?
-  post_unlisted_toots: Posílat neuvedené tooty?
-  quote_do_not_post: Neposílat na Mastodon citace
-  quote_options: Možnosti citací
-  quote_post_as_old_rt: 'Posílat na Mastodon citace jako RT ve starém stylu (Tento
-    nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!)'
-  quote_post_as_old_rt_with_link: 'Posílat na Mastodon citace jako RT ve starém stylu
-    s odkazy (Tento nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!
-    https://twitter.com/renatolonddev/status/904738384861700096)'
-  retweet_do_not_post: Neposílat na Mastodon retweety
-  retweet_options: Možnosti retweetů
-  retweet_post_as_old_rt: 'Posílat na Mastodon retweety jako RT ve starém stylu (RT
+  post_private_toots: Přeposílat tooty určené pouze pro sledující
+  post_unlisted_toots: Přeposílat neuvedené tooty
+  quote_do_not_post: Citace nepřeposílat
+  quote_options: Přeposílání citací
+  quote_post_as_old_rt: 'Citace přeposílat jako RT ve starém stylu (Tento nápad se mi líbí RT
     @renatolonddev@twitter.com: Ahoj všichni!)'
-  retweet_post_as_old_rt_with_link: 'Posílat na Mastodon retweety jako RT ve starém
-    stylu s odkazy (RT @renatolonddev@twitter.com: Ahoj všichni! https://twitter.com/renatolonddev/status/904738384861700096)'
+  quote_post_as_old_rt_with_link: 'Citace přeposílat jako RT ve starém stylu s odkazy
+    (Tento nápad se mi líbí RT @renatolonddev@twitter.com: Ahoj všichni!
+    https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_do_not_post: Retweety nepřeposílat
+  retweet_options: Přeposílání retweetů
+  retweet_post_as_old_rt: 'Retweety přeposílat jako RT ve starém stylu (RT @renatolonddev@twitter.com:
+    Ahoj všichni!)'
+  retweet_post_as_old_rt_with_link: 'Retweety přeposílat jako RT ve starém stylu s odkazy
+    (RT @renatolonddev@twitter.com: Ahoj všichni! https://twitter.com/renatolonddev/status/904738384861700096)'
   service_ran_by: Tuto službu provozuje
   source_code_and_issues: Zdrojový kód a chyby
   status: Stav
-  synchronization_options: Možnosti synchronizace
-  toots_posted_to_twitter: Vaše tooty se posílají na Twitter.
-  tweets_posted_to_mastodon: Vaše tweety se posílají na Mastodon.
-  twitter_content_warning: Varování o obsahu na Twitteru
-  twitter_content_warning_explanation: Jakýkoliv text přidaný do tohoto pole bude
-    použit jako varování o obsahu pro každý toot přeposlaný z Twitteru (kromě tweetů,
-    ve kterých jsou detekovány specifická varování)
-  twitter_content_warning_status: 'Všechny vaše tweety jsou publikovány za varováním:
-    „%{cw}“'
+  synchronization_options: Možnosti přeposílání
+  toots_posted_to_twitter: Vaše tooty se přeposílají na Twitter.
+  tweets_posted_to_mastodon: Vaše tweety se přeposílají na Mastodon.
+  twitter_content_warning: Varování o obsahu z Twitteru
+  twitter_content_warning_explanation: Text přidaný do tohoto pole bude použit jako varování na obsah
+    z Twitteru v každém tweetu přeposlaném na Mastodon (kromě těch, ve kterých bude detekováno specifické varování).
+  twitter_content_warning_status: 'Všechny vaše tweety jsou publikovány s varováním: „%{cw}“'
   twitter_logged_in: Twitter je přihlášen
-  twitter_not_posting_quote: Neposíláte citace.
-  twitter_not_posting_reply: Neposíláte odpovědi.
-  twitter_not_posting_rt: Neposíláte retweety.
-  twitter_original_visibility: Soukromí pro vaše původní tweety při přeposílání
-  twitter_original_visibility_status: 'Posíláte své vlastní tweety se soukromím: '
-  twitter_posting_quote_old_style: Posíláte citace jako RT ve starém stylu.
-  twitter_posting_quote_old_style_with_link: Posíláte citace jako RT ve starém stylu
-    s odkazy.
-  twitter_posting_reply_to_self: Posíláte odpovědi sami sobě.
-  twitter_posting_rt_old_style: Posíláte retweety jako RT ve starém stylu.
-  twitter_posting_rt_old_style_with_link: Posíláte retweety jako RT ve starém stylu
-    s odkazy.
-  twitter_quote_visibility: Soukromí pro citace při přeposílání
-  twitter_quote_visibility_status: 'Posíláte citace se soukromím: '
-  twitter_reply_do_not_post: Neposílat na Mastodon odpovědi
-  twitter_reply_options: 'Možnosti odpovědí:'
-  twitter_reply_options_explanation: Tohle je, když v rozhraní Twitteru kliknete na
-    tlačítko Odpovědět. Je to přímá odpověď na jiný tweet.
-  twitter_reply_post_self: Posílat na Mastodon odpovědi na mé vlastní tweety (vlákna)
-  twitter_retweet_visibility: Soukromí pro retweety při přeposlání
-  twitter_retweet_visibility_status: 'Posíláte retweety se soukromím: '
+  twitter_not_posting_quote: Citace se nepřeposílají.
+  twitter_not_posting_reply: Odpovědi se nepřeposílají.
+  twitter_not_posting_rt: Retweety se nepřeposílají.
+  twitter_original_visibility: Soukromí vašich tweetů přeposlaných na Mastodon
+  twitter_original_visibility_status: 'Vaše tweety se na Mastodon přeposílají s nastavením soukromí: '
+  twitter_posting_quote_old_style: Citace se přeposílají jako RT ve starém stylu.
+  twitter_posting_quote_old_style_with_link: Citace se přeposílají jako RT ve starém stylu s odkazy.
+  twitter_posting_reply_to_self: Odpovědi sami sobě se přeposílají.
+  twitter_posting_rt_old_style: Retweety se přeposílají jako RT ve starém stylu.
+  twitter_posting_rt_old_style_with_link: Retweety se přeposílají jako RT ve starém stylu s odkazy.
+  twitter_quote_visibility: Soukromí vašich citací přeposlaných na Mastodon
+  twitter_quote_visibility_status: 'Citace se na Mastodon přeposílají s nastavením soukromí: '
+  twitter_reply_do_not_post: Odpovědi nepřeposílat
+  twitter_reply_options: Přeposílání odpovědí
+  twitter_reply_options_explanation: Odpovědí je, pokud v rozhraní Twitteru klepnete
+    na tlačítko „Odpovědět“. Je to přímá odpověď na jiný tweet.
+  twitter_reply_post_self: Přeposílat odpovědi na mé vlastní tweety (vlákna)
+  twitter_retweet_visibility: Soukromí vašich retweetů přeposlaných na Mastodon
+  twitter_retweet_visibility_status: 'Retweety se na Mastodon přeposílají s nastavením soukromí: '
   twitter_sync_status_false: VYP
   twitter_sync_status_true: ZAP
-  twitter_synchronization_status: Posílat moje tweety na Mastodon
-  twitter_word_list: Seznam slov Twitteru
+  twitter_synchronization_status: Přeposílat moje tweety
+  twitter_word_list: Seznam slov či výrazů
   users:
     advanced_mastodon:
       add_another_word: Přidat další slovo
-      disabled: Zakázáno
-      masto_block_or_allow_list: Ignorovat příspěvky obsahující daná slova nebo povolovat
-        pouze příspěvky obsahující daná slova
-      masto_block_or_allow_list_explanation: Tato možnost vám dovolí ignorovat přeposílání
-        příspěvků, které obsahují níže definovaná slova, nebo přeposílat pouze příspěvky,
-        které obsahují níže definovaná slova
-      masto_word_list: Seznam slov či výrazů pro příspěvky přicházející z Mastodonu
-      masto_word_list_explanation: Tento seznam slov bude použit, pokud povolíte výše
-        uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete „bird“,
-        nebude se počítat „birdsite“.
+      disabled: Vypnuto
+      masto_block_or_allow_list: Přeposílání příspěvků na základě obsažených slov
+      masto_block_or_allow_list_explanation: Tato možnost vám dovolí nepřeposílat příspěvky
+        obsahující níže uvedené slova, nebo naopak přeposílat jen a pouze ty, které daná
+        slova obsahují.
+      masto_word_list: Seznam slov či výrazů
+      masto_word_list_explanation: Tento seznam slov bude použit, pokud povolíte
+        výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
+        „slovo“, slovo „slovosled“ se nepočítá.
     advanced_twitter:
       add_another_word: Přidat další slovo
-      disabled: Zakázáno
-      twitter_block_or_allow_list: Ignorovat příspěvky obsahující daná slova nebo
-        povolovat pouze příspěvky obsahující daná slova
-      twitter_block_or_allow_list_explanation: Tato možnost vám dovolí ignorovat přeposílání
-        příspěvků, které obsahují níže definovaná slova, nebo přeposílat pouze příspěvky,
-        které obsahují níže definovaná slova
+      disabled: Vypnuto
+      twitter_block_or_allow_list: Přeposílání příspěvků na základě obsažených slov
+      twitter_block_or_allow_list_explanation: Tato možnost vám dovolí nepřeposílat příspěvky
+        obsahující níže uvedené slova, nebo naopak přeposílat jen a pouze ty, které daná
+        slova obsahují.
       twitter_word_list_explanation: Tento seznam slov bude použit, pokud povolíte
         výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
-        „bird“, nebude se počítat „birdsite“.
+        „slovo“, slovo „slovosled“ se nepočítá.
     mastodon_identifier:
-      identifier_placeholder: Vaše uživatelské jméno na vaší instanci, ve formátu
-        vas.ucet@vase.instance
+      identifier_placeholder: Vaše uživatelské jméno ve formátu uživatel@instance
     show:
-      advanced_from_mastodon_options: Pokročilé možnosti posílání z Mastodonu na Twitter
-      advanced_from_twitter_options: Pokročilé možnosti posílání z Twitteru na Mastodon
+      advanced_from_mastodon_options: Pokročilé možnosti přeposílání z Mastodonu na Twitter
+      advanced_from_twitter_options: Pokročilé možnosti přeposílání z Twitteru na Mastodon
