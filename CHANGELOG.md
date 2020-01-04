@@ -1,3 +1,5 @@
+[2020-01-04] - Upgrade gems. `bundle install` needed after upgrade.
+
 [2019-12-26] - Upgrade gems. `bundle install` needed after upgrade.
 
 [2019-12-09] - Updated Czech translation (#272). Update gems and node dependencies. `bundle install` needed after upgrade.
