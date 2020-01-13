@@ -1,3 +1,4 @@
+require: rubocop-performance
 AllCops:
   TargetRubyVersion: 2.5
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
@@ -12,19 +13,6 @@ AllCops:
     # Additional exclude files by rubocop-rails_config
     - 'db/migrate/**/*.rb'
     - 'db/*.rb'
-
-Rails:
-  Enabled: true
-
-# Prefer assert_not over assert !
-Rails/AssertNot:
-  Include:
-    - '**/test/**/*'
-
-# Prefer assert_not_x over refute_x
-Rails/RefuteMethods:
-  Include:
-    - '**/test/**/*'
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
@@ -83,7 +71,7 @@ Style/HashSyntax:
 # extra level of indentation.
 Layout/IndentationConsistency:
   Enabled: true
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
 
 # Two spaces, no tabs (for indentation).
 Layout/IndentationWidth:
@@ -158,7 +146,7 @@ Layout/Tab:
   Enabled: true
 
 # Blank lines should not have any spaces.
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 # No trailing whitespace.
@@ -166,14 +154,14 @@ Layout/TrailingWhitespace:
   Enabled: true
 
 # Use quotes for string literals when they are enough.
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Enabled: true
 
 # Use my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
 Lint/RequireParentheses:
   Enabled: true
 
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Enabled: true
 
 Lint/UriEscapeUnescape:

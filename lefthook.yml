@@ -1,0 +1,8 @@
+pre-push:
+  scripts:
+    "pronto":
+      runner: bash
+pre-commit:
+  scripts:
+    "pronto-in-master":
+      runner: bash

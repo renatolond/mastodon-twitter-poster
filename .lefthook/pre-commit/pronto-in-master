@@ -1,0 +1,5 @@
+#!/bin/bash
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "master" ]; then
+  bundle exec pronto run --staged -c origin/master --exit-code
+fi
