@@ -103,6 +103,12 @@ class MastodonExtTest < ActiveSupport::TestCase
     assert_equal "Hey folks! Tomorrow starts the 18th edition of Pink Screens festival ( @PinkScreens@twitter.com ), it's a queer film festivals that happens in brussels!", status_with_mention.text_content
   end
 
+  test "Regression: Multiple mentions" do
+    stub_request(:get, "https://mastodon.xyz/api/v1/statuses/6902726").to_return(web_fixture("mastodon_double_mention.json"))
+    status_with_mention = @client.status(6902726)
+    assert_equal "Hey @renatolonddev@masto.donte.com.br and @renatolond@masto.donte.com.br , check this out!", status_with_mention.text_content
+  end
+
   test "Text content with newline" do
     stub_request(:get, "https://mastodon.xyz/api/v1/statuses/6846822").to_return(web_fixture("status6846822.json"))
     status_with_newline = @client.status(6846822)

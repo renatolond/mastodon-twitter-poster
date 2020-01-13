@@ -3,7 +3,7 @@ module Mastodon
     MASTODON_REGEX = /(?<domain>[^\/]+)\/@(?<username>.+)/
     PLEROMA_REGEX = /(?<domain>[^\/]+)\/users\/(?<username>.+)/
     OTHER_REGEX = /(?<domain>[^\/]+)\/(?<username>.+)/
-    MENTION_REGEX = /(<a href="https:\/\/(?<mention>[^"]+)" .*class=\"u-url mention\">@<span>[^>]+<\/span><\/a>)/
+    MENTION_REGEX = /(<a href="https:\/\/(?<mention>[^"]+)" [^>]*class=\"u-url mention\">@<span>[^>]+<\/span><\/a>)/
     def is_reblog?
       begin
         _ = reblog
