@@ -26,13 +26,13 @@ GIT
 
 GIT
   remote: https://github.com/tootsuite/mastodon-api.git
-  revision: 4e75becc834278b3c4f5e9c62ee1b0f7b5cfa0c1
+  revision: aed7ae9b43ece7a9de1ed982393d5c381b75fa1e
   branch: master
   specs:
     mastodon-api (2.0.0)
       addressable (~> 2.6)
       buftok (~> 0)
-      http (~> 3.3)
+      http (~> 4.0)
       oj (~> 3.7)
 
 GEM
