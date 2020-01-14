@@ -343,7 +343,9 @@ class TwitterUserProcessor
 
   def upload_media(media, file, retries = 3)
     returned_media = user.mastodon_client.upload_media(file)
-    user.mastodon_client.update_media_description(returned_media.id, media.to_h[:ext_alt_text]) if media.to_h[:ext_alt_text].present?
+    opts = {}
+    opts[:description] = media.to_h[:ext_alt_text] if media.to_h[:ext_alt_text]
+    user.mastodon_client.update_media(returned_media.id, opts) unless opts.empty?
     returned_media.id
   rescue HTTP::Error => ex
     retry unless (retries -= 1).zero?
