@@ -15,10 +15,12 @@ class TootTransformer
   MASTO_MENTION_REGEX = /(\s|^.?|[^\p{L}0-9_＠!@#$%&\/*]|\s[^\p{L}0-9_＠!@#$%&*])[@＠]([A-Za-z0-9_](?:[A-Za-z0-9_\.]+[A-Za-z0-9_]+|[A-Za-z0-9_]*))(?=[^A-Za-z0-9_@＠]|$)/
   TWITTER_MENTION_REGEX = /[＠@]([a-zA-Z0-9_]+)[@＠]twitter.com/i
 
+  class BiggerThanMaxError < StandardError; end
+
   attr_accessor :twitter_max_length
 
   def initialize(twitter_max_length)
-    self.twitter_max_length = twitter_max_length
+    @twitter_max_length = twitter_max_length
   end
 
   def self.media_regex(mastodon_domain)
@@ -44,6 +46,7 @@ class TootTransformer
     text
   end
 
+  # Transform will return the text, plus an indicator if the text was truncated
   def transform(text, toot_url, mastodon_domain, mastodon_domain_urn)
     text = self.class.replace_uppercase_links(text)
     text = replace_twitter_mentions(text, mastodon_domain_urn)
@@ -55,12 +58,13 @@ class TootTransformer
   def transform_rec(text, toot_url)
     final_length = self.class.twitter_length(text)
     if final_length <= twitter_max_length
-      return text
+      return text, false
     else
       truncated_text = text.truncate(text.length - [TootTransformer.twitter_short_url_length, TootTransformer.twitter_short_url_length_https].max,
                                   separator: /[ \n]/,
                                   omission: TootTransformer.suffix + toot_url)
-      transform_rec(truncated_text, toot_url)
+      text, _ = transform_rec(truncated_text, toot_url)
+      return text, true
     end
   end
 

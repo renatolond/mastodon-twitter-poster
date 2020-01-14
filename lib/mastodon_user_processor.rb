@@ -258,7 +258,7 @@ class MastodonUserProcessor
   end
 
   def post_toot
-    tweet_content = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain)
+    tweet_content, truncated = TootTransformer.new(TWITTER_MAX_CHARS).transform(toot_content_to_post, toot.url, user.mastodon_domain, user.mastodon.mastodon_client.domain)
     if should_add_image_count?
       self.force_toot_url = true
     end
@@ -270,7 +270,7 @@ class MastodonUserProcessor
       opts[:auto_populate_reply_metadata] = true
     end
     if force_toot_url
-      tweet_content = handle_force_url(tweet_content)
+      tweet_content, truncated = handle_force_url(tweet_content)
     end
     tweet(tweet_content, opts)
   end
