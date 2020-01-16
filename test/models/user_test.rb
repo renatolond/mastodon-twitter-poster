@@ -27,7 +27,7 @@ class UserTest < ActiveSupport::TestCase
     user = create(:user_with_mastodon_and_twitter, masto_domain: expected_domain)
 
     mastodon_client = mock()
-    Mastodon::REST::Client.expects(:new).with(base_url: "https://#{expected_domain}", bearer_token: user.mastodon.token).returns(mastodon_client)
+    Mastodon::REST::Client.expects(:new).with(base_url: "https://#{expected_domain}", bearer_token: user.mastodon.token, timeout: { read: 20 }).returns(mastodon_client)
 
     m = user.mastodon_client
     assert_equal mastodon_client, m
@@ -150,7 +150,7 @@ class UserTest < ActiveSupport::TestCase
     credentials.expects(:token).returns(authorization.token)
     credentials.expects(:secret).returns(authorization.secret)
     user_mastodon_client = mock()
-    Mastodon::REST::Client.expects(:new).with(base_url: "https://#{expected_domain}", bearer_token: authorization.token).returns(user_mastodon_client)
+    Mastodon::REST::Client.expects(:new).with(base_url: "https://#{expected_domain}", bearer_token: authorization.token, timeout: { read: 20 }).returns(user_mastodon_client)
     user_mastodon_client.expects(:verify_credentials).at_least(1).returns(user_mastodon_client)
     user_mastodon_client.expects(:id).returns(1234)
     user_mastodon_client.expects(:statuses).with(1234, limit: 1).returns([])
