@@ -3,7 +3,7 @@
 class UnauthorizedUserWorker
   include Sidekiq::Worker
 
-  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked", "Il token di accesso è stato disabilitato", "The access token is invalid", "アクセストークンは取り消されています", "Le jeton d’accès a été révoqué", "Der Zugriffs-Token wurde widerrufen", "access token 已被取消", "Error: Invalid access token", "El autentificador de acceso fue revocado"].freeze
+  REVOKED_MESSAGES = ["O token de acesso foi revogado", "The access token was revoked", "Il token di accesso è stato disabilitato", "The access token is invalid", "アクセストークンは取り消されています", "Le jeton d’accès a été révoqué", "Der Zugriffs-Token wurde widerrufen", "access token 已被取消", "Error: Invalid access token", "El autentificador de acceso fue revocado", "Le jeton d’accès n’est pas valide"].freeze
   INVALID_CREDENTIALS_MESSAGES = ["Invalid credentials."].freeze
 
   def perform(id)
