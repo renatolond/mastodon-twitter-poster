@@ -117,7 +117,7 @@ class User < ApplicationRecord
   end
 
   def mastodon_client
-    @mastodon_client ||= Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token)
+    @mastodon_client ||= Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token, timeout: { read: 20 })
   end
 
   def twitter_using_blocklist

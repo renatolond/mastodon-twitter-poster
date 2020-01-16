@@ -1,4 +1,4 @@
-[2020-01-16] - Upgrade gems. `bundle install` needed after upgrade.
+[2020-01-16] - Upgrade gems. `bundle install` needed after upgrade. Increased read timeout to 20s.
 
 [2020-01-13] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
 
