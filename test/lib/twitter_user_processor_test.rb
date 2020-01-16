@@ -886,7 +886,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
       description == nil
     }
-    user.mastodon_client.expects(:update_media_description).with(273, "An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST.")
+    user.mastodon_client.expects(:update_media).with(273, { description: "An image: several triangular signs, similar to the one that indicates priority, one on top of the other. In the bottom of each sign it's written in black letters: TEST." })
 
     t = user.twitter_client.status(931274037812228097, tweet_mode: "extended", include_ext_alt_text: true)
 
@@ -908,7 +908,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     user.mastodon_client.expects(:upload_media).returns(upload_media_answer).with() { |file, description|
       description == nil
     }
-    user.mastodon_client.expects(:update_media_description).with(273, "Tést different chárãcters that shoüld be UTF-8. 😉")
+    user.mastodon_client.expects(:update_media).with(273, { description: "Tést different chárãcters that shoüld be UTF-8. 😉" })
 
     t = user.twitter_client.status(948534907998961664, tweet_mode: "extended", include_ext_alt_text: true)
 
@@ -1344,7 +1344,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:post, "#{user.mastodon_client.base_url}/api/v1/statuses").
   with(body: { "status" => "Oh yeah!" },
-       headers: { "Accept" => "*/*", "Authorization" => "Bearer another-beautiful-token-here", "Connection" => "close", "Content-Type" => "application/x-www-form-urlencoded", "Host" => user.mastodon_client.base_url["https://".length..-1], "User-Agent" => "MastodonRubyGem/1.2.0", "Idempotency-Key" => "#{masto_user}-#{tweet_id}" }).
+       headers: { "Accept" => "*/*", "Authorization" => "Bearer another-beautiful-token-here", "Connection" => "close", "Content-Type" => "application/x-www-form-urlencoded", "Host" => user.mastodon_client.base_url["https://".length..-1], "Idempotency-Key" => "#{masto_user}-#{tweet_id}" }).
       to_return(web_fixture("mastodon_status_post.json"))
 
     tweet = mock()

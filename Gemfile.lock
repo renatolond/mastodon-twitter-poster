@@ -9,14 +9,14 @@ GIT
 
 GIT
   remote: https://github.com/renatolond/twitter.git
-  revision: edfcc968c301df1a7dc7a5384a5abb553ec4e013
+  revision: cb40cd210ff83d34b6635c4c9c043daf03447932
   branch: different_uploads
   specs:
     twitter (6.2.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
       equalizer (~> 0.0.11)
-      http (~> 3.0)
+      http (> 3.0, < 5.0)
       http-form_data (~> 2.0)
       http_parser.rb (~> 0.6.0)
       memoizable (~> 0.4.0)
@@ -26,14 +26,14 @@ GIT
 
 GIT
   remote: https://github.com/tootsuite/mastodon-api.git
-  revision: 189deb8219ae1ce7c34386d9ad1ca7e4a5fec62c
+  revision: aed7ae9b43ece7a9de1ed982393d5c381b75fa1e
   branch: master
   specs:
-    mastodon-api (1.2.0)
-      addressable (~> 2.5)
-      buftok
-      http (~> 3.0)
-      oj (~> 3.3)
+    mastodon-api (2.0.0)
+      addressable (~> 2.6)
+      buftok (~> 0)
+      http (~> 4.0)
+      oj (~> 3.7)
 
 GEM
   remote: https://rubygems.org/
@@ -120,7 +120,7 @@ GEM
     devise-i18n (1.9.0)
       devise (>= 4.7.1)
     docile (1.3.2)
-    domain_name (0.5.20180417)
+    domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
@@ -141,6 +141,9 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.3)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     foreman (0.87.0)
     fugit (1.1.6)
       et-orbi (~> 1.1, >= 1.1.6)
@@ -150,14 +153,16 @@ GEM
     hashdiff (1.0.0)
     hashie (3.6.0)
     htmlentities (4.3.4)
-    http (3.3.0)
+    http (4.3.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (2.1.1)
+    http-form_data (2.2.0)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     http_accept_language (2.1.1)
     http_parser.rb (0.6.0)
     httparty (0.17.3)
@@ -206,7 +211,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.7.6)
+    oj (3.10.0)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
@@ -230,7 +235,7 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    public_suffix (4.0.1)
+    public_suffix (4.0.3)
     puma (4.3.1)
       nio4r (~> 2.0)
     raabro (1.1.6)
@@ -351,7 +356,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.5)
+    unf_ext (0.0.7.6)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (3.7.0)
