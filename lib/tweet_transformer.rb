@@ -4,10 +4,10 @@ class TweetTransformer
   URL_PATTERN = %r{
     (                                                                                                 #   $1 URL
       (https?:\/\/)                                                                                   #   $2 Protocol (required)
-      (#{MastodonRegex[:valid_domain]})                                                              #   $3 Domain(s)
-      (?::(#{MastodonRegex[:valid_port_number]}))?                                                   #   $4 Port number (optional)
-      (/#{MastodonRegex[:valid_url_path]}*)?                                                         #   $5 URL Path and anchor
-      (\?#{MastodonRegex[:valid_url_query_chars]}*#{MastodonRegex[:valid_url_query_ending_chars]})? #   $6 Query String
+      (#{::MastodonRegex[:valid_domain]})                                                              #   $3 Domain(s)
+      (?::(#{::MastodonRegex[:valid_port_number]}))?                                                   #   $4 Port number (optional)
+      (/#{::MastodonRegex[:valid_url_path]}*)?                                                         #   $5 URL Path and anchor
+      (\?#{::MastodonRegex[:valid_url_query_chars]}*#{::MastodonRegex[:valid_url_query_ending_chars]})? #   $6 Query String
     )
   }iox
   def self.replace_links(text, urls)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MastodonRegex
   REGEXEN = {} # :nodoc:
   Twitter::TwitterText::Regex::REGEXEN.each do |k, v|
