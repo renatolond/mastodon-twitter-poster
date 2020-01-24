@@ -552,7 +552,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
   test "process_quote - quote as old style RT: quote + twitter cw bigger than 500 chars get split in two toots with link in quote" do
     masto_user = "beterraba"
     masto_domain = "comidas.social"
-    spoiler_text = "Twitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuff"
+    spoiler_text = "Twitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuff"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
     user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_content_warning: spoiler_text, twitter_quote_visibility: nil)

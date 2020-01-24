@@ -176,7 +176,7 @@ class TwitterUserProcessor
     full_text = [tweet.full_text.gsub(" #{quote_short_url}", ""), "RT @#{quote.user.screen_name}", quote.full_text].join("\n\n")
     text, cw = convert_twitter_text(full_text, tweet.urls + quote.urls, (tweet.media + quote.media).uniq)
     text << "\n\n🐦🔗: #{quote.url}" if user.quote_post_as_old_rt_with_link?
-    if text.length + (user.twitter_content_warning&.length || 0) <= 500
+    if TweetTransformer.countable_text(text).length + (user.twitter_content_warning&.length || 0) <= 500
       save_status = true
       toot(text, @medias[0..3], tweet.possibly_sensitive? || user.twitter_content_warning.present? || cw.present?, save_status, cw || user.twitter_content_warning)
     else
@@ -378,7 +378,7 @@ class TwitterUserProcessor
       opts[:headers] = { "Idempotency-Key" => @idempotency_key }
       @idempotency_key = nil
     end
-    return if (text.length + (opts[:spoiler_text]&.size || 0)) > 500
+    return if (TweetTransformer.countable_text(text).length + (opts[:spoiler_text]&.size || 0)) > 500
     status = user.mastodon_client.create_status(text, opts)
     self.class.stats.increment("tweet.posted_to_mastodon")
     self.class.stats.timing("tweet.average_time_to_post", ((Time.now - tweet.created_at) * 1000).round(5))
