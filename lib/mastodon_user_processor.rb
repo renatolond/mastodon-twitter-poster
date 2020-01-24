@@ -183,7 +183,7 @@ class MastodonUserProcessor
   end
 
   def boost_as_link
-    content = "Boosted: #{toot.url}"
+    content = "Boosted: #{toot.reblog.url}"
     if should_post
       tweet(content)
     else

@@ -7,7 +7,7 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
 
     stub_request(:get, "https://mastodon.xyz/api/v1/statuses/6901463").to_return(web_fixture("mastodon_boost.json"))
     t = user.mastodon_client.status(6901463)
-    text = "Boosted: #{t.url}"
+    text = "Boosted: #{t.reblog.url}"
 
     mastodon_user_processor = MastodonUserProcessor.new(t, user)
     mastodon_user_processor.expects(:should_post).returns(true)
