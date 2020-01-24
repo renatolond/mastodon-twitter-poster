@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "tweet_transformer"
-
 class TwitterUserProcessor
   def self.html_entities
     @@html_entities ||= HTMLEntities.new

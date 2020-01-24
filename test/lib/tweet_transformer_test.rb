@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "tweet_transformer"
 class TweetTransformerTest < ActiveSupport::TestCase
   test "replace links should return regular link instead of shortened one" do
     user = create(:user_with_mastodon_and_twitter)
