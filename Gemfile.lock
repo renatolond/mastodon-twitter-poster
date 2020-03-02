@@ -202,7 +202,7 @@ GEM
     multipart-post (2.1.1)
     naught (1.1.0)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.4)
     oauth2 (1.4.1)
