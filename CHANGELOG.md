@@ -1,3 +1,5 @@
+[2020-03-02] - Upgrade gems. `bundle install` needed after upgrade.
+
 [2020-01-16] - Upgrade gems. `bundle install` needed after upgrade. Fixed a bug with boosts. Fixed a bug with long quote retweets.
 
 [2020-01-16] - Upgrade gems. `bundle install` needed after upgrade. Increased read timeout to 20s.
