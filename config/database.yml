@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  port: <%= ENV['DB_PORT'] || 5432 %>
   database: <%= ENV['DB_NAME'] || 'mastodon_twitter_poster_production' %>
   username: <%= ENV['DB_USER'] || 'mastodon_twitter_poster' %>
   password: <%= ENV['DB_PASS'] || ENV['MASTODON_TWITTER_POSTER_DATABASE_PASSWORD'] %>
