@@ -58,7 +58,7 @@ VOLUME /crossposter/public/system
 
 USER crossposter
 
-RUN bundle exec rails assets:precompile \
+RUN bundle exec rake assets:precompile \
   TWITTER_CLIENT_SECRET=precompile_placeholder \
   TWITTER_CLIENT_ID=precompile_placeholder \
   SECRET_KEY_BASE=precompile_placeholder
