@@ -1,3 +1,5 @@
+[2020-03-17] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+
 [2020-03-02] - Upgrade gems. `bundle install` needed after upgrade.
 
 [2020-01-16] - Upgrade gems. `bundle install` needed after upgrade. Fixed a bug with boosts. Fixed a bug with long quote retweets.
