@@ -161,9 +161,9 @@ nb_NO:
       disabled: Avskrudd
       twitter_block_or_allow_list: Ignorer poster som inneholder gitte ord, eller
         kun tillat poster som inneholder gitte ord
-      twitter_block_or_allow_list_explanation: Ikke krysspost poster som inneholder
-        ord definert nedenfor, eller for å kun kryssposte poster som inneholder ord
-        definert nedenfor
+      twitter_block_or_allow_list_explanation: Denne innstillingen lar deg velge å
+        ikke kryssposte poster som inneholder ord definert nedenfor, eller å kun kryssposte
+        poster som inneholder ord definert nedenfor
       twitter_word_list_explanation: Liste over ord som tas med i betraktning hvis
         valget ovenfor er påskrudd. Ingen delvis jamføring gjøres, hvis du skriver
         "fulg" ovenfor, vil ikke "fuglekasse" tatt med i betraktning.

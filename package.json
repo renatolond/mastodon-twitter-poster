@@ -8,7 +8,7 @@
     "jquery": "^3.2.1"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.1"
   },
   "engines": {
