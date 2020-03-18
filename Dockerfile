@@ -61,7 +61,10 @@ USER crossposter
 RUN bundle exec rake assets:precompile \
   TWITTER_CLIENT_SECRET=precompile_placeholder \
   TWITTER_CLIENT_ID=precompile_placeholder \
-  SECRET_KEY_BASE=precompile_placeholder
+  SECRET_KEY_BASE=precompile_placeholder \
+  CROSSPOSTER_DOMAIN=precompile_placeholder \
+  CROSSPOSTER_ADMIN_FEDI_ADDRESS=precompile_placeholder \
+  CROSSPOSTER_ADMIN_FEDI_AT=precompile_placeholder
 
 # Start the main process.
 CMD ["bundle","exec","puma","-C","config/puma.rb"]
