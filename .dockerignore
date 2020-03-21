@@ -24,4 +24,11 @@ yarn-debug.log*
 /public/packs-test
 
 coverage
+*.md
+crossposted_cw_quote_example.png
+cw_quote_example.png
+Dockerfile
+.direnv
+.envrc
+Makefile
 public/assets/

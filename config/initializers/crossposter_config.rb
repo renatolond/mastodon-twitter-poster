@@ -7,8 +7,8 @@ Rails.application.configure do
 
   config.x.stats = ENV.fetch("CROSSPOSTER_STATS", nil)
 
-  config.x.announcement_account_address = ENV.fetch("CROSSPOSTER_FEDI_ACCOUNT_ADDRESS")
-  config.x.announcement_account_at = ENV.fetch("CROSSPOSTER_FEDI_ACCOUNT_AT")
+  config.x.announcement_account_address = ENV.fetch("CROSSPOSTER_FEDI_ACCOUNT_ADDRESS", nil)
+  config.x.announcement_account_at = ENV.fetch("CROSSPOSTER_FEDI_ACCOUNT_AT", nil)
 
   config.x.admin_twitter = ENV.fetch("CROSSPOSTER_ADMIN_TWITTER", nil)
 

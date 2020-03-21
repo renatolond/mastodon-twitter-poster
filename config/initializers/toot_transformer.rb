@@ -14,6 +14,6 @@ else
     TootTransformer.twitter_short_url_length_https = twitter_config.short_url_length_https
   rescue Twitter::Error::Forbidden, Twitter::Error::BadRequest
     Rails.logger.error { "Missing Twitter credentials" }
-    exit
+    exit 1
   end
 end
