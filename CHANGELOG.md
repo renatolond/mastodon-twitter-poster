@@ -1,6 +1,6 @@
 [2020-03-28] - Add mastodon user id to the authorizations model to reduce API calls. `rails db:migrate` needed after upgrade.
 
-[2020-03-17] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+[2020-03-17] - Update needed node version, higher than 8.16 is needed. Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
 
 [2020-03-02] - Upgrade gems. `bundle install` needed after upgrade.
 
