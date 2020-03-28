@@ -1,3 +1,5 @@
+require "mastodon_ext"
+
 class User < ApplicationRecord
   enum boost_options: {
     masto_boost_do_not_post: "MASTO_BOOST_DO_NOT_POST",
@@ -117,7 +119,11 @@ class User < ApplicationRecord
   end
 
   def mastodon_client
-    @mastodon_client ||= Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token, timeout: { read: 20 })
+    @mastodon_client ||= begin
+      mc = Mastodon::REST::Client.new(base_url: mastodon_domain, bearer_token: mastodon.token, timeout: { read: 20 })
+      mc.user_agent = "#{mc.user_agent} (mastodon-twitter-crossposter; +#{Rails.configuration.x.domain})"
+      mc
+    end
   end
 
   def twitter_using_blocklist

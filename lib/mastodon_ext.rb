@@ -70,4 +70,8 @@ module Mastodon
       @text_content = Status.html_entities.decode(@text_content)
     end
   end
+
+  class Client
+    attr_writer :user_agent
+  end
 end
