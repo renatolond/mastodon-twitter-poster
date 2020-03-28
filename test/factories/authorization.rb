@@ -12,6 +12,7 @@ FactoryBot.define do
   factory :authorization_mastodon, parent: :authorization do
     transient do
       masto_domain { nil }
+      masto_id { nil }
     end
     provider { :mastodon }
     uid { Faker::Internet.email }
@@ -19,6 +20,7 @@ FactoryBot.define do
     token { "another-beautiful-token-here" }
     secret { nil }
     mastodon_client { build(:mastodon_client, domain: masto_domain) unless masto_domain.nil? }
+    mastodon_user_id { masto_id }
 
     after(:create) do |auth|
       auth.mastodon_client.save!

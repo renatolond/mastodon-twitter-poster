@@ -135,7 +135,8 @@ CREATE TABLE public.authorizations (
     secret character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    mastodon_client_id bigint
+    mastodon_client_id bigint,
+    mastodon_user_id character varying
 );
 
 
@@ -458,6 +459,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180821172252'),
 ('20190131082017'),
 ('20190202145018'),
-('20190226132236');
+('20190226132236'),
+('20200328180158');
 
 

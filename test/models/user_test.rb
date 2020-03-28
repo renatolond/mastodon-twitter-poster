@@ -9,14 +9,27 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "https://#{expected_domain}", user.mastodon_domain
   end
 
-  test "Mastodon id" do
-    user = build(:user_with_mastodon_and_twitter)
-    expected_id = 123
+  test "Mastodon id: does not exist in user" do
+    user = create(:user_with_mastodon_and_twitter)
+    expected_id = "123"
 
     mastodon_client = mock()
     mastodon_client.expects(:verify_credentials).at_least(1).returns(mastodon_client)
-    mastodon_client.expects(:id).at_least(1).returns(expected_id)
+    mastodon_client.expects(:id).at_least(1).returns(expected_id.to_s)
     user.expects(:mastodon_client).returns(mastodon_client)
+
+    id = user.mastodon_id
+    assert_equal expected_id, id
+  end
+
+  test "Mastodon id: exists in user" do
+    expected_id = "123"
+    user = create(:user_with_mastodon_and_twitter, masto_id: expected_id)
+
+    mastodon_client = mock()
+    mastodon_client.expects(:verify_credentials).never
+    mastodon_client.expects(:id).never
+    user.expects(:mastodon_client).never
 
     id = user.mastodon_id
     assert_equal expected_id, id
@@ -157,7 +170,7 @@ class UserTest < ActiveSupport::TestCase
     Mastodon::REST::Client.expects(:new).with(base_url: "https://#{expected_domain}", bearer_token: authorization.token, timeout: { read: 20 }).returns(user_mastodon_client)
     user_mastodon_client.expects(:verify_credentials).at_least(1).returns(user_mastodon_client)
     user_mastodon_client.expects(:id).returns(1234)
-    user_mastodon_client.expects(:statuses).with(1234, limit: 1).returns([])
+    user_mastodon_client.expects(:statuses).with("1234", limit: 1).returns([])
     User.expects(:do_not_allow_users).returns(nil)
 
     u = User.from_omniauth(auth, nil)

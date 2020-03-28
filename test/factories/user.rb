@@ -35,9 +35,10 @@ FactoryBot.define do
   factory :user_with_mastodon, parent: :user do |user|
     transient do
       masto_domain { Faker::Internet.domain_name }
+      masto_id { nil }
     end
     after(:build) do |user, evaluator|
-      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
+      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, masto_id: evaluator.masto_id, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
     end
 
     after(:create) do |user|
@@ -48,9 +49,10 @@ FactoryBot.define do
   factory :user_with_mastodon_and_twitter, parent: :user do |user|
     transient do
       masto_domain { Faker::Internet.domain_name }
+      masto_id { nil }
     end
     after(:build) do |user, evaluator|
-      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
+      user.authorizations << build(:authorization_mastodon, user: user, masto_domain: evaluator.masto_domain, masto_id: evaluator.masto_id, uid: "#{evaluator.username}@#{evaluator.masto_domain}")
       user.authorizations << build(:authorization_twitter, user: user)
     end
 
