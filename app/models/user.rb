@@ -111,7 +111,9 @@ class User < ApplicationRecord
   end
 
   def mastodon_id
-    @mastodon_id ||= mastodon_client.verify_credentials.id
+    @mastodon_id ||= Rails.cache.fetch("#{cache_key}/mastodon_id", expires_in: 12.hours) do
+      mastodon_client.verify_credentials.id
+    end
   end
 
   def mastodon_domain
