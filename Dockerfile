@@ -25,6 +25,7 @@ RUN apk -U upgrade \
  && apk add -t build-dependencies \
     build-base \
     postgresql-dev \
+    postgresql-client \
     python \
     file-dev \
     binutils \

@@ -160,6 +160,12 @@ end
 
 You need to replace all values with actual values relevant to your server.
 
+### Running in Docker
+
+1. Create a `.env` based on `.env.example` and set `DB_HOST=db`, `DB_USER=postgres`, `REDIS_URL=redis://redis`
+1. Start the app `docker-compose up -d --build`
+1. Then init the db with `docker-compose run --rm web bundle exec rake db:setup`
+
 ## Blocked or allowed domains
 
 You can add `ALLOWED_DOMAINS=your.domain.com` to .env.production to only allow users from your instance to access the crossposter. This variable can contain multiple instances separated by comma.

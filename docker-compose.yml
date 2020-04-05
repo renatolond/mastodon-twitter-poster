@@ -1,0 +1,59 @@
+version: '3'
+services:
+
+  db:
+    restart: always
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - internal_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+
+  redis:
+    restart: always
+    image: redis:5.0-alpine
+    networks:
+      - internal_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    volumes:
+      - redis_data:/data
+
+  web:
+    restart: always
+    build: .
+    image: mastodon-twitter-poster
+    env_file: .env
+    networks:
+      - internal_network
+      - external_network
+    ports:
+      - "1081:3000"
+    depends_on:
+      - db
+
+  sidekiq:
+    restart: always
+    build: .
+    image: mastodon-twitter-poster
+    env_file: .env
+    command: bundle exec sidekiq -c 5 -q default
+    networks:
+      - internal_network
+      - external_network
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgresql_data:
+  redis_data:
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
