@@ -130,11 +130,17 @@ class TwitterUserProcessor
       process_retweet
     elsif tweet.reply?
       process_reply
-    elsif tweet.quoted_status?
+    elsif is_quoted_status?
       process_quote
     else
       process_normal_tweet
     end
+  end
+
+  def is_quoted_status?
+    tweet.quoted_status? || tweet.quoted_status_permalink.present?
+  rescue KeyError
+    false
   end
 
   def process_retweet
