@@ -60,6 +60,7 @@ class UserTest < ActiveSupport::TestCase
     config.expects(:consumer_secret=).with(twitter_client_secret)
     config.expects(:access_token=).with(user.twitter.token)
     config.expects(:access_token_secret=).with(user.twitter.secret)
+    config.expects(:timeouts=)
     User.expects(:twitter_client_id).returns(twitter_client_id)
     User.expects(:twitter_client_secret).returns(twitter_client_secret)
     Twitter::REST::Client.expects(:new).yields(config).returns(twitter_client)

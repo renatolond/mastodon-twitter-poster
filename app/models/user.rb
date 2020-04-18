@@ -107,6 +107,8 @@ class User < ApplicationRecord
       config.consumer_secret = self.class.twitter_client_secret
       config.access_token = twitter.try(:token)
       config.access_token_secret = twitter.try(:secret)
+
+      config.timeouts = { write: 5, connect: 10, read: 30 }
     end
   end
 
