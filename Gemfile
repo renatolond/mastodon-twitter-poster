@@ -54,6 +54,10 @@ group :development, :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "timecop"
+  gem "rubocop", "~> 0.79.0", require: false
+  gem "rubocop-performance", require: false
+  gem "pronto", require: false
+  gem "lefthook", require: false
 end
 
 group :test do
