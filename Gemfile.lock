@@ -302,7 +302,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.1.3)
+    redis (4.1.4)
     regexp_parser (1.7.0)
     responders (3.0.0)
       actionpack (>= 5.0)
@@ -352,7 +352,7 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
-    sidekiq-unique-jobs (6.0.21)
+    sidekiq-unique-jobs (6.0.22)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 4.0, < 7.0)
       thor (~> 0)
