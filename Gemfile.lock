@@ -387,7 +387,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    twitter-text (3.0.0)
+    twitter-text (3.1.0)
       idn-ruby
       unf (~> 0.1.0)
     tzinfo (1.2.7)
@@ -398,7 +398,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     warden (1.2.8)
       rack (>= 2.0.6)
