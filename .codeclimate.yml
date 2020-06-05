@@ -27,7 +27,7 @@ plugins:
     enabled: true
   rubocop:
     enabled: true
-    channel: rubocop-0-79
+    channel: rubocop-0-85
 exclude_patterns:
 - test/
 - vendor/asset
