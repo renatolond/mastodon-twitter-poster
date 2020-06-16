@@ -302,12 +302,12 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.1.4)
-    regexp_parser (1.7.0)
+    regexp_parser (1.7.1)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.4)
-    rubocop (0.85.0)
+    rubocop (0.85.1)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -455,7 +455,7 @@ DEPENDENCIES
   rails (~> 5.2.4)
   rails-i18n
   rails_12factor
-  rubocop (~> 0.85.0)
+  rubocop (~> 0.85.1)
   rubocop-performance
   ruby-filemagic
   sass-rails
