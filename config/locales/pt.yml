@@ -29,7 +29,7 @@ pt:
       we_also_use_for: Nós usamos os IDs dos posts para podemos relacionar posts do
         Twitter e do Mastodon, o que nos permite fazer o crosspost de threads de um
         site ao outro.
-      we_collect: Nós coletamos seu nome de usuário no Mastodon e seu id no Twitter,
+      we_collect: Nós coletamos o seu nome de utilizador no Mastodon e seu id no Twitter,
         bem como tokens OAauth para cada serviço. Isso permite que ações sejam realizadas
         nas suas contas.
       we_do_not_disclose_info: No.
@@ -62,7 +62,7 @@ pt:
   masto_mention_do_not_post: Não postar menções no Twitter
   masto_mention_options: 'Opções das menções:'
   masto_mention_options_explanation: Esse serviço considera uma menção um toot que
-    não é uma resposta, mas um que comece com uma menção a outro usuário.
+    não é uma resposta, mas um que comece com uma menção a outro utilizador.
   masto_not_posting_boost: Você não está postando toots compartilhados.
   masto_not_posting_private: Você não está postando toots privados.
   masto_not_posting_reply: Você não está postando replies.
@@ -173,7 +173,8 @@ pt:
         acima esteja ligada. Combinações parciais não serão consideradas, isto é,
         se você adicionar "nata" como uma das palavras, "natação" não será considerada.
     mastodon_identifier:
-      identifier_placeholder: Seu nome de usuário na sua instância, no formato seu.at@sua.instância
+      identifier_placeholder: O seu nome de utilizador na sua instância, no formato
+        seu.at@sua.instância
     show:
       advanced_from_mastodon_options: Opções avançadas para postar do Mastodon para
         o Twitter
