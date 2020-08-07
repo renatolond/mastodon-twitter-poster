@@ -1,5 +1,5 @@
 en:
-  accounts: ''
+  accounts: 'Contos'
   allow_with_words: ''
   block_with_words: ''
   boost_options: ''
@@ -8,14 +8,14 @@ en:
   crossposter_explanation: ''
   crossposting_overview: ''
   default_visibility: ''
-  disconnect: ''
+  disconnect: 'Disconnecter'
   errors:
     oauth:
       allowed_domains: ''
       blocked_domain: ''
   features: ''
   follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
+  for_news_and_status: 'Novas e statos:'
   from_mastodon: ''
   from_twitter: ''
   home:
@@ -32,13 +32,13 @@ en:
       which_information: ''
     sync_status:
       mastodon_account_html: ''
-      twitter_account_html: ''
+      twitter_account_html: 'Le conto de Twitter connectite es <code>@%{handle}</code>.'
   layouts:
     application:
-      home: ''
+      home: 'Initio'
       privacy_policy: ''
-  log_out: ''
-  login_to_get_started: ''
+  log_out: 'Clauder le session'
+  login_to_get_started: 'Initia session via Twitter e'
   manage_your_accounts: ''
   masto_boost_do_not_post: ''
   masto_boost_post_as_link: ''
