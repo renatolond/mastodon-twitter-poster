@@ -17,7 +17,7 @@ pt:
       blocked_domain: Desculpe, %{domain} está bloqueado neste caso.
   features: Funcionalidades
   follow_us_on_the_fediverse: Siga-nos no fediverso!
-  for_news_and_status: 'Para novidades e status:'
+  for_news_and_status: 'Para novidades e estado:'
   from_mastodon: Do Mastodon para o Twitter
   from_twitter: Do Twitter para o Mastodon
   home:
@@ -102,16 +102,16 @@ pt:
   quote_post_as_old_rt: 'Postar citações no Mastodon como RTs à moda antiga (Eu gosto
     dessa ideia RT @renatolonddev@twitter.com: Hello, world!)'
   quote_post_as_old_rt_with_link: 'Postar citações no Mastodon como RTs à moda antiga
-    com links (Eu gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+    com ligações (Gosto dessa ideia RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   retweet_do_not_post: Não postar retweets no Mastodon
   retweet_options: Opções de Retweets
   retweet_post_as_old_rt: 'Postar Retweets no Mastodon como RTs à moda antiga (RT
     @renatolonddev@twitter.com: Hello, world!)'
   retweet_post_as_old_rt_with_link: 'Postar Retweets no Mastodon como RTs à moda antiga
-    com links (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+    com ligações (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
   service_ran_by: Esse serviço é gerenciado por
   source_code_and_issues: Código fonte e problemas
-  status: Status
+  status: Estado
   synchronization_options: Opções da sincronização
   toots_posted_to_twitter: Seus toots estão sendo postados no Twitter.
   tweets_posted_to_mastodon: Seus tweets estão sendo postados no Mastodon.
