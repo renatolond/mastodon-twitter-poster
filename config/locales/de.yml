@@ -1,6 +1,6 @@
 de:
   accounts: Konten
-  allow_with_words: Nur Posts cross-posten, die eins der folgenden Wörter enthalten
+  allow_with_words: Nur Posts mit den folgenden Wörtern teilen
   block_with_words: Keine Posts cross-posten, die eins der folgenden Wörter enthalten
   boost_options: 'Boost-Optionen:'
   change_this_on_options: Du kannst diese Einstellungen ändern, indem du %{options}
