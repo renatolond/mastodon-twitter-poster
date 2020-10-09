@@ -114,7 +114,7 @@ de:
   retweet_post_as_old_rt_with_link: 'Teile Retweets im alten Stil mit Links („RT @renatolonddev@twitter.com:
     Hallo, Welt! https://twitter.com/renatolonddev/status/904738384861700096“)'
   service_ran_by: Dieser Dienst wird betrieben von
-  source_code_and_issues: Quellcode und Issues
+  source_code_and_issues: Quelltext und Issues
   status: Status
   synchronization_options: Synchronisierungsoptionen
   toots_posted_to_twitter: Deine Toots werden auf Twitter geteilt.
