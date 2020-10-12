@@ -151,7 +151,7 @@ pt:
   users:
     advanced_mastodon:
       add_another_word: Adicionar outra palavra
-      disabled: Desabilitado
+      disabled: Desativado
       masto_block_or_allow_list: Ignorar posts contendo certas palavras ou permitir
         somente posts que contenham certas palavras
       masto_block_or_allow_list_explanation: Essa opção permite que você escolha ignorar
@@ -163,7 +163,7 @@ pt:
         se você adicionar "nata" como uma das palavras, "natação" não será considerada.
     advanced_twitter:
       add_another_word: Adicionar outra palavra
-      disabled: Desabilitado
+      disabled: Desativado
       twitter_block_or_allow_list: Ignorar posts contendo certas palavras ou permitir
         somente posts que contenham certas palavras
       twitter_block_or_allow_list_explanation: Essa opção permite que você escolha
