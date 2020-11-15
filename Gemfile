@@ -49,15 +49,15 @@ gem "twitter-text"
 
 group :development, :test do
   gem "byebug"
+  gem "capybara"
+  gem "lefthook", require: false
+  gem "pronto", require: false
   gem "pry"
   gem "pry-byebug"
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "timecop"
   gem "rubocop", "~> 1.3.0", require: false
   gem "rubocop-performance", require: false
-  gem "pronto", require: false
-  gem "lefthook", require: false
+  gem "selenium-webdriver"
+  gem "timecop"
 end
 
 group :test do
