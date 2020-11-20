@@ -95,5 +95,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
 
   # Reduce sidekiq logging to warn levels
-  Sidekiq::Logging.logger.level = Logger::WARN
+  Sidekiq.configure_server do |config|
+    config.logger.level = Logger::WARN
+  end
 end
