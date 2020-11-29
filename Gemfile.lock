@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/tootsuite/mastodon-api.git
-  revision: aed7ae9b43ece7a9de1ed982393d5c381b75fa1e
+  revision: 60b0ed09c3b979cbeb833db0a320b30e1b022a1e
   branch: master
   specs:
     mastodon-api (2.0.0)
@@ -158,16 +158,16 @@ GEM
     hashdiff (1.0.1)
     hashie (3.6.0)
     htmlentities (4.3.4)
-    http (4.3.0)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (2.2.0)
-    http-parser (1.2.1)
-      ffi-compiler (>= 1.0, < 2.0)
+    http-form_data (2.3.0)
+    http-parser (1.2.2)
+      ffi-compiler
     http_accept_language (2.1.1)
     http_parser.rb (0.6.0)
     httparty (0.18.1)
@@ -219,7 +219,7 @@ GEM
     octokit (4.18.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
-    oj (3.10.0)
+    oj (3.10.16)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
@@ -253,7 +253,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    public_suffix (4.0.5)
+    public_suffix (4.0.6)
     puma (4.3.5)
       nio4r (~> 2.0)
     raabro (1.4.0)
