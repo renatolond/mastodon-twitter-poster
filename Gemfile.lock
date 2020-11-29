@@ -176,7 +176,7 @@ GEM
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     idn-ruby (0.1.0)
-    jbuilder (2.10.0)
+    jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jwt (2.2.1)
     lefthook (0.7.2)
