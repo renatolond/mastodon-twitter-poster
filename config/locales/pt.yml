@@ -55,7 +55,7 @@ pt:
     https://mastodon.social/@renatolond/15082784)'
   masto_login:
     identifier: Identificador
-    invalid_identifier: Identificador inválido. Use o seu utilizador no formato usuário@instância,
+    invalid_identifier: Identificador inválido. Use o seu utilizador no formato utilizador@instância,
       como crossposter@masto.donte.com.br
     login: Entrar
     please: Conecte o seu Mastodon
