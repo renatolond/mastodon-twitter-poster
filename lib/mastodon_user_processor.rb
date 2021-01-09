@@ -282,7 +282,23 @@ class MastodonUserProcessor
 
   def toot_content_to_post
     if toot.sensitive? && toot.spoiler_text.present?
-      "CW: #{toot.spoiler_text} … #{toot.url}"
+      if user.masto_cw_options == "cw_and_content"
+        if should_add_image_count?
+          "CW: #{toot.spoiler_text}\n\n#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
+        else
+          "CW: #{toot.spoiler_text}\n\n#{toot.text_content}"
+        end
+      elsif user.masto_cw_options == "cw_only"
+        "CW: #{toot.spoiler_text} … #{toot.url}"
+      elsif user.masto_cw_options == "content_only"
+        if should_add_image_count?
+          "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
+        else
+          toot.text_content
+        end
+      else
+        raise "invalid masto_cw_options"
+      end
     elsif should_add_image_count?
       "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
     else

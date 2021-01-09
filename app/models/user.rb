@@ -42,11 +42,19 @@ class User < ApplicationRecord
     unlisted: "MASTO_UNLISTED",
     private: "MASTO_PRIVATE"
   }.freeze
+
+  cw_options = {
+    cw_and_content: "CW_AND_CONTENT",
+    cw_only: "CW_ONLY",
+    content_only: "CONTENT_ONLY"
+  }.freeze
+
   enum twitter_original_visibility: masto_visibility, _prefix: true
   enum twitter_retweet_visibility: masto_visibility, _prefix: true
   enum twitter_quote_visibility: masto_visibility, _prefix: true
   enum masto_block_or_allow_list: block_or_allow, _prefix: true
   enum twitter_block_or_allow_list: block_or_allow, _prefix: true
+  enum masto_cw_options: cw_options, _prefix: true
 
   before_validation :strip_whitespace
   before_validation :remove_empty_words_from_wordlist
