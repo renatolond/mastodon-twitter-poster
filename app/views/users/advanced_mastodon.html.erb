@@ -58,6 +58,19 @@
   </div>
 
   <div class="field">
+    <label class="label"><%= t :masto_cw_options %></label>
+    <div class="control">
+      <% User.masto_cw_options.keys.each do |option| %>
+      <%= f.label :masto_cw_options, value: option, class: 'radio' do %>
+      <%= f.radio_button :masto_cw_options, option %>
+      <%= t option.to_sym %>
+      <% end %>
+      <% end %>
+    </div>
+    <p class="help"><%= t :masto_cw_options_explanation %></p>
+  </div>
+
+  <div class="field">
     <label class="label"><%= t '.masto_block_or_allow_list' %></label>
     <div class="control">
       <%= f.label :masto_block_or_allow_list, value: '', class: 'radio' do %>

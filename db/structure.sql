@@ -5,22 +5,9 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: block_or_allow; Type: TYPE; Schema: public; Owner: -
@@ -39,6 +26,17 @@ CREATE TYPE public.block_or_allow AS ENUM (
 CREATE TYPE public.boost_options AS ENUM (
     'MASTO_BOOST_DO_NOT_POST',
     'MASTO_BOOST_POST_AS_LINK'
+);
+
+
+--
+-- Name: masto_cw_options; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.masto_cw_options AS ENUM (
+    'CW_AND_CONTENT',
+    'CONTENT_ONLY',
+    'CW_ONLY'
 );
 
 
@@ -108,7 +106,7 @@ CREATE TYPE public.twitter_reply_options AS ENUM (
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
@@ -266,7 +264,8 @@ CREATE TABLE public.users (
     twitter_block_or_allow_list public.block_or_allow,
     masto_word_list character varying[] DEFAULT '{}'::character varying[],
     masto_block_or_allow_list public.block_or_allow,
-    admin boolean DEFAULT false NOT NULL
+    admin boolean DEFAULT false NOT NULL,
+    masto_cw_options public.masto_cw_options
 );
 
 
@@ -460,6 +459,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131082017'),
 ('20190202145018'),
 ('20190226132236'),
-('20200328180158');
+('20200328180158'),
+('20210109000000');
 
 
