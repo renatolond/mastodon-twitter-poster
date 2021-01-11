@@ -281,29 +281,31 @@ class MastodonUserProcessor
   end
 
   def toot_content_to_post
+    tweet = toot.text_content
+    tweet_includes_content = true
+
     if toot.sensitive? && toot.spoiler_text.present?
       if user.masto_cw_options == "cw_and_content"
-        if should_add_image_count?
-          "CW: #{toot.spoiler_text}\n\n#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
-        else
-          "CW: #{toot.spoiler_text}\n\n#{toot.text_content}"
-        end
+        tweet = "CW: #{toot.spoiler_text}\n\n#{toot.text_content}"
       elsif user.masto_cw_options == "cw_only"
-        "CW: #{toot.spoiler_text} … #{toot.url}"
+        tweet = "CW: #{toot.spoiler_text}"
+        tweet_includes_content = false
       elsif user.masto_cw_options == "content_only"
-        if should_add_image_count?
-          "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
-        else
-          toot.text_content
-        end
+        tweet = toot.text_content
       else
         raise "invalid masto_cw_options"
       end
-    elsif should_add_image_count?
-      "#{toot.text_content}… #{toot.media_attachments.count} 🖼️"
-    else
-      toot.text_content
     end
+
+    unless tweet_includes_content
+      @force_toot_url = true
+    end
+
+    if tweet_includes_content && should_add_image_count?
+      tweet = "#{tweet}… #{toot.media_attachments.count} 🖼️"
+    end
+
+    tweet
   end
 
   def should_post
