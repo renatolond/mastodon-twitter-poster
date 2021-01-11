@@ -297,9 +297,7 @@ class MastodonUserProcessor
       end
     end
 
-    unless tweet_includes_content
-      @force_toot_url = true
-    end
+    @force_toot_url = true unless tweet_includes_content
 
     if tweet_includes_content && should_add_image_count?
       tweet = "#{tweet}… #{toot.media_attachments.count} 🖼️"
