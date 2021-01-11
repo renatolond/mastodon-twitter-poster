@@ -278,7 +278,7 @@ CREATE TABLE public.users (
     masto_word_list character varying[] DEFAULT '{}'::character varying[],
     masto_block_or_allow_list public.block_or_allow,
     admin boolean DEFAULT false NOT NULL,
-    masto_cw_options public.masto_cw_options
+    masto_cw_options public.masto_cw_options DEFAULT 'CW_ONLY'::public.masto_cw_options NOT NULL
 );
 
 
