@@ -6,10 +6,13 @@ en:
   boost_options: 'Boost options:'
   change_this_on_options: You can change these settings by going to %{options}.
   connections: Connections
+  content_only: Content only
   crossposter_explanation: This service allows you to connect a Mastodon account and
     a Twitter account and enable cross-posting between them. You can choose some options,
     such as if you want to post boosts, unlisted toots or replies.
   crossposting_overview: Options overview
+  cw_and_content: Both CW and content
+  cw_only: CW only
   default_visibility: Use Mastodon default visibility
   disconnect: Disconnect
   errors:
@@ -51,6 +54,9 @@ en:
   manage_your_accounts: Manage your connected accounts
   masto_boost_do_not_post: Do not post boosts on Twitter
   masto_boost_post_as_link: 'Post boosts on Twitter as links (Boosted: https://mastodon.social/@renatolond/15082784)'
+  masto_cw_options: 'Content warning (CW) options:'
+  masto_cw_options_explanation: When cross-posting a toot that has a content warning,
+    this setting will determine which parts of the toot should be cross-posted.
   masto_login:
     identifier: Identifier
     invalid_identifier: Invalid identifier. You need to use the format user@instance,

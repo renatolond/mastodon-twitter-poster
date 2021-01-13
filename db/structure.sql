@@ -43,6 +43,17 @@ CREATE TYPE public.boost_options AS ENUM (
 
 
 --
+-- Name: masto_cw_options; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.masto_cw_options AS ENUM (
+    'CW_AND_CONTENT',
+    'CW_ONLY',
+    'CONTENT_ONLY'
+);
+
+
+--
 -- Name: masto_mention_options; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -266,7 +277,8 @@ CREATE TABLE public.users (
     twitter_block_or_allow_list public.block_or_allow,
     masto_word_list character varying[] DEFAULT '{}'::character varying[],
     masto_block_or_allow_list public.block_or_allow,
-    admin boolean DEFAULT false NOT NULL
+    admin boolean DEFAULT false NOT NULL,
+    masto_cw_options public.masto_cw_options DEFAULT 'CW_ONLY'::public.masto_cw_options NOT NULL
 );
 
 
@@ -460,6 +472,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131082017'),
 ('20190202145018'),
 ('20190226132236'),
-('20200328180158');
+('20200328180158'),
+('20210109000000');
 
 
