@@ -42,11 +42,9 @@ jobs:
     - name: Setup database
       run: bundle exec rake db:setup
 
-    - name: Run tests
-      run: bundle exec rake test
-
-    - name: Send code coverage information to CodeClimate
-      if: ${{ always() }}
+    - name: Run tests and publish code coverage to CodeClimate
       uses: paambaati/codeclimate-action@v2.7.5
       env:
         CC_TEST_REPORTER_ID: fixme
+      with:
+        coverageCommand: bundle exec rake test
