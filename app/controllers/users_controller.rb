@@ -42,6 +42,7 @@ class UsersController < ApplicationController
       .permit(:posting_from_mastodon, :masto_should_post_private,
               :masto_should_post_unlisted, :boost_options,
               :masto_reply_options, :masto_mention_options,
+              :masto_cw_options,
               :posting_from_twitter, :retweet_options, :quote_options,
               :twitter_reply_options, :twitter_content_warning,
               :twitter_original_visibility, :twitter_retweet_visibility,
