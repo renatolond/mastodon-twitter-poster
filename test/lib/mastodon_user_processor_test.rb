@@ -168,6 +168,48 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.process_normal_toot
   end
 
+  test "process normal toot with content warning, post content only" do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: "mastodon.xyz", masto_cw_options: "content_only")
+    text = "Another test of CW"
+
+    stub_request(:get, "https://mastodon.xyz/api/v1/statuses/7009409").to_return(web_fixture("status7009409.json"))
+    t = user.mastodon_client.status(7_009_409)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+
+    mastodon_user_processor.process_normal_toot
+  end
+
+  test "process normal toot with content warning, post cw and content" do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: "mastodon.xyz", masto_cw_options: "cw_and_content")
+    text = "CW: Test 2\n\nAnother test of CW"
+
+    stub_request(:get, "https://mastodon.xyz/api/v1/statuses/7009409").to_return(web_fixture("status7009409.json"))
+    t = user.mastodon_client.status(7_009_409)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+
+    mastodon_user_processor.process_normal_toot
+  end
+
+  test "process normal toot with content warning, post with link" do
+    user = create(:user_with_mastodon_and_twitter, masto_domain: "mastodon.xyz")
+    text = "CW: Test 2… https://mastodon.xyz/@renatolonddev/7009409"
+
+    stub_request(:get, "https://mastodon.xyz/api/v1/statuses/7009409").to_return(web_fixture("status7009409.json"))
+    t = user.mastodon_client.status(7_009_409)
+
+    mastodon_user_processor = MastodonUserProcessor.new(t, user)
+    mastodon_user_processor.expects(:should_post).returns(true)
+    mastodon_user_processor.expects(:tweet).with(text, {}).times(1).returns(nil)
+
+    mastodon_user_processor.process_normal_toot
+  end
+
   test "process normal toot - toot marked as sensitive, without cw, with no images" do
     user = create(:user_with_mastodon_and_twitter, masto_domain: "masto.donte.com.br")
     first_text = "Oh, this is a good word: chocolate!"
