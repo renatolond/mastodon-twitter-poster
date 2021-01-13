@@ -48,8 +48,8 @@ CREATE TYPE public.boost_options AS ENUM (
 
 CREATE TYPE public.masto_cw_options AS ENUM (
     'CW_AND_CONTENT',
-    'CONTENT_ONLY',
-    'CW_ONLY'
+    'CW_ONLY',
+    'CONTENT_ONLY'
 );
 
 
