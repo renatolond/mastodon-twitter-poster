@@ -1,3 +1,5 @@
+[2021-01-13] - Added new option to control CW when crossposting from Mastodon. `rails db:migrate` needed after upgrade.
+
 [2020-11-20] - Upgrade gems. `bundle install` needed after upgrade.
 
 [2020-03-28] - Add mastodon user id to the authorizations model to reduce API calls. `rails db:migrate` needed after upgrade.
