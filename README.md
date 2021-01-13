@@ -26,7 +26,7 @@ If you just want to use it, there's one running at https://crossposter.masto.don
   - Mind your privacy: you can choose which privacy levels you want to crosspost. Only posting public toots, for instance.
   - Images and videos will be crossposted over to Twitter
   - Images and video descriptions from Mastodon will be crossposted to Twitter, in medias where Twitter support descriptions
-  - If your post has a content warning, only the content warning will be crossposted to Twitter, together with a link back to the original post
+  - Choose how to handle toots with content warnings; crosspost only the CW, only the content, or both! If only the CW is crossposted, the tweet will also include a link to the original toot, so your followers can read the content on Mastodon if they want.
   - If your image is marked as sensitive, the rest of the toot will be crossposted, together with a hint that there's images attached and a link to the original post.
   - You can choose between posting boosts or not.
   - Your own threads can also be crossposted, respecting to the choices you made regarding your privacy.
