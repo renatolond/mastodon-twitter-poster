@@ -149,3 +149,8 @@ zh_Hant:
     show:
       advanced_from_mastodon_options: 從 Mastodon 到 Twitter 貼文的進階選項
       advanced_from_twitter_options: 從 Twitter 到 Mastodon 貼文的進階選項
+  masto_cw_options_explanation: 當交叉張貼有內容警告的嘟文時，此設定將決定要交叉張貼嘟文的哪些部份。
+  masto_cw_options: 內容警告 (CW) 選項：
+  cw_only: 僅 CW
+  cw_and_content: CW 與內容
+  content_only: 僅內容
