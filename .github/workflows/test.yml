@@ -1,0 +1,50 @@
+name: Test
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: "postgres:9.6-alpine"
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pgpass
+          POSTGRES_DB: mastodon_twitter_poster_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:pgpass@localhost/mastodon_twitter_poster_test"
+      COVERAGE: 1
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+
+    - name: Install system dependencies
+      run: sudo apt-get install libmagic-dev libidn11-dev
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Setup database
+      run: bundle exec rake db:setup
+
+    - name: Run tests and publish code coverage to CodeClimate
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: fixme
+      with:
+        coverageCommand: bundle exec rake test
