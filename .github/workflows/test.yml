@@ -7,6 +7,7 @@ on:
 
 jobs:
   test:
+    environment: Test
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -45,6 +46,6 @@ jobs:
     - name: Run tests and publish code coverage to CodeClimate
       uses: paambaati/codeclimate-action@v2.7.5
       env:
-        CC_TEST_REPORTER_ID: fixme
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: bundle exec rake test
