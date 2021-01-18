@@ -180,3 +180,9 @@ ru:
         из Mastodon в Twitter'
       advanced_from_twitter_options: 'Расширенные возможности для публикации сообщений
         из Twitter в Mastodon'
+  masto_cw_options_explanation: При перекрестной публикации "тута", с предупреждением
+    о содержимом, этот параметр определяет, какие части "тута" должны быть размещены.
+  masto_cw_options: 'Параметры предупреждения о содержимом (CW):'
+  cw_only: Только CW
+  cw_and_content: Как CW, так и содержание
+  content_only: Только содержимое
