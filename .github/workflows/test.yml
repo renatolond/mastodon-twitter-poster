@@ -45,6 +45,6 @@ jobs:
     - name: Run tests and publish code coverage to CodeClimate
       uses: paambaati/codeclimate-action@v2.7.5
       env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        CC_TEST_REPORTER_ID: "7cea28875893b128287be55921c442660f05898d97cf330e9b885745018821b5"
       with:
         coverageCommand: bundle exec rake test
