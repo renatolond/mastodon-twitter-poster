@@ -9,7 +9,7 @@ id:
     dan akun Twitter dan menyalakan cross-posting diantara keduanya. Anda bisa memilih
     beberapa opsi, seperti jika Anda ingin memposting boost, toot tidak terdaftar
     atau balasan.
-  crossposting_overview: ''
+  crossposting_overview: 'Ringkasan opsi'
   default_visibility: Gunakan penglihatan bawaan Mastodon
   disconnect: Putuskan
   errors:
@@ -61,7 +61,8 @@ id:
     please: Hubungkan Mastodon Anda
   masto_mention_do_not_post: Jangan posting mention ke Twitter
   masto_mention_options: 'Opsi mention:'
-  masto_mention_options_explanation: ''
+  masto_mention_options_explanation: 'Layanan ini menganggap mentions sebagai toot
+    yang bukan balasan, melainkan yang dimulai dengan mention ke pengguna lain.'
   masto_not_posting_boost: Anda tidak memposting toot yang di boost.
   masto_not_posting_private: Anda tidak memposting toot pribadi.
   masto_not_posting_reply: Anda tidak memposting balasan.
@@ -79,28 +80,31 @@ id:
     private: Pribadi.
     public: Publik.
     unlisted: Tidak terdaftar.
-  masto_reply_do_not_post: ''
-  masto_reply_options: ''
-  masto_reply_options_explanation: ''
-  masto_reply_post_self: ''
-  masto_should_post_private_false: ''
-  masto_should_post_private_true: ''
-  masto_should_post_unlisted_false: ''
-  masto_should_post_unlisted_true: ''
-  masto_sync_status_false: ''
-  masto_sync_status_true: ''
-  masto_synchronization_status: ''
-  mastodon_logged_in: ''
-  no_sync_right_now: ''
-  options: ''
-  post_private_toots: ''
-  post_unlisted_toots: ''
-  quote_do_not_post: ''
-  quote_options: ''
+  masto_reply_do_not_post: 'Jangan posting balasan di twitter'
+  masto_reply_options: 'Opsi balasan:'
+  masto_reply_options_explanation: 'Hasil ketika Anda mengklik tombol balasan pada
+    antarmuka Mastodon. Ini adalah balasan langsung ke toot lain.'
+  masto_reply_post_self: 'Posting balasan ke toots saya sendiri di Twitter (utas)'
+  masto_should_post_private_false: 'MATI'
+  masto_should_post_private_true: 'NYALA'
+  masto_should_post_unlisted_false: 'MATI'
+  masto_should_post_unlisted_true: 'NYALA'
+  masto_sync_status_false: 'MATI'
+  masto_sync_status_true: 'NYALA'
+  masto_synchronization_status: 'Posting toots saya di twitter'
+  mastodon_logged_in: 'Masuk Mastodon'
+  no_sync_right_now: 'Saat ini, Anda * tidak * memposting di mana pun.'
+  options: 'Opsi'
+  post_private_toots: 'Posting toots pribadi?'
+  post_unlisted_toots: 'Posting toots tidak terdaftar?'
+  quote_do_not_post: 'Jangan posting kutipan di Mastodon'
+  quote_options: 'Opsi kutipan'
   quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
-  retweet_do_not_post: ''
-  retweet_options: ''
+  quote_post_as_old_rt_with_link: 'Posting kutipan di Mastodon sebagai RT gaya lama
+    dengan tautan (Saya suka ide ini RT @ renatolonddev @ twitter.com: Halo, dunia!
+    Https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_do_not_post: 'Jangan posting Retweet di Mastodon'
+  retweet_options: 'Opsi Retweet'
   retweet_post_as_old_rt: ''
   retweet_post_as_old_rt_with_link: ''
   service_ran_by: ''
@@ -154,3 +158,10 @@ id:
     show:
       advanced_from_mastodon_options: ''
       advanced_from_twitter_options: ''
+  masto_cw_options_explanation: Saat memposting silang toot yang memiliki peringatan
+    konten, pengaturan ini akan menentukan bagian mana dari toot yang harus diposting
+    silang.
+  masto_cw_options: 'Opsi peringatan konten (CW):'
+  cw_only: Hanya CW
+  cw_and_content: Baik CW dan konten
+  content_only: Hanya konten
