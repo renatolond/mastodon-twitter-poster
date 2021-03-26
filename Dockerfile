@@ -23,17 +23,17 @@ COPY --from=node /opt/yarn-* /opt/yarn
 
 RUN apk -U upgrade \
  && apk add -t build-dependencies \
-    build-base \
-    postgresql-dev \
-    postgresql-client \
-    python \
-    file-dev \
     binutils \
-    libxml2-dev \
-    libidn-dev \
- && apk add \
+    build-base \
     ca-certificates \
+    file-dev \
     git \
+    libidn-dev \
+    libxml2-dev \
+    postgresql-client \
+    postgresql-dev \
+    python3 \
+    shared-mime-info \
  && update-ca-certificates \
  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
  && ln -s /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg \
