@@ -1,4 +1,4 @@
-FROM node:8.16-alpine as node
+FROM node:lts-alpine as node
 FROM ruby:2.7-alpine
 
 LABEL maintainer="https://github.com/renatolond/mastodon-twitter-poster" \
