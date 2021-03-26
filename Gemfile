@@ -83,3 +83,4 @@ end
 gem "tzinfo-data"
 
 gem "http_accept_language"
+gem "mimemagic", "0.3.10"
