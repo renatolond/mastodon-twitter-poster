@@ -26,7 +26,7 @@ RUN apk -U upgrade \
     build-base \
     postgresql-dev \
     postgresql-client \
-    python \
+    python3 \
     file-dev \
     binutils \
     libxml2-dev \
