@@ -1,5 +1,5 @@
 FROM node:8.16-alpine as node
-FROM ruby:2.7-alpine
+FROM ruby:2.7.2-alpine
 
 LABEL maintainer="https://github.com/renatolond/mastodon-twitter-poster" \
       description="Crossposter to post statuses between Mastodon and Twitter"
@@ -14,33 +14,30 @@ ENV PATH=/crossposter/bin:$PATH \
 
 EXPOSE 3000 4000
 
-WORKDIR /crossposter
-
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/npm /usr/local/bin/npm
 COPY --from=node /opt/yarn-* /opt/yarn
 
-RUN apk -U upgrade \
- && apk add -t build-dependencies \
+RUN apk add --no-cache -t build-dependencies \
+    cmake \
     build-base \
     postgresql-dev \
     postgresql-client \
-    python \
+    python3 \
     file-dev \
     binutils \
     libxml2-dev \
     libidn-dev \
- && apk add \
     ca-certificates \
     git \
  && update-ca-certificates \
  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
  && ln -s /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg \
  && mkdir -p /opt \
- && cd /crossposter \
- && rm -rf /tmp/* /var/cache/apk/*
+ && rm -rf /tmp/*
 
+WORKDIR /crossposter
 COPY Gemfile Gemfile.lock package.json yarn.lock .yarnclean /crossposter/
 
 RUN bundle config set deployment 'true' && bundle config set without 'test development' && bundle config build.nokogiri --with-iconv-lib=/usr/local/lib --with-iconv-include=/usr/local/include && \
