@@ -1,0 +1,59 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: sidekiq-unique-jobs
+    versions:
+    - 7.0.1
+    - 7.0.2
+    - 7.0.4
+    - 7.0.5
+    - 7.0.7
+    - 7.0.8
+  - dependency-name: rubocop
+    versions:
+    - 1.10.0
+    - 1.11.0
+    - 1.12.0
+    - 1.12.1
+    - 1.9.0
+    - 1.9.1
+  - dependency-name: bootsnap
+    versions:
+    - 1.6.0
+    - 1.7.0
+    - 1.7.1
+    - 1.7.2
+    - 1.7.3
+  - dependency-name: puma
+    versions:
+    - 5.2.0
+    - 5.2.1
+  - dependency-name: webpacker
+    versions:
+    - 5.2.1
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: webpack-cli
+    versions:
+    - 4.4.0
+    - 4.5.0
+  - dependency-name: "@rails/webpacker"
+    versions:
+    - 5.2.1
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
