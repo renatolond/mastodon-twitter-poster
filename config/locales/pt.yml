@@ -49,7 +49,7 @@ pt:
       privacy_policy: Política de privacidade
   log_out: Fazer logout
   login_to_get_started: Faça login no Twitter e no Mastodon para começar
-  manage_your_accounts: Gerencia suas contas conectadas
+  manage_your_accounts: Gere as suas contas conectadas
   masto_boost_do_not_post: Não postar toots compartilhados no Twitter
   masto_boost_post_as_link: 'Postar toots compartilhados no Twitter como links (Boosted:
     https://mastodon.social/@renatolond/15082784)'
@@ -113,13 +113,13 @@ pt:
   source_code_and_issues: Código fonte e problemas
   status: Estado
   synchronization_options: Opções da sincronização
-  toots_posted_to_twitter: Seus toots estão sendo postados no Twitter.
-  tweets_posted_to_mastodon: Seus tweets estão sendo postados no Mastodon.
+  toots_posted_to_twitter: Os seus toots estão a ser postados no Twitter.
+  tweets_posted_to_mastodon: Os seus tweets estão a ser postados no Mastodon.
   twitter_content_warning: Aviso de conteúdo do Twitter
   twitter_content_warning_explanation: Qualquer texto adicionado aqui será usado como
     aviso de conteúdo para todos os status vindo do Twitter (exceto para aqueles que
     em que um aviso de conteúdo específico for detectado)
-  twitter_content_warning_status: 'Todos os seus tweets estão sendo postados com o
+  twitter_content_warning_status: 'Todos os seus tweets estão a ser postados com o
     aviso de conteúdo: "%{cw}"'
   twitter_logged_in: Twitter conectado
   twitter_not_posting_quote: Você não está postando quotes.
