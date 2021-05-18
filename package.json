@@ -5,7 +5,7 @@
     "@rails/webpacker": "^4.0.7",
     "bulma-rtl": "^0.8.0",
     "bulma-switch": "^2.0.0",
-    "jquery": "^3.2.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "webpack-cli": "^3.3.11",
