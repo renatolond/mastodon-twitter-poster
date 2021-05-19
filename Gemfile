@@ -42,7 +42,7 @@ gem "sidekiq"
 # Used to be able to schedule background jobs
 gem "sidekiq-scheduler"
 # Used to be able to avoid doubled sidekiq jobs
-gem "sidekiq-unique-jobs", "~> 6.0"
+gem "sidekiq-unique-jobs", "~> 7.0"
 
 # Used to validate text length before submitting to twitter
 gem "twitter-text"
