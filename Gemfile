@@ -54,7 +54,7 @@ group :development, :test do
   gem "pronto", require: false
   gem "pry"
   gem "pry-byebug"
-  gem "rubocop", "~> 1.3.0", require: false
+  gem "rubocop", "~> 1.18.1", require: false
   gem "rubocop-performance", require: false
   gem "selenium-webdriver"
   gem "timecop"
