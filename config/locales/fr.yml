@@ -195,3 +195,10 @@ fr:
         vers Twitter
       advanced_from_twitter_options: Options avancées pour la publication de Twitter
         vers Mastodon
+  masto_cw_options_explanation: Lors de la publication croisée d’un pouet ayant un
+    avertissement de contenu, ce paramètre détermine quelles parties du pouet doivent
+    être publiées en publication croisée.
+  masto_cw_options: 'Options d’avertissement de contenu (CW) :'
+  cw_only: CW uniquement
+  cw_and_content: CW et contenu
+  content_only: Contenu uniquement
