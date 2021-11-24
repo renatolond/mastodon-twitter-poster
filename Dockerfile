@@ -31,6 +31,7 @@ RUN apk -U upgrade \
     binutils \
     libxml2-dev \
     libidn-dev \
+    shared-mime-info \
  && apk add \
     ca-certificates \
     git \
