@@ -173,3 +173,9 @@ nb_NO:
       advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
         Twitter
       advanced_from_twitter_options: Avanserte valg for posting fra Twitter til Mastodon
+  masto_cw_options: 'Innstillinger for innholdsadvarsler:'
+  cw_only: Kun innholdsadvarsel
+  cw_and_content: Både innholdsadvarsel og innhold
+  masto_cw_options_explanation: Når du kryssposter en tut som har innholdsadvarsler,
+    vil denne insntillingen avgjøre hvilke deler av tut-en som skal krysspostes.
+  content_only: Kun innhold

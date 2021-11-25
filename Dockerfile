@@ -29,6 +29,7 @@ RUN apk add --no-cache -t build-dependencies \
     binutils \
     libxml2-dev \
     libidn-dev \
+    shared-mime-info \
     ca-certificates \
     git \
  && update-ca-certificates \
