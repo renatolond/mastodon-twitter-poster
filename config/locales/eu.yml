@@ -1,149 +1,198 @@
 en:
-  accounts: ''
-  allow_with_words: ''
-  block_with_words: ''
-  boost_options: ''
-  change_this_on_options: ''
-  connections: ''
-  content_only: ''
-  crossposter_explanation: ''
-  crossposting_overview: ''
-  cw_and_content: ''
-  cw_only: ''
-  default_visibility: ''
-  disconnect: ''
+  accounts: 'Kontuak'
+  allow_with_words: 'Honako hitz hauek dituzten mezu gurutzatuak bakarrik'
+  block_with_words: 'Ez argitaratu mezu gurutzaturik honako hitz hauekin'
+  boost_options: 'Boost aukerak:'
+  change_this_on_options: 'Doikuntza horiek alda ditzakezu %{options}(e)ra joz.'
+  connections: 'Konexioak'
+  content_only: 'Edukia bakarrik'
+  crossposter_explanation: 'Zerbitzu honen bidez, Mastodon-eko kontu bat eta Twitter-reko
+    kontu bat konektatu eta haien artean gurutzatutako argitalpena gaitu ahal izango
+    duzu. Aukera batzuk aukera ditzakezu, hala nola boostak, zerrendatu gabeko tootak
+    edo erantzunak argitaratu nahi badituzu.'
+  crossposting_overview: 'Aukeren laburpena'
+  cw_and_content: 'CW eta edukia'
+  cw_only: 'CW bakarrik'
+  default_visibility: 'Mastodonen ikuspen lehenetsia erabili'
+  disconnect: 'Deskonektatu'
   errors:
     oauth:
-      allowed_domains: ''
-      blocked_domain: ''
-  features: ''
-  follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
-  from_mastodon: ''
-  from_twitter: ''
+      allowed_domains: 'Sentitzen dugu, instantzia honek %{domains}(e)ko kontuak baino
+        ez ditu onartzen.'
+      blocked_domain: 'Sentitzen dugu, %{domain} blokeatuta dago kasu honetan.'
+  features: 'Ezaugarriak'
+  follow_us_on_the_fediverse: 'Jarrai gaitzazu fedibertsoan!'
+  for_news_and_status: 'Albisteetarako eta egoerarako:'
+  from_mastodon: 'Mastodonetik Twitterrera'
+  from_twitter: 'Twitterretik Mastodonera'
   home:
     privacy:
-      cookies: ''
-      disclose_info: ''
-      we_also_collect: ''
-      we_also_use_for: ''
-      we_collect: ''
-      we_do_not_disclose_info: ''
-      we_use_cookies: ''
-      we_use_for: ''
-      what_use: ''
-      which_information: ''
+      cookies: 'Cookieak erabiltzen ditugu?'
+      disclose_info: 'Informazioren bat zabalduko diegu hirugarrenei?'
+      we_also_collect: 'Crossposterretik bi lekuetan urtebetez egindako mezuen identifikazioak
+        ere jasotzen ditugu.'
+      we_also_use_for: 'Mezuen identifikazioak erabiltzen ditugu Mastodon eta Twitterreko
+        mezuak korrelazioan jartzeko; horri esker, hariak leku batetik bestera gurutzatu
+        ditzakegu.'
+      we_collect: 'Mastodon-eko zure erabiltzaile-izena eta Twitterreko zure IDa jasoko
+        ditugu, baita zerbitzu bakoitzeko OAuth tokens ere. Horri esker, zure kontuetan
+        ekintzak egin daitezke.'
+      we_do_not_disclose_info: 'Ez.'
+      we_use_cookies: 'Bai. Konektatuta dagoen bitartean, cookie bat erabiltzen dugu
+        saio bat sortzeko eta zure kontuetan identifikatzeko.'
+      we_use_for: 'Tokenak eta OAuth-en identifikatzailea erabiltzen ditugu zure kontuetara
+        konektatzeko, argitalpenak berreskuratzeko eta beste zerbitzura bidaltzeko,
+        konfigurazioaren arabera.'
+      what_use: 'Zertarako erabiltzen ditugu zure datuak?'
+      which_information: 'Zer informazio biltzen dugu?'
     sync_status:
-      mastodon_account_html: ''
-      twitter_account_html: ''
+      mastodon_account_html: 'Konektatutako Mastodon kontua <code>@%{uid}</code> da.'
+      twitter_account_html: 'Konektatutako Twitter kontua <code>@%{handle}</code>
+        da.'
   layouts:
     application:
-      home: ''
-      privacy_policy: ''
-  log_out: ''
-  login_to_get_started: ''
-  manage_your_accounts: ''
-  masto_boost_do_not_post: ''
-  masto_boost_post_as_link: ''
-  masto_cw_options: ''
-  masto_cw_options_explanation: ''
+      home: 'Hasiera'
+      privacy_policy: 'Pribatutasun-politika'
+  log_out: 'Itxi saioa'
+  login_to_get_started: 'Konektatu Twitter eta Mastodon bidez hasteko'
+  manage_your_accounts: 'Kudeatu konektatutako kontuak'
+  masto_boost_do_not_post: 'Ez argitaratu iragarkirik Twitterren'
+  masto_boost_post_as_link: 'Twitterren esteka gisa argitaratu (Boosted: https://mastodon.social/@renatolond/15082784)'
+  masto_cw_options: 'Edukiari buruzko ohartarazpen-aukerak (CW):'
+  masto_cw_options_explanation: 'Edukiaren ohartarazpena duen toot bat argitaratzean,
+    konfigurazio honek zehaztuko du tootaren zer zati argitaratu behar diren gurutzatuta.'
   masto_login:
-    identifier: ''
-    invalid_identifier: ''
-    login: ''
-    please: ''
-  masto_mention_do_not_post: ''
-  masto_mention_options: ''
-  masto_mention_options_explanation: ''
-  masto_not_posting_boost: ''
-  masto_not_posting_private: ''
-  masto_not_posting_reply: ''
-  masto_not_posting_unlisted: ''
-  masto_posting_boost_as_link: ''
-  masto_posting_private: ''
-  masto_posting_reply_to_self: ''
-  masto_posting_unlisted: ''
+    identifier: 'Identifikatzailea'
+    invalid_identifier: 'Identifikatzaile baliogabea. Erabiltzailea@instantzia formatua
+      erabili behar duzu, hala nola crossposter@masto.donte.com.br'
+    login: 'Hasi saioa'
+    please: 'Konektatu zure Mastodon'
+  masto_mention_do_not_post: 'Ez argitaratu aipamenik Twitterren'
+  masto_mention_options: 'Aipatzeko aukerak:'
+  masto_mention_options_explanation: 'Zerbitzu honen ustez, aipamenak ez dira erantzun
+    bat, baizik eta beste erabiltzaile bat aipatuz hasten dira.'
+  masto_not_posting_boost: 'Ez zara boosted dauden tootak argitaratzen ari.'
+  masto_not_posting_private: 'Ez zara toot pribatuak argitaratzen ari.'
+  masto_not_posting_reply: 'Ez duzu erantzunik argitaratzen.'
+  masto_not_posting_unlisted: 'Ez duzu kotizatu gabeko tootik argitaratuko.'
+  masto_posting_boost_as_link: 'Lotura gisa indartutako tootak argitaratzen ari zara.'
+  masto_posting_private: 'Toot pribatuak argitaratzen ari zara.'
+  masto_posting_reply_to_self: 'Zeure buruari erantzuten ari zara.'
+  masto_posting_unlisted: 'Kotizatu gabeko toot-ak argitaratzen ari zara.'
   masto_privacy:
-    private: ''
-    public: ''
-    unlisted: ''
+    private: 'Pribatua'
+    public: 'Publikoa'
+    unlisted: 'Kotizatu gabea'
   masto_privacy_for_status:
-    default: ''
-    private: ''
-    public: ''
-    unlisted: ''
-  masto_reply_do_not_post: ''
-  masto_reply_options: ''
-  masto_reply_options_explanation: ''
-  masto_reply_post_self: ''
-  masto_should_post_private_false: ''
-  masto_should_post_private_true: ''
-  masto_should_post_unlisted_false: ''
-  masto_should_post_unlisted_true: ''
-  masto_sync_status_false: ''
-  masto_sync_status_true: ''
-  masto_synchronization_status: ''
-  mastodon_logged_in: ''
-  no_sync_right_now: ''
-  options: ''
-  post_private_toots: ''
-  post_unlisted_toots: ''
-  quote_do_not_post: ''
-  quote_options: ''
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
-  retweet_do_not_post: ''
-  retweet_options: ''
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
-  service_ran_by: ''
-  source_code_and_issues: ''
-  status: ''
-  synchronization_options: ''
-  toots_posted_to_twitter: ''
-  tweets_posted_to_mastodon: ''
-  twitter_content_warning: ''
-  twitter_content_warning_explanation: ''
-  twitter_content_warning_status: ''
-  twitter_logged_in: ''
-  twitter_not_posting_quote: ''
-  twitter_not_posting_reply: ''
-  twitter_not_posting_rt: ''
-  twitter_original_visibility: ''
-  twitter_original_visibility_status: ''
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
-  twitter_posting_reply_to_self: ''
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
-  twitter_quote_visibility: ''
-  twitter_quote_visibility_status: ''
-  twitter_reply_do_not_post: ''
-  twitter_reply_options: ''
-  twitter_reply_options_explanation: ''
-  twitter_reply_post_self: ''
-  twitter_retweet_visibility: ''
-  twitter_retweet_visibility_status: ''
-  twitter_sync_status_false: ''
-  twitter_sync_status_true: ''
-  twitter_synchronization_status: ''
-  twitter_word_list: ''
+    default: 'Mastodon-en pribatutasun lehenetsia.'
+    private: 'Pribatua.'
+    public: 'Publikoa.'
+    unlisted: 'Kotizatu gabea.'
+  masto_reply_do_not_post: 'Twitter-ren erantzunak ez argitaratu'
+  masto_reply_options: 'Erantzuteko aukerak:'
+  masto_reply_options_explanation: 'Mastodon-en interfazean erantzuteko botoia sakatzen
+    denean. Beste toot bati emandako erantzun zuzena da.'
+  masto_reply_post_self: 'Nire toot-ei emandako erantzunak Twitter-ren argitaratu
+    (hariak)'
+  masto_should_post_private_false: 'Desaktibatuta'
+  masto_should_post_private_true: 'Aktibatuta'
+  masto_should_post_unlisted_false: 'Desaktibatuta'
+  masto_should_post_unlisted_true: 'Aktibatuta'
+  masto_sync_status_false: 'Desaktibatuta'
+  masto_sync_status_true: 'Aktibatuta'
+  masto_synchronization_status: 'Nire toot-ak Twitter-ren argitaratu'
+  mastodon_logged_in: 'Mastodon konektatuta'
+  no_sync_right_now: 'Orain arte, *zuk* ez duzu inon argitaratzen.'
+  options: 'Aukerak'
+  post_private_toots: 'Toot pribatuak argitaratu?'
+  post_unlisted_toots: 'Kotizatu gabeko toot-ak argitaratu?'
+  quote_do_not_post: 'Ez argitaratu hitzordurik Mastodon-en'
+  quote_options: 'Hitzorduaren aukerak'
+  quote_post_as_old_rt: 'Antzinako estiloko RTak bezalako aipuak argitaratu Mastodon-en
+    (Ideia hau gustatzen zait RT @renatolonddev@twitter.com: Kaixo, mundua!)'
+  quote_post_as_old_rt_with_link: 'Aipuak argitaratu Mastodon, estilo zaharreko RTs
+    gisa, estekekin (Ideia hau gustatzen zait RT @renatolonddev@twitter.com: Kaixo,
+    mundua! https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_do_not_post: 'Ez argitaratu Retweet-ak Mastodon-en'
+  retweet_options: 'Retweet-en aukerak'
+  retweet_post_as_old_rt: 'Retweet-ak Mastodon-en antzinako estiloko RT gisa argitaratu
+    (RT@renatolonddev@twitter.com: Kaixo, mundua!)'
+  retweet_post_as_old_rt_with_link: 'Retweet-ak Mastodon-en antzinako estiloko RT
+    gisa argitaratu estekekin (RT@renatolonddev@twitter.com: Kaixo, mundua!)'
+  service_ran_by: 'Zerbitzu hau honek kudeatzen du'
+  source_code_and_issues: 'Iturburu-kodea eta arazoak'
+  status: 'Egoera'
+  synchronization_options: 'Sinkronizazio-aukerak'
+  toots_posted_to_twitter: 'Zure toot-ak Twitter-ren argitaratzen ari dira.'
+  tweets_posted_to_mastodon: 'Zure tweetak Mastodon-en argitaratzen ari dira.'
+  twitter_content_warning: 'Twitterren edukiari buruzko oharra'
+  twitter_content_warning_explanation: 'Lauki honi gehitzen zaion edozein testu edukiaren
+    ohartarazpen gisa erabiliko da Twitter bidezko toot crossposted bakoitzerako (CW
+    espezifikoak detektatzen diren tweetetarako izan ezik)'
+  twitter_content_warning_status: 'Bere tweet guztiak CWaren atzean argitaratzen dira:
+    "%{cw}"'
+  twitter_logged_in: 'Twitter conectado'
+  twitter_not_posting_quote: 'Ez zara hitzorduak argitaratzen ari.'
+  twitter_not_posting_reply: 'Ez duzu erantzunik argitaratzen.'
+  twitter_not_posting_rt: 'Ez zara retweetak argitaratzen ari.'
+  twitter_original_visibility: 'Pribatutasuna jatorrizko tweetetarako, modu gurutzatuan
+    argitaratzen direnean'
+  twitter_original_visibility_status: 'Zure tweetak argitaratzen ari zara pribatutasunarekin: '
+  twitter_posting_quote_old_style: 'RT zahar-estiloan bezalako aipuak argitaratzen
+    ari zara.'
+  twitter_posting_quote_old_style_with_link: 'RT zahar-estiloa bezalako aipuak argitaratzen
+    ari zara, estekekin.'
+  twitter_posting_reply_to_self: 'Zeure buruari erantzuten ari zara.'
+  twitter_posting_rt_old_style: 'RT-ak antzinako erabileran balira bezala ari zara
+    retweetak argitaratzen.'
+  twitter_posting_rt_old_style_with_link: 'RT-ak antzinako erabileran balira bezala
+    ari zara retweetak argitaratzen.'
+  twitter_quote_visibility: 'Hitzorduen pribatutasuna, gurutzatuta argitaratzen direnean'
+  twitter_quote_visibility_status: 'Hitzorduak argitaratzen ari zara pribatutasunarekin: '
+  twitter_reply_do_not_post: 'Ez argitaratu erantzunik Mastodon-en'
+  twitter_reply_options: 'Erantzuteko aukerak:'
+  twitter_reply_options_explanation: 'Twitterreko interfazeko erantzun-botoian klik
+    egiten duzunean. Beste tuit bati emandako erantzun zuzena da.'
+  twitter_reply_post_self: 'Mastodon-i (hariak) buruzko nire tweet-en erantzunak argitaratu'
+  twitter_retweet_visibility: 'Pribatutasuna retweetetarako, gurutzatuta argitaratzen
+    direnean'
+  twitter_retweet_visibility_status: 'Pribatutasunarekin retweet-ak argitaratzen ari
+    zara: '
+  twitter_sync_status_false: 'Desaktibatuta'
+  twitter_sync_status_true: 'Aktibatuta'
+  twitter_synchronization_status: 'Nire tweet-ak Mastodonen argitaratu'
+  twitter_word_list: 'Twitter-reko hitzen zerrenda'
   users:
     advanced_mastodon:
-      add_another_word: ''
-      disabled: ''
-      masto_block_or_allow_list: ''
-      masto_block_or_allow_list_explanation: ''
-      masto_word_list: ''
-      masto_word_list_explanation: ''
+      add_another_word: 'Gehitu beste hitz bat'
+      disabled: 'Desgaituta'
+      masto_block_or_allow_list: 'Hitz jakin batzuk dituzten mezuei jaramonik ez egin
+        edo hitz jakin batzuk dituzten mezuei bakarrik uko egin'
+      masto_block_or_allow_list_explanation: 'Aukera honen bidez, jarraian definitutako
+        hitzak dituzten argitalpenen crossposting-ari jaramonik egin nahi diozun edo
+        jarraian definitutako hitzak dituzten argitalpenen crossposting-a baino egin
+        nahi ez duzun hauta dezakezu'
+      masto_word_list: 'Mastodon-etik datozen mezuetarako hitzen edo esamoldeen zerrenda'
+      masto_word_list_explanation: 'Hitzen zerrenda hori aurreko aukera aktibatu baduzu
+        erabiliko da. Ez da kointzidentzia partzialik egiten, hau da, goian “txoria”
+        idazten badu, ez da “txoriaren tokia” kontuan hartuko.'
     advanced_twitter:
-      add_another_word: ''
-      disabled: ''
-      twitter_block_or_allow_list: ''
-      twitter_block_or_allow_list_explanation: ''
-      twitter_word_list_explanation: ''
+      add_another_word: 'Gehitu beste hitz bat'
+      disabled: 'Desgaituta'
+      twitter_block_or_allow_list: 'Hitz jakin batzuk dituzten mezuei jaramonik ez
+        egin edo hitz jakin batzuk dituzten mezuei bakarrik uko egin'
+      twitter_block_or_allow_list_explanation: 'Aukera honen bidez, jarraian definitutako
+        hitzak dituzten argitalpenen crossposting-ari jaramonik egin nahi diozun edo
+        jarraian definitutako hitzak dituzten argitalpenen crossposting-a baino egin
+        nahi ez duzun hauta dezakezu'
+      twitter_word_list_explanation: 'Hitzen zerrenda hori aurreko aukera aktibatu
+        baduzu erabiliko da. Ez da kointzidentzia partzialik egiten, hau da, goian
+        “txoria” idazten badu, ez da kontuan hartuko “txorien tokia”.'
     mastodon_identifier:
-      identifier_placeholder: ''
+      identifier_placeholder: 'Zure erabiltzaile-izena instantzian, your.at@your.instance
+        formatuan'
     show:
-      advanced_from_mastodon_options: ''
-      advanced_from_twitter_options: ''
+      advanced_from_mastodon_options: 'Mastodon-etik Twitter-rera argitaratzeko aukera
+        aurreratuak'
+      advanced_from_twitter_options: 'Twitter-retik Mastodon-era argitaratzeko aukera
+        aurreratuak'
