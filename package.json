@@ -1,17 +1,17 @@
 {
-  "name": "mastodon_twitter_poster",
-  "private": true,
+  "name": "app",
+  "private": "true",
   "dependencies": {
-    "@rails/webpacker": "^4.0.7",
+    "@hotwired/stimulus": "^3.0.1",
+    "@hotwired/turbo-rails": "^7.1.1",
+    "bulma": "^0.9.3",
     "bulma-rtl": "^0.8.0",
     "bulma-switch": "^2.0.0",
-    "jquery": "^3.2.1"
+    "esbuild": "^0.14.11",
+    "sass": "^1.48.0"
   },
-  "devDependencies": {
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.1"
-  },
-  "engines": {
-    "node": ">=8.x"
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
+    "build:css": "sass ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules; sass ./app/assets/stylesheets/application-rtl.scss ./app/assets/builds/application-rtl.css --no-source-map --load-path=node_modules"
   }
 }

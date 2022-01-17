@@ -1,0 +1,23 @@
+@import 'bulma-switch/dist/css/bulma-switch.min';
+
+.button.is-mastodon {
+  background-color: #2b90d9;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-twitter {
+  background-color: #1da1f2;
+  border-color: transparent;
+  color: #fff;
+}
+
+@include mobile {
+  .tabs ul {
+    flex-direction: column;
+
+    li {
+      width: 100%;
+    }
+  }
+}

@@ -189,6 +189,7 @@ class User < ApplicationRecord
 
     user = current_user || authorization.user || User.new
     authorization.user   = user
+    authorization.save
     authorization.token  = auth.credentials.token
     authorization.secret = auth.credentials.secret
     auth_creation = AuthorizationCreation.new(authorization)

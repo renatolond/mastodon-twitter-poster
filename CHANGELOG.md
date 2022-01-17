@@ -1,3 +1,8 @@
+[2022-01-17] - Major framework upgrade.
+Node version upgraded, higher than 10.16 needed.
+Ruby version upgraded to 3.1.0. The crossposter should still work in previous versions, though new features of ruby >3.0 will be used in the future, for the moment you can change the version on `.ruby-version`.
+`bundle install` and `yarn install --pure-lockfile` needed after upgrade. Then `rails assets:precompile`.
+
 [2021-01-27] - Upgrade gems. `bundle install` needed after upgrade.
 
 [2021-01-13] - Added new option to control CW when crossposting from Mastodon. `rails db:migrate` needed after upgrade.
