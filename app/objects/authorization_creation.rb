@@ -15,10 +15,10 @@ class AuthorizationCreation
   end
 
   def add_mastodon_client
-    if @authorization.provider == "mastodon" && @authorization.new_record?
-      @authorization.mastodon_client = MastodonClient.find_by_domain(mastodon_domain)
-      Rails.logger.error { "Could not find MastodonClient for #{uid}" } if @authorization.mastodon_client.nil?
-    end
+    return unless @authorization.provider == "mastodon" && @authorization.will_save_change_to_token?
+
+    @authorization.mastodon_client = MastodonClient.find_by(domain: mastodon_domain)
+    Rails.logger.error { "Could not find MastodonClient for #{uid}" } if @authorization.mastodon_client.nil?
   end
 
   def fetch_profile_data

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update_attributes!(user_params)
+    current_user.update!(user_params)
     changes = current_user.previous_changes
     update_last_tweet_if_needed(changes)
     update_last_toot_if_needed(changes)

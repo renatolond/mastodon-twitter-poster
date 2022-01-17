@@ -2,14 +2,16 @@
 <html>
   <head>
     <title><%= Rails.configuration.x.application_name %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csp_meta_tag %>
+
     <% if locale_direction == :rtl %>
-      <%= stylesheet_link_tag    'application-rtl', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= stylesheet_link_tag "application-rtl", "data-turbo-track": "reload" %>
     <% else %>
-      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <% end %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link href="https://cdn.jsdelivr.net/npm/fork-awesome@1.0.11/css/fork-awesome.min.css" rel="stylesheet" integrity="sha384-uuYw9QCBRSK1iU8peX/dvpGqv5uv83afJrv7ZBTX8tG7dB+HR6JUDl20dBl30UZO" crossorigin="anonymous">
   </head>
 

@@ -1,8 +1,8 @@
 pre-push:
-  scripts:
-    "pronto":
-      runner: bash
+  commands:
+    pronto:
+      run: pronto run --exit-code
 pre-commit:
-  scripts:
-    "pronto-in-master":
-      runner: bash
+  commands:
+    pronto:
+      run: if [ $(git rev-parse --abbrev-ref HEAD) == "main" ]; then pronto run --staged --exit-code; fi

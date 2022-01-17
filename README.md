@@ -1,7 +1,7 @@
 <p align="center"><img src="app/logo/Logo1.png" alt="mastodon-twitter-poster" height="300px"></p>
 
 
-# Mastodon-Twitter Crossposter [![Maintainability](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/maintainability)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/test_coverage)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/test_coverage) [![Build Status](https://travis-ci.org/renatolond/mastodon-twitter-poster.svg?branch=master)](https://travis-ci.org/renatolond/mastodon-twitter-poster) [![Translation status](https://hosted.weblate.org/widgets/mastodon-twitter-crossposter/-/svg-badge.svg)](https://hosted.weblate.org/engage/mastodon-twitter-crossposter/)
+# Mastodon-Twitter Crossposter [![Maintainability](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/maintainability)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/test_coverage)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/test_coverage)  [![Translation status](https://hosted.weblate.org/widgets/mastodon-twitter-crossposter/-/svg-badge.svg)](https://hosted.weblate.org/engage/mastodon-twitter-crossposter/)
 
 This is an app for crossposting between Mastodon and Twitter. The app is made so that multiple users can connect to it using the OAuth interface from both Twitter and Mastodon and choose options on how the crosspost should work.
 
@@ -43,9 +43,9 @@ The crossposter is made with multiple users in mind. For that reason, it can be 
 
 ## Ruby on Rails
 
-Ruby 2.6.5
+Ruby 3.1.0
 
-Rails 5.2
+Rails 7.0
 
 ## Requirements
 
@@ -63,7 +63,7 @@ The poster uses the [ruby-filemagic gem](https://github.com/blackwinter/ruby-fil
 
 Note: If you are running side-by-side with Mastodon or other sidekiq-using software, you need to configure redis to avoid issues with mixed jobs. More info at the end.
 
-You need to install Yarn and Ruby 2.5.1. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
+You need to install Yarn and Ruby 3.1.0. Yarn has installation instructions for several OSs here: https://yarnpkg.com/lang/en/docs/install/ and Ruby can be installed either using RVM (https://rvm.io/rvm/install) or rbenv (https://github.com/rbenv/rbenv#installation). After you have ruby and yarn setup, you'll need to do:
 
 ```
 # Install bundler
@@ -204,7 +204,9 @@ FEDIVERSE_USERNAME=your_user@your.domain.com RAILS_ENV=production bundle exec ra
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
 
 ## Starting
-To start the project locally, you can do `foreman start` which will start the webserver, or start it with `bundle exec rails s`. To start sidekiq, you need to start with `bundle exec sidekiq`. For production, you need sidekiq to process jobs (that is, to post accross the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
+To start the project locally, you should use `bin/dev`, which will start all needed components. You need to have your local environment variables configured, common issues are that sidekiq can't find redis, which will make it fail to start. See the `Procfile.dev` for commands to run only some of the components.
+
+For production, you need sidekiq to process jobs (that is, to post accross the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
 
 ## Troubleshooting
 
