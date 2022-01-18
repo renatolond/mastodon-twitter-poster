@@ -2,7 +2,7 @@
   <div class="column is-4 is-offset-4">
     <h3 class="title has-text-grey"><%= t('masto_login.please') %></h3>
     <div class="box">
-      <%= form_tag user_mastodon_omniauth_authorize_path, method: :post, 'data-toggle' => 'validator' do %>
+      <%= form_tag user_mastodon_omniauth_authorize_path, method: :get, data: { turbo: "false" }, 'data-toggle' => 'validator' do %>
       <div class="field">
         <%= label_tag(:identifier, t('masto_login.identifier'), class: 'label') %>
         <%= text_field_tag(:identifier, '', type: 'email', class: 'input', placeholder: t('.identifier_placeholder'), required: '') %>
