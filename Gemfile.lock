@@ -122,7 +122,7 @@ GEM
     ast (2.4.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
-    bootsnap (1.10.2)
+    bootsnap (1.10.3)
       msgpack (~> 1.2)
     buftok (0.2.0)
     builder (3.2.4)
