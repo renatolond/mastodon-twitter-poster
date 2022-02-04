@@ -1,3 +1,5 @@
+[2022-02-04] - Update needed node version, higher than 12 is needed. Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+
 [2022-01-17] - Major framework upgrade.
 Node version upgraded, higher than 10.16 needed.
 Ruby version upgraded to 3.1.0. The crossposter should still work in previous versions, though new features of ruby >3.0 will be used in the future, for the moment you can change the version on `.ruby-version`.
