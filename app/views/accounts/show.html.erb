@@ -6,7 +6,7 @@
     <% @authorizations.each do |auth| %>
     <li>
       <%= auth.provider.humanize %>:
-      <%= link_to(t(:disconnect), authorization_path(auth), method: :delete) %>
+      <%= link_to(t(:disconnect), authorization_path(auth), method: :delete, "data-turbo-method": "delete") %>
     </li>
     <% end %>
   </ul>

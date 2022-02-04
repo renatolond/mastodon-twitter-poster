@@ -37,7 +37,7 @@
             <% if current_user %>
             <%= link_to(t(:accounts), account_path, class: 'navbar-item') %>
             <%= link_to(t(:options), user_path, class: 'navbar-item') %>
-            <%= link_to(t(:log_out), destroy_user_session_path, method: :delete, class: 'navbar-item') %>
+            <%= link_to(t(:log_out), destroy_user_session_path, "data-turbo-method": "delete", method: :delete, class: 'navbar-item') %>
             <% end %>
           </div>
         </div>
