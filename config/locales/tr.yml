@@ -101,66 +101,96 @@ tr:
   masto_sync_status_true: 'ÜZERİNDE'
   masto_synchronization_status: 'Bahsetmelerimi twitter''da yayınla'
   mastodon_logged_in: 'Mastodon ile giriş yaptın'
-  no_sync_right_now: 'Şu anda hiçbir yere içerik göndermiyorsunuz'
+  no_sync_right_now: 'Şu anda hiçbir yere içerik göndermiyorsunuz.'
   options: 'Seçenekler'
   post_private_toots: 'Özel bahsetmeleri paylaşalım mı?'
   post_unlisted_toots: 'Listelenmemiş bahsetmeler gönderilsin mi?'
-  quote_do_not_post: ''
-  quote_options: ''
-  quote_post_as_old_rt: ''
-  quote_post_as_old_rt_with_link: ''
-  retweet_do_not_post: ''
-  retweet_options: ''
-  retweet_post_as_old_rt: ''
-  retweet_post_as_old_rt_with_link: ''
-  service_ran_by: ''
-  source_code_and_issues: ''
-  status: ''
-  synchronization_options: ''
-  toots_posted_to_twitter: ''
-  tweets_posted_to_mastodon: ''
-  twitter_content_warning: ''
-  twitter_content_warning_explanation: ''
-  twitter_content_warning_status: ''
-  twitter_logged_in: ''
-  twitter_not_posting_quote: ''
-  twitter_not_posting_reply: ''
-  twitter_not_posting_rt: ''
-  twitter_original_visibility: ''
-  twitter_original_visibility_status: ''
-  twitter_posting_quote_old_style: ''
-  twitter_posting_quote_old_style_with_link: ''
-  twitter_posting_reply_to_self: ''
-  twitter_posting_rt_old_style: ''
-  twitter_posting_rt_old_style_with_link: ''
-  twitter_quote_visibility: ''
-  twitter_quote_visibility_status: ''
-  twitter_reply_do_not_post: ''
-  twitter_reply_options: ''
-  twitter_reply_options_explanation: ''
-  twitter_reply_post_self: ''
-  twitter_retweet_visibility: ''
-  twitter_retweet_visibility_status: ''
-  twitter_sync_status_false: ''
-  twitter_sync_status_true: ''
-  twitter_synchronization_status: ''
-  twitter_word_list: ''
+  quote_do_not_post: 'Mastodon''da alıntılamaları yayınlamayın'
+  quote_options: 'Alıntılama seçenekleri'
+  quote_post_as_old_rt: 'Mastodon''da eski tarz RT''ler olarak alıntılar yayınlayın
+    (Örneğin RT @renatolonddev@twitter.com: Merhaba, dünya!)'
+  quote_post_as_old_rt_with_link: 'Mastodon''da bağlantıları olan alıntıları eski
+    tarz RT''ler olarak yayınlayın (Örneğin RT @renatolonddev@twitter.com: Merhaba
+    dünya! https://twitter.com/renatolonddev/status/904738384861700096)'
+  retweet_do_not_post: 'Mastodon''da Retweet yayınlamayın'
+  retweet_options: 'Retweet seçenekleri'
+  retweet_post_as_old_rt: 'Mastodon''da Retweetleri eski tarz RT''ler olarak gönderin
+    (RT @renatolonddev@twitter.com: Merhaba dünya!)'
+  retweet_post_as_old_rt_with_link: 'Mastodon''da bağlantıları olan Retweetleri eski
+    tarz RT''ler olarak Yayınlayın (RT @renatolonddev@twitter.com: Merhaba, dünya!
+    https://twitter.com/renatolonddev/status/904738384861700096)'
+  service_ran_by: 'Bu hizmet tarafından çalıştırılıyor'
+  source_code_and_issues: 'Kaynak kodu ve sorunlar'
+  status: 'Durum'
+  synchronization_options: 'Senkronizasyon seçenekleri'
+  toots_posted_to_twitter: 'Cevaplamalarınız Twitter''da yayınlanıyor.'
+  tweets_posted_to_mastodon: 'Tweetleriniz Mastodon''da yayımlanıyor.'
+  twitter_content_warning: 'Twitter içerik uyarısı'
+  twitter_content_warning_explanation: 'Bu kutuya eklenen herhangi bir metin, twitter''dan
+    çapraz gönderilen her mesaj için içerik uyarısı olarak kullanılacaktır (belirli
+    içerik uyarılarının tespit edildiği tweet''ler hariç)'
+  twitter_content_warning_status: 'Tüm tweetleriniz bu içerik uyarısının arkasında
+    gönderiliyor: "%{cw}"'
+  twitter_logged_in: 'Twitter''da oturum açıldı'
+  twitter_not_posting_quote: 'Alıntı yayınlamıyorsunuz.'
+  twitter_not_posting_reply: 'Cevapları yayınlamıyorsunuz.'
+  twitter_not_posting_rt: 'Retweet göndermiyorsunuz.'
+  twitter_original_visibility: 'Çapraz gönderide orijinal tweetleriniz için gizlilik'
+  twitter_original_visibility_status: 'Gizlilikle birlikte tweetlerinizi yayınlıyorsunuz: '
+  twitter_posting_quote_old_style: 'Alıntıları eski tarz RT''ler olarak yayınlıyorsunuz.'
+  twitter_posting_quote_old_style_with_link: 'Bağlantıları olan alıntıları eski tarz
+    RT''ler olarak gönderiyorsunuz.'
+  twitter_posting_reply_to_self: 'Kendinize cevaplar gönderiyorsunuz.'
+  twitter_posting_rt_old_style: 'Eski tarz RT''ler gibi retweetler gönderiyorsunuz.'
+  twitter_posting_rt_old_style_with_link: 'Bağlantıları olan eski tarz RT''ler gibi
+    retweetler gönderiyorsunuz.'
+  twitter_quote_visibility: 'Çapraz paylaşılan alıntılar için gizlilik'
+  twitter_quote_visibility_status: 'Bu gizlilik seçeceği ile alıntılar gönderiyorsunuz: '
+  twitter_reply_do_not_post: 'Cevapları Mastodon''da yayınlamayın'
+  twitter_reply_options: 'Yanıt seçenekleri:'
+  twitter_reply_options_explanation: 'Bu, Twitter''ın arayüzündeki yanıtla düğmesini
+    tıkladığınız zaman olan ile aynı şeydir. Yani başka bir tweet''e doğrudan bir
+    cevap.'
+  twitter_reply_post_self: 'Mastodon''da kendi tweetlerime verdiğim yanıtları gönderme
+    (konular)'
+  twitter_retweet_visibility: 'Çapraz gönderide retweetler için gizlilik'
+  twitter_retweet_visibility_status: 'Bu gizlilik ayarları ile retweetler gönderiyorsunuz: '
+  twitter_sync_status_false: 'KAPALI'
+  twitter_sync_status_true: 'ÜZERİNDE'
+  twitter_synchronization_status: 'Tweetlerimi Mastodon''da yayınla'
+  twitter_word_list: 'Twitter kelime listesi'
   users:
     advanced_mastodon:
-      add_another_word: ''
-      disabled: ''
-      masto_block_or_allow_list: ''
-      masto_block_or_allow_list_explanation: ''
-      masto_word_list: ''
-      masto_word_list_explanation: ''
+      add_another_word: 'Başka bir kelime ekle'
+      disabled: 'Devre dışı'
+      masto_block_or_allow_list: 'Belirli kelimeleri içeren gönderileri yoksayma veya
+        yalnızca belirli kelimeleri içeren gönderilere izin verme'
+      masto_block_or_allow_list_explanation: 'Bu seçenek, aşağıda tanımlanan kelimeleri
+        içeren gönderilerin çapraz gönderilerini yoksaymayı veya yalnızca aşağıda
+        tanımlanan kelimeleri içeren çapraz gönderileri göz ardı etmeyi seçmenizi
+        sağlar'
+      masto_word_list: 'Mastodon''dan gelen gönderiler için kelimelerin veya ifadelerin
+        listesi'
+      masto_word_list_explanation: 'Yukarıdaki seçeneği etkinleştirdiyseniz, bu sözcük
+        listesi kullanılacaktır. Kısmi eşleştirme yapılmaz yani yukarıya "kuş" yazarsanız
+        "kuşevi" dikkate alınmayacaktır.'
     advanced_twitter:
-      add_another_word: ''
-      disabled: ''
-      twitter_block_or_allow_list: ''
-      twitter_block_or_allow_list_explanation: ''
-      twitter_word_list_explanation: ''
+      add_another_word: 'Başka bir kelime ekle'
+      disabled: 'Devre dışı'
+      twitter_block_or_allow_list: 'Belirli kelimeleri içeren gönderileri yoksayma
+        veya yalnızca belirli kelimeleri içeren gönderilere izin verme'
+      twitter_block_or_allow_list_explanation: 'Bu seçenek, aşağıda tanımlanan kelimeleri
+        içeren gönderilerin çapraz gönderilerini yoksaymayı veya yalnızca aşağıda
+        tanımlanan kelimeleri içeren çapraz gönderileri göz ardı etmeyi seçmenizi
+        sağlar'
+      twitter_word_list_explanation: 'Yukarıdaki seçeneği etkinleştirdiyseniz, bu
+        sözcük listesi kullanılacaktır. Kısmi bir eşleşme yapılmaz, yani yukarıda
+        "kuş" yazarsanız, "kuşevi" dikkate alınmaz.'
     mastodon_identifier:
-      identifier_placeholder: ''
+      identifier_placeholder: 'Kurulumdaki kullanıcı adınız, örneğin siz@domainismi.tld
+        formatında'
     show:
-      advanced_from_mastodon_options: ''
-      advanced_from_twitter_options: ''
+      advanced_from_mastodon_options: 'Mastodon''dan Twitter''a gönderi göndermek
+        için gelişmiş seçenekler'
+      advanced_from_twitter_options: 'Twitter''dan Mastodon''a gönderi göndermek için
+        gelişmiş seçenekler'
