@@ -160,12 +160,16 @@ class User < ApplicationRecord
   end
 
   def twitter_handle
-    Rails.cache.fetch("#{cache_key}/twitter_handle", expires_in: 30.minutes) do
-      begin
-        twitter_client.verify_credentials.screen_name if twitter
-      rescue
-        nil
-      end
+    return nil unless twitter
+    return twitter.twitter_handle if twitter.twitter_handle
+
+    begin
+      # only gets ever updated when authorisation is recreated
+      twitter.twitter_handle = twitter_client.verify_credentials.screen_name
+      twitter.save
+      twitter.twitter_handle
+    rescue
+      nil
     end
   end
 
