@@ -184,6 +184,9 @@ class User < ApplicationRecord
   BLOCKED_UIDS = ["example@bad.bad.server"]
 
   def self.from_omniauth(auth, current_user)
+    # reset twitter mastodon mapping cache upon human change of the user database
+    Rails.cache.delete('/twitter_mastodon_mapping')
+
     authorization = get_authorization(auth.provider, auth.uid.to_s) unless BLOCKED_UIDS.include? auth.uid.to_s
     return authorization if authorization.nil?
 
@@ -196,5 +199,17 @@ class User < ApplicationRecord
     auth_creation.save
 
     authorization.user
+  end
+
+  def self.twitter_mastodon_mapping
+    Rails.cache.fetch('/twitter_mastodon_mapping') do
+      # TODO consider storing the twitter_handle in DB
+      # user.twitter_handle sends an individual request
+      # https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
+      # rate limit: 900 requests per 15-min window shared among all users of your app
+      User.all.each do |user|
+        [user.twitter_handle, "@#{user.mastodon_id}"]
+      end.to_h
+    end
   end
 end

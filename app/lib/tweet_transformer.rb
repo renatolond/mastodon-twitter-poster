@@ -19,6 +19,13 @@ class TweetTransformer
 
   def self.replace_mentions(text)
     twitter_mention_regex = /(\s|^.?|[^A-Za-z0-9_!#\$%&*@＠\/])([@＠][A-Za-z0-9_]+)(?=[^A-Za-z0-9_@＠]|$)/
+
+    if Rails.configuration.x.translate_twitter_accounts
+      mapping = User.twitter_mastodon_mapping
+      mapping.default_proc = proc {|hash, key| key }
+      text.gsub!(twitter_mention_regex, mapping)
+    end
+
     if Rails.configuration.x.use_alternative_twitter_domain
       text.gsub(twitter_mention_regex, "\\1\\2@#{Rails.configuration.x.alternative_twitter_domain}")
     else

@@ -17,4 +17,6 @@ Rails.application.configure do
 
   config.x.use_alternative_twitter_domain = ActiveModel::Type::Boolean.new.cast(ENV.fetch("USE_ALTERNATIVE_TWITTER_DOMAIN", "FALSE"))
   config.x.alternative_twitter_domain = ENV.fetch("ALTERNATIVE_TWITTER_DOMAIN", "twitter.activitypub.actor")
+
+  config.x.translate_twitter_accounts = ActiveModel::Type::Boolean.new.cast(ENV.fetch("CROSSPOSTER_TRANSLATE_TWITTER_ACCOUNTS", "FALSE"))
 end
