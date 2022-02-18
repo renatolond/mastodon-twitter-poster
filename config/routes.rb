@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     get "mastodon_identifier"
   end
   root to: "home#index"
-  get "privacy", to: "home#privacy"
+
+  unless Rails.configuration.x.privacy_url then
+    get "privacy", to: "home#privacy"
+  else
+    get "privacy", to: redirect(Rails.configuration.x.privacy_url, status: 302)
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -29,7 +29,7 @@
         <div id="navbarMenu" class="navbar-menu">
           <div class="navbar-start">
             <%= link_to(t(".home"), root_path, class: 'navbar-item')%>
-            <%= link_to(t(".privacy_policy"), privacy_path, class: 'navbar-item')%>
+            <%= link_to(t(".privacy_policy"), Rails.configuration.x.privacy_url || privacy_path, class: 'navbar-item')%>
             <%= link_to(t(:features), "#{Rails.configuration.x.repo}#features", target: :_blank, class: 'navbar-item') %>
             <%= link_to(t(:status), Rails.configuration.x.stats, target: :_blank, class: 'navbar-item') unless Rails.configuration.x.stats.blank? %>
           </div>
