@@ -1,3 +1,5 @@
+[2022-02-22] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+
 [2022-02-04] - Update needed node version, higher than 12 is needed. Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
 
 [2022-01-17] - Major framework upgrade.
