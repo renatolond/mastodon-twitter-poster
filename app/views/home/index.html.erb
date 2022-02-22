@@ -11,7 +11,7 @@
         <span class="icon is-small"><i class="fa fa-check" aria-hidden="true"></i></span>
       </button>
       <% else %>
-      <%= link_to(user_twitter_omniauth_authorize_path, method: :post, class: 'button is-large') do %>
+      <%= button_to(user_twitter_omniauth_authorize_path, data: { turbo: "false" }, class: 'button is-large') do %>
       <span class="icon is-small"><i class="fa fa-twitter" aria-hidden="true"></i></span>
       <span>Twitter</span>
       <% end %>
