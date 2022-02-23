@@ -3,7 +3,7 @@
 class Scheduler::CleanupScheduler
   include Sidekiq::Worker
 
-  sidekiq_options unique: :until_executed, retry: 0
+  sidekiq_options lock: :until_executed, retry: 0
 
   def perform
     Cleanup.new.call
