@@ -428,7 +428,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     statsd-ruby (1.5.0)
-    stimulus-rails (1.0.2)
+    stimulus-rails (1.0.4)
       railties (>= 6.0.0)
     strscan (3.0.1)
     terminal-table (3.0.2)
