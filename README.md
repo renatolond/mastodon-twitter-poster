@@ -39,7 +39,7 @@ If you decide to crosspost from Twitter to Mastodon, remember to turn on notific
 
 ## Note on usage
 
-The crossposter is made with multiple users in mind. For that reason, it can be quite a lot of moving parts if you want to self-host yourself. There's other good tools to self-host out there like https://github.com/AmauryCarrade/MastodonToTwitter and the others listed at the [Bridges from/to other platforms section of the Mastodon apps](https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md#bridges-fromto-other-platforms). That being said, it should work even if you only want it for your own usage.
+The crossposter is made with multiple users in mind. For that reason, it can be quite a lot of moving parts if you want to self-host yourself. There's other good tools to self-host out there like https://github.com/AmauryCarrade/MastodonToTwitter and the others listed at the [Bridges from/to other platforms section of the Mastodon apps](https://github.com/felx/mastodon-documentation/blob/master/Using-Mastodon/Apps.md#bridges-fromto-other-platforms). That being said, it should work even if you only want it for your own usage.
 
 ## Ruby on Rails
 
