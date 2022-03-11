@@ -1,2 +1,4 @@
 ca:
   accounts: 'Comptes'
+  block_with_words: No encreueu missatges que continguin les paraules següents
+  allow_with_words: Només les publicacions creuades que contenen les paraules següents
