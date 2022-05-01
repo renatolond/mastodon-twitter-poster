@@ -1,7 +1,7 @@
 pre-push:
   commands:
     pronto:
-      run: pronto run --exit-code
+      run: pronto run --exit-code -c origin/main
 pre-commit:
   commands:
     pronto:
