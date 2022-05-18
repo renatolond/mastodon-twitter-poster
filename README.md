@@ -174,17 +174,6 @@ At the same time, you can add `BLOCKED_DOMAINS=evil.corp,bad.instance` to .env.p
 
 You should only enable one at each time.
 
-## Alternative twitter domain
-
-When users mention someone on twitter, you can use another domain other than twitter.com. The idea is to allow you to use services such as [twitter.activitpub.actor](https://framagit.org/DavidLibeau/activitypubactor), which will make the mentions look like real fediverse mentions.
-
-For that you need to add the following to variables to your .env.production:
-
-```
-USE_ALTERNATIVE_TWITTER_DOMAIN=true
-ALTERNATIVE_TWITTER_DOMAIN=twitter.activitypub.actor
-```
-
 ## Admin tasks
 
 If you are an admin, you might want to make yourself an admin, which allows you to take a look on the status of the sidekiq queues (and solve possible issues that happen regarding users crossposting). To do so, you can run:

@@ -36,18 +36,6 @@ class TweetTransformerTest < ActiveSupport::TestCase
     assert_equal "Check this out! https://masto.donte.com.br/@crossposter/101193766261571076 !", TweetTransformer.replace_mentions(text)
   end
 
-  test "If enabled, should use twitter.activitypub.actor instead of twitter.com to allow mentions" do
-    text = "Hello, (@usera) [@userb] {@userc} .＠userd !"
-
-    config_mock = mock()
-    Rails.expects(:configuration).twice.returns(config_mock)
-    config_mock.expects(:x).twice.returns(config_mock)
-    config_mock.expects(:use_alternative_twitter_domain).returns(true)
-    config_mock.expects(:alternative_twitter_domain).returns("twitter.activitypub.actor")
-
-    assert_equal "Hello, (@usera@twitter.activitypub.actor) [@userb@twitter.activitypub.actor] {@userc@twitter.activitypub.actor} .＠userd@twitter.activitypub.actor !", TweetTransformer.replace_mentions(text)
-  end
-
   test 'detect cw: "tw/cw:" format with no space' do
     text = "TW/CW: spoiler
 Here's my spoiler!"
