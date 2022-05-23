@@ -8,7 +8,7 @@
     "bulma-rtl": "^0.8.0",
     "bulma-switch": "^2.0.0",
     "esbuild": "^0.14.39",
-    "sass": "^1.49.9"
+    "sass": "^1.52.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
