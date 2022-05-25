@@ -189,8 +189,7 @@ eu:
         baduzu erabiliko da. Ez da kointzidentzia partzialik egiten, hau da, goian
         “txoria” idazten badu, ez da kontuan hartuko “txorien tokia”.'
     mastodon_identifier:
-      identifier_placeholder: 'Zure erabiltzaile-izena instantzian, your.at@your.instance
-        formatuan'
+      identifier_placeholder: 'username@your.instance'
     show:
       advanced_from_mastodon_options: 'Mastodon-etik Twitter-rera argitaratzeko aukera
         aurreratuak'

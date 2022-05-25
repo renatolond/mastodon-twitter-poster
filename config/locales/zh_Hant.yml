@@ -145,7 +145,7 @@ zh_Hant:
       twitter_word_list_explanation: 如果您啟用上面的選項，將會使用此字詞清單。不會有部份符合的情況發生，亦及您如果在上面寫的是
         "bird"，那麼 "birdsite" 就不會被認為是一樣的東西。
     mastodon_identifier:
-      identifier_placeholder: 您的使用者者名稱之於您的站臺，格式為 your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: 從 Mastodon 到 Twitter 貼文的進階選項
       advanced_from_twitter_options: 從 Twitter 到 Mastodon 貼文的進階選項

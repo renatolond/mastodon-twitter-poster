@@ -178,8 +178,7 @@ de:
         Einstellung aktiviert hast. Nur ganze Wörter werden erkannt, wenn du "bird"
         hinzufügst, wird "birdsite" nicht erkannt.
     mastodon_identifier:
-      identifier_placeholder: Deinen vollständigen Nutzernamen, im folgenden Format
-        your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: Erweiterte Einstellungen zum Cross-Posting von
         Mastodon zu Twitter

@@ -171,8 +171,7 @@ ar:
         لا تطابق جزئي للكلمات، فإذا كتبتم "عصفور" أعلاه لن يتم الأخذ بعين الاعتبار
         كلمة "موقع_العصفور".
     mastodon_identifier:
-      identifier_placeholder: اسم المستخدم الخاص بك على عنوان مثيل خادومك ، على النحو
-        التالي your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: خيارات متقدمة للنشر من ماستدون إلى تويتر
       advanced_from_twitter_options: خيارات متقدمة للنشر من تويتر إلى ماستدون
