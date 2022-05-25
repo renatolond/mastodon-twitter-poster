@@ -58,8 +58,8 @@ en:
   masto_cw_options_explanation: When cross-posting a toot that has a content warning,
     this setting will determine which parts of the toot should be cross-posted.
   masto_login:
-    identifier: Identifier
-    invalid_identifier: Invalid identifier. You need to use the format user@instance,
+    identifier: Your full Mastodon username
+    invalid_identifier: Invalid username. You must use the format username@your.instance,
       like crossposter@masto.donte.com.br
     login: Log in
     please: Connect your Mastodon
@@ -176,7 +176,7 @@ en:
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: Advanced options for posting from Mastodon to
         Twitter
