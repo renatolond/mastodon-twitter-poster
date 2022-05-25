@@ -187,8 +187,7 @@ tr:
         sözcük listesi kullanılacaktır. Kısmi bir eşleşme yapılmaz, yani yukarıda
         "kuş" yazarsanız, "kuşevi" dikkate alınmaz.'
     mastodon_identifier:
-      identifier_placeholder: 'Kurulumdaki kullanıcı adınız, örneğin siz@domainismi.tld
-        formatında'
+      identifier_placeholder: 'siz@domainismi.tld'
     show:
       advanced_from_mastodon_options: 'Mastodon''dan Twitter''a gönderi göndermek
         için gelişmiş seçenekler'
