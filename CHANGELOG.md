@@ -1,3 +1,5 @@
+[2022-06-05] - Fix char count for twitter alt text.
+
 [2022-05-18] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade. Remove twitter.activitypub.actor as per [#725](https://github.com/renatolond/mastodon-twitter-poster/issues/725)
 
 [2022-05-01] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade. Note that one of the dependencies now needs Redis >= 4.2.0.
