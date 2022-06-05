@@ -148,7 +148,7 @@ zh_Hans:
       twitter_word_list_explanation: '如果您启用上面的选项，将会使用此字词清单。不会有部份符合的情况发生，亦及您如果在上面写的是
         "bird"，那么 "birdsite" 就不会被认为是一样的东西。'
     mastodon_identifier:
-      identifier_placeholder: '您的使用者者名称之于您的站台，格式为 your.at@your.instance'
+      identifier_placeholder: 'username@your.instance'
     show:
       advanced_from_mastodon_options: '从 Mastodon 到 Twitter 贴文的进阶选项'
       advanced_from_twitter_options: '从 Mastodon 到 Twitter 贴文的进阶选项'

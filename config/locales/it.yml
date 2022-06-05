@@ -170,7 +170,7 @@ it:
         abilitato l'opzione qui sopra. Non sarà effettuata una corrispondenza parziale,
         cioè, se scrivi qui sopra "bird", "birdsite" non sarà considerato.
     mastodon_identifier:
-      identifier_placeholder: Il tuo nome utente alla tua istanza, nel formato tuo.nome@tua.istanza
+      identifier_placeholder: tuo.nome@tua.istanza
     show:
       advanced_from_mastodon_options: Opzioni avanzate per postare da Mastodon a Twitter
       advanced_from_twitter_options: Opzioni avanzate per postare da Twitter a Mastodon

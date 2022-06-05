@@ -168,7 +168,7 @@ nb_NO:
         valget ovenfor er påskrudd. Ingen delvis jamføring gjøres, hvis du skriver
         "fulg" ovenfor, vil ikke "fuglekasse" tatt med i betraktning.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: Avanserte valg for posting fra Mastodon til
         Twitter

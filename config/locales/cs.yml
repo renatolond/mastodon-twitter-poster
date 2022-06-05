@@ -163,7 +163,7 @@ cs:
         výše uvedenou možnost. Částečné shody se nepočítají, tj. pokud sem napíšete
         „slovo“, slovo „slovosled“ se nepočítá.
     mastodon_identifier:
-      identifier_placeholder: Vaše uživatelské jméno ve formátu uživatel@instance
+      identifier_placeholder: uživatel@instance
     show:
       advanced_from_mastodon_options: Pokročilé možnosti přeposílání z Mastodonu na Twitter
       advanced_from_twitter_options: Pokročilé možnosti přeposílání z Twitteru na Mastodon

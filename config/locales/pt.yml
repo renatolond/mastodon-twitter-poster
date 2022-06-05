@@ -173,8 +173,7 @@ pt:
         acima esteja ligada. Combinações parciais não serão consideradas, isto é,
         se você adicionar "nata" como uma das palavras, "natação" não será considerada.
     mastodon_identifier:
-      identifier_placeholder: O seu nome de utilizador na sua instância, no formato
-        seu.at@sua.instância
+      identifier_placeholder: seu.at@sua.instância
     show:
       advanced_from_mastodon_options: Opções avançadas para postar do Mastodon para
         o Twitter

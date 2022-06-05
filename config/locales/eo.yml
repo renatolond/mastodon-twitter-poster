@@ -171,7 +171,7 @@ eo:
         la supran opcion. Neniu parta kongruado estas farita, tio estas, se vi skribas
         "birdo" supre, "birdejo" ne estos konsiderata.'
     mastodon_identifier:
-      identifier_placeholder: 'Via salutnomo ĉe via okazo, en la formato @your.at@your.instance'
+      identifier_placeholder: 'username@your.instance'
     show:
       advanced_from_mastodon_options: 'Altnivelaj elektoj por poŝtanta de Mastodon
         Pepi'

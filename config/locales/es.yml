@@ -177,7 +177,7 @@ es:
         the option above. No partial match is done, that is, if you write "bird" above,
         "birdsite" will not be considered.
     mastodon_identifier:
-      identifier_placeholder: Your username at your instance, in the format your.at@your.instance
+      identifier_placeholder: username@your.instance
     show:
       advanced_from_mastodon_options: Opciones avanzadas para publicar desde Mastodon
         a Twitter

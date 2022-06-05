@@ -188,8 +188,7 @@ fr:
         activé l’option ci-dessus. Aucune correspondance partielle n’est faite, c-est-à-dire
         que si vous écrivez « bird » ci-dessus, « birdsite » ne sera pas pris en compte.
     mastodon_identifier:
-      identifier_placeholder: Votre nom d’utilisateur·rice chez votre instance, selon
-        le format suivant vous.chez@votre.instance
+      identifier_placeholder: vous.chez@votre.instance
     show:
       advanced_from_mastodon_options: Options avancées pour la publication de Mastodon
         vers Twitter
