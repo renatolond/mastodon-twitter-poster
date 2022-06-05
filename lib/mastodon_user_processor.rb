@@ -385,12 +385,13 @@ class MastodonUserProcessor
     url.to_s
   end
 
+  MEDIA_DESCRIPTION_CHAR_LIMIT = 1_000 # From https://help.twitter.com/en/using-twitter/write-image-descriptions
   def upload_media(media, file, file_type)
     media_id = nil
     options = detect_twitter_filetype(file_type)
     media_id = user.twitter_client.upload(file, options).to_s
     unless media.to_h["description"].blank?
-      alt_text = (media.to_h["description"]).truncate(420, separator: /[ \n]/, omission: "…")
+      alt_text = media.to_h["description"].truncate(MEDIA_DESCRIPTION_CHAR_LIMIT, separator: /[ \n]/, omission: "…")
       user.twitter_client.create_metadata(media_id, alt_text: { text: alt_text })
     end
     media_id
