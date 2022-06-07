@@ -3,7 +3,7 @@ eo:
   allow_with_words: 'Nur transversaj afiŝoj enhavantaj la jenajn vortojn'
   block_with_words: 'Ne transkribu afiŝojn enhavantajn la jenajn vortojn'
   boost_options: 'Akcelaj elektoj:'
-  change_this_on_options: 'Vi povas ŝanĝi ĉi tiujn fiksojn de iranta al %{elektoj}.'
+  change_this_on_options: 'Vi povas ŝanĝi ĉi tiujn fiksojn de iranta al %{options}.'
   connections: 'Konektoj'
   crossposter_explanation: 'Ĉi tiu servo permesas vin konekti Mastodon-konton kaj
     Twitter-konton kaj ebligi krucan afiŝadon inter ili. Vi povas elekti iujn eblojn,
@@ -13,8 +13,8 @@ eo:
   disconnect: 'Malkonektas'
   errors:
     oauth:
-      allowed_domains: 'Mizera, ĉi tiu okazo nur akceptas kontojn de %{domajnoj}.'
-      blocked_domain: 'Mizera, %{domajno} estas blokita en ĉi tiu okazo.'
+      allowed_domains: 'Mizera, ĉi tiu okazo nur akceptas kontojn de %{domains}.'
+      blocked_domain: 'Mizera, %{domain} estas blokita en ĉi tiu okazo.'
   features: 'Ĉefaĵoj'
   follow_us_on_the_fediverse: 'Sekvas nin sur la fediverse!'
   for_news_and_status: 'Por sciigo kaj statuso:'
@@ -40,7 +40,7 @@ eo:
       which_information: 'Kiajn informojn ni kolektas?'
     sync_status:
       mastodon_account_html: 'La Mastodon konto konektita estas <code>@%{uid}</code>.'
-      twitter_account_html: 'La Twitter-konto konektita estas <code> @% {handle} </code>.'
+      twitter_account_html: 'La Twitter-konto konektita estas <code> @%{handle} </code>.'
   layouts:
     application:
       home: 'Hejmo'
