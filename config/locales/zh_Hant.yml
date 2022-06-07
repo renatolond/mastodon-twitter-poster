@@ -43,8 +43,8 @@ zh_Hant:
   masto_boost_do_not_post: 不要在 Twitter 上張貼轉嘟
   masto_boost_post_as_link: 在 Twiiter 上將轉嘟張貼為連結（已轉嘟：https://mastodon.social/@renatolond/15082784）
   masto_login:
-    identifier: 識別符
-    invalid_identifier: 無效的識別符。您必須使用 user@instance 的格式，如 crossposter@masto.donte.com.br
+    identifier: 您的完整 Mastodon 使用者名稱
+    invalid_identifier: 無效的使用者名稱。您必須使用如 username@your.instance 的格式，例如 crossposter@masto.donte.com.br
     login: 登入
     please: 連線到您的 Mastodon
   masto_mention_do_not_post: 不要在 Twitter 上張貼提及
