@@ -62,9 +62,9 @@ tr:
   masto_cw_options_explanation: 'İçerik uyarısı olan bir görseli çapraz paylaşırken,
     bu ayar görselin hangi bölümlerinin çapraz paylaşılacağını belirleyecektir.'
   masto_login:
-    identifier: 'Tanımlayıcı'
-    invalid_identifier: 'Geçersiz tanımlayıcı. crossposter@masto.donte.com.br gibi
-      bir biçim kullanmanız gerekir. Örneğin: kullanıcıadı@instance'
+    identifier: 'Tam Mastodon kullanıcı adınız'
+    invalid_identifier: 'Geçersiz kullanıcı adı. crossposter@masto.donte.com.br biçimini
+      kullanmalısınız, örneğin: kullanıcıadı@instance'
     login: 'Oturum aç'
     please: 'Mastodon hesabınızı bağlayın'
   masto_mention_do_not_post: 'Twitter''da cevapları yayınlamayın'
