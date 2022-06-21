@@ -242,7 +242,7 @@ GEM
     jsbundling-rails (1.0.2)
       railties (>= 6.0.0)
     jwt (2.3.0)
-    lefthook (0.7.7)
+    lefthook (1.0.1)
     loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
