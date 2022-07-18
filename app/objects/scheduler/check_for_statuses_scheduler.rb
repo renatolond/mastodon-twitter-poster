@@ -3,7 +3,7 @@
 class Scheduler::CheckForStatusesScheduler
   include Sidekiq::Worker
 
-  sidekiq_options lock: :until_executed, retry: 0
+  sidekiq_options lock: :until_executed, lock_ttl: 3.hours, retry: 0
 
   OLDER_THAN_IN_SECONDS = 30
 
