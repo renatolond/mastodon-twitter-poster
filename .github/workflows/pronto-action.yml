@@ -16,7 +16,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 150
-      - run: git fetch origin main --depth=1
+      - run: git fetch origin main --depth=20
       - uses: renatolond/pronto-ruby@use_head_commit
         with:
           target: origin/main
