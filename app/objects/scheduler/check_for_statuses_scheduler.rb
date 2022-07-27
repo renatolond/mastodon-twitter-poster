@@ -6,6 +6,7 @@ class Scheduler::CheckForStatusesScheduler
   sidekiq_options lock: :until_executed, lock_ttl: 3.hours, retry: 0
 
   OLDER_THAN_IN_SECONDS = 30
+  SLICE_SIZE = 100
 
   def perform
     # The crossposter was duplicating jobs in the queue and the issue seems to be that this method sometime takes a long time.
@@ -16,13 +17,13 @@ class Scheduler::CheckForStatusesScheduler
     #
     # The update_all there is to avoid having to load the AR object in memory, since we just locked the row.
     user_ids = User.where("locked = ? AND (posting_from_mastodon = ? OR posting_from_twitter = ?) AND (mastodon_last_check < now() - interval '? seconds' or twitter_last_check < now() - interval '? seconds')", false, true, true, OLDER_THAN_IN_SECONDS, OLDER_THAN_IN_SECONDS).order(mastodon_last_check: :asc, twitter_last_check: :asc).pluck(:id)
-    user_ids.each do |user_id|
+    user_ids.each_slice(SLICE_SIZE) do |batch_user_ids|
       User.transaction do
-        locked = User.where(id: user_id).lock!.pick(:locked)
-        next if locked
+        ids = User.where(id: batch_user_ids, locked: false).lock!.pluck(:id)
+        next if ids.empty?
 
-        User.where(id: user_id).update_all(locked: true) # rubocop:disable Rails/SkipsModelValidations
-        ProcessUserWorker.perform_async(user_id)
+        User.where(id: ids).update_all(locked: true) # rubocop:disable Rails/SkipsModelValidations
+        ids.each { |user_id| ProcessUserWorker.perform_async(user_id) }
       end
     end
   end

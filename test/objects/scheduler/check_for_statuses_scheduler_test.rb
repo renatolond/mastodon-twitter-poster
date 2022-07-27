@@ -17,12 +17,19 @@ class CheckForStatusesSchedulerTest < ActiveSupport::TestCase
   end
 
   test "If a users has not been checked in the expected interval, a job is scheduled" do
-    create(:user_with_mastodon_and_twitter, locked: false, posting_from_twitter: true, posting_from_mastodon: true, mastodon_last_check: 1.second.ago, twitter_last_check: 1.second.ago)
-    create(:user_with_mastodon_and_twitter, locked: false, posting_from_twitter: true, posting_from_mastodon: true, mastodon_last_check: 1.minute.ago, twitter_last_check: 1.minute.ago)
+    u1 = create(:user_with_mastodon_and_twitter, locked: false, posting_from_twitter: true, posting_from_mastodon: true, mastodon_last_check: 1.second.ago, twitter_last_check: 1.second.ago)
+    u2 = create(:user_with_mastodon_and_twitter, locked: false, posting_from_twitter: true, posting_from_mastodon: true, mastodon_last_check: 1.minute.ago, twitter_last_check: 1.minute.ago)
+    u3 = create(:user_with_mastodon_and_twitter, locked: false, posting_from_twitter: true, posting_from_mastodon: true, mastodon_last_check: 2.minutes.ago, twitter_last_check: 2.minutes.ago)
 
     Scheduler::CheckForStatusesScheduler.new.perform
 
-    assert_equal 1, ProcessUserWorker.jobs.size
+    assert_equal 2, ProcessUserWorker.jobs.size
+    u1.reload
+    u2.reload
+    u3.reload
+    assert_not u1.locked
+    assert u2.locked
+    assert u3.locked
   end
 
   test "A user that has not been checked in the expected interval, but is not posting from either side does not get scheduled for check" do
