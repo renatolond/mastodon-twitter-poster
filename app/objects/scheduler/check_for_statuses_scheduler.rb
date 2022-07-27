@@ -23,7 +23,9 @@ class Scheduler::CheckForStatusesScheduler
         next if ids.empty?
 
         User.where(id: ids).update_all(locked: true) # rubocop:disable Rails/SkipsModelValidations
-        ids.each { |user_id| ProcessUserWorker.perform_async(user_id) }
+        # We need to wait_until 1 second to avoid that jobs start executing while this transaction is not yet finished.
+        # Ideally we need to avoid other workers from getting this instead, but this is a quick fix in the meantime
+        ids.each { |user_id| ProcessUserWorker.set(wait_until: 1.second).perform_async(user_id) }
       end
     end
   end
