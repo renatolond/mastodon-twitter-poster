@@ -2,11 +2,23 @@ name: Pronto
 on:
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - "Gemfile"
+      - "Rakefile"
+      - "**/*.rb"
+      - "**/*.ru"
+      - "bin/*"
 jobs:
   pronto:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: HeRoMo/pronto-action@v1.28.0
+      - uses: actions/checkout@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 150
+      - run: git fetch origin main --depth=1
+      - uses: renatolond/pronto-ruby@use_head_commit
+        with:
+          target: origin/main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
