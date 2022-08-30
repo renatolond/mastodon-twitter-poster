@@ -266,10 +266,10 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-sass@^1.54.0:
-  version "1.54.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.0.tgz#24873673265e2a4fe3d3a997f714971db2fba1f4"
-  integrity sha512-C4zp79GCXZfK0yoHZg+GxF818/aclhp9F48XBu/+bm9vXEVAYov9iU3FBVRMq3Hx3OA4jfKL+p2K9180mEh0xQ==
+sass@^1.54.6:
+  version "1.54.6"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.6.tgz#5a12c268db26555c335028e355d6b7b1a5b9b4c8"
+  integrity sha512-DUqJjR2WxXBcZjRSZX5gCVyU+9fuC2qDfFzoKX9rV4rCOcec5mPtEafTcfsyL3YJuLONjWylBne+uXVh5rrmFw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
