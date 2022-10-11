@@ -56,9 +56,9 @@ de:
   masto_boost_do_not_post: Boosts nicht auf Twitter teilen
   masto_boost_post_as_link: 'Teile Boosts auf Twitter als Links („Boosted: https://mastodon.social/@renatolond/15082784“)'
   masto_login:
-    identifier: Benutzername
-    invalid_identifier: Ungültiger Benutzername. Er muss das Format nutzer@instanz
-      haben, wie z.B. „crossposter@masto.donte.com.br“
+    identifier: Ihr vollständiger Mastodon-Benutzername
+    invalid_identifier: Ungültiger Benutzername. Sie müssen das Format username@your.instance
+      verwenden, wie crossposter@masto.donte.com.br
     login: Anmelden
     please: Verbinde dein Mastodon-Konto
   masto_mention_do_not_post: Teile keine Erwähnungen auf Twitter
@@ -184,3 +184,4 @@ de:
         Mastodon zu Twitter
       advanced_from_twitter_options: Erweiterte Einstellungen zum Cross-Posting von
         Twitter zu Mastodon
+  content_only: Nur Inhalt
