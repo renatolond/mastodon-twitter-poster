@@ -1,4 +1,3 @@
----
 es:
   accounts: Cuentas
   allow_with_words: Only crosspost posts containing the following words
@@ -183,3 +182,10 @@ es:
         a Twitter
       advanced_from_twitter_options: Opciones avanzadas para publicar desde Twitter
         a Mastodon
+  content_only: Solamente contenido
+  cw_and_content: Tanto el CW como el contenido
+  cw_only: Sólo CW
+  masto_cw_options: 'Opciones de advertencia de contenido (CW):'
+  masto_cw_options_explanation: Al publicar un toot que tiene una advertencia de contenido,
+    esta configuración determinará cuáles son las partes del toot que deben ser publicadas
+    de modo cruzado.
