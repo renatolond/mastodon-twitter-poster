@@ -57,9 +57,9 @@ fr:
   masto_boost_post_as_link: 'Publier les boosts sur Twitter comme des liens (Boosté
     : https://mastodon.social/@renatolond/15082784)'
   masto_login:
-    identifier: Identifiant
-    invalid_identifier: Identifiant invalide. Vous devez utiliser le format user@instance,
-      exemple crossposter@masto.donte.com.br
+    identifier: Votre nom d'utilisateur complet pour Mastodon
+    invalid_identifier: Nom d'utilisateur invalide. Vous devez utiliser le format
+      username@your.instance, exemple crossposter@masto.donte.com.br
     login: Se connecter
     please: Connectez votre Mastodon
   masto_mention_do_not_post: Ne pas poster les mentions sur Twitter
