@@ -1,4 +1,5 @@
 [2022-10-18] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+Node version upgraded due do a dependency, higher than 14 needed.
 
 [2022-02-22] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade. Attempts at speeding up job creation to deal with occasional doubled posts.
 
