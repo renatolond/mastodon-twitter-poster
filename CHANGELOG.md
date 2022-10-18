@@ -1,3 +1,5 @@
+[2022-10-18] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
+
 [2022-02-22] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade. Attempts at speeding up job creation to deal with occasional doubled posts.
 
 [2022-06-05] - Fix char count for twitter alt text. Make placeholder more consistent (#735). Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
