@@ -421,6 +421,7 @@ GEM
     statsd-ruby (1.5.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    stoplight (3.0.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.2.1)
@@ -505,6 +506,7 @@ DEPENDENCIES
   sprockets-rails
   statsd-ruby
   stimulus-rails
+  stoplight
   timecop
   turbo-rails
   twitter!

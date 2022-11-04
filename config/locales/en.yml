@@ -182,3 +182,6 @@ en:
         Twitter
       advanced_from_twitter_options: Advanced options for posting from Twitter to
         Mastodon
+  mastodon_instance_healthy: Your Mastodon instance seems healthy.
+  mastodon_instance_unavailable: Your Mastodon instance is not available. Until it becomes available again, your posts might not be posted in any direction.
+  mastodon_instance_recently_unavailable: Your Mastodon instance was recently unavailable. The crossposter will soon try to reach it again.

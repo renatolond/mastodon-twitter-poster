@@ -73,6 +73,9 @@ gem "http_accept_language"
 
 gem "rake"
 
+# Used to stop down instances from impacting too much crossposter performance
+gem "stoplight"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]

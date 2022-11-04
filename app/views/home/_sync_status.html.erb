@@ -3,6 +3,16 @@
 <% unless current_user.posting_from_twitter? || current_user.posting_from_mastodon? %>
 <p><%= t :no_sync_right_now %></p>
 <% else %>
+  <p>
+  <% case @stoplight_domain_status %>
+  <% when "red" %>
+    <span class="has-background-danger has-text-white"><%= t(:mastodon_instance_unavailable) %></span>
+  <% when "yellow" %>
+    <span class="has-background-warning has-text-white"><%= t(:mastodon_instance_recently_unavailable) %></span>
+  <% when "green" %>
+    <%= t(:mastodon_instance_healthy) %>
+  <% end %></p>
+
   <% if current_user.posting_from_twitter? %>
   <p><%= t :tweets_posted_to_mastodon %><br />
   <%= t(:twitter_original_visibility_status) %> <%= t("masto_privacy_for_status.#{current_user.twitter_original_visibility || 'default'}") %><br />

@@ -55,12 +55,27 @@ class MastodonUserProcessor
 
   TWITTER_CANNOT_PERFORM_WRITE_ACTIONS = 261
 
+  def self.stoplight_wrap_request(domain, &)
+    if domain.present?
+      Stoplight("source:#{domain}", &)
+        .with_threshold(3)
+        .with_cool_off_time(5.minutes.seconds)
+        .with_error_handler { |error, handle| error.is_a?(HTTP::Error) || error.is_a?(OpenSSL::SSL::SSLError) ? handle.call(error) : raise(error) }
+        .run
+    else
+      yield
+    end
+  end
+
   def self.get_last_toots_for_user(user)
     return unless user.mastodon && user.twitter
 
     opts = statuses_options(user)
 
-    new_toots = user.mastodon_client.statuses(user.mastodon_id, opts)
+    new_toots = stoplight_wrap_request(user.mastodon_domain) do
+      user.mastodon_client.statuses(user.mastodon_id, opts)
+    end
+
     last_sucessful_toot = nil
     new_toots.to_a.reverse_each do |t|
       begin
