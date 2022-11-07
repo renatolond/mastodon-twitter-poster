@@ -154,3 +154,6 @@ zh_Hant:
   cw_only: 僅 CW
   cw_and_content: CW 與內容
   content_only: 僅內容
+  mastodon_instance_healthy: 您的 Mastodon 站台似乎很健康。
+  mastodon_instance_unavailable: 您的 Mastodon 站台不可用。在它再次可用前，您的貼文可能不會向任何方向張貼。
+  mastodon_instance_recently_unavailable: 您的 Mastodon 站台最近不可用。交叉張貼程式將會嘗試再次使用它。
