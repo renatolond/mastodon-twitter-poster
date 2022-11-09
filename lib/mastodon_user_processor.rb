@@ -76,11 +76,11 @@ class MastodonUserProcessor
       user.mastodon_client.statuses(user.mastodon_id, opts)
     end
 
-    last_sucessful_toot = nil
+    last_successful_toot = nil
     new_toots.to_a.reverse_each do |t|
       begin
         MastodonUserProcessor.new(t, user).process_toot
-        last_sucessful_toot = t
+        last_successful_toot = t
       rescue HTTP::ConnectionError, Oj::ParseError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
         stats.increment("domain.offline")
@@ -119,7 +119,7 @@ class MastodonUserProcessor
       end
     end
   ensure
-    user.last_toot = last_sucessful_toot.id unless last_sucessful_toot.nil?
+    user.last_toot = last_successful_toot.id unless last_successful_toot.nil?
     user.mastodon_last_check = Time.now
     user.save
   end
