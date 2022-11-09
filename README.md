@@ -195,7 +195,7 @@ Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a po
 ## Starting
 To start the project locally, you should use `bin/dev`, which will start all needed components. You need to have your local environment variables configured, common issues are that sidekiq can't find redis, which will make it fail to start. See the `Procfile.dev` for commands to run only some of the components.
 
-For production, you need sidekiq to process jobs (that is, to post accross the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
+For production, you need sidekiq to process jobs (that is, to post across the networks), but you only need the webserver if you want to change configurations or to allow new signups. If you're in a single user setup, you can start and stop the webserver as needed.
 
 ## Troubleshooting
 
