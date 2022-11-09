@@ -1,4 +1,4 @@
-[2022-11-04] - Add Stoplight, a gem that acts as a circuitbreaker. This will give a cooldown to servers that might be offline.
+[2022-11-04] - Add Stoplight, a gem that acts as a circuit breaker. This will give a cooldown to servers that might be offline.
 
 [2022-10-18] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
 Node version upgraded due do a dependency, higher than 14 needed.
