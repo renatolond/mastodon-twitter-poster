@@ -11,7 +11,7 @@ class Scheduler::CheckForStatusesScheduler
   def perform
     # The crossposter was duplicating jobs in the queue and the issue seems to be that this method sometime takes a long time.
     # There's a lock_ttl with sidekiq unique jobs, but this also makes it so that in the case that fails, no users should be inserted twice.
-    # This is achived by first selecting all possible user ids, then iterating through them, selecting the user for update (to lock the row),
+    # This is achieved by first selecting all possible user ids, then iterating through them, selecting the user for update (to lock the row),
     # if the user at this point was locked, we skip the user_id.
     # Otherwise, we update the user_id and add the user to the queue.
     #
