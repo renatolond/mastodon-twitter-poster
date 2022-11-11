@@ -5,7 +5,7 @@
       <%= form_tag user_mastodon_omniauth_authorize_path, method: :post, data: { turbo: "false" }, 'data-toggle' => 'validator' do %>
       <div class="field">
         <%= label_tag(:identifier, t('masto_login.identifier'), class: 'label') %>
-        <%= text_field_tag(:identifier, '', type: 'email', class: 'input', placeholder: t('.identifier_placeholder'), required: '') %>
+        <%= text_field_tag(:identifier, '', class: 'input', placeholder: t('.identifier_placeholder'), required: '') %>
       </div>
       <%= submit_tag t('masto_login.login'), class: 'button is-block is-info is-large is-fullwidth' %>
       <% end %>

@@ -19,6 +19,10 @@ en:
     oauth:
       allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
       blocked_domain: Sorry, %{domain} is blocked in this instance.
+      domain_issue:
+        ssl_error: The instance %{domain} seems to have issues with their SSL certificate. Contact your instance admin.
+        json_error: The instance %{domain} did not respond correctly. Check that this is really your instance domain. If the problem persists, contact your instance admin.
+        connection_error: The crossposter failed to reach %{domain}. Double check the address. If the problem persists, contact your instance admin.
   features: Features
   follow_us_on_the_fediverse: Follow us on the fediverse!
   for_news_and_status: 'For news and status:'

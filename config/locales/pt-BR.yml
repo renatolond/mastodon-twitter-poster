@@ -16,6 +16,10 @@ pt-BR:
     oauth:
       allowed_domains: Desculpe, essa instância só aceita contas em %{domains}.
       blocked_domain: Desculpe, %{domain} está bloqueado nessa instância.
+      domain_issue:
+        ssl_error: A instância %{domain} parece ter problemas com o certificado SSL. Entre em contato com seu admin.
+        json_error: A instância %{domain} não respondeu corretamente. Confira se o endereço está correto. Se o problema continuar, entre em contato com o seu admin.
+        connection_error: O crossposter não conseguiu acessar %{domain}. Confira se o endereço está correto. Se o problema continuar, entre em contato com o seu admin.
   features: Funcionalidades
   follow_us_on_the_fediverse: Siga-nos no fediverso!
   for_news_and_status: 'Para novidades e status:'

@@ -4,7 +4,20 @@ module OmniAuth
   module Strategies
     class MastodonLimited < OmniAuth::Strategies::Mastodon
       def start_oauth
-        username, domain = identifier.split("@")
+        _username, domain = identifier.split("@")
+
+        begin
+          ::Mastodon::REST::Client.new(base_url: "https://#{domain}").instance
+        rescue OpenSSL::SSL::SSLError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.ssl_error", domain: domain)))
+          return
+        rescue Oj::ParseError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.json_error", domain: domain)))
+          return
+        rescue HTTP::ConnectionError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.connection_error", domain: domain)))
+          return
+        end
 
         if blocked_domains.present?
           candidates = blocked_domains.select { |d| !!domain[d] }
@@ -20,6 +33,13 @@ module OmniAuth
         end
 
         super
+      end
+
+      # Same as the original, but removes trailing @ if it exists
+      def identifier
+        i = super
+        i = i[1..] if i && i[0] == "@"
+        i
       end
 
       def blocked_domains
