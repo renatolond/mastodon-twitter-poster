@@ -5,6 +5,7 @@ require "mastodon_limited"
 
 class MastodonLimitedTest < ActiveSupport::TestCase
   test "without blocked or allowed domains, should call super" do
+    stub_request(:get, "https://some.domain/api/v1/instance").to_return(web_fixture("mastodon_instance.json"))
     mastodon_limited = OmniAuth::Strategies::MastodonLimited.new("foo")
     mastodon_limited.expects(:blocked_domains).returns([])
     mastodon_limited.expects(:allowed_domains).returns(nil)
@@ -14,6 +15,7 @@ class MastodonLimitedTest < ActiveSupport::TestCase
   end
 
   test "with blocked domains, using a good domain, should call super" do
+    stub_request(:get, "https://some.domain/api/v1/instance").to_return(web_fixture("mastodon_instance.json"))
     mastodon_limited = OmniAuth::Strategies::MastodonLimited.new("foo")
     mastodon_limited.expects(:blocked_domains).at_least_once.returns(["a.bad.domain"])
     mastodon_limited.expects(:identifier).returns("test@some.domain")
@@ -42,6 +44,7 @@ class MastodonLimitedTest < ActiveSupport::TestCase
   end
 
   test "with allowed domain, using the allowed domain, should call super" do
+    stub_request(:get, "https://a.good.domain/api/v1/instance").to_return(web_fixture("mastodon_instance.json"))
     mastodon_limited = OmniAuth::Strategies::MastodonLimited.new("foo")
     mastodon_limited.expects(:blocked_domains).at_least_once.returns(["a.bad.domain"])
     mastodon_limited.expects(:allowed_domains).twice.returns(["a.good.domain"])

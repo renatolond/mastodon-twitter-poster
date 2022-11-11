@@ -6,19 +6,6 @@ module OmniAuth
       def start_oauth
         _username, domain = identifier.split("@")
 
-        begin
-          ::Mastodon::REST::Client.new(base_url: "https://#{domain}").instance
-        rescue OpenSSL::SSL::SSLError
-          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.ssl_error", domain: domain)))
-          return
-        rescue Oj::ParseError
-          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.json_error", domain: domain)))
-          return
-        rescue HTTP::ConnectionError
-          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.connection_error", domain: domain)))
-          return
-        end
-
         if blocked_domains.present?
           candidates = blocked_domains.select { |d| !!domain[d] }
           if candidates.include?(domain) || subdomain_match?(candidates, domain)
@@ -29,6 +16,19 @@ module OmniAuth
 
         if allowed_domains.present? && !allowed_domains.include?(domain)
           fail!(:forbidden_domain, CallbackError.new("forbidden_domain", I18n.t("errors.oauth.allowed_domains", domains: allowed_domains.join(", "))))
+          return
+        end
+
+        begin
+          ::Mastodon::REST::Client.new(base_url: "https://#{domain}").instance
+        rescue OpenSSL::SSL::SSLError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.ssl_error", domain: domain)))
+          return
+        rescue Oj::ParseError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.json_error", domain: domain)))
+          return
+        rescue HTTP::ConnectionError
+          fail!(:domain_issue, CallbackError.new("domain_issue", I18n.t("errors.oauth.domain_issue.connection_error", domain: domain)))
           return
         end
 
