@@ -1,4 +1,4 @@
-[2022-11-11] - [IMPORTANT] Removes the option for retweets and quote-retweets to be posted publicly.
+[2022-11-11] - [IMPORTANT] Removes the option for retweets and quote-retweets to be posted publicly. `rails db:migrate` needed after upgrade.
 
 [2022-11-04] - Add Stoplight, a gem that acts as a circuitbreaker. This will give a cooldown to servers that might be offline.
 
