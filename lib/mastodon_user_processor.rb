@@ -60,7 +60,7 @@ class MastodonUserProcessor
       Stoplight("source:#{domain}", &)
         .with_threshold(3)
         .with_cool_off_time(5.minutes.seconds)
-        .with_error_handler { |error, handle| error.is_a?(HTTP::Error) || error.is_a?(OpenSSL::SSL::SSLError) ? handle.call(error) : raise(error) }
+        .with_error_handler { |error, handle| error.is_a?(HTTP::Error) || error.is_a?(OpenSSL::SSL::SSLError) || error.is_a?(Oj::ParseError) ? handle.call(error) : raise(error) }
         .run
     else
       yield
