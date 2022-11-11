@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Date: Fri, 11 Nov 2022 10:07:01 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+Server: Mastodon
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Permissions-Policy: interest-cohort=()
+X-RateLimit-Limit: 300
+X-RateLimit-Remaining: 299
+X-RateLimit-Reset: 2022-11-11T10:05:00.075618Z
+Vary: Accept, Accept-Encoding, Origin
+Cache-Control: max-age=180, public
+ETag: W/"17c207de7c84f998b0b2f2fa43b12560"
+Content-Security-Policy: base-uri 'none'; default-src 'none'; frame-ancestors 'none'; font-src 'self' https://good.domain.com; img-src 'self' https: data: blob: https://good.domain.com; style-src 'self' https://good.domain.com 'nonce-Os2LLGA/fhO8oUhu8k+OtA=='; media-src 'self' https: data: https://good.domain.com; frame-src 'self' https:; manifest-src 'self' https://good.domain.com; connect-src 'self' data: blob: https://good.domain.com https://images.good.domain.com wss://good.domain.com; script-src 'self' https://good.domain.com; child-src 'self' blob: https://good.domain.com; worker-src 'self' blob: https://good.domain.com
+X-Request-Id: bb834ea7-4738-4ded-b90c-3b80c4b9b102
+X-Runtime: 0.007765
+Strict-Transport-Security: max-age=63072000; includeSubDomains
+Strict-Transport-Security: max-age=15768000
+X-Cached: HIT
+
+{"uri":"good.domain.com","title":"Mastodon","short_description":"","description":"","email":"","version":"3.5.3-donte","flavour":"donte","urls":{"streaming_api":"wss://good.domain.com"},"stats":{"user_count":1,"status_count":35,"domain_count":5335},"thumbnail":"https://good.domain.com/packs/media/images/preview-5df98290371ead9a70bc3cd4733bbfa7.jpg","languages":["en"],"registrations":false,"approval_required":false,"invites_enabled":false,"configuration":{"statuses":{"max_characters":500,"max_media_attachments":4,"characters_reserved_per_url":23},"media_attachments":{"supported_mime_types":["image/jpeg","image/png","image/gif","video/webm","video/mp4","video/quicktime","video/ogg","audio/wave","audio/wav","audio/x-wav","audio/x-pn-wave","audio/ogg","audio/vorbis","audio/mpeg","audio/mp3","audio/webm","audio/flac","audio/aac","audio/m4a","audio/x-m4a","audio/mp4","audio/3gpp","video/x-ms-asf"],"image_size_limit":10485760,"image_matrix_limit":16777216,"video_size_limit":41943040,"video_frame_rate_limit":60,"video_matrix_limit":2304000},"polls":{"max_options":4,"max_characters_per_option":50,"min_expiration":300,"max_expiration":2629746}},"contact_account":{"id":"1","username":"admin","acct":"admin","display_name":"","locked":true,"bot":false,"discoverable":null,"group":false,"created_at":"2018-08-23T00:00:00.000Z","note":"","url":"https://good.domain.com/@admin","avatar":"","avatar_static":"","header":"https://good.domain.com/headers/original/missing.png","header_static":"https://good.domain.com/headers/original/missing.png","followers_count":36,"following_count":244,"statuses_count":35,"last_status_at":"2022-03-31","emojis":[],"fields":[]},"rules":[]}
