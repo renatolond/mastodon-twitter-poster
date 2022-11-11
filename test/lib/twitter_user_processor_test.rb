@@ -428,7 +428,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = "comidas.social"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_quote_visibility: nil)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_quote_visibility: User.twitter_retweet_visibilities["unlisted"])
 
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/1042806820212011008.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_bigger_than_500_chars_with_cw.json"))
     stub_request(:get, "http://pbs.twimg.com/media/DkFZEoVXgAQs0tJ.jpg")
@@ -448,7 +448,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, sensitive: true, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", sensitive: true, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
 
     text = "Esse é um tweet bem grande que vai ser quebrado em dois quando for pego pelo crosspost. A ideia é que não vai pegar o CN no RT.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad mi"
     medias = []
@@ -456,7 +456,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, sensitive: true, spoiler_text: spoiler_text, in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", sensitive: true, spoiler_text: spoiler_text, in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -467,7 +467,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = "comidas.social"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_quote_visibility: nil)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_quote_visibility: User.twitter_retweet_visibilities["unlisted"])
 
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_bigger_than_500_chars.json"))
     stub_request(:get, "http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png")
@@ -492,7 +492,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -500,7 +500,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -511,7 +511,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = "comidas.social"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_content_warning: "Twitter stuff", twitter_quote_visibility: nil)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_content_warning: "Twitter stuff", twitter_quote_visibility: User.twitter_retweet_visibilities["unlisted"])
 
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_bigger_than_500_chars.json"))
     stub_request(:get, "http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png")
@@ -536,7 +536,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: "Twitter stuff", headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, visibility: "unlisted", media_ids: medias, spoiler_text: "Twitter stuff", headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -544,7 +544,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: "Twitter stuff", headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, visibility: "unlisted", media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: "Twitter stuff", headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -555,7 +555,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     spoiler_text = "Twitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuffTwitter stuff"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_content_warning: spoiler_text, twitter_quote_visibility: nil)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt_with_link"], twitter_content_warning: spoiler_text, twitter_quote_visibility: User.twitter_retweet_visibilities["unlisted"])
 
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/936734115738669057.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_of_quote.json"))
 
@@ -568,7 +568,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, visibility: "unlisted", media_ids: medias, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
 
     text = "Maybe I have to quote this one, then?"
     medias = []
@@ -576,7 +576,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, sensitive: sensitive, visibility: "unlisted", media_ids: medias, in_reply_to_id: quote_masto_id, spoiler_text: spoiler_text, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote
@@ -586,7 +586,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_domain = "comidas.social"
     authorization_masto = build(:authorization_mastodon, uid: "#{masto_user}@#{masto_domain}", masto_domain: masto_domain)
     authorization_twitter = build(:authorization_twitter)
-    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt"], twitter_quote_visibility: nil)
+    user = create(:user, authorizations: [authorization_masto, authorization_twitter], quote_options: User.quote_options["quote_post_as_old_rt"], twitter_quote_visibility: User.twitter_retweet_visibilities["unlisted"])
 
     stub_request(:get, "https://api.twitter.com/1.1/statuses/show/936933954241945606.json?tweet_mode=extended&include_ext_alt_text=true").to_return(web_fixture("twitter_quote_bigger_than_500_chars.json"))
     stub_request(:get, "http://pbs.twimg.com/media/DP_-xzZXkAcQAkY.png")
@@ -611,7 +611,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     quote_masto_id = 919819281111
     masto_status.expects(:id).returns(quote_masto_id).once
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", headers: { "Idempotency-Key" => "#{masto_user}-#{t.quoted_status.id}" }).returns(masto_status)
 
     text = "That's the kind of status that gives us problems. It's very annoying a status so big that it will go over the 500 characters of mastodon. But it can happen if you join two big statuses together. Well, in that case, it should not be trying to crosspost it all at once."
     medias = []
@@ -619,7 +619,7 @@ class TwitterUserProcessorTest < ActiveSupport::TestCase
     masto_status = mock()
     masto_id = 919819281112
     masto_status.expects(:id).returns(masto_id).twice
-    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
+    user.mastodon_client.expects(:create_status).with(text, media_ids: medias, visibility: "unlisted", in_reply_to_id: quote_masto_id, headers: { "Idempotency-Key" => "#{masto_user}-#{t.id}" }).returns(masto_status)
 
     twitter_user_processor = TwitterUserProcessor.new(t, user)
     twitter_user_processor.process_quote

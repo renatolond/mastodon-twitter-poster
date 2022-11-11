@@ -54,6 +54,16 @@ CREATE TYPE public.masto_cw_options AS ENUM (
 
 
 --
+-- Name: masto_limited_visibility; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.masto_limited_visibility AS ENUM (
+    'MASTO_UNLISTED',
+    'MASTO_PRIVATE'
+);
+
+
+--
 -- Name: masto_mention_options; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -271,8 +281,8 @@ CREATE TABLE public.users (
     twitter_content_warning character varying,
     locked boolean DEFAULT false NOT NULL,
     twitter_original_visibility public.masto_visibility,
-    twitter_retweet_visibility public.masto_visibility DEFAULT 'MASTO_UNLISTED'::public.masto_visibility,
-    twitter_quote_visibility public.masto_visibility DEFAULT 'MASTO_UNLISTED'::public.masto_visibility,
+    twitter_retweet_visibility public.masto_limited_visibility DEFAULT 'MASTO_UNLISTED'::public.masto_limited_visibility NOT NULL,
+    twitter_quote_visibility public.masto_limited_visibility DEFAULT 'MASTO_UNLISTED'::public.masto_limited_visibility NOT NULL,
     twitter_word_list character varying[] DEFAULT '{}'::character varying[],
     twitter_block_or_allow_list public.block_or_allow,
     masto_word_list character varying[] DEFAULT '{}'::character varying[],
@@ -473,6 +483,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190202145018'),
 ('20190226132236'),
 ('20200328180158'),
-('20210109000000');
+('20210109000000'),
+('20221111102341');
 
 

@@ -43,6 +43,11 @@ class User < ApplicationRecord
     private: "MASTO_PRIVATE"
   }.freeze
 
+  masto_limited_visibility = {
+    unlisted: "MASTO_UNLISTED",
+    private: "MASTO_PRIVATE"
+  }.freeze
+
   cw_options = {
     cw_and_content: "CW_AND_CONTENT",
     cw_only: "CW_ONLY",
@@ -50,8 +55,8 @@ class User < ApplicationRecord
   }.freeze
 
   enum twitter_original_visibility: masto_visibility, _prefix: true
-  enum twitter_retweet_visibility: masto_visibility, _prefix: true
-  enum twitter_quote_visibility: masto_visibility, _prefix: true
+  enum twitter_retweet_visibility: masto_limited_visibility, _prefix: true
+  enum twitter_quote_visibility: masto_limited_visibility, _prefix: true
   enum masto_block_or_allow_list: block_or_allow, _prefix: true
   enum twitter_block_or_allow_list: block_or_allow, _prefix: true
   enum masto_cw_options: cw_options, _prefix: true
