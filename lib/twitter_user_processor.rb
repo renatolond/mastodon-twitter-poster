@@ -172,7 +172,7 @@ class TwitterUserProcessor
   end
 
   def quote_short_url
-    tweet.urls.find { |u| u.expanded_url.to_s.casecmp(tweet.quoted_status_permalink.expanded.to_s).zero? }.url
+    tweet.urls.find { |u| u.expanded_url.to_s.casecmp(tweet.quoted_status_permalink.expanded.to_s).zero? }&.url || tweet.quoted_status_permalink.url.to_s
   end
 
   def process_quote_as_old_rt
