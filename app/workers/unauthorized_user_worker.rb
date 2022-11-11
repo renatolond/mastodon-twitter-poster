@@ -7,6 +7,10 @@ class UnauthorizedUserWorker
   INVALID_CREDENTIALS_MESSAGES = ["Invalid credentials."].freeze
 
   def perform(id)
+    User.transaction do
+      # Force the worker to wait for lock if other worker has it
+      User.where(id:).lock!.pick(:id)
+    end
     @user = User.find(id)
     check_twitter_credentials
     check_mastodon_credentials

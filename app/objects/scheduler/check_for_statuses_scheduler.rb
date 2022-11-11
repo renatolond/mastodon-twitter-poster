@@ -3,10 +3,10 @@
 class Scheduler::CheckForStatusesScheduler
   include Sidekiq::Worker
 
-  sidekiq_options lock: :until_executed, lock_ttl: 3.hours, retry: 0
+  sidekiq_options lock: :until_executed, lock_ttl: 3.hours, retry: 0, queue: :high
 
   OLDER_THAN_IN_SECONDS = 30
-  SLICE_SIZE = 100
+  SLICE_SIZE = 400
 
   def perform
     # The crossposter was duplicating jobs in the queue and the issue seems to be that this method sometime takes a long time.

@@ -9,7 +9,7 @@ WorkingDirectory=/home/crossposter/live
 Environment="RAILS_ENV=production"
 Environment="RAILS_LOG_TO_STDOUT=enabled"
 Environment="RAILS_MAX_THREADS=5"
-ExecStart=/bin/bash -lc "bundle exec sidekiq -c 5 -q default"
+ExecStart=/bin/bash -lc "bundle exec sidekiq -c 30 -q high -q default"
 TimeoutSec=15
 Restart=always
 

@@ -17,3 +17,7 @@ Sidekiq.configure_client do |config|
     chain.add SidekiqUniqueJobs::Middleware::Client
   end
 end
+
+SidekiqUniqueJobs.configure do |config|
+  config.lock_info = true
+end

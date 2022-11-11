@@ -1,4 +1,6 @@
 [2022-11-11] - [IMPORTANT] Removes the option for retweets and quote-retweets to be posted publicly. `rails db:migrate` needed after upgrade.
+Some functionalities of Ruby >3.0 are used starting today, if you're using Ruby < 3.0 the crossposter will not work correctly.
+A new sidekiq queue was created for the job that fills the queue. You need to add it, see `config/systemd-services/crossposter-sidekiq.service.example`
 
 [2022-11-04] - Add Stoplight, a gem that acts as a circuitbreaker. This will give a cooldown to servers that might be offline.
 
