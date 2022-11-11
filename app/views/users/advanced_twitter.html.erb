@@ -34,7 +34,7 @@
     <%= f.label :twitter_retweet_visibility, t(:twitter_retweet_visibility), class: 'label' %>
     <div class="control">
       <div class="select">
-        <%= f.select :twitter_retweet_visibility, translated_masto_privacy_for_select(User, :twitter_retweet_visibilities), { include_blank: t('default_visibility') } %>
+        <%= f.select :twitter_retweet_visibility, translated_masto_privacy_for_select(User, :twitter_retweet_visibilities) %>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
     <%= f.label :twitter_quote_visibility, t(:twitter_quote_visibility), class: 'label' %>
     <div class="control">
       <div class="select">
-        <%= f.select :twitter_quote_visibility, translated_masto_privacy_for_select(User, :twitter_quote_visibilities), { include_blank: t('default_visibility') } %>
+        <%= f.select :twitter_quote_visibility, translated_masto_privacy_for_select(User, :twitter_quote_visibilities) %>
       </div>
     </div>
   </div>

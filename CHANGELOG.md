@@ -1,3 +1,5 @@
+[2022-11-11] - [IMPORTANT] Removes the option for retweets and quote-retweets to be posted publicly.
+
 [2022-11-04] - Add Stoplight, a gem that acts as a circuitbreaker. This will give a cooldown to servers that might be offline.
 
 [2022-10-18] - Update gems and node dependencies. `bundle install` and `yarn install --pure-lockfile` needed after upgrade.
