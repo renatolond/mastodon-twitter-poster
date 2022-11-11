@@ -67,6 +67,15 @@ class MastodonUserProcessor
     end
   end
 
+  TWITTER_OVER_DAILY_LIMIT = 185
+  def self.stoplight_twitter_wrap_request(&)
+    Stoplight("source:twitter.com", &)
+      .with_threshold(3)
+      .with_cool_off_time(20.minutes.seconds)
+      .with_error_handler { |error, handle| error.is_a?(Twitter::Error::Forbidden) && error.code == TWITTER_OVER_DAILY_LIMIT ? handle.call(error) : raise(error) }
+      .run
+  end
+
   def self.get_last_toots_for_user(user)
     return unless user.mastodon && user.twitter
 
@@ -79,7 +88,9 @@ class MastodonUserProcessor
     last_sucessful_toot = nil
     new_toots.to_a.reverse_each do |t|
       begin
-        MastodonUserProcessor.new(t, user).process_toot
+        stoplight_twitter_wrap_request do
+          MastodonUserProcessor.new(t, user).process_toot
+        end
         last_sucessful_toot = t
       rescue HTTP::ConnectionError, Oj::ParseError => ex
         Rails.logger.warn { "Domain #{user.mastodon.mastodon_client.domain} seems offline" }
