@@ -13,6 +13,10 @@ zh_Hant:
     oauth:
       allowed_domains: 抱歉，此站臺僅接受來自 %{domains} 的帳號。
       blocked_domain: 抱歉，%{domain} 被此站臺封鎖。
+      domain_issue:
+        json_error: 站台 %{domain} 並未正確回應。請檢查這是否真的是您的站台網域。若問題仍存在，請聯絡您的站台管理員。
+        connection_error: crossposter 無法連線至 %{domain}。請再次檢查網址。若問題仍存在，請聯絡您的站台管理員。
+        ssl_error: 站台 %{domain} 似乎有 SSL 憑證相關的問題。請聯絡您的站台管理員。
   features: 功能
   follow_us_on_the_fediverse: 在 fediverse 上追蹤我們！
   for_news_and_status: 新聞與狀態：
