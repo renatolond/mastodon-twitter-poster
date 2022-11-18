@@ -41,7 +41,7 @@ services:
     build: .
     image: mastodon-twitter-poster
     env_file: .env
-    command: bundle exec sidekiq -c 5 -q default
+    command: bundle exec sidekiq -c 5 -q high -q default
     networks:
       - internal_network
       - external_network
