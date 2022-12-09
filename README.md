@@ -160,11 +160,18 @@ end
 
 You need to replace all values with actual values relevant to your server.
 
-### Running in Docker
+## Running in Docker
 
-1. Create a `.env` based on `.env.example` and set `DB_HOST=db`, `DB_USER=postgres`, `REDIS_URL=redis://redis`
-1. Start the app `docker-compose up -d --build`
-1. Then init the db with `docker-compose run --rm web bundle exec rake db:setup`
+1. Create a `.env` based on `.env.example` and set `DB_HOST=db`, `DB_USER=postgres`, `REDIS_URL=redis://redis`. You also need to set `ALLOWED_DOMAIN` **or** `BLOCKED_DOMAINS` to your preferences. Set `CROSSPOSTER_DOMAIN` to the URL where the app can be accessed, such as `http://127.0.0.1:<port>/` if running locally (`3000` used as the port below.).
+1. Create a Twitter developer account, and make an app with read and write access. If running locally, you need to set the "Callback URI" to `http://127.0.0.1:<port>/users/auth/twitter/callback`, where the `<port>` is the port you choose to launch the web-app in (`3000` used below). Use anything for the website.
+1. In the `.env` file, set `TWITTER_CLIENT_ID` to the "API Key" in the "Consumer Keys" section of your Twitter app. Set `TWITTER_CLIENT_SECRET` to the "API Secret".
+1. Before starting the app, you might need to modify the base image if you are not using an x86_64 CPU. For example, if you are on an M1 Mac or another ARM architecture, you need to change `FROM node:18-alpine as node` into `FROM --platform=linux/amd64 node:18-alpine as node` and `FROM ruby:3.1.0-alpine` into `FROM --platform=linux/amd64 ruby:3.1.0-alpine` to emulate an x86_64 architecture.
+1. Build the app with `docker-compose up -d --build`.
+1. Generate a secret key with `docker-compose run --rm web bundle exec rake secret`. Set this as `SECRET_KEY_BASE` in the `.env` file.
+1. Then, init the db with, e.g., `docker-compose run --rm web bundle exec rake db:setup`.
+1. Then, precompile assets with `docker-compose run --rm web bundle exec rake assets:precompile`.
+1. Finally, you can start the web app with `docker-compose run -p 3000:3000 --rm web bundle exec puma -C config/puma.rb`, which lets you configure options locally in your browser `127.0.0.1:3000`, and perform user log-ins.
+1. In another terminal, you can init `sidekiq` with `docker-compose run -p 3001:3001 --rm sidekiq` to start sidekiq, which performs the posting.
 
 ## Blocked or allowed domains
 
