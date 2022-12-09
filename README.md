@@ -195,6 +195,8 @@ If you want a user to no longer be an admin of your crossposter, you can make so
 FEDIVERSE_USERNAME=your_user@your.domain.com RAILS_ENV=production bundle exec rake crossposter:revoke_admin
 ```
 
+The Sidekiq GUI is available at `/sidekiq` for all admin users.
+
 ## Tests
 
 Run `RAILS_ENV=test bundle exec rake db:setup` to create the test database (a postgres running locally is needed), and after that run the tests with `bundle exec rake test` (or `COVERAGE=1 bundle exec rake test` if coverage information is desired)
