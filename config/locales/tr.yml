@@ -20,6 +20,15 @@ tr:
       allowed_domains: 'Üzgünüz, bu örnek yalnızca %{domains} alanındaki hesapları
         kabul ediyor.'
       blocked_domain: 'Üzgünüz, %{domain} bu durumda engellendi.'
+      domain_issue:
+        ssl_error: '%{domain} örneğinin SSL sertifikasıyla ilgili sorunları var gibi
+          görünüyor. Örnek yöneticinizle iletişime geçin.'
+        json_error: '%{domain} örneği doğru yanıt vermedi. Bunun gerçekten örnek etki
+          alanınız olup olmadığını gözden geçirin. Sorun devam ederse örnek yöneticinizle
+          iletişime geçin.'
+        connection_error: Çapraz gönderici %{domain} etki alanına ulaşamadı. Adresi
+          iki kez gözden geçirin. Sorun devam ederse örnek yöneticinizle iletişime
+          geçin.
   features: 'Özellikler'
   follow_us_on_the_fediverse: 'Bizi fediverse''de takip edin!'
   for_news_and_status: 'Haber ve duyurular için:'
@@ -48,6 +57,12 @@ tr:
     sync_status:
       mastodon_account_html: 'Bağlı Mastodon hesabı <code>@%{uid}</code>.'
       twitter_account_html: 'Bağlı Twitter hesabı <code>@%{handle}</code>.'
+    disconnect_help:
+      revoke: '%{permissions_link} de iptal edebilirsiniz.'
+      permissions_mastodon: Mastodon'da bu uygulamaya verdiğiniz izinler
+      permissions_twitter: Twitter'da bu uygulamaya verdiğiniz izinler
+      accounts_link: '%{accounts} adresine giderek herhangi bir hesabın bağlantısını
+        kesebilirsiniz.'
   layouts:
     application:
       home: 'Ana Sayfa'
@@ -193,3 +208,8 @@ tr:
         için gelişmiş seçenekler'
       advanced_from_twitter_options: 'Twitter''dan Mastodon''a gönderi göndermek için
         gelişmiş seçenekler'
+  mastodon_instance_healthy: Mastodon örneğiniz sağlıklı görünüyor.
+  mastodon_instance_unavailable: Mastodon örneğiniz kullanılabilir değil. Tekrar kullanılabilir
+    olana kadar gönderileriniz herhangi bir yönde yayınlanmayabilir.
+  mastodon_instance_recently_unavailable: Mastodon örneğiniz kısa süre önce kullanılabilir
+    değildi. Çapraz gönderici yakında ona tekrar ulaşmaya çalışacak.
