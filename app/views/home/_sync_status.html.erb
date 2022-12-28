@@ -1,5 +1,13 @@
 <p><%= t(".mastodon_account_html", uid: @uid) if @uid %></p>
 <p><%= t(".twitter_account_html", handle: @handle) if @handle %></p>
+
+<p><%= t("home.disconnect_help.accounts_link", :accounts => link_to(t(:accounts), account_path)).html_safe %><br />
+<%= t("home.disconnect_help.revoke", :permissions_link => link_to(t("home.disconnect_help.permissions_twitter"), "https://twitter.com/settings/connected_apps", target: :_blank)).html_safe %><br />
+<% if @uid %>
+  <%= t("home.disconnect_help.revoke", :permissions_link => link_to(t("home.disconnect_help.permissions_mastodon"), "#{@domain}/oauth/authorized_applications", target: :_blank)).html_safe %><br />
+<% end %>
+</p>
+
 <% unless current_user.posting_from_twitter? || current_user.posting_from_mastodon? %>
 <p><%= t :no_sync_right_now %></p>
 <% else %>

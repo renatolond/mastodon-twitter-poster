@@ -29,6 +29,11 @@ en:
   from_mastodon: From Mastodon to Twitter
   from_twitter: From Twitter to Mastodon
   home:
+    disconnect_help:
+      accounts_link: You can disconnect any of the accounts by going to %{accounts}.
+      revoke: You can also revoke the %{permissions_link}.
+      permissions_twitter: permissions you gave to this app on Twitter
+      permissions_mastodon: permissions you gave to this app on Mastodon
     privacy:
       cookies: Do we use cookies?
       disclose_info: Do we disclose any information to outside parties?
