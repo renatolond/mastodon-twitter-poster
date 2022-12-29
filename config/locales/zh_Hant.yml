@@ -37,6 +37,11 @@ zh_Hant:
     sync_status:
       mastodon_account_html: Mastodon 帳號已連線至 <code>@%{uid}</code>。
       twitter_account_html: Twitter 帳號已連線至 <code>@%{handle}</code>。
+    disconnect_help:
+      accounts_link: 您可以到 %{accounts} 來解除與任何帳號的連結。
+      revoke: 您也可以撤銷 %{permissions_link}。
+      permissions_twitter: 您在 Twitter 上授予此應用程式的權限
+      permissions_mastodon: 您在 Mastodon 上授予此應用程式的權限
   layouts:
     application:
       home: 家
