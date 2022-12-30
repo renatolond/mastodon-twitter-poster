@@ -46,6 +46,13 @@ de:
     sync_status:
       mastodon_account_html: Der verknüpfte Mastodon-Account ist <code>@%{uid}</code>.
       twitter_account_html: Der verknüpfte Twitter-Account ist <code>@%{handle}</code>.
+    disconnect_help:
+      revoke: Du kannst den %{permissions_link} auch widerrufen.
+      permissions_mastodon: Berechtigungen, die du dieser App auf Mastodon gegeben
+        hast
+      accounts_link: Du kannst die Verbindung zu jedem der Konten unter %{accounts}
+        trennen.
+      permissions_twitter: Berechtigungen, die du dieser App auf Twitter gegeben hast
   layouts:
     application:
       home: Start
@@ -185,3 +192,6 @@ de:
       advanced_from_twitter_options: Erweiterte Einstellungen zum Cross-Posting von
         Twitter zu Mastodon
   content_only: Nur Inhalt
+  cw_only: Nur CW
+  masto_cw_options: 'Optionen für die Inhaltswarnung (CW):'
+  mastodon_instance_healthy: Deine Mastodon-Instanz scheint gesund zu sein.
