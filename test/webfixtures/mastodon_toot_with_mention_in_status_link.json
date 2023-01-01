@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Mon, 28 Aug 2017 13:18:41 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Vary: Accept-Encoding
+Server: Mastodon
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Vary: Accept-Encoding, Origin
+ETag: W/"315815686885fd9010db78af1ea18b8d"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 98902786-2f18-4a76-b90f-cfb56b125483
+X-Runtime: 0.014207
+Strict-Transport-Security: max-age=31536000
+Content-Security-Policy: style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'self'; img-src data: https:; media-src data: https:; connect-src 'self' wss://mastodon.xyz; upgrade-insecure-requests
+Public-Key-Pins: pin-sha256="yDVf4mkP2VvJ+3iqrJz9Fe2RrmgVlQoTw3wySHgWdyQ="; pin-sha256="BqrmPEkrvmXOYUIoCzBh5YeMQpc9goED8NSiQgghPLg="; max-age=5184000; includeSubdomains
+Referrer-Policy: no-referrer
+
+{"id":"109596454576141985","created_at":"2022-12-29T10:19:42.471Z","in_reply_to_id":null,"in_reply_to_account_id":null,"sensitive":false,"spoiler_text":"","visibility":"public","language":"lv","uri":"https://mastodon.social/users/richlv/statuses/109596454576141985","url":"https://mastodon.social/@richlv/109596454576141985","replies_count":1,"reblogs_count":0,"favourites_count":1,"edited_at":null,"content":"\u003cp\u003e\u003ca href=\"https://mastodon.social/@overholt@glammr.us/109587412485871313\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"\u003e\u003cspan class=\"invisible\"\u003ehttps://\u003c/span\u003e\u003cspan class=\"ellipsis\"\u003emastodon.social/@overholt@glam\u003c/span\u003e\u003cspan class=\"invisible\"\u003emr.us/109587412485871313\u003c/span\u003e\u003c/a\u003e\u003c/p\u003e","reblog":null,"application":{"name":"Web","website":null},"account":{"id":"912722","username":"richlv","acct":"richlv","display_name":"Rihards Olups","locked":false,"bot":false,"discoverable":true,"group":false,"created_at":"2019-09-17T00:00:00.000Z","note":"\u003cp\u003eopenstreetmap.org is mighty cool\u003c/p\u003e","url":"https://mastodon.social/@richlv","avatar":"https://files.mastodon.social/accounts/avatars/000/912/722/original/1b8fe61a6fb0ddb3.jpg","avatar_static":"https://files.mastodon.social/accounts/avatars/000/912/722/original/1b8fe61a6fb0ddb3.jpg","header":"https://files.mastodon.social/accounts/headers/000/912/722/original/53cb922ca1ac6d03.png","header_static":"https://files.mastodon.social/accounts/headers/000/912/722/original/53cb922ca1ac6d03.png","followers_count":118,"following_count":129,"statuses_count":488,"last_status_at":"2022-12-29","noindex":false,"emojis":[],"fields":[]},"media_attachments":[],"mentions":[],"tags":[],"emojis":[],"card":null,"poll":null}
