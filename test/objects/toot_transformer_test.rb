@@ -98,4 +98,10 @@ class TootTransformerTest < ActiveSupport::TestCase
 
     assert_equal 4, TootTransformer.twitter_length(text)
   end
+  test "Don't transform masto usernames in status links with masto user links" do
+    text = "Hi check out this status! https://mastodon.social/@overholt@glammr.us/109587412485871313".freeze
+    expected_text = text
+
+    assert_equal expected_text, TootTransformer.new(140).transform(text, "https://masto.donte.com.br/@renatolond/1111111", "https://masto.donte.com.br/", "masto.donte.com.br")
+  end
 end

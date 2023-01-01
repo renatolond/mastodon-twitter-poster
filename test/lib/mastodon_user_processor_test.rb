@@ -525,15 +525,4 @@ class MastodonUserProcessorTest < ActiveSupport::TestCase
     mastodon_user_processor.expects(:force_toot_url=).with(true).times(1)
     assert_equal expected_response, mastodon_user_processor.treat_media_attachments(t.media_attachments)
   end
-  test "status with a furled status link shouldn't replace status link with twitter mention" do
-    user = create(:user_with_mastodon_and_twitter, masto_domain: "mastodon.social")
-
-    stub_request(:get, "https://mastodon.social/api/v1/statuses/109596454576141985").to_return(web_fixture("mastodon_toot_with_mention_in_status_link.json"))
-    t = user.mastodon_client.status(109596454576141985)
-    expected_text = "https://mastodon.social/@overholt@glammr.us/109587412485871313"
-
-    mastodon_user_processor = MastodonUserProcessor.new(t, user)
-    mastodon_user_processor.expects(:tweet).with(expected_text, {}).times(1).returns(nil)
-    mastodon_user_processor.process_toot
-  end
 end
