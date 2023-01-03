@@ -7,7 +7,7 @@
     "bulma": "^0.9.4",
     "bulma-rtl": "^0.8.0",
     "bulma-switch": "^2.0.0",
-    "esbuild": "^0.15.11",
+    "esbuild": "^0.16.13",
     "sass": "^1.55.0"
   },
   "scripts": {
