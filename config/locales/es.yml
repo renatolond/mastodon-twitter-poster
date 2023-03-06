@@ -15,6 +15,14 @@ es:
     oauth:
       allowed_domains: Sorry, this instance only accepts accounts from %{domains}.
       blocked_domain: Sorry, %{domain} is blocked in this instance.
+      domain_issue:
+        connection_error: El crossposter no pudo llegar a %{domain}. Vuelva a comprobar
+          la dirección. Si el problema persiste, contacte al administrador de su instancia.
+        ssl_error: La instancia %{domain} parece tener problemas con su certificado
+          SSL. Contacte al administrador de su instancia.
+        json_error: La instancia %{dominio} no respondió correctamente. Compruebe
+          que se trata realmente del dominio de su instancia. Si el problema persiste,
+          contacte al administrador de su instancia.
   features: Características
   follow_us_on_the_fediverse: "¡Síguenos en el fediverso!"
   for_news_and_status: 'Noticias y estado del servicio:'
@@ -42,6 +50,11 @@ es:
     sync_status:
       mastodon_account_html: The Mastodon account connected is <code>@%{uid}</code>.
       twitter_account_html: The Twitter account connected is <code>@%{handle}</code>.
+    disconnect_help:
+      accounts_link: Puede desconectar cualquiera de las cuentas accediendo a %{accounts}.
+      permissions_twitter: permisos que dió a esta aplicación en Twitter
+      revoke: También puede revocar el %{permissions_link}.
+      permissions_mastodon: permisos que diste a esta app en Mastodon
   layouts:
     application:
       home: Inicio
@@ -189,3 +202,9 @@ es:
   masto_cw_options_explanation: Al publicar un toot que tiene una advertencia de contenido,
     esta configuración determinará cuáles son las partes del toot que deben ser publicadas
     de modo cruzado.
+  mastodon_instance_healthy: Su instancia Mastodon parece saludable.
+  mastodon_instance_unavailable: Tu instancia Mastodon no está disponible. Hasta que
+    vuelva a estar disponible, es posible que tus mensajes no sean publicados en dirección
+    alguna.
+  mastodon_instance_recently_unavailable: Su instancia Mastodont ha estado recienteme
+    indisponible. El crossposter intentará alcanzarla de nuevo en breve.
