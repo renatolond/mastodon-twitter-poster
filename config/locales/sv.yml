@@ -1,1 +1,204 @@
 sv:
+  accounts: Konton
+  allow_with_words: Endast inlägg som innehåller följande ord
+  block_with_words: Gör inga korslagda inlägg som innehåller följande ord
+  boost_options: 'Förstärkningsalternativ:'
+  change_this_on_options: Du kan ändra dessa inställningar genom att gå till %{options}.
+  connections: Kopplingar
+  content_only: Innehåll bara
+  crossposter_explanation: Med den här tjänsten kan du koppla ihop ett Mastodon-konto
+    och ett Twitter-konto för att möjliggöra korsvis publicering mellan dem. Du kan
+    välja vissa alternativ, t.ex. om du vill publicera boosts, onoterade toots eller
+    svar.
+  crossposting_overview: Översikt av alternativ
+  cw_and_content: Både CW och innehåll
+  cw_only: CW bara
+  default_visibility: Använd mastodon standard visning
+  disconnect: Koppla bort
+  errors:
+    oauth:
+      allowed_domains: Tyvärr accepterar den här instansen endast konton från %{domäner}.
+      blocked_domain: Tyvärr är %{domän} blockerad i det här fallet.
+      domain_issue:
+        json_error: Instansen %{domain} svarade inte korrekt. Kontrollera att detta
+          verkligen är din instansdomän. Om problemet kvarstår kontaktar du din instansadministratör.
+        connection_error: Crosspostern nådde inte %{domän}. Dubbelkolla adressen.
+          Om problemet kvarstår kontaktar du din instansadministratör.
+        ssl_error: Instansen %{domain} verkar ha problem med sitt SSL-certifikat.
+          Kontakta din instansadministratör.
+  features: Funktioner
+  follow_us_on_the_fediverse: Följ oss på fediverse!
+  for_news_and_status: 'För nyheter och status:'
+  from_mastodon: Från Mastodon till Twitter
+  from_twitter: Från Twitter till Mastodon
+  home:
+    privacy:
+      cookies: Använder vi cookies?
+      disclose_info: Lämnar vi ut någon information till externa parter?
+      we_collect: Vi samlar in ditt Mastodon-användarnamn och Twitter-ID samt OAuth-token
+        för varje tjänst. Detta gör det möjligt att utföra åtgärder på dina konton.
+      we_also_use_for: Vi använder inläggens ID för att korrelera Mastodon- och Twitter-inlägg,
+        vilket gör att vi kan korslägga trådar från den ena webbplatsen till den andra.
+      we_use_cookies: Ja. När du är inloggad använder vi en cookie för att skapa en
+        session och identifiera dig på dina konton.
+      we_use_for: Vi använder OAuth-token och identifierare för att kunna ansluta
+        till dina konton, hämta inlägg och posta till den andra tjänsten, i enlighet
+        med din konfiguration.
+      what_use: Vad använder vi din information till?
+      which_information: Vilken information samlar vi in?
+      we_also_collect: Vi samlar också in ID:n för de inlägg som görs från korsinlägg
+        på båda webbplatserna, så länge som ett år.
+      we_do_not_disclose_info: Nej.
+    disconnect_help:
+      accounts_link: Du kan koppla bort från någon av kontona genom att gå till %{accounts}.
+      revoke: Du kan också upphäva %{permissions_link}.
+      permissions_twitter: tillåtelser som du gav den här appen på Twitter
+      permissions_mastodon: tillåtelser som du gav den här appen på Mastodon
+    sync_status:
+      mastodon_account_html: Mastodon-kontot som är anslutet är <code>@%{uid}</code>.
+      twitter_account_html: Det anslutna Twitter-kontot är <code>@%{handle}</code>.
+  layouts:
+    application:
+      privacy_policy: Integritetspolicy
+      home: Hem
+  log_out: Logga ut
+  masto_not_posting_boost: Du lägger inte ut boosted toots.
+  masto_privacy_for_status:
+    private: Privat.
+    public: Offentligt.
+    default: Mastodon standard-integritet.
+    unlisted: Olistat.
+  service_ran_by: Denna tjänst drivs av
+  tweets_posted_to_mastodon: Dina tweets läggs upp på Mastodon.
+  twitter_content_warning: Twitter innehållsvarning
+  twitter_posting_rt_old_style_with_link: Du lägger upp retweets som gammaldags RTs
+    med länkar.
+  twitter_quote_visibility: Integritet för citat vid korspostning
+  twitter_word_list: Twitter ordlista
+  twitter_synchronization_status: Lägg upp mina tweets på Mastodon
+  users:
+    mastodon_identifier:
+      identifier_placeholder: username@your.instance
+    advanced_mastodon:
+      masto_block_or_allow_list_explanation: Med det här alternativet kan du välja
+        att ignorera korsinläggning av inlägg som innehåller de ord som definieras
+        nedan eller att endast korsinlägga inlägg som innehåller de ord som definieras
+        nedan
+      add_another_word: Lägg till ett annat ord
+      disabled: Avaktivera
+      masto_block_or_allow_list: Ignorera inlägg som innehåller vissa ord eller bara
+        tillåta inlägg som innehåller vissa ord
+      masto_word_list: Förteckning över ord eller uttryck för inlägg som kommer från
+        Mastodon
+      masto_word_list_explanation: Den här ordlistan används om du aktiverar alternativet
+        ovan. Ingen partiell matchning görs, dvs. om du skriver "bird" ovan, kommer
+        "birdsite" inte att beaktas.
+    advanced_twitter:
+      twitter_block_or_allow_list_explanation: Med det här alternativet kan du välja
+        att ignorera korspostning av inlägg som innehåller de ord som definieras nedan
+        eller att endast korsposta inlägg som innehåller de ord som definieras nedan
+      add_another_word: Lägg till ytterligare ett ord
+      disabled: Inaktiverad
+      twitter_block_or_allow_list: Ignorera inlägg som innehåller vissa ord eller
+        bara tillåt inlägg som innehåller vissa ord
+      twitter_word_list_explanation: Den här ordlistan används om du aktiverar alternativet
+        ovan. Ingen partiell matchning görs, dvs. om du skriver "bird" ovan, kommer
+        "birdsite" inte att beaktas.
+    show:
+      advanced_from_mastodon_options: Avancerade alternativ för inlägg från Mastodon
+        till Twitter
+      advanced_from_twitter_options: Avancerade alternativ för inlägg från Twitter
+        till Mastodon
+  masto_login:
+    please: Anslut din Mastodon
+    identifier: Ditt fullständiga Mastodon-användarnamn
+    login: Logga in
+    invalid_identifier: Felaktigt användarnamn. Du måste använda formatet username@your.instance,
+      till exempel crossposter@masto.donte.com.br
+  manage_your_accounts: Hantera dina anslutna konton
+  masto_boost_do_not_post: Skicka inga boosts på Twitter
+  masto_boost_post_as_link: 'Publicera boosts på Twitter som länkar (Boosted: https://mastodon.social/@renatolond/15082784)'
+  login_to_get_started: Logga in via Twitter och Mastodon för att komma igång
+  masto_cw_options: 'Alternativ för innehållsvarning (CW):'
+  masto_mention_options: 'Nämn alternativen:'
+  masto_mention_do_not_post: Skicka inga omnämnanden på Twitter
+  masto_posting_unlisted: Du lägger upp onoterade toots.
+  masto_posting_reply_to_self: Du lägger in svar till dig själv.
+  masto_mention_options_explanation: Den här tjänsten betraktar omnämnanden som en
+    kommentar som inte är ett svar, utan som börjar med ett omnämnande av en annan
+    användare.
+  masto_should_post_unlisted_true: PÅ
+  masto_sync_status_false: AV
+  masto_sync_status_true: PÅ
+  retweet_do_not_post: Skicka inte Retweets på Mastodon
+  quote_post_as_old_rt_with_link: 'Publicera citat om Mastodon som gammaldags RTs
+    med länkar (jag gillar den här idén RT @renatolonddev@twitter.com: Hello, world!
+    https://twitter.com/renatolonddev/status/904738384861700096)'
+  twitter_not_posting_rt: Du lägger inte upp retweets.
+  twitter_original_visibility: Integritet för dina ursprungliga tweets när de korspostas
+  twitter_original_visibility_status: 'Dulägger upp dina egna tweets med sekretess: '
+  twitter_posting_quote_old_style: Du lägger upp citat som RTs i gammal stil.
+  twitter_posting_reply_to_self: Du lägger upp svar till dig själv.
+  mastodon_instance_recently_unavailable: Din Mastodon-instans var nyligen otillgänglig.
+    Korsinlägget kommer snart att försöka nå den igen.
+  twitter_content_warning_explanation: All text som läggs till i den här rutan kommer
+    att användas som innehållsvarning för varje toot som korspostas från Twitter (utom
+    för tweets där specifika CWs upptäcks)
+  twitter_not_posting_reply: Du lägger inte upp svar.
+  twitter_posting_rt_old_style: Du lägger upp retweets på samma sätt som gamla RTs.
+  twitter_sync_status_true: PÅ
+  twitter_retweet_visibility_status: 'Du lägger upp retweets med integritet. '
+  mastodon_instance_unavailable: Din Mastodon-instans är inte tillgänglig. Tills den
+    blir tillgänglig igen kan det hända att dina inlägg inte läggas upp i någon riktning.
+  mastodon_instance_healthy: Din Mastodon-instans verkar frisk.
+  masto_cw_options_explanation: När du korspostar en toot som har en innehållsvarning,
+    avgör den här inställningen vilka delar av tooten som ska korspostas.
+  masto_not_posting_private: Du skriver inte privata inlägg.
+  masto_not_posting_reply: Du lägger inte in svar.
+  masto_not_posting_unlisted: Du kan inte publicera olistade toots.
+  masto_posting_boost_as_link: Du lägger ut boosted toots som länkar.
+  masto_posting_private: Du skriver privata inlägg.
+  masto_privacy:
+    private: Privat
+    public: Offentligt
+    unlisted: Olistat
+  masto_reply_do_not_post: Lägg inte in svar på Twitter
+  masto_reply_options: 'Svarsalternativ:'
+  masto_reply_options_explanation: Detta är när du klickar på svarsknappen i Mastodons
+    gränssnitt. Det är ett direkt svar till en annan medlem.
+  masto_reply_post_self: Svara på mina egna toots på Twitter (trådar)
+  masto_should_post_private_false: AV
+  masto_should_post_private_true: PÅ
+  masto_should_post_unlisted_false: AV
+  masto_synchronization_status: Lägg upp mina toots på twitter
+  mastodon_logged_in: Mastodon logga in
+  no_sync_right_now: För tillfället lägger du *inte* upp någonstans.
+  options: Alternativ
+  post_private_toots: Lägg upp privata toots?
+  post_unlisted_toots: Lägg upp olistade toots?
+  quote_do_not_post: Lägg inte upp citat på Mastodon
+  quote_options: Citat alternativ
+  quote_post_as_old_rt: 'Lägg upp citat på Mastodon som RTs i gammal stil (jag gillar
+    den här idén RT @renatolonddev@twitter.com: Hello, world!)'
+  retweet_options: Alternativ för retweets
+  retweet_post_as_old_rt: 'Skicka Retweets på Mastodon som gammaldags RTs (RT @renatolonddev@twitter.com:
+    Hej, världen!)'
+  retweet_post_as_old_rt_with_link: 'Lägg upp Retweets på Mastodon som gammaldags
+    RTs med länkar (RT @renatolonddev@twitter.com: Hello, world! https://twitter.com/renatolonddev/status/904738384861700096)'
+  source_code_and_issues: Källkod och problem
+  status: Status
+  synchronization_options: Synkroniseringsalternativ
+  toots_posted_to_twitter: Dina toots läggs upp på Twitter.
+  twitter_content_warning_status: 'Alla dina tweets publiceras bakom CW: "%{cw}"'
+  twitter_logged_in: Twitter inloggad
+  twitter_not_posting_quote: Du lägger inte upp några citat.
+  twitter_posting_quote_old_style_with_link: Du lägger upp citat som gammaldags RTs
+    med länkar.
+  twitter_quote_visibility_status: 'Du lägger upp citat med integriteten: '
+  twitter_reply_do_not_post: Lägg inte upp svar på Mastodon
+  twitter_reply_options: 'Svarsalternativ:'
+  twitter_reply_options_explanation: Det är när du klickar på svarsknappen i Twitters
+    gränssnitt. Det är ett direkt svar på en annan tweet.
+  twitter_reply_post_self: Lägg upp svar till mina egna tweets på Mastodon (trådar)
+  twitter_retweet_visibility: Integritet för retweets vid korspostning
+  twitter_sync_status_false: Av
