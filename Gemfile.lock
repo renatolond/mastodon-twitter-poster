@@ -310,7 +310,7 @@ GEM
       pronto (~> 0.11.0)
       rubocop (>= 0.63.1, < 2.0)
     public_suffix (4.0.7)
-    puma (6.0.0)
+    puma (6.2.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.1)
@@ -490,7 +490,7 @@ DEPENDENCIES
   pg (~> 1.4)
   pronto!
   pronto-rubocop
-  puma (~> 6.0)
+  puma (~> 6.2)
   rails (~> 7.0.4)
   rails-i18n
   rake
