@@ -9,7 +9,7 @@ en:
   crossposter_explanation: 'Mae’r gwasanaeth hwn yn eich galluogi i gysylltu cyfrif
     Mastodon â chyfrif Twitter i drawsbostio rhyngddynt. Gallwch dewis a dethol opsiynau,
     fel rhannu postiadau wedi’u hybu, postiadau heb eu rhestru, neu ymatebion.'
-  crossposting_overview: 'Opsiynau'
+  crossposting_overview: 'Trosolwg opsiynau'
   cw_and_content: 'Rhybuddion cynnwys a chynnwys'
   cw_only: 'Rhybuddion cynnwys yn unig'
   default_visibility: 'Defnyddio gwelededd diofyn Mastodon'
@@ -17,14 +17,16 @@ en:
   errors:
     oauth:
       allowed_domains: 'Sori, dydy’r gweinydd hwn ond yn caniatáu cyfrifon o %{domains}.'
-      blocked_domain: ''
+      blocked_domain: 'Mae''n ddrwg gennym, mae %{domain} wedi''i rwystro gan y gweinydd
+        hwn.'
       domain_issue:
-        ssl_error: ''
+        ssl_error: 'Mae''n ymddangos bod gan yr gweinydd %{domain} broblemau gyda''u
+          tystysgrif SSL. Cysylltwch â''ch gweinydd.'
         json_error: ''
         connection_error: ''
-  features: ''
-  follow_us_on_the_fediverse: ''
-  for_news_and_status: ''
+  features: 'Nodweddion'
+  follow_us_on_the_fediverse: 'Dilynwch ni ar y ffedysawd!'
+  for_news_and_status: 'Am newyddion a statws:'
   from_mastodon: ''
   from_twitter: ''
   home:
