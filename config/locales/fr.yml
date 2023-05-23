@@ -18,6 +18,14 @@ fr:
     oauth:
       allowed_domains: Désolé, cette instance n’accepte que les comptes de %{domains}.
       blocked_domain: Désolé, %{domain} est bloqué sur la présente instance.
+      domain_issue:
+        connection_error: L’outil de publication croisée n’a pas réussi à se connecter
+          à %{domain} ; si le problème, contactez l’administrateur de votre instance.
+        ssl_error: L’instance %{domain} semble avoir des soucis avec leur certificat
+          SSL. Contactez l’administrateur de votre instance.
+        json_error: L’instance %{domain} n’a pas réagi comme attendu. Vérifier que
+          c’est réellement votre adresse d’instance ; si le problème, contactez l’administrateur
+          de votre instance.
   features: Fonctionnalités
   follow_us_on_the_fediverse: Suivez-nous sur le Fédiverse !
   for_news_and_status: 'Pour les nouveautés :'
@@ -46,6 +54,9 @@ fr:
     sync_status:
       mastodon_account_html: Le compte Mastodon connecté est <code>@%{uid}</code>.
       twitter_account_html: Le compte Twitter connecté est <code>@%{handle}</code>.
+    disconnect_help:
+      revoke: Vous pouvez également révoquer les %{permissions_link}.
+      accounts_link: Vous pouvez déconnectez n’importe quel compte en allant sur %{accounts}.
   layouts:
     application:
       home: Page principale
@@ -201,3 +212,10 @@ fr:
   cw_only: CW uniquement
   cw_and_content: CW et contenu
   content_only: Contenu uniquement
+  mastodon_instance_recently_unavailable: Votre instance Mastodon n’était récemment
+    pas disponible. L’outil de publication croisée retentera bientôt de s’y connecter.
+  mastodon_instance_unavailable: Votre instance Mastodon n’est pas disponible. Avant
+    qu’elle ne le soit de nouveau, vos publications pourraient ne pas être envoyées,
+    dans aucune des directions.
+  mastodon_instance_healthy: Votre instance Mastodon semble correctement configurée
+    et en bonne santé.
