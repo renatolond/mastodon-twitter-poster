@@ -3,6 +3,12 @@
 
 # Mastodon-Twitter Crossposter [![Maintainability](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/maintainability)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/5ce2dc7dbf21d7a7fd4d/test_coverage)](https://codeclimate.com/github/renatolond/mastodon-twitter-poster/test_coverage)  [![Translation status](https://hosted.weblate.org/widgets/mastodon-twitter-crossposter/-/svg-badge.svg)](https://hosted.weblate.org/engage/mastodon-twitter-crossposter/)
 
+## Archival
+
+This project is now archived. The code here has been functional but affected by Twitter changes. You can probably still run this locally, but no further support will be given and no component will be upgraded.
+
+## Introduction
+
 This is an app for crossposting between Mastodon and Twitter. The app is made so that multiple users can connect to it using the OAuth interface from both Twitter and Mastodon and choose options on how the crosspost should work.
 
 If you just want to use it, there's one running at https://crossposter.masto.donte.com.br, which you can use from most Mastodon servers (except the ones [suspended at masto.donte.com.br](https://github.com/masto-donte-com-br/InstanceInternals/blob/master/Blocklist.md)).
